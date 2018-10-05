@@ -25,7 +25,6 @@ import com.jpv.Sprites.Items.Item;
 import com.jpv.Sprites.Items.ItemDef;
 import com.jpv.Tools.B2WorldCreator;
 import com.jpv.Tools.WorldContactListener;
-import com.sun.tools.javac.jvm.Items;
 
 import java.util.concurrent.LinkedBlockingDeque;
 
