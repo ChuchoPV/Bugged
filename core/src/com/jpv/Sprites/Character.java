@@ -104,7 +104,7 @@ public class Character extends Sprite {
         temp[4] = temp2[0][4];
         temp[5] = temp2[0][5];
 
-        dead = new Animation<TextureRegion>(0.40f,temp);
+        dead = new Animation<TextureRegion>(0.20f,temp);
 
         defineCharacter();
         setBounds(0,0,175 / Level1.PPM, 175 / Level1.PPM);
