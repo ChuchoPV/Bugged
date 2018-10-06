@@ -35,7 +35,7 @@ public class Character extends Sprite {
     private Animation running;
     private Animation attack;
     private Animation dead;
-    private TextureRegion damage;
+    private Animation damage;
     private TextureRegion falling;
     private TextureRegion jumping;
 
@@ -66,21 +66,18 @@ public class Character extends Sprite {
         running = new Animation<TextureRegion>(0.40f,frames);
         frames.clear();
 
-        //get jump frame frames and add them to marioRun Animation
-        jumping = new TextureRegion(screen.getAtlas().findRegion("jump_Final"), 175,0,175,175);
-
-        //get fall frame frames and add them to marioRun Animation
-        falling = new TextureRegion(screen.getAtlas().findRegion("jump_Final"), 525,0,175,175);
-
-        //get damage frame frames and add them to marioRun Animation
-        damage = new TextureRegion(screen.getAtlas().findRegion("Hank_Damage"), 350,0,175,175);
+        //get damage Animation frames and add them to marioRun Animation
+        for(int i= 0; i<4; i++){
+            frames.add(new TextureRegion(screen.getAtlas().findRegion("Hank_Damage"), i * 175,0,175,175));
+        }
+        damage = new Animation<TextureRegion>(0.2f,frames);
+        frames.clear();
 
         //get idle animation frames and add them to marioRun Animation
         for(int i= 0; i<4; i++){
             frames.add(new TextureRegion(screen.getAtlas().findRegion("Hank_Idle"), i * 175,0,175,175));
         }
         idle = new Animation<TextureRegion>(0.7f,frames);
-
         frames.clear();
 
         //get attack animation frames and add them to marioRun Animation
@@ -88,8 +85,13 @@ public class Character extends Sprite {
             frames.add(new TextureRegion(screen.getAtlas().findRegion("Hank_swipe_big"), i * 280,0,280,280));
         }
         attack = new Animation<TextureRegion>(0.15f,frames);
-
         frames.clear();
+
+        //get jump frame frames and add them to marioRun Animation
+        jumping = new TextureRegion(screen.getAtlas().findRegion("jump_Final"), 175,0,175,175);
+
+        //get fall frame frames and add them to marioRun Animation
+        falling = new TextureRegion(screen.getAtlas().findRegion("jump_Final"), 525,0,175,175);
 
         //get dead animation
         Texture deadd = new Texture("Hank_Dead.png");  //Hank
@@ -102,8 +104,7 @@ public class Character extends Sprite {
         temp[4] = temp2[0][4];
         temp[5] = temp2[0][5];
 
-
-        dead = new Animation<TextureRegion>(0.10f,temp);
+        dead = new Animation<TextureRegion>(0.40f,temp);
 
         defineCharacter();
         setBounds(0,0,175 / Level1.PPM, 175 / Level1.PPM);
@@ -120,11 +121,14 @@ public class Character extends Sprite {
         }else if(currentState == State.ATTACKING){
             setBounds(getX(),getY(),240 / Level1.PPM, 240 / Level1.PPM);
             setPosition(b2body.getPosition().x - getWidth() / 2f, b2body.getPosition().y  - getHeight() / 2.9f); //6.2f
+        }else if(currentState == State.DAMAGED){
+            b2body.applyLinearImpulse(new Vector2(-0.1f,0),b2body.getWorldCenter(),true);
         }
     }
 
     private TextureRegion getFrame(float dt) {
         currentState = getState();
+        Gdx.app.log("Estado",currentState+"");
 
         TextureRegion region;
         switch (currentState) {
@@ -137,9 +141,9 @@ public class Character extends Sprite {
                     attacking = false;
                 break;
             case DAMAGED:
-                region = damage;
-                b2body.applyLinearImpulse(new Vector2(-0.4f,0),b2body.getWorldCenter(),true);
-                damaged = false;
+                region = (TextureRegion) damage.getKeyFrame(stateTimer);
+                if(damage.isAnimationFinished(stateTimer))
+                    damaged = false;
                 break;
             case JUMPING:
                 region = jumping;
@@ -168,17 +172,18 @@ public class Character extends Sprite {
     }
 
     private State getState() {
-        if(b2body.getLinearVelocity().y > 0)
+        if(b2body.getLinearVelocity().y > 0 && currentState != State.DAMAGED && !isDead())
             return State.JUMPING;
-        else if(b2body.getLinearVelocity().y < 0 || (b2body.getLinearVelocity().y < 0 && currentState == State.JUMPING))
+        else if(b2body.getLinearVelocity().y < 0 || (b2body.getLinearVelocity().y < 0 && currentState == State.JUMPING)
+                && currentState != State.DAMAGED && !isDead())
             return State.FALLING;
-        else if(b2body.getLinearVelocity().x != 0)
+        else if(b2body.getLinearVelocity().x != 0 && currentState != State.DAMAGED && !isDead())
             return State.RUNNING;
-        else if(Gdx.input.isKeyPressed(Input.Keys.Z) && !attacking)
+        else if(Gdx.input.isKeyPressed(Input.Keys.Z) && !attacking && currentState != State.DAMAGED && !isDead())
             return State.ATTACKING;
-        else if(damaged)
+        else if(damaged && !isDead())
             return State.DAMAGED;
-        else if(isDead)
+        else if(currentState != State.DAMAGED && isDead())
             return State.DEAD;
         else
             return State.STANDING;
