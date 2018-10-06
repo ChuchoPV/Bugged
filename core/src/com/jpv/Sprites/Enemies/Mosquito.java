@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.PolygonMapObject;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -83,10 +85,7 @@ public class Mosquito extends Enemy {
 
         FixtureDef fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
-        //PolygonShape shape = new PolygonShape();
-        //shape.setAsBox(20,20);
         shape.setAsBox(60/ Level1.PPM, 60 / Level1.PPM);
-        //shape.setRadius(20 / Level1.PPM);
         fdef.filter.categoryBits = Level1.ENEMY_BIT;
         fdef.filter.maskBits = Level1.GROUND_BIT
                 | Level1.PLATAFORM_BIT
@@ -95,6 +94,7 @@ public class Mosquito extends Enemy {
                 | Level1.OBJECT_BIT
                 | Level1.CHARACTER_BIT
                 | Level1.CHARACTER_ARMA_BIT;
+
 
         fdef.shape = shape;
         b2body.createFixture(fdef);

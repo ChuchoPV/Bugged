@@ -1,8 +1,10 @@
 package com.jpv.Tools;
 
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -62,6 +64,12 @@ public class B2WorldCreator {
         mosquitos = new Array<Mosquito>();
         for (MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
+            mosquitos.add(new Mosquito(screen, rect.getX() / Level1.PPM, rect.getY() / Level1.PPM, object));
+
+        }
+
+        for (MapObject object : map.getLayers().get(6).getObjects().getByType(PolygonMapObject.class)) {
+            Polygon rect = ((PolygonMapObject) object).getPolygon();
             mosquitos.add(new Mosquito(screen, rect.getX() / Level1.PPM, rect.getY() / Level1.PPM, object));
 
         }
