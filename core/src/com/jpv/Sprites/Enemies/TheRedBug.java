@@ -1,6 +1,7 @@
 package com.jpv.Sprites.Enemies;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObject;
@@ -33,21 +34,21 @@ public class TheRedBug extends Enemy{
         frames = new Array<TextureRegion>();
 
         for(int i = 0; i < 4; i++)
-            frames.add(new TextureRegion(atlas.findRegion("RedBug_idle"),i * 160, 0, 320,230));
+            frames.add(new TextureRegion(atlas.findRegion("RedBug_idle"),i * 320, 0, 320,230));
         idle = new Animation<TextureRegion>(0.1f,frames);
         frames.clear();
 
         for(int i = 0; i < 4; i++)
-            frames.add(new TextureRegion(atlas.findRegion("RedBug_Jump"),i * 160, 0, 320,230));
+            frames.add(new TextureRegion(atlas.findRegion("RedBug_Jump"),i * 320, 0, 320,230));
         jump = new Animation<TextureRegion>(0.1f,frames);
         frames.clear();
 
         for(int i = 0; i < 4; i++)
-            frames.add(new TextureRegion(atlas.findRegion("RedBug_damage"),i * 160, 0, 320,230));
+            frames.add(new TextureRegion(atlas.findRegion("RedBug_damage"),i * 320, 0, 320,230));
         damage = new Animation<TextureRegion>(0.2f,frames);
 
         for(int i = 0; i < 10; i++)
-            frames.add(new TextureRegion(atlas.findRegion("RedBug_dead"),i * 160, 0, 320,230));
+            frames.add(new TextureRegion(atlas.findRegion("RedBug_dead"),i * 320, 0, 320,230));
         kill = new Animation<TextureRegion>(0.1f,frames);
 
         stateTimer = 0;
@@ -95,7 +96,12 @@ public class TheRedBug extends Enemy{
         fdef.restitution = 1f;
         fdef.filter.categoryBits = Level1.ENEMY_COLLIDER_BIT;
         b2body.createFixture(fdef).setUserData(this);
+    }
 
+    public void draw(Batch batch){
+        if(!destroyed || stateTimer < 1){
+            super.draw(batch);
+        }
     }
 
     @Override

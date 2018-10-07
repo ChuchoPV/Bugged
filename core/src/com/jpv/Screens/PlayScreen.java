@@ -130,6 +130,7 @@ public class PlayScreen implements Screen {
             if(enemy.getX() < player.getX() + 224 / Level1.PPM)
                 enemy.b2body.setActive(true);
         }
+        creator.getTheRedBug().update(dt);
 
         for(Item item : items)
             item.update(dt);
@@ -186,6 +187,7 @@ public class PlayScreen implements Screen {
         player.draw(game.batch);
         for(Enemy enemy : creator.getMosquitos())
             enemy.draw(game.batch);
+        creator.getTheRedBug().draw(game.batch);
         for(Item item : items)
             item.draw(game.batch);
         game.batch.end();

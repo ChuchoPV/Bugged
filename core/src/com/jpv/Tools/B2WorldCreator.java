@@ -22,6 +22,7 @@ import com.jpv.Sprites.TileObjects.Platforms;
 
 public class B2WorldCreator {
     private Array<Mosquito> mosquitos;
+    private TheRedBug theRedBug;
 
     public B2WorldCreator(PlayScreen screen){
         World world = screen.getWorld();
@@ -77,7 +78,7 @@ public class B2WorldCreator {
 
         for(MapObject object : map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            new TheRedBug(screen,rect.getX() / Level1.PPM, rect.getY() / Level1.PPM,object);
+            theRedBug = new TheRedBug(screen,rect.getX() / Level1.PPM, rect.getY() / Level1.PPM,object);
         }
 
     }
@@ -86,5 +87,5 @@ public class B2WorldCreator {
         return mosquitos;
     }
 
-
+    public TheRedBug getTheRedBug() { return theRedBug; }
 }
