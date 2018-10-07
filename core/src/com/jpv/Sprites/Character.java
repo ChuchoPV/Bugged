@@ -138,7 +138,7 @@ public class Character extends Sprite {
                 region = (TextureRegion) attack.getKeyFrame(stateTimer);
                 if(attack.isAnimationFinished(stateTimer))
                     attacking = false;
-                break;
+                break;//probablemente aqui este la solucion para el problema del swing
             case DAMAGED:
                 region = (TextureRegion) damage.getKeyFrame(stateTimer);
                 if(damage.isAnimationFinished(stateTimer))
