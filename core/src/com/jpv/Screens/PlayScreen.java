@@ -221,6 +221,10 @@ public class PlayScreen implements Screen {
         return world;
     }
 
+    public Character getPlayer() {
+        return player;
+    }
+
     @Override
     public void pause() {
 

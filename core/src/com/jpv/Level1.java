@@ -25,6 +25,7 @@ public class Level1 extends Game{
     public static final short ENEMY_BIT = 256;
     public static final short ENEMY_COLLIDER_BIT = 512;
     public static final short ITEM_BIT = 1024;
+    public static final short BOSS_BIT = 2048;
 
 	public SpriteBatch batch;
 

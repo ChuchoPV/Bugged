@@ -58,6 +58,7 @@ public class TheRedBug extends Enemy{
         setToDestroy = false;
         destroyed = false;
         setBounds(getX(),getY(), 320 / Level1.PPM,230 / Level1.PPM);
+        b2body.setActive(true);
     }
 
     @Override
@@ -69,8 +70,8 @@ public class TheRedBug extends Enemy{
 
         FixtureDef fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(60/ Level1.PPM, 60 / Level1.PPM);
-        fdef.filter.categoryBits = Level1.ENEMY_BIT;
+        shape.setAsBox(160/ Level1.PPM, 110 / Level1.PPM);
+        /*fdef.filter.categoryBits = Level1.BOSS_BIT;
         fdef.filter.maskBits = Level1.GROUND_BIT
                 | Level1.PLATAFORM_BIT
                 | Level1.OBSTACULE_BIT
@@ -78,23 +79,9 @@ public class TheRedBug extends Enemy{
                 | Level1.OBJECT_BIT
                 | Level1.CHARACTER_BIT
                 | Level1.CHARACTER_ARMA_BIT;
-
+        */
 
         fdef.shape = shape;
-        b2body.createFixture(fdef);
-
-        //Create collider hear
-        PolygonShape collider = new PolygonShape();
-        Vector2[] vertice = new Vector2[4];
-        vertice[0] = new Vector2(-60 , -60).scl(1 / Level1.PPM);
-        vertice[1] = new Vector2(60 , -60).scl(1 / Level1.PPM);
-        vertice[2] = new Vector2(-60     , 60).scl(1 / Level1.PPM);
-        vertice[3] = new Vector2(60 , 60).scl(1 / Level1.PPM);
-        collider.set(vertice);
-
-        fdef.shape = collider;
-        fdef.restitution = 1f;
-        fdef.filter.categoryBits = Level1.ENEMY_COLLIDER_BIT;
         b2body.createFixture(fdef).setUserData(this);
     }
 
@@ -108,10 +95,11 @@ public class TheRedBug extends Enemy{
     public void update(float dt) {
         stateTimer += dt;
 
-        setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 3);
+        setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
         setRegion((TextureRegion) idle.getKeyFrame(stateTimer,true));
+        if(b2body.getPosition().x > screen.getPlayer())
         damagedB = false;
-        b2body.setLinearVelocity(velocity);
+        //b2body.setLinearVelocity(velocity);
         if(idle.isAnimationFinished(stateTimer)){
             stateTimer = 0;
         }
