@@ -104,16 +104,22 @@ public class Character extends Sprite {
     }
 
     public void update(float dt){
+        stateTimer += dt;
+
         setPosition(b2body.getPosition().x - getWidth() / 2.3f, b2body.getPosition().y  - getHeight() / 2); //6.2f
         setBounds(getX(),getY(),175 / Level1.PPM, 175 / Level1.PPM);
-        stateTimer += dt;
         setRegion((getFrame(dt)));
         if(currentState == State.STANDING && getFrame(dt).isFlipX()){
             setPosition(b2body.getPosition().x - getWidth() / 1.8f, b2body.getPosition().y  - getHeight() / 2); //6.2f
             setBounds(getX(),getY(),175 / Level1.PPM, 175 / Level1.PPM);
-        }else if(currentState == State.ATTACKING){
-            setBounds(getX(),getY(),240 / Level1.PPM, 240 / Level1.PPM);
-            setPosition(b2body.getPosition().x - getWidth() / 2f, b2body.getPosition().y  - getHeight() / 2.9f); //6.2f
+        }else if(currentState == State.ATTACKING) {
+            if(getFrame(dt).isFlipX()) {
+                setPosition(b2body.getPosition().x - getWidth() / 1f, b2body.getPosition().y - getHeight() / 2f); //6.2f
+                setBounds(getX(), getY(), 240 / Level1.PPM, 240 / Level1.PPM);
+            }else{
+                setPosition(b2body.getPosition().x - getWidth() / 2f, b2body.getPosition().y - getHeight() / 2f); //6.2f
+                setBounds(getX(), getY(), 240 / Level1.PPM, 240 / Level1.PPM);
+            }
         }else if(currentState == State.DAMAGED){
             b2body.applyLinearImpulse(new Vector2(-0.1f,0),b2body.getWorldCenter(),true);
         }
