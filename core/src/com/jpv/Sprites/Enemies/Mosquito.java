@@ -2,6 +2,7 @@ package com.jpv.Sprites.Enemies;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
@@ -26,24 +27,27 @@ public class Mosquito extends Enemy {
 
     private float stateTimer;
     private Animation idle;
-    private TextureRegion kill;
+    private Animation kill;
     private Animation damage;
     private Array<TextureRegion> frames;
 
     public Mosquito(PlayScreen screen, float x, float y, MapObject object) {
         super(screen, x, y,object);
         this.b2body.setGravityScale(0);
+        TextureAtlas atlas = new TextureAtlas("Enemy.pack");
         frames = new Array<TextureRegion>();
         for(int i = 0; i < 8; i++)
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("mosquito_idle"),i * 160, 0, 160,160));
+            frames.add(new TextureRegion(atlas.findRegion("mosquito_idle"),i * 160, 0, 160,160));
         idle = new Animation<TextureRegion>(0.1f,frames);
         frames.clear();
 
         for(int i = 0; i < 4; i++)
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("mosquito_damage"),i * 160, 0, 160,160));
+            frames.add(new TextureRegion(atlas.findRegion("mosquito_damage"),i * 160, 0, 160,160));
         damage = new Animation<TextureRegion>(0.2f,frames);
 
-        kill = new TextureRegion(screen.getAtlas().findRegion("mosquito_damage"), 160,0,160,160);
+        for(int i = 0; i < 9; i++)
+            frames.add(new TextureRegion(atlas.findRegion("mosquito_dead"),i * 160, 0, 160,160));
+        kill = new Animation<TextureRegion>(0.1f,frames);
 
         stateTimer = 0;
         damaged = 0;
@@ -68,9 +72,11 @@ public class Mosquito extends Enemy {
         }
         else if(setToDestroy && !destroyed){
             world.destroyBody(b2body);
-            destroyed = true;
-            setRegion(kill);
-            stateTimer = 0;
+            setRegion((TextureRegion) kill.getKeyFrame(stateTimer));
+            if(kill.isAnimationFinished(stateTimer)) {
+                destroyed = true;
+                stateTimer = 0;
+            }
         }else if(!destroyed && !damagedB) {
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 3);
             setRegion((TextureRegion) idle.getKeyFrame(stateTimer,true));
