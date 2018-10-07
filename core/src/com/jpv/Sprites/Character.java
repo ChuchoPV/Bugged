@@ -6,30 +6,24 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.EdgeShape;
-import com.badlogic.gdx.physics.box2d.Filter;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.jpv.Level1;
 import com.jpv.Screens.PlayScreen;
-import com.jpv.Sprites.Enemies.Enemy;
-
-import java.awt.geom.RectangularShape;
 
 public class Character extends Sprite {
     public enum State {FALLING, JUMPING, STANDING, RUNNING, ATTACKING, DAMAGED, DEAD};
     public State currentState;
-    private State prevState;
+    public State prevState;
     private World world;
     public Body b2body;
+    private boolean isJumping;
 
     private Animation idle;
     private Animation running;
@@ -37,7 +31,7 @@ public class Character extends Sprite {
     private Animation dead;
     private Animation damage;
     private TextureRegion falling;
-    private TextureRegion jumping;
+    private TextureRegion jumpAnimation;
 
     private float stateTimer;
     private boolean runningRight;
@@ -52,6 +46,7 @@ public class Character extends Sprite {
         this.currentState = State.STANDING;
         this.prevState = State.STANDING;
         this.runningRight = true;
+        isJumping = false;
         lifes = 3;
         damaged = false;
         //attacking = false;
@@ -88,7 +83,7 @@ public class Character extends Sprite {
         frames.clear();
 
         //get jump frame frames and add them to marioRun Animation
-        jumping = new TextureRegion(screen.getAtlas().findRegion("jump_Final"), 175,0,175,175);
+        jumpAnimation = new TextureRegion(screen.getAtlas().findRegion("jump_Final"), 175,0,175,175);
 
         //get fall frame frames and add them to marioRun Animation
         falling = new TextureRegion(screen.getAtlas().findRegion("jump_Final"), 525,0,175,175);
@@ -146,7 +141,7 @@ public class Character extends Sprite {
                     damaged = false;
                 break;
             case JUMPING:
-                region = jumping;
+                region = jumpAnimation;
                 break;
             case RUNNING:
                 region = (TextureRegion) running.getKeyFrame(stateTimer, true);
