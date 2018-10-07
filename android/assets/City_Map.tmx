@@ -696,6 +696,5 @@
  </objectgroup>
  <objectgroup name="Jefe">
   <object id="78" x="19843" y="677.864" width="560" height="560"/>
-  <object id="79" x="19600" y="1200"/>
  </objectgroup>
 </map>
