@@ -29,7 +29,7 @@ public class TheRedBug extends Enemy{
 
     public TheRedBug(PlayScreen screen, float x, float y, MapObject object) {
         super(screen, x, y, object);
-        this.b2body.setGravityScale(0);
+
         TextureAtlas atlas = new TextureAtlas("Enemy.pack");
         frames = new Array<TextureRegion>();
 
