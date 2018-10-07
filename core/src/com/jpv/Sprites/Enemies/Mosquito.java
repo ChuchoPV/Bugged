@@ -27,7 +27,7 @@ public class Mosquito extends Enemy {
     private float stateTimer;
     private Animation idle;
     private TextureRegion kill;
-    private TextureRegion damage;
+    private Animation damage;
     private Array<TextureRegion> frames;
 
     public Mosquito(PlayScreen screen, float x, float y, MapObject object) {
@@ -36,10 +36,14 @@ public class Mosquito extends Enemy {
         frames = new Array<TextureRegion>();
         for(int i = 0; i < 8; i++)
             frames.add(new TextureRegion(screen.getAtlas().findRegion("mosquito_idle"),i * 160, 0, 160,160));
-        idle = new Animation(0.1f,frames);
+        idle = new Animation<TextureRegion>(0.1f,frames);
+        frames.clear();
+
+        for(int i = 0; i < 4; i++)
+            frames.add(new TextureRegion(screen.getAtlas().findRegion("mosquito_damage"),i * 160, 0, 160,160));
+        damage = new Animation<TextureRegion>(0.2f,frames);
 
         kill = new TextureRegion(screen.getAtlas().findRegion("mosquito_damage"), 160,0,160,160);
-        damage = new TextureRegion(screen.getAtlas().findRegion("mosquito_damage"), 320,0,160,160);
 
         stateTimer = 0;
         damaged = 0;
@@ -56,8 +60,9 @@ public class Mosquito extends Enemy {
         move ++;
 
         if(damagedB){
-            setRegion(damage);
-            damagedB = false;
+            setRegion((TextureRegion) damage.getKeyFrame(stateTimer));
+            if(damage.isAnimationFinished(stateTimer))
+                damagedB = false;
         }
         else if(setToDestroy && !destroyed){
             world.destroyBody(b2body);
