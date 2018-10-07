@@ -23,7 +23,7 @@ public class Character extends Sprite {
     public State prevState;
     private World world;
     public Body b2body;
-    private boolean isJumping;
+    public boolean isJumping;
 
     private Animation idle;
     private Animation running;
@@ -123,7 +123,6 @@ public class Character extends Sprite {
 
     private TextureRegion getFrame(float dt) {
         currentState = getState();
-        Gdx.app.log("Estado",currentState+"");
 
         TextureRegion region;
         switch (currentState) {

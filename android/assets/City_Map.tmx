@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="256" height="18" tilewidth="80" tileheight="80" infinite="0" nextobjectid="1106">
+<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="256" height="18" tilewidth="80" tileheight="80" infinite="0" nextobjectid="1108">
  <tileset firstgid="1" name="City_Tileset" tilewidth="80" tileheight="80" tilecount="180" columns="20">
   <image source="City_Tileset.png" width="1600" height="720"/>
  </tileset>
@@ -157,6 +157,7 @@
   <object id="941" x="15678.1" y="404.014" width="1.89643" height="9.914"/>
   <object id="942" x="15676" y="402.08" width="1.95276" height="1.95276"/>
   <object id="943" x="14564" y="400.071" width="1111.93" height="1.89643"/>
+  <object id="1106" x="1602.05" y="637.956" width="2.37475" height="2.03082"/>
  </objectgroup>
  <objectgroup name="Obstaculos">
   <object id="34" x="6960" y="560" width="160" height="158"/>
