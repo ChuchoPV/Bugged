@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.Array;
 import com.jpv.Level1;
 import com.jpv.Screens.PlayScreen;
 import com.jpv.Sprites.Enemies.Mosquito;
+import com.jpv.Sprites.Enemies.TheRedBug;
 import com.jpv.Sprites.TileObjects.Obstacules;
 import com.jpv.Sprites.TileObjects.Platforms;
 
@@ -72,6 +73,11 @@ public class B2WorldCreator {
             Polygon rect = ((PolygonMapObject) object).getPolygon();
             mosquitos.add(new Mosquito(screen, rect.getX() / Level1.PPM, rect.getY() / Level1.PPM, object));
 
+        }
+
+        for(MapObject object : map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)){
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+            new TheRedBug(screen,rect.getX() / Level1.PPM, rect.getY() / Level1.PPM,object);
         }
 
     }
