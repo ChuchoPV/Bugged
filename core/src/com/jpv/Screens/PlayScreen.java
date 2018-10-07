@@ -150,12 +150,8 @@ public class PlayScreen implements Screen {
         if(player.currentState != Character.State.DEAD) {
             if (Gdx.input.isKeyJustPressed(Input.Keys.DPAD_UP) &&
                     player.b2body.getPosition().y < (Level1.V_HEIGHT + 500) / Level1.PPM
-                    && !player.isJumping) {
+                    && (player.currentState==Character.State.RUNNING || player.currentState==Character.State.STANDING)) {
                 player.b2body.applyLinearImpulse(new Vector2(0, 8f), player.b2body.getWorldCenter(), true);
-                player.isJumping = true;
-            }
-            if(player.b2body.getLinearVelocity().y == 0){
-                player.isJumping = false;
             }
             if (Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT) && player.b2body.getLinearVelocity().x <= 2) {
                 player.b2body.applyLinearImpulse(new Vector2(0.5f, 0), player.b2body.getWorldCenter(), true);

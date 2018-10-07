@@ -23,7 +23,6 @@ public class Character extends Sprite {
     public State prevState;
     private World world;
     public Body b2body;
-    public boolean isJumping;
 
     private Animation idle;
     private Animation running;
@@ -46,7 +45,6 @@ public class Character extends Sprite {
         this.currentState = State.STANDING;
         this.prevState = State.STANDING;
         this.runningRight = true;
-        isJumping = false;
         lifes = 3;
         damaged = false;
         //attacking = false;

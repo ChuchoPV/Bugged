@@ -26,10 +26,8 @@ public class WorldContactListener implements ContactListener {
             case Level1.CHARACTER_HEAD_BIT | Level1.OBSTACULE_BIT:
                 if(fixA.getFilterData().categoryBits == Level1.CHARACTER_HEAD_BIT) {
                     ((InteractiveTiledObject) fixB.getUserData()).onHeadHit();
-                    ((Character) fixA.getUserData()).isJumping = true;
                 }else {
                     ((InteractiveTiledObject) fixA.getUserData()).onHeadHit();
-                    ((Character) fixB.getUserData()).isJumping = true;
                 }
                 break;
             case Level1.CHARACTER_ARMA_BIT | Level1.ENEMY_COLLIDER_BIT:
