@@ -109,6 +109,7 @@ public class Character extends Sprite {
         setPosition(b2body.getPosition().x - getWidth() / 2.3f, b2body.getPosition().y  - getHeight() / 2); //6.2f
         setBounds(getX(),getY(),175 / Level1.PPM, 175 / Level1.PPM);
         setRegion((getFrame(dt)));
+
         if(currentState == State.STANDING && getFrame(dt).isFlipX()){
             setPosition(b2body.getPosition().x - getWidth() / 1.8f, b2body.getPosition().y  - getHeight() / 2); //6.2f
             setBounds(getX(),getY(),175 / Level1.PPM, 175 / Level1.PPM);
