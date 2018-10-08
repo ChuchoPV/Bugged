@@ -1,5 +1,7 @@
 package com.jpv.Sprites.Enemies;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -17,31 +19,35 @@ public class TheRedBug extends Enemy{
     private boolean setToDestroy;
     private boolean destroyed;
     private boolean damagedB;
+    private boolean isRight;
     private int damaged;
-    private int move;
 
     private float stateTimer;
     private Animation idle;
     private Animation kill;
     private Animation damage;
-    private Animation jump;
+    private TextureRegion jump;
+    private TextureRegion fall;
     private Array<TextureRegion> frames;
 
     public TheRedBug(PlayScreen screen, float x, float y, MapObject object) {
         super(screen, x, y, object);
-
         TextureAtlas atlas = new TextureAtlas("Enemy.pack");
         frames = new Array<TextureRegion>();
 
-        for(int i = 0; i < 4; i++)
-            frames.add(new TextureRegion(atlas.findRegion("RedBug_idle"),i * 320, 0, 320,230));
+        TextureRegion temp = null;
+        for(int i = 0; i < 4; i++) {
+            temp = new TextureRegion(atlas.findRegion("RedBug_idle"), i * 320, 0, 320, 230);
+            temp.flip(true, false);
+            frames.add(temp);
+        }
         idle = new Animation<TextureRegion>(0.1f,frames);
         frames.clear();
 
-        for(int i = 0; i < 4; i++)
-            frames.add(new TextureRegion(atlas.findRegion("RedBug_Jump"),i * 320, 0, 320,230));
-        jump = new Animation<TextureRegion>(0.1f,frames);
-        frames.clear();
+        jump = new TextureRegion(atlas.findRegion("RedBug_Jump"), 320,0,320,230);
+        jump.flip(true,false);
+        fall = new TextureRegion(atlas.findRegion("RedBug_Jump"), 640,0,320,230);
+        fall.flip(true,false);
 
         for(int i = 0; i < 4; i++)
             frames.add(new TextureRegion(atlas.findRegion("RedBug_damage"),i * 320, 0, 320,230));
@@ -53,11 +59,11 @@ public class TheRedBug extends Enemy{
 
         stateTimer = 0;
         damaged = 0;
-        move = 0;
         damagedB = false;
         setToDestroy = false;
         destroyed = false;
-        setBounds(getX(),getY(), 320 / Level1.PPM,230 / Level1.PPM);
+        isRight = true;
+        setBounds(getX(),getY(), 500 / Level1.PPM,320 / Level1.PPM); //320 ,230
         b2body.setActive(true);
     }
 
@@ -70,7 +76,7 @@ public class TheRedBug extends Enemy{
 
         FixtureDef fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(160/ Level1.PPM, 110 / Level1.PPM);
+        shape.setAsBox(240/ Level1.PPM, 160 / Level1.PPM); //160,110
         /*fdef.filter.categoryBits = Level1.BOSS_BIT;
         fdef.filter.maskBits = Level1.GROUND_BIT
                 | Level1.PLATAFORM_BIT
@@ -94,16 +100,59 @@ public class TheRedBug extends Enemy{
     @Override
     public void update(float dt) {
         stateTimer += dt;
-
+        TextureRegion region;
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
-        setRegion((TextureRegion) idle.getKeyFrame(stateTimer,true));
-        if(b2body.getPosition().x > screen.getPlayer())
-        damagedB = false;
-        //b2body.setLinearVelocity(velocity);
-        if(idle.isAnimationFinished(stateTimer)){
-            stateTimer = 0;
-        }
 
+        if(Gdx.input.isKeyJustPressed(Input.Keys.W))
+            b2body.applyLinearImpulse(new Vector2(-5f, 8f), b2body.getWorldCenter(), true);
+        if(Gdx.input.isKeyJustPressed(Input.Keys.S))
+            b2body.applyLinearImpulse(new Vector2(5f, 8f), b2body.getWorldCenter(), true);
+
+
+        if(b2body.getLinearVelocity().y > 0 ) {
+            region = jump;
+            if (screen.getPlayer().b2body.getPosition().x > b2body.getPosition().x) {
+                if (region.isFlipX()) {
+                    region.flip(true, false);
+                }
+                isRight = false;
+            }else if (screen.getPlayer().b2body.getPosition().x < b2body.getPosition().x && !isRight) {
+                if (!region.isFlipX()) {
+                    region.flip(true, false);
+                }
+                isRight = false;
+            }
+            setRegion(region);
+        }else if(b2body.getLinearVelocity().y < 0 ){
+            region = fall;
+            if (screen.getPlayer().b2body.getPosition().x > b2body.getPosition().x){
+                if (region.isFlipX()) {
+                    region.flip(true, false);
+                }
+                isRight = false;
+            }else if (screen.getPlayer().b2body.getPosition().x < b2body.getPosition().x && !isRight) {
+                if (!region.isFlipX()) {
+                    region.flip(true, false);
+                }
+                isRight = false;
+            }
+            setRegion(region);
+        }else {
+            region = (TextureRegion) idle.getKeyFrame(stateTimer,true);
+            if (screen.getPlayer().b2body.getPosition().x > b2body.getPosition().x){
+                if (region.isFlipX()) {
+                    region.flip(true, false);
+                }
+                isRight = false;
+            }else if (screen.getPlayer().b2body.getPosition().x < b2body.getPosition().x && !isRight) {
+                if (!region.isFlipX()) {
+                    region.flip(true, false);
+                }
+                isRight = false;
+            }
+            b2body.setLinearVelocity(new Vector2(0f,0f));
+            setRegion(region);
+        }
     }
 
     @Override
