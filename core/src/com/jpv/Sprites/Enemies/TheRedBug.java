@@ -112,42 +112,36 @@ public class TheRedBug extends Enemy{
         if(b2body.getLinearVelocity().y > 0 ) {
             region = jump;
             if (screen.getPlayer().b2body.getPosition().x > b2body.getPosition().x) {
-                if (region.isFlipX()) {
+                if (region.isFlipX())
                     region.flip(true, false);
-                }
                 isRight = false;
             }else if (screen.getPlayer().b2body.getPosition().x < b2body.getPosition().x && !isRight) {
-                if (!region.isFlipX()) {
+                if (!region.isFlipX())
                     region.flip(true, false);
-                }
                 isRight = false;
             }
             setRegion(region);
         }else if(b2body.getLinearVelocity().y < 0 ){
             region = fall;
             if (screen.getPlayer().b2body.getPosition().x > b2body.getPosition().x){
-                if (region.isFlipX()) {
+                if (region.isFlipX())
                     region.flip(true, false);
-                }
                 isRight = false;
             }else if (screen.getPlayer().b2body.getPosition().x < b2body.getPosition().x && !isRight) {
-                if (!region.isFlipX()) {
+                if (!region.isFlipX())
                     region.flip(true, false);
-                }
                 isRight = false;
             }
             setRegion(region);
         }else {
             region = (TextureRegion) idle.getKeyFrame(stateTimer,true);
             if (screen.getPlayer().b2body.getPosition().x > b2body.getPosition().x){
-                if (region.isFlipX()) {
+                if (region.isFlipX())
                     region.flip(true, false);
-                }
                 isRight = false;
             }else if (screen.getPlayer().b2body.getPosition().x < b2body.getPosition().x && !isRight) {
-                if (!region.isFlipX()) {
+                if (!region.isFlipX())
                     region.flip(true, false);
-                }
                 isRight = false;
             }
             b2body.setLinearVelocity(new Vector2(0f,0f));
