@@ -99,14 +99,19 @@ public class TheRedBug extends Enemy{
 
     @Override
     public void update(float dt) {
+        //199 boss
+        //189.64 Hank
+        //Uno, dos, tres quieto y después de nuevo
+        Gdx.app.log("Posición",""+screen.getPlayer().b2body.getPosition().x);
+
         stateTimer += dt;
         TextureRegion region;
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.W))
-            b2body.applyLinearImpulse(new Vector2(-5f, 8f), b2body.getWorldCenter(), true);
+            b2body.applyLinearImpulse(new Vector2(-5f, 9f), b2body.getWorldCenter(), true);
         if(Gdx.input.isKeyJustPressed(Input.Keys.S))
-            b2body.applyLinearImpulse(new Vector2(5f, 8f), b2body.getWorldCenter(), true);
+            b2body.applyLinearImpulse(new Vector2(5f, 9f), b2body.getWorldCenter(), true);
 
 
         if(b2body.getLinearVelocity().y > 0 ) {
