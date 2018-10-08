@@ -53,7 +53,7 @@ public class Character extends Sprite {
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
         //get run animation frames and add them to marioRun Animation
-        for(int i= 0; i<4; i++){
+        for(int i= 0; i<13; i++){
             frames.add(new TextureRegion(screen.getAtlas().findRegion("Hank_Run"), i * 175,0,175,175));
         }
         running = new Animation<TextureRegion>(0.40f,frames);
@@ -106,12 +106,13 @@ public class Character extends Sprite {
     public void update(float dt){
         stateTimer += dt;
 
-        setPosition(b2body.getPosition().x - getWidth() / 2.3f, b2body.getPosition().y  - getHeight() / 2); //6.2f
+        //setPosition(b2body.getPosition().x - getWidth() / 2.3f, b2body.getPosition().y  - getHeight() / 2f); //6.2f
+        setPosition(b2body.getPosition().x - getWidth() / 1.8f, b2body.getPosition().y  - getHeight() / 2f);
         setBounds(getX(),getY(),175 / Level1.PPM, 175 / Level1.PPM);
         setRegion((getFrame(dt)));
 
         if(currentState == State.STANDING && getFrame(dt).isFlipX()){
-            setPosition(b2body.getPosition().x - getWidth() / 1.8f, b2body.getPosition().y  - getHeight() / 2); //6.2f
+            setPosition(b2body.getPosition().x - getWidth() / 1.8f, b2body.getPosition().y  - getHeight() / 2f); //6.2f
             setBounds(getX(),getY(),175 / Level1.PPM, 175 / Level1.PPM);
         }else if(currentState == State.ATTACKING) {
             if(getFrame(dt).isFlipX()) {
@@ -120,6 +121,7 @@ public class Character extends Sprite {
             }else{
                 setPosition(b2body.getPosition().x - getWidth() / 2f, b2body.getPosition().y - getHeight() / 2f); //6.2f
                 setBounds(getX(), getY(), 240 / Level1.PPM, 240 / Level1.PPM);
+                //setBounds(getX(), getY(), 240 / Level1.PPM, 175 / Level1.PPM); Posible solucion pero aplasta a Hank y lo hace ver mal
             }
         }else if(currentState == State.DAMAGED){
             b2body.applyLinearImpulse(new Vector2(-0.1f,0),b2body.getWorldCenter(),true);
@@ -136,12 +138,12 @@ public class Character extends Sprite {
                 break;
             case ATTACKING:
                 region = (TextureRegion) attack.getKeyFrame(stateTimer);
-                if(attack.isAnimationFinished(stateTimer))
+                if (attack.isAnimationFinished(stateTimer))
                     attacking = false;
-                break;//probablemente aqui este la solucion para el problema del swing
+                break;
             case DAMAGED:
                 region = (TextureRegion) damage.getKeyFrame(stateTimer);
-                if(damage.isAnimationFinished(stateTimer))
+                if (damage.isAnimationFinished(stateTimer))
                     damaged = false;
                 break;
             case JUMPING:
@@ -178,8 +180,13 @@ public class Character extends Sprite {
             return State.FALLING;
         else if(b2body.getLinearVelocity().x != 0 && currentState != State.DAMAGED && !isDead())
             return State.RUNNING;
-        else if(Gdx.input.isKeyPressed(Input.Keys.Z) && !attacking && currentState != State.DAMAGED && !isDead())
+        //aqui empieza la modificacion para el swing completo
+        else if(Gdx.input.isKeyPressed(Input.Keys.Z) && !isDead()){
+            attacking=true;
+            return State.ATTACKING;}
+        else if(attacking)
             return State.ATTACKING;
+        //aqui termina la modificacion para el swing
         else if(damaged && !isDead())
             return State.DAMAGED;
         else if(currentState != State.DAMAGED && isDead())
@@ -217,7 +224,8 @@ public class Character extends Sprite {
         PolygonShape shape = new PolygonShape();
         //PolygonShape shape = new PolygonShape();
         //shape.setAsBox(20,20);
-        shape.setAsBox(40/ Level1.PPM, 80 / Level1.PPM);
+        shape .setAsBox(40/ Level1.PPM, 80 / Level1.PPM);//modificacion para arreglar el shape salido//no funciono
+        //shape .setAsBox(40/ Level1.PPM, 120 / Level1.PPM);
         //shape.setRadius(20 / Level1.PPM);
         fdef.filter.categoryBits = Level1.CHARACTER_BIT;
         fdef.filter.maskBits = Level1.GROUND_BIT
