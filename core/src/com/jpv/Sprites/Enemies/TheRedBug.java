@@ -28,12 +28,11 @@ public class TheRedBug extends Enemy{
     private Animation damage;
     private TextureRegion jump;
     private TextureRegion fall;
-    private Array<TextureRegion> frames;
 
     public TheRedBug(PlayScreen screen, float x, float y, MapObject object) {
         super(screen, x, y, object);
         TextureAtlas atlas = new TextureAtlas("Enemy.pack");
-        frames = new Array<TextureRegion>();
+        Array<TextureRegion> frames = new Array<TextureRegion>();
 
         TextureRegion temp = null;
         for(int i = 0; i < 4; i++) {
@@ -41,7 +40,7 @@ public class TheRedBug extends Enemy{
             temp.flip(true, false);
             frames.add(temp);
         }
-        idle = new Animation<TextureRegion>(0.1f,frames);
+        idle = new Animation<TextureRegion>(0.1f, frames);
         frames.clear();
 
         jump = new TextureRegion(atlas.findRegion("RedBug_Jump"), 320,0,320,230);
@@ -51,11 +50,11 @@ public class TheRedBug extends Enemy{
 
         for(int i = 0; i < 4; i++)
             frames.add(new TextureRegion(atlas.findRegion("RedBug_damage"),i * 320, 0, 320,230));
-        damage = new Animation<TextureRegion>(0.2f,frames);
+        damage = new Animation<TextureRegion>(0.2f, frames);
 
         for(int i = 0; i < 10; i++)
             frames.add(new TextureRegion(atlas.findRegion("RedBug_dead"),i * 320, 0, 320,230));
-        kill = new Animation<TextureRegion>(0.1f,frames);
+        kill = new Animation<TextureRegion>(0.1f, frames);
 
         stateTimer = 0;
         damaged = 0;
@@ -99,9 +98,7 @@ public class TheRedBug extends Enemy{
 
     @Override
     public void update(float dt) {
-        //199 boss
-        //189.64 Hank
-        //Uno, dos, tres quieto y después de nuevo
+        //199 boss      //189.64 Hank   //Uno, dos, tres quieto y después de nuevo
         Gdx.app.log("Posición",""+screen.getPlayer().b2body.getPosition().x);
 
         stateTimer += dt;

@@ -206,7 +206,7 @@ public class Character extends Sprite {
         }
     }
 
-    public boolean isDead(){
+    private boolean isDead(){
         return isDead;
     }
 

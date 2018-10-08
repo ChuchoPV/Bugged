@@ -40,8 +40,6 @@ public class PlayScreen implements Screen {
     //Hearts and score
     private Hud hud;
 
-    //Tiled map variables
-    private TmxMapLoader mapLoader;
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
 
@@ -66,7 +64,7 @@ public class PlayScreen implements Screen {
         //creat a FitViewport to maintain virtual aspect radio despite screen size
         gamePort = new FitViewport(Level1.V_WIDTH / Level1.PPM, Level1.V_HEIGHT / Level1.PPM, gamecam);
          //The map atributes
-        mapLoader = new TmxMapLoader();
+        TmxMapLoader mapLoader = new TmxMapLoader();
         map = mapLoader.load("City_Map.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1 / Level1.PPM);
         //The camara set at the world
@@ -96,7 +94,7 @@ public class PlayScreen implements Screen {
         itemsToSpawn.add(idef);
     }
 
-    public void handleSpawingItems(){
+    private void handleSpawingItems(){
         if(!itemsToSpawn.isEmpty()){
             ItemDef idef = itemsToSpawn.poll();
             if(idef.type == Heart.class){
@@ -114,17 +112,12 @@ public class PlayScreen implements Screen {
 
     }
 
-    public float getDT(float dt){
-        return dt;
-    }
-
-    public void update(float dt){
+    private void update(float dt){
         //handle the input to move around our world
         handleInput(dt);
         handleSpawingItems();
 
         world.step(1/60f,6,2);
-        getDT(dt);
         player.update(dt);
         for(Enemy enemy : creator.getMosquitos()) {
             enemy.update(dt);
@@ -200,7 +193,7 @@ public class PlayScreen implements Screen {
 
     }
 
-    public boolean gameOver(){
+    private boolean gameOver(){
         if(player.currentState == Character.State.DEAD &&  player.getStateTimer() > 3){
             return true;
         }else{
