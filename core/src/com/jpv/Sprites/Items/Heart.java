@@ -38,18 +38,17 @@ public class Heart extends Item {
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
-
     }
 
     @Override
     public void use(Character player) {
         destroy();
-
     }
 
     @Override
     public void update(float dt) {
         super.update(dt);
         setPosition(b2body.getPosition().x -getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
+
     }
 }
