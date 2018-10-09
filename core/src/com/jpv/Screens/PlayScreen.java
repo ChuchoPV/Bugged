@@ -97,9 +97,7 @@ public class PlayScreen implements Screen {
     private void handleSpawingItems(){
         if(!itemsToSpawn.isEmpty()){
             ItemDef idef = itemsToSpawn.poll();
-            if(idef.type == Heart.class){
-                items.add(new Heart(this, idef.position.x, idef.position.y));
-            }
+            items.add(new Heart(this, idef.position.x, idef.position.y));
         }
     }
 

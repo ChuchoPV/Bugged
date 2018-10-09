@@ -143,7 +143,7 @@ public class Mosquito extends Enemy {
     public void onHeadHit() {
         if(damaged == 3) {
             if(object.getProperties().containsKey("Heart")){
-                screen.spawnItem(new ItemDef(new Vector2(b2body.getPosition().x, b2body.getPosition().y ),
+                screen.spawnItem(new ItemDef(new Vector2(b2body.getPosition().x, b2body.getPosition().y),
                 Heart.class));
             }
             setToDestroy = true;

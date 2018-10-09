@@ -2,16 +2,13 @@ package com.jpv.Sprites.Items;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.jpv.Level1;
 import com.jpv.Screens.PlayScreen;
 import com.jpv.Sprites.Character;
 
-import javax.sound.sampled.LineEvent;
 
 public class Heart extends Item {
     public Heart(PlayScreen screen, float x, float y) {
@@ -23,7 +20,7 @@ public class Heart extends Item {
     public void defineItem() {
         BodyDef bdef = new BodyDef();
         bdef.position.set(getX(),getY());
-        bdef.type = BodyDef.BodyType.DynamicBody;
+        bdef.type = BodyDef.BodyType.StaticBody;
         b2body = world.createBody(bdef);
 
         FixtureDef fdef = new FixtureDef();
