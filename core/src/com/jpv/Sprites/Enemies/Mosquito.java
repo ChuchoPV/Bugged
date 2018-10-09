@@ -29,25 +29,24 @@ public class Mosquito extends Enemy {
     private Animation idle;
     private Animation kill;
     private Animation damage;
-    private Array<TextureRegion> frames;
 
     public Mosquito(PlayScreen screen, float x, float y, MapObject object) {
         super(screen, x, y,object);
         this.b2body.setGravityScale(0);
         TextureAtlas atlas = new TextureAtlas("Enemy.pack");
-        frames = new Array<TextureRegion>();
+        Array<TextureRegion> frames = new Array<TextureRegion>();
         for(int i = 0; i < 8; i++)
             frames.add(new TextureRegion(atlas.findRegion("mosquito_idle"),i * 160, 0, 160,160));
-        idle = new Animation<TextureRegion>(0.1f,frames);
+        idle = new Animation<TextureRegion>(0.1f, frames);
         frames.clear();
 
         for(int i = 0; i < 4; i++)
             frames.add(new TextureRegion(atlas.findRegion("mosquito_damage"),i * 160, 0, 160,160));
-        damage = new Animation<TextureRegion>(0.2f,frames);
+        damage = new Animation<TextureRegion>(0.2f, frames);
 
         for(int i = 0; i < 9; i++)
             frames.add(new TextureRegion(atlas.findRegion("mosquito_dead"),i * 160, 0, 160,160));
-        kill = new Animation<TextureRegion>(0.1f,frames);
+        kill = new Animation<TextureRegion>(0.1f, frames);
 
         stateTimer = 0;
         damaged = 0;

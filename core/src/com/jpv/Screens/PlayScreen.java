@@ -76,14 +76,9 @@ public class PlayScreen implements Screen {
         b2dr.SHAPE_STATIC.set(0,0,0,1);
         //Instance of out player
         player = new Character(this);
-
-        //The HUD Instnace
-        hud = new Hud(game.batch, Level1.V_WIDTH / Level1.PPM, Level1.V_HEIGHT /Level1.PPM,
-                player.b2body.getPosition().x / Level1.PPM, player.b2body.getPosition().y / Level1.PPM);
-
         creator = new B2WorldCreator(this);
-
         world.setContactListener(new WorldContactListener());
+        hud = new Hud(game.batch);
 
         items = new Array<Item>();
         itemsToSpawn = new LinkedBlockingDeque<ItemDef>();
@@ -176,6 +171,7 @@ public class PlayScreen implements Screen {
         //Rendering everything
         game.batch.setProjectionMatrix(gamecam.combined);
         game.batch.begin();
+        hud.heart.draw(game.batch);
         player.draw(game.batch);
         for(Enemy enemy : creator.getMosquitos())
             enemy.draw(game.batch);

@@ -56,7 +56,7 @@ public class Character extends Sprite {
         for(int i= 0; i<13; i++){
             frames.add(new TextureRegion(screen.getAtlas().findRegion("Hank_Run"), i * 175,0,175,175));
         }
-        running = new Animation<TextureRegion>(0.40f,frames);
+        running = new Animation<TextureRegion>(0.20f,frames);
         frames.clear();
 
         //get damage Animation frames and add them to marioRun Animation
