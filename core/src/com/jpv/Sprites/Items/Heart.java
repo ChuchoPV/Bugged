@@ -5,9 +5,12 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.jpv.Level1;
 import com.jpv.Screens.PlayScreen;
 import com.jpv.Sprites.Character;
+
+import java.awt.Rectangle;
 
 
 public class Heart extends Item {
@@ -20,7 +23,7 @@ public class Heart extends Item {
     public void defineItem() {
         BodyDef bdef = new BodyDef();
         bdef.position.set(getX(),getY());
-        bdef.type = BodyDef.BodyType.StaticBody;
+        bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
         FixtureDef fdef = new FixtureDef();
@@ -46,6 +49,7 @@ public class Heart extends Item {
     public void update(float dt) {
         super.update(dt);
         setPosition(b2body.getPosition().x -getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
+        b2body.setActive(true);
 
     }
 }

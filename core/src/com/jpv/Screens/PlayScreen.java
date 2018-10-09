@@ -72,7 +72,7 @@ public class PlayScreen implements Screen {
         //Setting the variables of our world
         world = new World(new Vector2(0,-10),true);
         b2dr = new Box2DDebugRenderer();
-        b2dr.setDrawBodies(false);
+        //b2dr.setDrawBodies(false);
         b2dr.SHAPE_STATIC.set(0,0,0,1);
         //Instance of out player
         player = new Character(this);
@@ -171,7 +171,7 @@ public class PlayScreen implements Screen {
         //Rendering everything
         game.batch.setProjectionMatrix(gamecam.combined);
         game.batch.begin();
-        hud.heart.draw(game.batch);
+        //hud.heart.draw(game.batch);
         player.draw(game.batch);
         for(Enemy enemy : creator.getMosquitos())
             enemy.draw(game.batch);
@@ -179,6 +179,7 @@ public class PlayScreen implements Screen {
         for(Item item : items)
             item.draw(game.batch);
         game.batch.end();
+        hud.stage.draw();
 
         if(gameOver()){
             game.setScreen(new GameOverScreen(game));
