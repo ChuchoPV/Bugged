@@ -20,7 +20,7 @@ public class Hud {
 
     public Hud(SpriteBatch sb){
         heart = new Sprite(new Texture("Heart.png"));
-        heart.setPosition(Level1.V_WIDTH / Level1.PPM, Level1.V_HEIGHT / Level1.PPM);
+        heart.setPosition(650 / Level1.PPM , 350 / Level1.PPM);
 
     }
 

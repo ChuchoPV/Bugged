@@ -13,7 +13,7 @@ import com.jpv.Sprites.Character;
 public class Heart extends Item {
     public Heart(PlayScreen screen, float x, float y) {
         super(screen, x, y);
-        setRegion(new TextureRegion(new Texture("Heart1.png")));
+        setRegion(new TextureRegion(new Texture("Heart.png")));
     }
 
     @Override
