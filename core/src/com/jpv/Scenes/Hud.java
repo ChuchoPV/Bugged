@@ -18,26 +18,28 @@ import com.jpv.Level1;
 
 public class Hud {
     public Stage stage;
-    private Viewport viewport;
-
-    public Texture heart;
 
     public Hud(SpriteBatch sb){
-        viewport = new FitViewport(Level1.V_WIDTH,Level1.V_HEIGHT,new OrthographicCamera());
+        Viewport viewport = new FitViewport(Level1.V_WIDTH, Level1.V_HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport,sb);
         Array<Image> vidas = new Array<Image>();
-        heart = new Texture("Heart.png");
-        TextureRegionDrawable heartReg = new TextureRegionDrawable(new TextureRegion(heart));
-        Image img;
 
-        int y = 1;
+        Sprite image = new Sprite(new Texture("Hank_Image.png"));
+        Sprite heart = new Sprite(new Texture("Heart.png"));
+        TextureRegionDrawable heartReg = new TextureRegionDrawable(new TextureRegion(heart));
+        TextureRegionDrawable imgReg = new TextureRegionDrawable(new TextureRegion(image));
+        Image img;
+        Image foto = new Image(imgReg);
+        foto.setPosition((Level1.V_WIDTH / Level1.PPM), (Level1.V_WIDTH / Level1.PPM ) + 600);
+
+        int y = 10000;
         for (int i= 0; i < 3; i++){
             img = new Image(heartReg);
-            img.setPosition( (Level1.V_WIDTH / Level1.PPM) + (y / Level1.PPM), Level1.V_WIDTH / Level1.PPM);
+            img.setPosition( (Level1.V_WIDTH / Level1.PPM) + (y / Level1.PPM), (Level1.V_WIDTH / Level1.PPM ) + 600);
             vidas.add(img);
-            y += 5000;
+            y += 8000;
         }
-
+        stage.addActor(foto);
         for(Image imga : vidas)
             stage.addActor(imga);
 

@@ -24,6 +24,7 @@ public abstract class Item extends Sprite{
         defineItem();
         toDestroy = false;
         destroyed = false;
+
     }
 
     public abstract void defineItem();
