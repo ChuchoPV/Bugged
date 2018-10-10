@@ -17,22 +17,26 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jpv.Level1;
 
 public class Hud {
-    public Stage stage;
+    public static Stage stage;
+    private static Array<Image> vidas;
+    private static int y;
+
+    private static Sprite heart;
 
     public Hud(SpriteBatch sb){
         Viewport viewport = new FitViewport(Level1.V_WIDTH, Level1.V_HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport,sb);
-        Array<Image> vidas = new Array<Image>();
+        vidas = new Array<Image>();
 
         Sprite image = new Sprite(new Texture("Hank_Image.png"));
-        Sprite heart = new Sprite(new Texture("Heart.png"));
+        heart = new Sprite(new Texture("Heart.png"));
         TextureRegionDrawable heartReg = new TextureRegionDrawable(new TextureRegion(heart));
         TextureRegionDrawable imgReg = new TextureRegionDrawable(new TextureRegion(image));
         Image img;
         Image foto = new Image(imgReg);
         foto.setPosition((Level1.V_WIDTH / Level1.PPM), (Level1.V_WIDTH / Level1.PPM ) + 600);
 
-        int y = 10000;
+        y = 10000;
         for (int i= 0; i < 3; i++){
             img = new Image(heartReg);
             img.setPosition( (Level1.V_WIDTH / Level1.PPM) + (y / Level1.PPM), (Level1.V_WIDTH / Level1.PPM ) + 600);
@@ -45,9 +49,18 @@ public class Hud {
 
     }
 
-    public void update(){
+    public static void updateLifes(boolean less){
+        if(less){
+            stage.getActors().pop();
+            y -= 8000;
 
+        }else{
+            Image img = new Image(heart);
+            img.setPosition((Level1.V_WIDTH / Level1.PPM) + (y / Level1.PPM), (Level1.V_WIDTH / Level1.PPM ) + 600);
+            stage.getActors().add(img);
+        }
     }
+
 
     public void dispose(){
         stage.dispose();

@@ -15,6 +15,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.jpv.Level1;
+import com.jpv.Scenes.Hud;
 import com.jpv.Screens.PlayScreen;
 
 public class Character extends Sprite {
@@ -33,6 +34,7 @@ public class Character extends Sprite {
     private TextureRegion jumpAnimation;
 
     private float stateTimer;
+    private float timerVida;
     private boolean runningRight;
     private boolean attacking;
     private int lifes;
@@ -49,6 +51,7 @@ public class Character extends Sprite {
         damaged = false;
         //attacking = false;
         stateTimer = 0;
+        timerVida = 0;
 
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
@@ -104,6 +107,7 @@ public class Character extends Sprite {
     }
 
     public void update(float dt){
+        timerVida -= 0.1f;
         stateTimer += dt;
 
         //setPosition(b2body.getPosition().x - getWidth() / 2.3f, b2body.getPosition().y  - getHeight() / 2f); //6.2f
@@ -173,22 +177,24 @@ public class Character extends Sprite {
     }
 
     private State getState() {
-        if(b2body.getLinearVelocity().y > 0 && currentState != State.DAMAGED && !isDead())
+        if (b2body.getLinearVelocity().y > 0 && currentState != State.DAMAGED && !isDead())
             return State.JUMPING;
-        else if(b2body.getLinearVelocity().y < 0 || (b2body.getLinearVelocity().y < 0 && currentState == State.JUMPING)
+        else if (b2body.getLinearVelocity().y < 0 || (b2body.getLinearVelocity().y < 0 && currentState == State.JUMPING)
                 && currentState != State.DAMAGED && !isDead())
             return State.FALLING;
-        else if(b2body.getLinearVelocity().x != 0 && currentState != State.DAMAGED && !isDead())
+        else if (b2body.getLinearVelocity().x != 0 && currentState != State.DAMAGED && !isDead())
             return State.RUNNING;
-        //aqui empieza la modificacion para el swing completo
-        else if(Gdx.input.isKeyPressed(Input.Keys.Z) && !isDead()){
-            attacking=true;
-            return State.ATTACKING;}
-        else if(attacking)
+            //aqui empieza la modificacion para el swing completo
+        else if (Gdx.input.isKeyPressed(Input.Keys.Z) && !isDead()) {
+            attacking = true;
             return State.ATTACKING;
-        //aqui termina la modificacion para el swing
-        else if(damaged && !isDead())
+        } else if (attacking)
+            return State.ATTACKING;
+            //aqui termina la modificacion para el swing
+        else if (damaged && !isDead()){
+            timerVida = 50;
             return State.DAMAGED;
+        }
         else if(currentState != State.DAMAGED && isDead())
             return State.DEAD;
         else
@@ -202,6 +208,7 @@ public class Character extends Sprite {
 
         }else{
             lifes--;
+            Hud.updateLifes(true);
             damaged = true;
         }
     }
@@ -216,7 +223,7 @@ public class Character extends Sprite {
 
     private void defineCharacter() {
         BodyDef bdef = new BodyDef();
-        bdef.position.set(650 / Level1.PPM ,240 / Level1.PPM); //18650
+        bdef.position.set(18650 / Level1.PPM ,240 / Level1.PPM); //18650
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
