@@ -22,6 +22,7 @@ public class Mosquito extends Enemy {
     private boolean setToDestroy;
     private boolean destroyed;
     private boolean damagedB;
+    private boolean first;
     private int damaged;
     private int move;
 
@@ -54,13 +55,14 @@ public class Mosquito extends Enemy {
         damagedB = false;
         setToDestroy = false;
         destroyed = false;
+        first = true;
         setBounds(getX(),getY(), 160 / Level1.PPM,160 / Level1.PPM);
 
     }
 
     public void update(float dt){
         //Esta es la parte que funciona
-        /*stateTimer += dt;
+        stateTimer += dt;
         move ++;
 
         if(damagedB && !setToDestroy && !destroyed){
@@ -69,17 +71,19 @@ public class Mosquito extends Enemy {
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 3);
             if(damage.isAnimationFinished(stateTimer))
                 damagedB = false;
-        }
-        else if(setToDestroy && !destroyed){
-            world.destroyBody(b2body);
+        }else if(setToDestroy && !destroyed){
+            if(first) {
+                world.destroyBody(b2body);
+                first = false;
+            }
             setRegion((TextureRegion) kill.getKeyFrame(stateTimer));
             if(kill.isAnimationFinished(stateTimer)) {
                 destroyed = true;
                 stateTimer = 0;
             }
-        }else if(!destroyed && !damagedB) {
+        }else if(!destroyed) {
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 3);
-            setRegion((TextureRegion        ) idle.getKeyFrame(stateTimer,true));
+            setRegion((TextureRegion) idle.getKeyFrame(stateTimer,true));
             damagedB = false;
             b2body.setLinearVelocity(velocity);
             if(idle.isAnimationFinished(stateTimer)){
@@ -90,11 +94,11 @@ public class Mosquito extends Enemy {
                 reverseVelocity(false, true);
                 move = 0;
             }
-        }*/
+        }
 
 
         //Esta parte del código es la parte vieja pero funcionaba con el corazon
-        stateTimer += dt;
+        /*stateTimer += dt;
         move ++;
 
         if(damagedB){
@@ -115,7 +119,7 @@ public class Mosquito extends Enemy {
             }
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 3);
             setRegion((TextureRegion) idle.getKeyFrame(stateTimer,true));
-        }
+        }*/
 
 
     }
