@@ -149,7 +149,6 @@ public class Character extends Sprite {
                         new Vector2(70, -85),
                         new Vector2(110, -35),
                         new Vector2(70, -35));
-
             }if(attack.getKeyFrameIndex(stateTimer) == 4){
                 for(int i = 1; i < b2body.getFixtureList().size; i++)
                     b2body.destroyFixture(b2body.getFixtureList().get(i));
