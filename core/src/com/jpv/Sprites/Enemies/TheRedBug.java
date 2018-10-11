@@ -99,7 +99,7 @@ public class TheRedBug extends Enemy{
     @Override
     public void update(float dt) {
         //199 boss      //189.64 Hank   //Uno, dos, tres quieto y después de nuevo
-        Gdx.app.log("Posición",""+screen.getPlayer().b2body.getPosition().x);
+        //Gdx.app.log("Posición",""+screen.getPlayer().b2body.getPosition().x);
 
         stateTimer += dt;
         TextureRegion region;

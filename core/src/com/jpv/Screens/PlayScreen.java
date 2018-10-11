@@ -72,7 +72,7 @@ public class PlayScreen implements Screen {
         //Setting the variables of our world
         world = new World(new Vector2(0,-10),true);
         b2dr = new Box2DDebugRenderer();
-        b2dr.setDrawBodies(false);
+        //b2dr.setDrawBodies(false);
         b2dr.SHAPE_STATIC.set(0,0,0,1);
         //Instance of out player
         player = new Character(this);
@@ -136,9 +136,9 @@ public class PlayScreen implements Screen {
 
     private void handleInput(float dt) {
         if(player.currentState != Character.State.DEAD) {
-            if (Gdx.input.isKeyJustPressed(Input.Keys.DPAD_UP) &&
-                    player.b2body.getPosition().y < (Level1.V_HEIGHT + 500) / Level1.PPM
-                    && (player.currentState==Character.State.RUNNING || player.currentState==Character.State.STANDING)) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.DPAD_UP)){// &&
+                    //player.b2body.getPosition().y < (Level1.V_HEIGHT + 500) / Level1.PPM
+                    //&& (player.currentState==Character.State.RUNNING || player.currentState==Character.State.STANDING)) {
                 player.b2body.applyLinearImpulse(new Vector2(0, 8f), player.b2body.getWorldCenter(), true);
             }
             if (Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT) && player.b2body.getLinearVelocity().x <= 2 && player.currentState != Character.State.DAMAGED) {

@@ -21,9 +21,10 @@ import com.jpv.Screens.PlayScreen;
 public class Character extends Sprite {
     public enum State {FALLING, JUMPING, STANDING, RUNNING, ATTACKING, DAMAGED, DEAD};
     public State currentState;
-    public State prevState;
+    private State prevState;
     private World world;
     public Body b2body;
+    private Body arma;
 
     private Animation idle;
     private Animation running;
@@ -80,7 +81,7 @@ public class Character extends Sprite {
         for(int i= 0; i<5; i++){
             frames.add(new TextureRegion(screen.getAtlas().findRegion("Hank_swipe_big"), i * 280,0,280,280));
         }
-        attack = new Animation<TextureRegion>(0.15f,frames);
+        attack = new Animation<TextureRegion>(4f,frames);
         frames.clear();
 
         //get jump frame frames and add them to marioRun Animation
@@ -119,6 +120,13 @@ public class Character extends Sprite {
             setPosition(b2body.getPosition().x - getWidth() / 1.8f, b2body.getPosition().y  - getHeight() / 2f); //6.2f
             setBounds(getX(),getY(),175 / Level1.PPM, 175 / Level1.PPM);
         }else if(currentState == State.ATTACKING) {
+            if(attack.getKeyFrameIndex(stateTimer) == 1){
+                world.destroyBody(arma);
+                redefineArma(new Vector2(50 , 95),
+                        new Vector2(0 , 95),
+                        new Vector2(50, 155),
+                        new Vector2(0 , 155));
+            }
             if(getFrame(dt).isFlipX()) {
                 setPosition(b2body.getPosition().x - getWidth() / 1f, b2body.getPosition().y - getHeight() / 2f); //6.2f
                 setBounds(getX(), getY(), 240 / Level1.PPM, 240 / Level1.PPM);
@@ -229,11 +237,7 @@ public class Character extends Sprite {
 
         FixtureDef fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
-        //PolygonShape shape = new PolygonShape();
-        //shape.setAsBox(20,20);
         shape .setAsBox(40/ Level1.PPM, 80 / Level1.PPM);//modificacion para arreglar el shape salido//no funciono
-        //shape .setAsBox(40/ Level1.PPM, 120 / Level1.PPM);
-        //shape.setRadius(20 / Level1.PPM);
         fdef.filter.categoryBits = Level1.CHARACTER_BIT;
         fdef.filter.maskBits = Level1.GROUND_BIT
                 | Level1.PLATAFORM_BIT
@@ -253,13 +257,51 @@ public class Character extends Sprite {
         fdef.isSensor = true;
         b2body.createFixture(fdef).setUserData(this);
 
-        EdgeShape arma = new EdgeShape();
-        arma.set(new Vector2(70 / Level1.PPM, -20 / Level1.PPM), new Vector2(70 / Level1.PPM, -60 / Level1.PPM));
-        fdef.shape = arma;
-        fdef.filter.categoryBits = Level1.CHARACTER_ARMA_BIT;
-        fdef.isSensor = true;
-        b2body.createFixture(fdef).setUserData(this);
+        BodyDef bdefArma = new BodyDef();
+        bdefArma.position.set(650 / Level1.PPM ,240 / Level1.PPM); //18650
+        bdefArma.type = BodyDef.BodyType.StaticBody;
+        arma = world.createBody(bdefArma);
 
+        FixtureDef fdefArma = new FixtureDef();
+        PolygonShape shapeArma = new PolygonShape();
+        Vector2[] vertice = new Vector2[4];
+        vertice[0] = new Vector2(-75 , 75).scl(1 / Level1.PPM);
+        vertice[1] = new Vector2(-20 , 75).scl(1 / Level1.PPM);
+        vertice[2] = new Vector2(-75     , 135).scl(1 / Level1.PPM);
+        vertice[3] = new Vector2(-20 , 135).scl(1 / Level1.PPM);
+        shapeArma.set(vertice);
+
+        fdefArma.filter.categoryBits = Level1.CHARACTER_ARMA_BIT;
+        fdefArma.filter.maskBits = Level1.ENEMY_BIT
+                | Level1.ENEMY_COLLIDER_BIT;
+
+        fdefArma.shape = shapeArma;
+        b2body.createFixture(fdefArma).setUserData(this);
     }
+
+    private void redefineArma(Vector2 v1, Vector2 v2, Vector2 v3, Vector2 v4){
+        world.destroyBody(arma);
+
+        BodyDef bdefArma = new BodyDef();
+        bdefArma.type = BodyDef.BodyType.StaticBody;
+        arma = world.createBody(bdefArma);
+
+        FixtureDef fdefArma = new FixtureDef();
+        PolygonShape shapeArma = new PolygonShape();
+        Vector2[] vertice = new Vector2[4];
+        vertice[0] = v1.scl(1 / Level1.PPM);
+        vertice[1] = v2.scl(1 / Level1.PPM);
+        vertice[2] = v3.scl(1 / Level1.PPM);
+        vertice[3] = v4.scl(1 / Level1.PPM);
+        shapeArma.set(vertice);
+
+        fdefArma.filter.categoryBits = Level1.CHARACTER_ARMA_BIT;
+        fdefArma.filter.maskBits = Level1.ENEMY_BIT
+                | Level1.ENEMY_COLLIDER_BIT;
+
+        fdefArma.shape = shapeArma;
+        b2body.createFixture(fdefArma).setUserData(this);
+    }
+
 
 }
