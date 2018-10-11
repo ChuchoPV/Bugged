@@ -18,12 +18,15 @@ import com.badlogic.gdx.utils.Array;
 import com.jpv.Level1;
 import com.jpv.Scenes.Hud;
 import com.jpv.Screens.PlayScreen;
+import com.jpv.Sprites.Enemies.Enemy;
+import com.jpv.Sprites.Enemies.Mosquito;
 
 public class Character extends Sprite {
     public enum State {FALLING, JUMPING, STANDING, RUNNING, ATTACKING, DAMAGED, DEAD};
     public State currentState;
     private State prevState;
     private World world;
+    public PlayScreen screen;
     public Body b2body;
 
     private Animation idle;
@@ -41,18 +44,20 @@ public class Character extends Sprite {
     private int lifes;
     private boolean damaged;
     private boolean isDead;
+    private boolean first;
 
     public Character(PlayScreen screen){
         super();
+        this.screen = screen;
         this.world = screen.getWorld();
         this.currentState = State.STANDING;
         this.prevState = State.STANDING;
         this.runningRight = true;
         lifes = 3;
         damaged = false;
-        //attacking = false;
         stateTimer = 0;
         timerVidas = 0;
+        first = true;
 
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
@@ -150,15 +155,21 @@ public class Character extends Sprite {
             }
             if(getFrame(dt).isFlipX()) {
                 setPosition(b2body.getPosition().x - getWidth() / 1f, b2body.getPosition().y - getHeight() / 2f); //6.2f
-                setBounds(getX(), getY(), 240 / Level1.PPM, 240 / Level1.PPM);
+                setBounds(getX(), getY(), 239 / Level1.PPM, 239 / Level1.PPM);
             }else{
                 setPosition(b2body.getPosition().x - getWidth() / 2f, b2body.getPosition().y - getHeight() / 2f); //6.2f
-                setBounds(getX(), getY(), 240 / Level1.PPM, 240 / Level1.PPM);
+                setBounds(getX(), getY(), 239 / Level1.PPM, 239 / Level1.PPM);
                 //setBounds(getX(), getY(), 240 / Level1.PPM, 175 / Level1.PPM); Posible solucion pero aplasta a Hank y lo hace ver mal
             }
-        }else if(currentState == State.DAMAGED){
+        }else if(currentState == State.DAMAGED)
             b2body.applyLinearImpulse(new Vector2(-0.1f,0),b2body.getWorldCenter(),true);
-        }if(currentState == State.STANDING || currentState == State.JUMPING || currentState == State.RUNNING){
+        else if(currentState == State.DEAD)
+            if(first) {
+                for (Enemy enemy : screen.getCreator().getMosquitos())
+                    world.destroyBody(enemy.b2body);
+                first = false;
+            }
+        if(currentState == State.STANDING || currentState == State.JUMPING || currentState == State.RUNNING){
             for(Fixture fix : b2body.getFixtureList()){
                 if(!fix.equals(b2body.getFixtureList().get(0))){
                     b2body.destroyFixture(fix);
@@ -214,10 +225,14 @@ public class Character extends Sprite {
     }
 
     private State getState() {
-        if (b2body.getLinearVelocity().y > 0 && currentState != State.DAMAGED && !isDead())
+        if(currentState != State.DAMAGED && isDead())
+            return State.DEAD;
+        else if(b2body.getLinearVelocity().y > 0 && currentState == State.ATTACKING && !isDead())
+            return State.ATTACKING;
+        else if (b2body.getLinearVelocity().y > 0 && currentState != State.DAMAGED && !isDead())
             return State.JUMPING;
         else if (b2body.getLinearVelocity().y < 0 || (b2body.getLinearVelocity().y < 0 && currentState == State.JUMPING)
-                && currentState != State.DAMAGED && !isDead())
+                && !isDead())
             return State.FALLING;
         else if (b2body.getLinearVelocity().x != 0 && currentState != State.DAMAGED && !isDead())
             return State.RUNNING;
@@ -233,8 +248,6 @@ public class Character extends Sprite {
             //timerVidas = 1.3f;
             return State.DAMAGED;
         }
-        else if(currentState != State.DAMAGED && isDead())
-            return State.DEAD;
         else
             return State.STANDING;
 
@@ -279,15 +292,6 @@ public class Character extends Sprite {
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
-
-        /*EdgeShape head = new EdgeShape();
-        head.set(new Vector2(-20 / Level1.PPM, 80 / Level1.PPM), new Vector2(20 / Level1.PPM, 80 / Level1.PPM));
-        fdef.shape = head;
-        fdef.filter.categoryBits = Level1.CHARACTER_HEAD_BIT;
-        fdef.isSensor = true;
-        b2body.createFixture(fdef).setUserData(this);
-        */
-
     }
 
     private void redefineArma(Vector2 v1, Vector2 v2, Vector2 v3, Vector2 v4){

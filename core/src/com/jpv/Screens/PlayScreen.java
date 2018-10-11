@@ -214,6 +214,8 @@ public class PlayScreen implements Screen {
         return player;
     }
 
+    public B2WorldCreator getCreator() { return creator; }
+
     @Override
     public void pause() {
 
