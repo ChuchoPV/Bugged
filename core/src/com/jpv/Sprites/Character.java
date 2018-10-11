@@ -29,7 +29,7 @@ public class Character extends Sprite {
     private Body arma2;
     private Body arma3;
     private Body arma4;
-    private FixtureDef fdefArma;
+    //private FixtureDef fdefArma;
 
     private Animation idle;
     private Animation running;
@@ -128,29 +128,31 @@ public class Character extends Sprite {
             if(attack.getKeyFrameIndex(stateTimer) == 0){
                 redefineArma(new Vector2(-75 , 75),
                         new Vector2(-20 , 75),
-                        new Vector2(-75, 135),
+                         new Vector2(-75, 135),
                         new Vector2(-20 , 135));
             }
             if(attack.getKeyFrameIndex(stateTimer) == 1){
                 b2body.destroyFixture(b2body.getFixtureList().get(1));
-                redefineArma2(new Vector2(50 , 95),
+                redefineArma(new Vector2(50 , 95),
                         new Vector2(0 , 95),
                         new Vector2(50, 155),
                         new Vector2(0 , 155));
             }if(attack.getKeyFrameIndex(stateTimer) == 2){
-                b2body.destroyFixture(b2body.getFixtureList().get(2));
-                redefineArma2(new Vector2(140 , 25),
+                b2body.destroyFixture(b2body.getFixtureList().get(1));
+                redefineArma(new Vector2(140 , 25),
                         new Vector2(90 , 25),
                         new Vector2(140, 85),
                         new Vector2(90 , 85));
-            }if(attack.getKeyFrameIndex(stateTimer) == 3){
-                b2body.destroyFixture(b2body.getFixtureList().get(3));
-                redefineArma2(new Vector2(110 , -85),
-                        new Vector2(70 , -85),
+            }if(attack.getKeyFrameIndex(stateTimer) == 3) {
+                b2body.destroyFixture(b2body.getFixtureList().get(1));
+                redefineArma(new Vector2(110, -85),
+                        new Vector2(70, -85),
                         new Vector2(110, -35),
-                        new Vector2(70 , -35));
+                        new Vector2(70, -35));
+            }if(attack.getKeyFrameIndex(stateTimer) == 4){
+                for(int i = 1; i < b2body.getFixtureList().size; i++)
+                    b2body.destroyFixture(b2body.getFixtureList().get(i));
             }
-
             if(getFrame(dt).isFlipX()) {
                 setPosition(b2body.getPosition().x - getWidth() / 1f, b2body.getPosition().y - getHeight() / 2f); //6.2f
                 setBounds(getX(), getY(), 240 / Level1.PPM, 240 / Level1.PPM);
@@ -285,7 +287,7 @@ public class Character extends Sprite {
     }
 
     private void redefineArma(Vector2 v1, Vector2 v2, Vector2 v3, Vector2 v4){
-        fdefArma = new FixtureDef();
+        FixtureDef fdefArma = new FixtureDef();
         PolygonShape shapeArma = new PolygonShape();
         Vector2[] vertice = new Vector2[4];
         vertice[0] = v1.scl(1 / Level1.PPM);
