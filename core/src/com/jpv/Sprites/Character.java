@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.EdgeShape;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -25,6 +26,10 @@ public class Character extends Sprite {
     private World world;
     public Body b2body;
     private Body arma;
+    private Body arma2;
+    private Body arma3;
+    private Body arma4;
+    private FixtureDef fdefArma;
 
     private Animation idle;
     private Animation running;
@@ -81,7 +86,7 @@ public class Character extends Sprite {
         for(int i= 0; i<5; i++){
             frames.add(new TextureRegion(screen.getAtlas().findRegion("Hank_swipe_big"), i * 280,0,280,280));
         }
-        attack = new Animation<TextureRegion>(4f,frames);
+        attack = new Animation<TextureRegion>(0.3f,frames);
         frames.clear();
 
         //get jump frame frames and add them to marioRun Animation
@@ -120,13 +125,32 @@ public class Character extends Sprite {
             setPosition(b2body.getPosition().x - getWidth() / 1.8f, b2body.getPosition().y  - getHeight() / 2f); //6.2f
             setBounds(getX(),getY(),175 / Level1.PPM, 175 / Level1.PPM);
         }else if(currentState == State.ATTACKING) {
+            if(attack.getKeyFrameIndex(stateTimer) == 0){
+                redefineArma(new Vector2(-75 , 75),
+                        new Vector2(-20 , 75),
+                        new Vector2(-75, 135),
+                        new Vector2(-20 , 135));
+            }
             if(attack.getKeyFrameIndex(stateTimer) == 1){
-                world.destroyBody(arma);
-                redefineArma(new Vector2(50 , 95),
+                b2body.destroyFixture(b2body.getFixtureList().get(1));
+                redefineArma2(new Vector2(50 , 95),
                         new Vector2(0 , 95),
                         new Vector2(50, 155),
                         new Vector2(0 , 155));
+            }if(attack.getKeyFrameIndex(stateTimer) == 2){
+                b2body.destroyFixture(b2body.getFixtureList().get(2));
+                redefineArma2(new Vector2(140 , 25),
+                        new Vector2(90 , 25),
+                        new Vector2(140, 85),
+                        new Vector2(90 , 85));
+            }if(attack.getKeyFrameIndex(stateTimer) == 3){
+                b2body.destroyFixture(b2body.getFixtureList().get(3));
+                redefineArma2(new Vector2(110 , -85),
+                        new Vector2(70 , -85),
+                        new Vector2(110, -35),
+                        new Vector2(70 , -35));
             }
+
             if(getFrame(dt).isFlipX()) {
                 setPosition(b2body.getPosition().x - getWidth() / 1f, b2body.getPosition().y - getHeight() / 2f); //6.2f
                 setBounds(getX(), getY(), 240 / Level1.PPM, 240 / Level1.PPM);
@@ -244,31 +268,30 @@ public class Character extends Sprite {
                 | Level1.OBSTACULE_BIT
                 | Level1.ENEMY_BIT
                 | Level1.ENEMY_COLLIDER_BIT
-                | Level1.ITEM_BIT;
-
+                | Level1.ITEM_BIT
+                | Level1.CHARACTER_ARMA_BIT;
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
 
-        EdgeShape head = new EdgeShape();
+        /*EdgeShape head = new EdgeShape();
         head.set(new Vector2(-20 / Level1.PPM, 80 / Level1.PPM), new Vector2(20 / Level1.PPM, 80 / Level1.PPM));
         fdef.shape = head;
         fdef.filter.categoryBits = Level1.CHARACTER_HEAD_BIT;
         fdef.isSensor = true;
         b2body.createFixture(fdef).setUserData(this);
+        */
 
-        BodyDef bdefArma = new BodyDef();
-        bdefArma.position.set(650 / Level1.PPM ,240 / Level1.PPM); //18650
-        bdefArma.type = BodyDef.BodyType.StaticBody;
-        arma = world.createBody(bdefArma);
+    }
 
-        FixtureDef fdefArma = new FixtureDef();
+    private void redefineArma(Vector2 v1, Vector2 v2, Vector2 v3, Vector2 v4){
+        fdefArma = new FixtureDef();
         PolygonShape shapeArma = new PolygonShape();
         Vector2[] vertice = new Vector2[4];
-        vertice[0] = new Vector2(-75 , 75).scl(1 / Level1.PPM);
-        vertice[1] = new Vector2(-20 , 75).scl(1 / Level1.PPM);
-        vertice[2] = new Vector2(-75     , 135).scl(1 / Level1.PPM);
-        vertice[3] = new Vector2(-20 , 135).scl(1 / Level1.PPM);
+        vertice[0] = v1.scl(1 / Level1.PPM);
+        vertice[1] = v2.scl(1 / Level1.PPM);
+        vertice[2] = v3.scl(1 / Level1.PPM);
+        vertice[3] = v4.scl(1 / Level1.PPM);
         shapeArma.set(vertice);
 
         fdefArma.filter.categoryBits = Level1.CHARACTER_ARMA_BIT;
@@ -276,16 +299,11 @@ public class Character extends Sprite {
                 | Level1.ENEMY_COLLIDER_BIT;
 
         fdefArma.shape = shapeArma;
+        fdefArma.isSensor = true;
         b2body.createFixture(fdefArma).setUserData(this);
     }
 
-    private void redefineArma(Vector2 v1, Vector2 v2, Vector2 v3, Vector2 v4){
-        world.destroyBody(arma);
-
-        BodyDef bdefArma = new BodyDef();
-        bdefArma.type = BodyDef.BodyType.StaticBody;
-        arma = world.createBody(bdefArma);
-
+    private void redefineArma2(Vector2 v1, Vector2 v2, Vector2 v3, Vector2 v4){
         FixtureDef fdefArma = new FixtureDef();
         PolygonShape shapeArma = new PolygonShape();
         Vector2[] vertice = new Vector2[4];
@@ -300,6 +318,7 @@ public class Character extends Sprite {
                 | Level1.ENEMY_COLLIDER_BIT;
 
         fdefArma.shape = shapeArma;
+        fdefArma.isSensor = true;
         b2body.createFixture(fdefArma).setUserData(this);
     }
 
