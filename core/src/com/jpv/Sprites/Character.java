@@ -171,9 +171,8 @@ public class Character extends Sprite {
             }
         if(currentState == State.STANDING || currentState == State.JUMPING || currentState == State.RUNNING){
             for(Fixture fix : b2body.getFixtureList()){
-                if(!fix.equals(b2body.getFixtureList().get(0))){
+                if(!fix.equals(b2body.getFixtureList().get(0)))
                     b2body.destroyFixture(fix);
-                }
             }
             currentState = currentState == State.RUNNING ? State.RUNNING : State.STANDING;
             prevState = currentState;
@@ -236,7 +235,6 @@ public class Character extends Sprite {
             return State.FALLING;
         else if (b2body.getLinearVelocity().x != 0 && currentState != State.DAMAGED && !isDead())
             return State.RUNNING;
-
             //aqui empieza la modificacion para el swing completo
         else if (Gdx.input.isKeyPressed(Input.Keys.Z) && !isDead()) {
             attacking = true;
@@ -250,7 +248,6 @@ public class Character extends Sprite {
         }
         else
             return State.STANDING;
-
     }
 
     public void hit(){
