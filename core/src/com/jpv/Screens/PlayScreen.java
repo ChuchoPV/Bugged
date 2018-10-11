@@ -141,11 +141,11 @@ public class PlayScreen implements Screen {
                     && (player.currentState==Character.State.RUNNING || player.currentState==Character.State.STANDING)) {
                 player.b2body.applyLinearImpulse(new Vector2(0, 8f), player.b2body.getWorldCenter(), true);
             }
-            if (Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT) && player.b2body.getLinearVelocity().x <= 2) {
+            if (Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT) && player.b2body.getLinearVelocity().x <= 2 && player.currentState != Character.State.DAMAGED) {
                 player.b2body.applyLinearImpulse(new Vector2(0.5f, 0), player.b2body.getWorldCenter(), true);
             }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) && player.b2body.getLinearVelocity().x >= -2) {
+            if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) && player.b2body.getLinearVelocity().x >= -2 && player.currentState != Character.State.DAMAGED){
                 player.b2body.applyLinearImpulse(new Vector2(-0.5f, 0), player.b2body.getWorldCenter(), true);
             }
             if(player.currentState==Character.State.RUNNING && !(Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT)))
@@ -179,7 +179,7 @@ public class PlayScreen implements Screen {
         for(Item item : items)
             item.draw(game.batch);
         game.batch.end();
-        hud.stage.draw();
+        Hud.stage.draw();
 
         if(gameOver()){
             game.setScreen(new GameOverScreen(game));

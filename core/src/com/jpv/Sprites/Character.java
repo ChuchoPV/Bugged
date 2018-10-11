@@ -34,6 +34,7 @@ public class Character extends Sprite {
     private TextureRegion jumpAnimation;
 
     private float stateTimer;
+    private float timerVidas;
     private boolean runningRight;
     private boolean attacking;
     private int lifes;
@@ -50,6 +51,7 @@ public class Character extends Sprite {
         damaged = false;
         //attacking = false;
         stateTimer = 0;
+        timerVidas = 0;
 
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
@@ -105,6 +107,7 @@ public class Character extends Sprite {
     }
 
     public void update(float dt){
+        timerVidas -= dt;
         stateTimer += dt;
 
         //setPosition(b2body.getPosition().x - getWidth() / 2.3f, b2body.getPosition().y  - getHeight() / 2f); //6.2f
@@ -188,7 +191,8 @@ public class Character extends Sprite {
         } else if (attacking)
             return State.ATTACKING;
             //aqui termina la modificacion para el swing
-        else if (damaged && !isDead()){
+        else if (damaged && !isDead()){ //timerVidas <= 0
+            //timerVidas = 1.3f;
             return State.DAMAGED;
         }
         else if(currentState != State.DAMAGED && isDead())
