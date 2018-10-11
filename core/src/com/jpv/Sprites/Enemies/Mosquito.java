@@ -95,33 +95,6 @@ public class Mosquito extends Enemy {
                 move = 0;
             }
         }
-
-
-        //Esta parte del código es la parte vieja pero funcionaba con el corazon
-        /*stateTimer += dt;
-        move ++;
-
-        if(damagedB){
-            setRegion((TextureRegion) damage.getKeyFrame(stateTimer));
-            damagedB = false;
-        }
-        else if(setToDestroy && !destroyed){
-            world.destroyBody(b2body);
-            destroyed = true;
-            setRegion((TextureRegion) kill.getKeyFrame(stateTimer));
-            stateTimer = 0;
-        }else if(!destroyed) {
-            damagedB = false;
-            b2body.setLinearVelocity(velocity);
-            if (move > 50){
-                reverseVelocity(false, true);
-                move = 0;
-            }
-            setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 3);
-            setRegion((TextureRegion) idle.getKeyFrame(stateTimer,true));
-        }*/
-
-
     }
 
     @Override

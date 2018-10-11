@@ -50,16 +50,13 @@ public class B2WorldCreator {
 
         // Create obstacules bodies / textures
         for (MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
-
-            new Obstacules(screen,object);
-
+            if(!object.getProperties().containsKey("Boss"))
+                new Obstacules(screen,object);
         }
 
         // Create platforms bodies / textures
         for (MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {
-
             new Platforms(screen,object);
-
         }
 
         //Create mosquitos
@@ -83,9 +80,6 @@ public class B2WorldCreator {
 
     }
 
-    public Array<Mosquito> getMosquitos() {
-        return mosquitos;
-    }
-
+    public Array<Mosquito> getMosquitos() { return mosquitos; }
     public TheRedBug getTheRedBug() { return theRedBug; }
 }

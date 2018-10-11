@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -23,6 +25,7 @@ import com.jpv.Sprites.Enemies.Enemy;
 import com.jpv.Sprites.Items.Heart;
 import com.jpv.Sprites.Items.Item;
 import com.jpv.Sprites.Items.ItemDef;
+import com.jpv.Sprites.TileObjects.Obstacules;
 import com.jpv.Tools.B2WorldCreator;
 import com.jpv.Tools.WorldContactListener;
 
@@ -113,15 +116,9 @@ public class PlayScreen implements Screen {
         world.step(1/60f,6,2);
         player.update(dt);
 
-        if(player.boss) {
-            System.out.println(player.b2body.getPosition().x);
-            if (player.b2body.getPosition().x < 184.1) {
-                //player.setBounds(184.1f,player.getY(),175 / Level1.PPM, 175 / Level1.PPM);//player.b2body.setLinearVelocity(player.b2body.getLinearVelocity().x,0);    //190, player.getY());
-                player.b2body.applyLinearImpulse(player.b2body.getLinearVelocity().x,0,0,0,true);
-            }
-            if (player.b2body.getPosition().x > 196.1)
-                player.setPosition(300, player.getY());
-        }
+        /*if(player.boss) {
+
+        }*/
 
         for(Enemy enemy : creator.getMosquitos()) {
             enemy.update(dt);
@@ -134,14 +131,18 @@ public class PlayScreen implements Screen {
             item.update(dt);
         if(gamecam.position.x>190) {
             gamecam.position.x = 190.1f;
+            for (MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
+                if(object.getProperties().containsKey("Boss"))
+                    new Obstacules(this,object);
+            }
             //gamecam.position.y = player.b2body.getPosition().y+1.1f;
             player.boss=true;
         }
-        else{
-            if(player.b2body.getPosition().x >= (Level1.V_WIDTH / 2 / Level1.PPM))
+        else {
+            if (player.b2body.getPosition().x >= (Level1.V_WIDTH / 2 / Level1.PPM))
                 gamecam.position.x = player.b2body.getPosition().x;
 
-            if(player.b2body.getPosition().y >= (Level1.V_HEIGHT / 2 / Level1.PPM)
+            if (player.b2body.getPosition().y >= (Level1.V_HEIGHT / 2 / Level1.PPM)
                     && player.b2body.getPosition().y <= ((Level1.V_HEIGHT + 360) / Level1.PPM))
                 gamecam.position.y = player.b2body.getPosition().y;
         }

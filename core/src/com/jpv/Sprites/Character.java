@@ -116,6 +116,7 @@ public class Character extends Sprite {
     }
 
     public void update(float dt){
+        Gdx.app.log("Posicion",""+b2body.getPosition().x);
         timerVidas -= dt;
         stateTimer += dt;
 
@@ -274,7 +275,7 @@ public class Character extends Sprite {
 
     private void defineCharacter() {
         BodyDef bdef = new BodyDef();//650
-        bdef.position.set(17650 / Level1.PPM ,240 / Level1.PPM); //18650
+        bdef.position.set(18650 / Level1.PPM ,240 / Level1.PPM); //18650
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 

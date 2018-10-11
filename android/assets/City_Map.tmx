@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="256" height="18" tilewidth="80" tileheight="80" infinite="0" nextobjectid="1124">
+<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="256" height="18" tilewidth="80" tileheight="80" infinite="0" nextobjectid="1128">
  <tileset firstgid="1" name="City_Tileset" tilewidth="80" tileheight="80" tilecount="180" columns="20">
   <image source="City_Tileset.png" width="1600" height="720"/>
  </tileset>
@@ -85,6 +85,7 @@
   <object id="1113" x="13916.1" y="802.305" width="1.70084" height="1.48824"/>
   <object id="1114" x="13918" y="804.218" width="1.91345" height="9.88615"/>
   <object id="1115" x="13916.2" y="814.104" width="1.70084" height="63.9942"/>
+  <object id="1127" x="17596" y="1280.04" width="2883.92" height="1.98051"/>
  </objectgroup>
  <objectgroup name="Plataformas">
   <object id="43" x="13696" y="2000" width="16"/>
@@ -544,7 +545,6 @@
   <object id="952" x="14560" y="1283.93" width="1.95208" height="12.0169"/>
   <object id="953" x="14562" y="1282.05" width="1.95208" height="1.86254"/>
   <object id="954" x="14564" y="1280.08" width="1999.95" height="1.86254"/>
-  <object id="955" x="17568.3" y="1280.3" width="2911.64" height="1.5378"/>
   <object id="956" x="16562.1" y="1216" width="1.91182" height="64.0061"/>
   <object id="957" x="16560.1" y="1204.05" width="1.87199" height="11.909"/>
   <object id="958" x="16562.1" y="1202.1" width="1.93173" height="1.8919"/>
@@ -673,6 +673,16 @@
   <object id="1085" x="18313.1" y="1239.01" width="5.94977" height="15.8542"/>
   <object id="1086" x="18264.1" y="1255.08" width="48.8451" height="8.87122"/>
   <object id="1087" x="18256.1" y="1263.84" width="7.90928" height="7.01859"/>
+  <object id="1124" x="18320.3" y="889.388" width="58.7675" height="395.807">
+   <properties>
+    <property name="Boss" value=""/>
+   </properties>
+  </object>
+  <object id="1125" x="19630.4" y="881.633" width="81.3517" height="402.065">
+   <properties>
+    <property name="Boss" value=""/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="Enemigos">
   <object id="68" x="2241" y="963" width="164" height="160">
@@ -695,6 +705,6 @@
   </object>
  </objectgroup>
  <objectgroup name="Jefe">
-  <object id="78" x="19913.1" y="690.196" width="560" height="560"/>
+  <object id="78" x="19486" y="708.731" width="560" height="560"/>
  </objectgroup>
 </map>

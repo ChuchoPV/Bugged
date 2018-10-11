@@ -76,15 +76,10 @@ public class TheRedBug extends Enemy{
         FixtureDef fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(240/ Level1.PPM, 160 / Level1.PPM); //160,110
-        /*fdef.filter.categoryBits = Level1.BOSS_BIT;
+        fdef.filter.categoryBits = Level1.BOSS_BIT;
         fdef.filter.maskBits = Level1.GROUND_BIT
-                | Level1.PLATAFORM_BIT
-                | Level1.OBSTACULE_BIT
-                | Level1.ENEMY_BIT
-                | Level1.OBJECT_BIT
                 | Level1.CHARACTER_BIT
                 | Level1.CHARACTER_ARMA_BIT;
-        */
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
