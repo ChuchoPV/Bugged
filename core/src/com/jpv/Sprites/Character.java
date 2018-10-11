@@ -25,11 +25,6 @@ public class Character extends Sprite {
     private State prevState;
     private World world;
     public Body b2body;
-    private Body arma;
-    private Body arma2;
-    private Body arma3;
-    private Body arma4;
-    //private FixtureDef fdefArma;
 
     private Animation idle;
     private Animation running;
@@ -169,6 +164,8 @@ public class Character extends Sprite {
                     b2body.destroyFixture(fix);
                 }
             }
+            currentState = currentState == State.RUNNING ? State.RUNNING : State.STANDING;
+            prevState = currentState;
         }
     }
 
@@ -293,25 +290,6 @@ public class Character extends Sprite {
     }
 
     private void redefineArma(Vector2 v1, Vector2 v2, Vector2 v3, Vector2 v4){
-        FixtureDef fdefArma = new FixtureDef();
-        PolygonShape shapeArma = new PolygonShape();
-        Vector2[] vertice = new Vector2[4];
-        vertice[0] = v1.scl(1 / Level1.PPM);
-        vertice[1] = v2.scl(1 / Level1.PPM);
-        vertice[2] = v3.scl(1 / Level1.PPM);
-        vertice[3] = v4.scl(1 / Level1.PPM);
-        shapeArma.set(vertice);
-
-        fdefArma.filter.categoryBits = Level1.CHARACTER_ARMA_BIT;
-        fdefArma.filter.maskBits = Level1.ENEMY_BIT
-                | Level1.ENEMY_COLLIDER_BIT;
-
-        fdefArma.shape = shapeArma;
-        fdefArma.isSensor = true;
-        b2body.createFixture(fdefArma).setUserData(this);
-    }
-
-    private void redefineArma2(Vector2 v1, Vector2 v2, Vector2 v3, Vector2 v4){
         FixtureDef fdefArma = new FixtureDef();
         PolygonShape shapeArma = new PolygonShape();
         Vector2[] vertice = new Vector2[4];
