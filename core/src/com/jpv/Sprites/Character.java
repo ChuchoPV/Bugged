@@ -163,6 +163,12 @@ public class Character extends Sprite {
             }
         }else if(currentState == State.DAMAGED){
             b2body.applyLinearImpulse(new Vector2(-0.1f,0),b2body.getWorldCenter(),true);
+        }if(currentState == State.STANDING || currentState == State.JUMPING || currentState == State.RUNNING){
+            for(Fixture fix : b2body.getFixtureList()){
+                if(!fix.equals(b2body.getFixtureList().get(0))){
+                    b2body.destroyFixture(fix);
+                }
+            }
         }
     }
 
