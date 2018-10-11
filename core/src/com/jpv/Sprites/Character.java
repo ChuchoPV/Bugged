@@ -22,6 +22,7 @@ import com.jpv.Sprites.Enemies.Enemy;
 import com.jpv.Sprites.Enemies.Mosquito;
 
 public class Character extends Sprite {
+
     public enum State {FALLING, JUMPING, STANDING, RUNNING, ATTACKING, DAMAGED, DEAD};
     public State currentState;
     private State prevState;
@@ -40,6 +41,7 @@ public class Character extends Sprite {
     private float stateTimer;
     private float timerVidas;
     private boolean runningRight;
+    public boolean boss;
     private boolean attacking;
     private int lifes;
     private boolean damaged;
@@ -58,6 +60,7 @@ public class Character extends Sprite {
         stateTimer = 0;
         timerVidas = 0;
         first = true;
+        boss=false;
 
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
@@ -270,8 +273,8 @@ public class Character extends Sprite {
     }
 
     private void defineCharacter() {
-        BodyDef bdef = new BodyDef();
-        bdef.position.set(650 / Level1.PPM ,240 / Level1.PPM); //18650
+        BodyDef bdef = new BodyDef();//650
+        bdef.position.set(17650 / Level1.PPM ,240 / Level1.PPM); //18650
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 

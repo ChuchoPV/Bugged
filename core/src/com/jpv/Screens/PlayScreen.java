@@ -112,6 +112,17 @@ public class PlayScreen implements Screen {
 
         world.step(1/60f,6,2);
         player.update(dt);
+
+        if(player.boss) {
+            System.out.println(player.b2body.getPosition().x);
+            if (player.b2body.getPosition().x < 184.1) {
+                //player.setBounds(184.1f,player.getY(),175 / Level1.PPM, 175 / Level1.PPM);//player.b2body.setLinearVelocity(player.b2body.getLinearVelocity().x,0);    //190, player.getY());
+                player.b2body.applyLinearImpulse(player.b2body.getLinearVelocity().x,0,0,0,true);
+            }
+            if (player.b2body.getPosition().x > 196.1)
+                player.setPosition(300, player.getY());
+        }
+
         for(Enemy enemy : creator.getMosquitos()) {
             enemy.update(dt);
             if(enemy.getX() < player.getX() + 224 / Level1.PPM)
@@ -121,13 +132,19 @@ public class PlayScreen implements Screen {
 
         for(Item item : items)
             item.update(dt);
+        if(gamecam.position.x>190) {
+            gamecam.position.x = 190.1f;
+            //gamecam.position.y = player.b2body.getPosition().y+1.1f;
+            player.boss=true;
+        }
+        else{
+            if(player.b2body.getPosition().x >= (Level1.V_WIDTH / 2 / Level1.PPM))
+                gamecam.position.x = player.b2body.getPosition().x;
 
-        if(player.b2body.getPosition().x >= (Level1.V_WIDTH / 2 / Level1.PPM))
-            gamecam.position.x = player.b2body.getPosition().x;
-
-        if(player.b2body.getPosition().y >= (Level1.V_HEIGHT / 2 / Level1.PPM)
-                && player.b2body.getPosition().y <= ((Level1.V_HEIGHT + 360) / Level1.PPM))
-            gamecam.position.y = player.b2body.getPosition().y;
+            if(player.b2body.getPosition().y >= (Level1.V_HEIGHT / 2 / Level1.PPM)
+                    && player.b2body.getPosition().y <= ((Level1.V_HEIGHT + 360) / Level1.PPM))
+                gamecam.position.y = player.b2body.getPosition().y;
+        }
 
         gamecam.update();
         //Setting the camara to our map
