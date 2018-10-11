@@ -221,6 +221,7 @@ public class Character extends Sprite {
             return State.FALLING;
         else if (b2body.getLinearVelocity().x != 0 && currentState != State.DAMAGED && !isDead())
             return State.RUNNING;
+
             //aqui empieza la modificacion para el swing completo
         else if (Gdx.input.isKeyPressed(Input.Keys.Z) && !isDead()) {
             attacking = true;
