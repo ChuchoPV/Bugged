@@ -16,6 +16,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -61,6 +62,7 @@ public class PlayScreen implements Screen {
     private LinkedBlockingDeque<ItemDef> itemsToSpawn;
 
     private int timerBoss;
+    long startTime;
     private boolean first;
 
     public PlayScreen(Level1 game){
@@ -85,8 +87,9 @@ public class PlayScreen implements Screen {
         player = new Character(this);
         creator = new B2WorldCreator(this);
         world.setContactListener(new WorldContactListener());
-        hud = new Hud(game.batch);
+        hud = new Hud(this);
         timerBoss = 1;
+        startTime = TimeUtils.nanoTime();
         first = true;
 
         items = new Array<Item>();
@@ -161,26 +164,28 @@ public class PlayScreen implements Screen {
     }
 
     private void manageBoss(float dt) {
-        Timer.schedule(new Timer.Task(){
-               @Override
-               public void run() {
-                   timerBoss += 1;
-                   Gdx.app.log("Tiempo",""+timerBoss);
-               }
-            }
-            , 50        //    (delay)
-            , 30     //    (seconds)
-        );
+        if (TimeUtils.timeSinceNanos(startTime) > 2000000000 && timerBoss != 0) {
+            // if time passed since the time you set startTime at is more than 1 second
 
-        if(Gdx.input.isKeyJustPressed(Input.Keys.W)) {
-            Gdx.app.log("Ente 1",""+timerBoss);
-            creator.getTheRedBug().b2body.applyLinearImpulse(new Vector2(-5f, 9f), creator.getTheRedBug().b2body.getWorldCenter(), true);
-            first = false;
-            timerBoss = 0;
-        }if(Gdx.input.isKeyJustPressed(Input.Keys.S)) {
-            Gdx.app.log("Ente 2",""+timerBoss);
-            creator.getTheRedBug().b2body.applyLinearImpulse(new Vector2(5f, 9f), creator.getTheRedBug().b2body.getWorldCenter(), true);
-            first = true;
+            //your code here
+            //Gdx.app.log("Tiempo",""+timerBoss);
+            //Gdx.app.log("StartTimer",""+startTime);
+            if(first) {
+                creator.getTheRedBug().b2body.applyLinearImpulse(new Vector2(-5f, 9f), creator.getTheRedBug().b2body.getWorldCenter(), true);
+                first = false;
+                timerBoss +=1;
+            }else {
+                creator.getTheRedBug().b2body.applyLinearImpulse(new Vector2(5f, 9f), creator.getTheRedBug().b2body.getWorldCenter(), true);
+                first = true;
+                timerBoss +=1;
+            }
+
+            //also you can set the new startTime
+            //so this block will execute every one second
+            startTime = TimeUtils.nanoTime();
+        }if(timerBoss == 6){
+            Gdx.app.log("Tiempo",""+timerBoss);
+            startTime = 0;
             timerBoss = 0;
         }
     }
@@ -266,6 +271,10 @@ public class PlayScreen implements Screen {
     }
 
     public B2WorldCreator getCreator() { return creator; }
+
+    public Level1 getGame() {
+        return game;
+    }
 
     @Override
     public void pause() {
