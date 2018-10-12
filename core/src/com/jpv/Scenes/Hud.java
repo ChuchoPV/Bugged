@@ -1,5 +1,6 @@
 package com.jpv.Scenes;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -29,6 +30,7 @@ public class Hud {
         this.screen = screen;
         Viewport viewport = new FitViewport(Level1.V_WIDTH, Level1.V_HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport,screen.getGame().batch);
+        Gdx.input.setInputProcessor(stage);
         Array<Image> vidas = new Array<Image>();
 
         Sprite image = new Sprite(new Texture("Hank_Image.png"));

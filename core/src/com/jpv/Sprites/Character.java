@@ -266,7 +266,7 @@ public class Character extends Sprite {
     private State getState() {
         if(currentState != State.DAMAGED && isDead())
             return State.DEAD;
-        else if (Gdx.input.isKeyPressed(Input.Keys.Z) && !isDead()) {
+        else if (Gdx.input.isKeyPressed(Input.Keys.Z) && !isDead()){
             attacking = true;
             return State.ATTACKING;
         }
