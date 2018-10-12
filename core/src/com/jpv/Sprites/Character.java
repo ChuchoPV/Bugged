@@ -101,7 +101,7 @@ public class Character extends Sprite {
 
         //get dead animation frames and add them to marioRun Animation
         for(int i= 0; i<5; i++){
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("Hank_Dead"), i * 280,0,280,280));
+            frames.add(new TextureRegion(screen.getAtlas().findRegion("Hank_Dead"), i * 175,0,175,175));
         }
         dead = new Animation<TextureRegion>(0.3f,frames);
 
@@ -113,18 +113,15 @@ public class Character extends Sprite {
         timerVidas -= dt;
         stateTimer += dt;
 
-        //setPosition(b2body.getPosition().x - getWidth() / 2.3f, b2body.getPosition().y  - getHeight() / 2f); //6.2f
-        setPosition(b2body.getPosition().x - getWidth() / 3.1f, b2body.getPosition().y  - getHeight() / 2f);
+        setPosition(b2body.getPosition().x - getWidth() / 2.3f, b2body.getPosition().y  - getHeight() / 2f); //6.2f
         setBounds(getX(),getY(),175 / Level1.PPM, 175 / Level1.PPM);
         TextureRegion frames = getFrame(dt);
         setRegion(frames);
 
-        if(currentState == State.STANDING && prevState == State.ATTACKING){
-            setBounds(getX(),getY(),175 / Level1.PPM, 175 / Level1.PPM);
-        }else if(currentState == State.STANDING){
-            setBounds(getX(),getY(),175 / Level1.PPM, 175 / Level1.PPM);
+        if(currentState == State.STANDING && getFrame(dt).isFlipX()){
+            setPosition(b2body.getPosition().x - getWidth() / 1.5f, b2body.getPosition().y  - getHeight() / 2f);
         }
-        else if(currentState == State.ATTACKING) {
+        if(currentState == State.ATTACKING) {
             setPosition(b2body.getPosition().x - getWidth() / 1.8f, b2body.getPosition().y  - getHeight() / 2f);
             if(!getFrame(dt).isFlipX()){
                 if(attack.getKeyFrameIndex(stateTimer) == 0){
