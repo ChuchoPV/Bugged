@@ -43,7 +43,7 @@ public class Character extends Sprite {
     private boolean runningRight;
     public boolean boss;
     private boolean attacking;
-    private int lifes;
+    public int lifes;
     private boolean damaged;
     private boolean isDead;
     private boolean first;
@@ -99,18 +99,11 @@ public class Character extends Sprite {
         //get fall frame frames and add them to marioRun Animation
         falling = new TextureRegion(screen.getAtlas().findRegion("Hank_Jump"), 525,0,175,175);
 
-        //get dead animation
-        Texture deadd = new Texture("Hank_Dead.png");  //Hank
-        TextureRegion[][] temp2 = TextureRegion.split(deadd, 175,175);  //Hank
-        TextureRegion[] temp = new TextureRegion[6];
-        temp[0] = temp2[0][0];
-        temp[1] = temp2[0][1];
-        temp[2] = temp2[0][2];
-        temp[3] = temp2[0][3];
-        temp[4] = temp2[0][4];
-        temp[5] = temp2[0][5];
-
-        dead = new Animation<TextureRegion>(0.20f,temp);
+        //get dead animation frames and add them to marioRun Animation
+        for(int i= 0; i<5; i++){
+            frames.add(new TextureRegion(screen.getAtlas().findRegion("Hank_Dead"), i * 280,0,280,280));
+        }
+        dead = new Animation<TextureRegion>(0.3f,frames);
 
         defineCharacter();
         setBounds(0,0,175 / Level1.PPM, 175 / Level1.PPM);
@@ -121,7 +114,7 @@ public class Character extends Sprite {
         stateTimer += dt;
 
         //setPosition(b2body.getPosition().x - getWidth() / 2.3f, b2body.getPosition().y  - getHeight() / 2f); //6.2f
-        setPosition(b2body.getPosition().x - getWidth() / 1.8f, b2body.getPosition().y  - getHeight() / 2f);
+        setPosition(b2body.getPosition().x - getWidth() / 3.1f, b2body.getPosition().y  - getHeight() / 2f);
         setBounds(getX(),getY(),175 / Level1.PPM, 175 / Level1.PPM);
         TextureRegion frames = getFrame(dt);
         setRegion(frames);

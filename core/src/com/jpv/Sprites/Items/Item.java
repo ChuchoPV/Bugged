@@ -28,7 +28,7 @@ public abstract class Item extends Sprite{
     }
 
     public abstract void defineItem();
-    public abstract void use(Character player);
+    public abstract void use();
 
     public void update(float dt){
         if(toDestroy && !destroyed){

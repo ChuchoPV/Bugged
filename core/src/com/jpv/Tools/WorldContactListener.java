@@ -38,9 +38,9 @@ public class WorldContactListener implements ContactListener {
                 break;
             case Level1.ITEM_BIT | Level1.CHARACTER_BIT:
                 if(fixA.getFilterData().categoryBits == Level1.ITEM_BIT)
-                    ((Item)fixA.getUserData()).use((Character) fixB.getUserData());
+                    ((Item)fixA.getUserData()).use();
                 else
-                    ((Item)fixB.getUserData()).use((Character) fixA.getUserData());
+                    ((Item)fixB.getUserData()).use();
                 break;
             case Level1.CHARACTER_BIT | Level1.ENEMY_BIT:
                 if(fixA.getFilterData().categoryBits == Level1.CHARACTER_BIT)
