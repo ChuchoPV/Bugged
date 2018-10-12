@@ -105,7 +105,6 @@ public class Hud {
             stage.getActors().pop();
             y -= 8000;
 
-
         }else{
             Image img = new Image(heart);
             img.setPosition((Level1.V_WIDTH / Level1.PPM) + (y / Level1.PPM), (Level1.V_WIDTH / Level1.PPM ) + 600);
