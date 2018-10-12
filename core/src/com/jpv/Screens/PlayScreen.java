@@ -84,7 +84,7 @@ public class PlayScreen implements Screen {
         creator = new B2WorldCreator(this);
         world.setContactListener(new WorldContactListener());
         hud = new Hud(game.batch);
-        timerBoss = 0;
+        timerBoss = 1;
         first = true;
 
         items = new Array<Item>();
@@ -157,14 +157,14 @@ public class PlayScreen implements Screen {
     }
 
     private void manageBoss(float dt) {
-        timerBoss+= dt;
-        Gdx.app.log("TimerBoss",""+timerBoss);
+        timerBoss+= (dt*50);
+        
         if(first) {
             Gdx.app.log("Ente 1",""+timerBoss);
             creator.getTheRedBug().b2body.applyLinearImpulse(new Vector2(-5f, 9f), creator.getTheRedBug().b2body.getWorldCenter(), true);
             first = false;
-
-        }if(!first && creator.getTheRedBug().b2body.getLinearVelocity().y == 0 && timerBoss > 3) {
+            timerBoss = 0;
+        }if(!first && creator.getTheRedBug().b2body.getLinearVelocity().y == 0 && timerBoss >= 2) {
             Gdx.app.log("Ente 2",""+timerBoss);
             creator.getTheRedBug().b2body.applyLinearImpulse(new Vector2(5f, 9f), creator.getTheRedBug().b2body.getWorldCenter(), true);
             first = true;
