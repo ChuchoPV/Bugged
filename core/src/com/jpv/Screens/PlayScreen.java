@@ -16,6 +16,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jpv.Level1;
@@ -135,7 +136,6 @@ public class PlayScreen implements Screen {
         for(Item item : items)
             item.update(dt);
         if(gamecam.position.x>190) {
-            Gdx.app.log("Posicion",""+gamecam.position.y);
             gamecam.position.x = 190.1f;
             if(gamecam.position.y > 3.6f) {
                 gamecam.position.y -= 0.1f;
@@ -144,7 +144,6 @@ public class PlayScreen implements Screen {
                 if(object.getProperties().containsKey("Boss"))
                     new Obstacules(this,object);
             }
-            //gamecam.position.y = player.b2body.getPosition().y+1.1f;
             player.boss=true;
         }
         else {
@@ -162,7 +161,16 @@ public class PlayScreen implements Screen {
     }
 
     private void manageBoss(float dt) {
-        timerBoss+= (dt*50);
+        Timer.schedule(new Timer.Task(){
+               @Override
+               public void run() {
+                   timerBoss += 1;
+                   Gdx.app.log("Tiempo",""+timerBoss);
+               }
+            }
+            , 50        //    (delay)
+            , 30     //    (seconds)
+        );
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.W)) {
             Gdx.app.log("Ente 1",""+timerBoss);
