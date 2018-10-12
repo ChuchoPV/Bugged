@@ -31,7 +31,7 @@ public class TheRedBug extends Enemy{
 
     public TheRedBug(PlayScreen screen, float x, float y, MapObject object) {
         super(screen, x, y, object);
-        TextureAtlas atlas = new TextureAtlas("Enemy.pack");
+        TextureAtlas atlas = screen.getAtlas();
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
         TextureRegion temp = null;
@@ -43,9 +43,9 @@ public class TheRedBug extends Enemy{
         idle = new Animation<TextureRegion>(0.1f, frames);
         frames.clear();
 
-        jump = new TextureRegion(atlas.findRegion("RedBug_Jump"), 320,0,320,230);
+        jump = new TextureRegion(atlas.findRegion("RadBug_Jump"), 320,0,320,230);
         jump.flip(true,false);
-        fall = new TextureRegion(atlas.findRegion("RedBug_Jump"), 640,0,320,230);
+        fall = new TextureRegion(atlas.findRegion("RadBug_Jump"), 640,0,320,230);
         fall.flip(true,false);
 
         for(int i = 0; i < 4; i++)
@@ -99,12 +99,6 @@ public class TheRedBug extends Enemy{
         stateTimer += dt;
         TextureRegion region;
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
-
-        if(Gdx.input.isKeyJustPressed(Input.Keys.W))
-            b2body.applyLinearImpulse(new Vector2(-5f, 9f), b2body.getWorldCenter(), true);
-        if(Gdx.input.isKeyJustPressed(Input.Keys.S))
-            b2body.applyLinearImpulse(new Vector2(5f, 9f), b2body.getWorldCenter(), true);
-
 
         if(b2body.getLinearVelocity().y > 0 ) {
             region = jump;

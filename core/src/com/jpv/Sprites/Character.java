@@ -23,7 +23,7 @@ import com.jpv.Sprites.Enemies.Mosquito;
 
 public class Character extends Sprite {
 
-    public enum State {FALLING, JUMPING, STANDING, RUNNING, ATTACKING, DAMAGED, DEAD};
+    public enum State {FALLING, JUMPING, STANDING, RUNNING, ATTACKING, DAMAGED, DEAD, WIN};
     public State currentState;
     private State prevState;
     private World world;
@@ -47,6 +47,7 @@ public class Character extends Sprite {
     private boolean damaged;
     private boolean isDead;
     private boolean first;
+    public boolean win;
 
     public Character(PlayScreen screen){
         super();
@@ -87,16 +88,16 @@ public class Character extends Sprite {
 
         //get attack animation frames and add them to marioRun Animation
         for(int i= 0; i<5; i++){
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("Hank_swipe_big"), i * 280,0,280,280));
+            frames.add(new TextureRegion(screen.getAtlas().findRegion("Hank_Swipe"), i * 280,0,280,280));
         }
         attack = new Animation<TextureRegion>(0.3f,frames);
         frames.clear();
 
         //get jump frame frames and add them to marioRun Animation
-        jumpAnimation = new TextureRegion(screen.getAtlas().findRegion("jump_Final"), 175,0,175,175);
+        jumpAnimation = new TextureRegion(screen.getAtlas().findRegion("Hank_Jump"), 175,0,175,175);
 
         //get fall frame frames and add them to marioRun Animation
-        falling = new TextureRegion(screen.getAtlas().findRegion("jump_Final"), 525,0,175,175);
+        falling = new TextureRegion(screen.getAtlas().findRegion("Hank_Jump"), 525,0,175,175);
 
         //get dead animation
         Texture deadd = new Texture("Hank_Dead.png");  //Hank
@@ -116,7 +117,6 @@ public class Character extends Sprite {
     }
 
     public void update(float dt){
-        Gdx.app.log("Posicion",""+b2body.getPosition().x);
         timerVidas -= dt;
         stateTimer += dt;
 
@@ -249,6 +249,8 @@ public class Character extends Sprite {
         else if (damaged && !isDead()){ //timerVidas <= 0
             //timerVidas = 1.3f;
             return State.DAMAGED;
+        }else if(win){
+            return State.WIN;
         }
         else
             return State.STANDING;

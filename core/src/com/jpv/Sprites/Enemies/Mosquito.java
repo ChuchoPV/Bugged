@@ -34,7 +34,7 @@ public class Mosquito extends Enemy {
     public Mosquito(PlayScreen screen, float x, float y, MapObject object) {
         super(screen, x, y,object);
         this.b2body.setGravityScale(0);
-        TextureAtlas atlas = new TextureAtlas("Enemy.pack");
+        TextureAtlas atlas = screen.getAtlas();
         Array<TextureRegion> frames = new Array<TextureRegion>();
         for(int i = 0; i < 8; i++)
             frames.add(new TextureRegion(atlas.findRegion("mosquito_idle"),i * 160, 0, 160,160));

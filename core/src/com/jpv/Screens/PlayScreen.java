@@ -22,6 +22,7 @@ import com.jpv.Level1;
 import com.jpv.Scenes.Hud;
 import com.jpv.Sprites.Character;
 import com.jpv.Sprites.Enemies.Enemy;
+import com.jpv.Sprites.Enemies.TheRedBug;
 import com.jpv.Sprites.Items.Heart;
 import com.jpv.Sprites.Items.Item;
 import com.jpv.Sprites.Items.ItemDef;
@@ -56,12 +57,13 @@ public class PlayScreen implements Screen {
 
     private Array<Item> items;
     private LinkedBlockingDeque<ItemDef> itemsToSpawn;
-    private Sprite heart;
 
+    private int timerBoss;
+    private boolean first;
 
     public PlayScreen(Level1 game){
-        atlas = new TextureAtlas("Bugged_1.pack");
-        //Out game
+        atlas = new TextureAtlas("ATLAS_FINAL.pack");
+        //Our game
         this.game = game;
         gamecam = new OrthographicCamera();
         //creat a FitViewport to maintain virtual aspect radio despite screen size
@@ -82,6 +84,8 @@ public class PlayScreen implements Screen {
         creator = new B2WorldCreator(this);
         world.setContactListener(new WorldContactListener());
         hud = new Hud(game.batch);
+        timerBoss = 0;
+        first = true;
 
         items = new Array<Item>();
         itemsToSpawn = new LinkedBlockingDeque<ItemDef>();
@@ -116,9 +120,9 @@ public class PlayScreen implements Screen {
         world.step(1/60f,6,2);
         player.update(dt);
 
-        /*if(player.boss) {
-
-        }*/
+        if(player.boss) {
+            manageBoss(dt);
+        }
 
         for(Enemy enemy : creator.getMosquitos()) {
             enemy.update(dt);
@@ -150,6 +154,22 @@ public class PlayScreen implements Screen {
         gamecam.update();
         //Setting the camara to our map
         renderer.setView(gamecam);
+    }
+
+    private void manageBoss(float dt) {
+        timerBoss+= dt;
+        Gdx.app.log("TimerBoss",""+timerBoss);
+        if(first) {
+            Gdx.app.log("Ente 1",""+timerBoss);
+            creator.getTheRedBug().b2body.applyLinearImpulse(new Vector2(-5f, 9f), creator.getTheRedBug().b2body.getWorldCenter(), true);
+            first = false;
+
+        }if(!first && creator.getTheRedBug().b2body.getLinearVelocity().y == 0 && timerBoss > 3) {
+            Gdx.app.log("Ente 2",""+timerBoss);
+            creator.getTheRedBug().b2body.applyLinearImpulse(new Vector2(5f, 9f), creator.getTheRedBug().b2body.getWorldCenter(), true);
+            first = true;
+            timerBoss = 0;
+        }
     }
 
     private void handleInput(float dt) {
