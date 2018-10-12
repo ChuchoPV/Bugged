@@ -30,6 +30,7 @@ import com.jpv.Sprites.TileObjects.Obstacules;
 import com.jpv.Tools.B2WorldCreator;
 import com.jpv.Tools.WorldContactListener;
 
+import java.security.Key;
 import java.util.concurrent.LinkedBlockingDeque;
 
 public class PlayScreen implements Screen {
@@ -134,7 +135,11 @@ public class PlayScreen implements Screen {
         for(Item item : items)
             item.update(dt);
         if(gamecam.position.x>190) {
+            Gdx.app.log("Posicion",""+gamecam.position.y);
             gamecam.position.x = 190.1f;
+            if(gamecam.position.y > 3.6f) {
+                gamecam.position.y -= 0.1f;
+            }
             for (MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
                 if(object.getProperties().containsKey("Boss"))
                     new Obstacules(this,object);
@@ -158,13 +163,13 @@ public class PlayScreen implements Screen {
 
     private void manageBoss(float dt) {
         timerBoss+= (dt*50);
-        
-        if(first) {
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.W)) {
             Gdx.app.log("Ente 1",""+timerBoss);
             creator.getTheRedBug().b2body.applyLinearImpulse(new Vector2(-5f, 9f), creator.getTheRedBug().b2body.getWorldCenter(), true);
             first = false;
             timerBoss = 0;
-        }if(!first && creator.getTheRedBug().b2body.getLinearVelocity().y == 0 && timerBoss >= 2) {
+        }if(Gdx.input.isKeyJustPressed(Input.Keys.S)) {
             Gdx.app.log("Ente 2",""+timerBoss);
             creator.getTheRedBug().b2body.applyLinearImpulse(new Vector2(5f, 9f), creator.getTheRedBug().b2body.getWorldCenter(), true);
             first = true;
