@@ -102,7 +102,7 @@ public class Character extends Sprite {
         //get dead animation
         Texture deadd = new Texture("Hank_Dead.png");  //Hank
         TextureRegion[][] temp2 = TextureRegion.split(deadd, 175,175);  //Hank
-        TextureRegion[] temp = new TextureRegion[6*1];
+        TextureRegion[] temp = new TextureRegion[6];
         temp[0] = temp2[0][0];
         temp[1] = temp2[0][1];
         temp[2] = temp2[0][2];
@@ -123,12 +123,16 @@ public class Character extends Sprite {
         //setPosition(b2body.getPosition().x - getWidth() / 2.3f, b2body.getPosition().y  - getHeight() / 2f); //6.2f
         setPosition(b2body.getPosition().x - getWidth() / 1.8f, b2body.getPosition().y  - getHeight() / 2f);
         setBounds(getX(),getY(),175 / Level1.PPM, 175 / Level1.PPM);
-        setRegion((getFrame(dt)));
+        TextureRegion frames = getFrame(dt);
+        setRegion(frames);
 
-        if(currentState == State.STANDING && getFrame(dt).isFlipX()){
-            setPosition(b2body.getPosition().x - getWidth() / 1.8f, b2body.getPosition().y  - getHeight() / 2f); //6.2f
+        if(currentState == State.STANDING && prevState == State.ATTACKING){
             setBounds(getX(),getY(),175 / Level1.PPM, 175 / Level1.PPM);
-        }else if(currentState == State.ATTACKING) {
+        }else if(currentState == State.STANDING){
+            setBounds(getX(),getY(),175 / Level1.PPM, 175 / Level1.PPM);
+        }
+        else if(currentState == State.ATTACKING) {
+            setPosition(b2body.getPosition().x - getWidth() / 1.8f, b2body.getPosition().y  - getHeight() / 2f);
             if(attack.getKeyFrameIndex(stateTimer) == 0){
                 redefineArma(new Vector2(-75 , 75),
                         new Vector2(-20 , 75),
@@ -157,13 +161,13 @@ public class Character extends Sprite {
                 for(int i = 1; i < b2body.getFixtureList().size; i++)
                     b2body.destroyFixture(b2body.getFixtureList().get(i));
             }
-            if(getFrame(dt).isFlipX()) {
+            if(frames.isFlipX()) {
                 setPosition(b2body.getPosition().x - getWidth() / 1f, b2body.getPosition().y - getHeight() / 2f); //6.2f
                 setBounds(getX(), getY(), 239 / Level1.PPM, 239 / Level1.PPM);
-            }else{
+            }if(!frames.isFlipX()){
                 setPosition(b2body.getPosition().x - getWidth() / 2f, b2body.getPosition().y - getHeight() / 2f); //6.2f
                 setBounds(getX(), getY(), 239 / Level1.PPM, 239 / Level1.PPM);
-                //setBounds(getX(), getY(), 240 / Level1.PPM, 175 / Level1.PPM); Posible solucion pero aplasta a Hank y lo hace ver mal
+                //setBounds(getX(), getY(), 240 / Level1.PPM, 175 / Level1.PPM); //Posible solucion pero aplasta a Hank y lo hace ver mal
             }
         }else if(currentState == State.DAMAGED)
             b2body.applyLinearImpulse(new Vector2(-0.1f,0),b2body.getWorldCenter(),true);
@@ -178,8 +182,6 @@ public class Character extends Sprite {
                 if(!fix.equals(b2body.getFixtureList().get(0)))
                     b2body.destroyFixture(fix);
             }
-            currentState = currentState == State.RUNNING ? State.RUNNING : State.STANDING;
-            prevState = currentState;
         }
     }
 
@@ -294,7 +296,7 @@ public class Character extends Sprite {
 
     private void defineCharacter() {
         BodyDef bdef = new BodyDef();//650
-        bdef.position.set(18650 / Level1.PPM ,240 / Level1.PPM); //18650
+        bdef.position.set(650 / Level1.PPM ,240 / Level1.PPM); //18650
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
