@@ -56,11 +56,11 @@ public class Hud {
 
     }
 
-    private void createButtons() {
+    public void createButtons() {
 
         GenericButton btnJoystickUp = new GenericButton((Level1.V_WIDTH / Level1.PPM) + 50 , (Level1.V_WIDTH / Level1.PPM ) + 50,"Joystick_up.png","vacia.png");
         btnJoystickUp.button().addListener(new ClickListener() {
-             @Override
+            @Override
              public void clicked(InputEvent event, float x, float y) {
                  super.clicked(event, x, y);
                  if(screen.getPlayer().b2body.getPosition().y < (Level1.V_HEIGHT + 500) / Level1.PPM
@@ -73,13 +73,18 @@ public class Hud {
 
         GenericButton btnJoystickRight = new GenericButton((Level1.V_WIDTH / Level1.PPM) + (10000 / Level1.PPM), (Level1.V_WIDTH / Level1.PPM ),"Joystick_Right.png","vacia.png");
         btnJoystickRight.button().addListener(new ClickListener() {
-               @Override
-               public void clicked(InputEvent event, float x, float y) {
-                   super.clicked(event, x, y);
-                   if(screen.getPlayer().b2body.getLinearVelocity().x <= 2 && screen.getPlayer().currentState != Character.State.DAMAGED) {
-                       screen.getPlayer().b2body.applyLinearImpulse(new Vector2(0.5f, 0), screen.getPlayer().b2body.getWorldCenter(), true);
-                   }
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return super.touchDown(event, x, y, pointer, button);
+            }
+
+            @Override
+           public void clicked(InputEvent event, float x, float y) {
+               super.clicked(event, x, y);
+               if(screen.getPlayer().b2body.getLinearVelocity().x <= 2 && screen.getPlayer().currentState != Character.State.DAMAGED) {
+                   screen.getPlayer().b2body.applyLinearImpulse(new Vector2(0.5f, 0), screen.getPlayer().b2body.getWorldCenter(), true);
                }
+           }
            }
         );
 

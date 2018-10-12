@@ -62,7 +62,7 @@ public class PlayScreen implements Screen {
     private LinkedBlockingDeque<ItemDef> itemsToSpawn;
 
     private int timerBoss;
-    long startTime;
+    private long startTime;
     private boolean first;
 
     public PlayScreen(Level1 game){
