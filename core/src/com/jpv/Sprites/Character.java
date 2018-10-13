@@ -312,7 +312,7 @@ public class Character extends Sprite {
 
     private void defineCharacter() {
         BodyDef bdef = new BodyDef();//650
-        bdef.position.set(650 / Level1.PPM ,240 / Level1.PPM); //18650
+        bdef.position.set(18650 / Level1.PPM ,240 / Level1.PPM); //18650
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
@@ -326,7 +326,8 @@ public class Character extends Sprite {
                 | Level1.ENEMY_BIT
                 | Level1.ENEMY_COLLIDER_BIT
                 | Level1.ITEM_BIT
-                | Level1.CHARACTER_ARMA_BIT;
+                | Level1.CHARACTER_ARMA_BIT
+                | Level1.BOSS_BIT;
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);

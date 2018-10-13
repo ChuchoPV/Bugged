@@ -121,7 +121,6 @@ public class PlayScreen implements Screen {
         //handle the input to move around our world
         handleInput(dt);
         handleSpawingItems();
-        hud.createButtons();
 
         world.step(1/60f,6,2);
         player.update(dt);
@@ -142,7 +141,7 @@ public class PlayScreen implements Screen {
         if(gamecam.position.x>190) {
             gamecam.position.x = 190.1f;
             if(gamecam.position.y > 3.6f) {
-                gamecam.position.y -= 0.1f;
+                gamecam.position.y -= 0.05f;
             }
             for (MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
                 if(object.getProperties().containsKey("Boss"))
@@ -165,27 +164,36 @@ public class PlayScreen implements Screen {
     }
 
     private void manageBoss(float dt) {
+        if(timerBoss == 0){
+            startTime = 0;
+            if (TimeUtils.timeSinceNanos(startTime) > 2000000000) {
+                timerBoss++;
+                startTime = TimeUtils.nanoTime();
+            }
+        }
         if (TimeUtils.timeSinceNanos(startTime) > 2000000000 && timerBoss != 0) {
             // if time passed since the time you set startTime at is more than 1 second
 
             //your code here
             //Gdx.app.log("Tiempo",""+timerBoss);
             //Gdx.app.log("StartTimer",""+startTime);
-            if(first) {
+            Gdx.app.log("Tiempo", "" + timerBoss);
+            if (first && creator.getTheRedBug().b2body.getLinearVelocity().y == 0) {
                 creator.getTheRedBug().b2body.applyLinearImpulse(new Vector2(-5f, 9f), creator.getTheRedBug().b2body.getWorldCenter(), true);
                 first = false;
-                timerBoss +=1;
-            }else {
+                timerBoss += 1;
+            } else if(creator.getTheRedBug().b2body.getLinearVelocity().y == 0){
                 creator.getTheRedBug().b2body.applyLinearImpulse(new Vector2(5f, 9f), creator.getTheRedBug().b2body.getWorldCenter(), true);
                 first = true;
-                timerBoss +=1;
+                timerBoss += 1;
             }
 
             //also you can set the new startTime
             //so this block will execute every one second
             startTime = TimeUtils.nanoTime();
-        }if(timerBoss == 6){
-            Gdx.app.log("Tiempo",""+timerBoss);
+        }
+        if (timerBoss == 4) {
+            Gdx.app.log("Tiempo", "" + timerBoss);
             startTime = 0;
             timerBoss = 0;
         }

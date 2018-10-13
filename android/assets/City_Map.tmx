@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="256" height="18" tilewidth="80" tileheight="80" infinite="0" nextobjectid="1130">
+<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="256" height="18" tilewidth="80" tileheight="80" infinite="0" nextobjectid="1133">
  <tileset firstgid="1" name="City_Tileset" tilewidth="80" tileheight="80" tilecount="180" columns="20">
   <image source="City_Tileset.png" width="1600" height="720"/>
  </tileset>
@@ -673,18 +673,19 @@
   <object id="1085" x="18313.1" y="1239.01" width="5.94977" height="15.8542"/>
   <object id="1086" x="18264.1" y="1255.08" width="48.8451" height="8.87122"/>
   <object id="1087" x="18256.1" y="1263.84" width="7.90928" height="7.01859"/>
-  <object id="1124" x="18320.3" y="889.388" width="58.7675" height="395.807">
+  <object id="1124" x="18287.8" y="450.934" width="58.7675" height="832.637">
    <properties>
     <property name="Boss" value=""/>
    </properties>
   </object>
-  <object id="1125" x="19630.4" y="881.633" width="81.3517" height="402.065">
+  <object id="1125" x="19662.9" y="433.436" width="81.3517" height="850.262">
    <properties>
     <property name="Boss" value=""/>
    </properties>
   </object>
   <object id="1128" x="20407.1" y="564.13" width="74.5077" height="710.484"/>
   <object id="1129" x="5.32198" y="803.619" width="63.8638" height="481.639"/>
+  <object id="1131" x="18286.8" y="384.865" width="1456.64" height="61.7083"/>
  </objectgroup>
  <objectgroup name="Enemigos">
   <object id="68" x="2241" y="963" width="164" height="160">
@@ -707,6 +708,6 @@
   </object>
  </objectgroup>
  <objectgroup name="Jefe">
-  <object id="78" x="19486" y="708.731" width="560" height="560"/>
+  <object id="78" x="19502.2" y="583.691" width="560" height="560"/>
  </objectgroup>
 </map>

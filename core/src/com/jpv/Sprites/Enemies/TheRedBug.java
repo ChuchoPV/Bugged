@@ -79,7 +79,8 @@ public class TheRedBug extends Enemy{
         fdef.filter.categoryBits = Level1.BOSS_BIT;
         fdef.filter.maskBits = Level1.GROUND_BIT
                 | Level1.CHARACTER_BIT
-                | Level1.CHARACTER_ARMA_BIT;
+                | Level1.CHARACTER_ARMA_BIT
+                | Level1.OBSTACULE_BIT;
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
