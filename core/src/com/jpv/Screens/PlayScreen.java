@@ -121,6 +121,7 @@ public class PlayScreen implements Screen {
         //handle the input to move around our world
         handleInput(dt);
         handleSpawingItems();
+        hud.createButtons();
 
         world.step(1/60f,6,2);
         player.update(dt);
@@ -191,13 +192,15 @@ public class PlayScreen implements Screen {
     }
 
     private void handleInput(float dt) {
+
         if(player.currentState != Character.State.DEAD) {
-            if (Gdx.input.isKeyJustPressed(Input.Keys.DPAD_UP)){// &&
-                    //player.b2body.getPosition().y < (Level1.V_HEIGHT + 500) / Level1.PPM
-                    //&& (player.currentState==Character.State.RUNNING || player.currentState==Character.State.STANDING)) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.DPAD_UP)
+                    && player.b2body.getPosition().y < (Level1.V_HEIGHT + 500) / Level1.PPM
+                    && (player.currentState==Character.State.RUNNING || player.currentState==Character.State.STANDING)) {
                 player.b2body.applyLinearImpulse(new Vector2(0, 8f), player.b2body.getWorldCenter(), true);
             }
-            if (Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT) && player.b2body.getLinearVelocity().x <= 2 && player.currentState != Character.State.DAMAGED) {
+            if ((Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT) || hud.btnRig)
+                    && player.b2body.getLinearVelocity().x <= 2 && player.currentState != Character.State.DAMAGED) {
                 player.b2body.applyLinearImpulse(new Vector2(0.5f, 0), player.b2body.getWorldCenter(), true);
             }
 

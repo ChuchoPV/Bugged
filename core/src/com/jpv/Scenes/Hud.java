@@ -23,11 +23,16 @@ public class Hud {
     public static Stage stage;
     private static int y;
     private PlayScreen screen;
+    private boolean first;
+    public boolean btnRig;
+    public boolean btnLef;
+    public boolean btnAt;
 
     private static Sprite heart;
 
     public Hud(PlayScreen screen){
         this.screen = screen;
+        first = true;
         Viewport viewport = new FitViewport(Level1.V_WIDTH, Level1.V_HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport,screen.getGame().batch);
         Gdx.input.setInputProcessor(stage);
@@ -75,17 +80,16 @@ public class Hud {
         btnJoystickRight.button().addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                btnRig = true;
                 return super.touchDown(event, x, y, pointer, button);
             }
 
             @Override
-           public void clicked(InputEvent event, float x, float y) {
-               super.clicked(event, x, y);
-               if(screen.getPlayer().b2body.getLinearVelocity().x <= 2 && screen.getPlayer().currentState != Character.State.DAMAGED) {
-                   screen.getPlayer().b2body.applyLinearImpulse(new Vector2(0.5f, 0), screen.getPlayer().b2body.getWorldCenter(), true);
-               }
-           }
-           }
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                super.touchUp(event, x, y, pointer, button);
+                btnRig = false;
+            }
+        }
         );
 
         GenericButton btnJoystickLeft = new GenericButton((Level1.V_WIDTH / Level1.PPM), (Level1.V_WIDTH / Level1.PPM ),"Joystick_left.png","vacia.png");
