@@ -270,37 +270,28 @@ public class Character extends Sprite {
             attacking = true;
             return State.ATTACKING;
         }
-        /*else if(b2body.getLinearVelocity().y > 0 && currentState == State.ATTACKING && !isDead())
-            return State.ATTACKING;*/
         else if (b2body.getLinearVelocity().y > 0 && currentState != State.DAMAGED && !isDead()) {
             if (!attacking)
                 return State.JUMPING;
             else
                 return State.ATTACKING;
         }
-        //Este boolean hay que hablarlo con Chucho porque esta algo raro.
-        /*else if (b2body.getLinearVelocity().y < 0 || (b2body.getLinearVelocity().y < 0 && currentState == State.JUMPING)
-                && !isDead() && !attacking)*/
         else if (b2body.getLinearVelocity().y < 0 && !isDead()){
             if(!attacking)
                 return State.FALLING;
             else
                 return State.ATTACKING;
         }
-        /*else if((currentState==State.FALLING || currentState==State.JUMPING) && Gdx.input.isKeyPressed(Input.Keys.Z)){
-            attacking = true;
-            return State.ATTACKING;
-        }*/
         else if (b2body.getLinearVelocity().x != 0 && currentState != State.DAMAGED && !isDead()){
-            attacking=false;
-            return State.RUNNING;}
+            if(attacking)
+                return State.ATTACKING;
+            else
+                return State.RUNNING;
+        }
         //aqui empieza la modificacion para el swing completo
-        /*else if (Gdx.input.isKeyPressed(Input.Keys.Z) && !isDead()) {
-            attacking = true;
+        else if (attacking)
             return State.ATTACKING;
-        } */else if (attacking)
-            return State.ATTACKING;
-            //aqui termina la modificacion para el swing
+        //aqui termina la modificacion para el swing
         else if (damaged && !isDead()){ //timerVidas <= 0
             //timerVidas = 1.3f;
             return State.DAMAGED;
