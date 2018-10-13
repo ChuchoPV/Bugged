@@ -291,7 +291,8 @@ public class Character extends Sprite {
     }
 
     public void hit(){
-        if(lifes == 0) {
+        if(lifes == 1) {
+            Hud.updateLifes(true);
             isDead = true;
 
         }else{
