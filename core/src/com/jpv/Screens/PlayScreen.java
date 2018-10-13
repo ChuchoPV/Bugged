@@ -199,7 +199,7 @@ public class PlayScreen implements Screen {
                     && (player.currentState==Character.State.RUNNING || player.currentState==Character.State.STANDING)) {
                 player.b2body.applyLinearImpulse(new Vector2(0, 8f), player.b2body.getWorldCenter(), true);
             }
-            if ((Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT) || hud.btnRig)
+            if ((Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT) || Hud.btnRig)
                     && player.b2body.getLinearVelocity().x <= 2 && player.currentState != Character.State.DAMAGED) {
                 player.b2body.applyLinearImpulse(new Vector2(0.5f, 0), player.b2body.getWorldCenter(), true);
             }

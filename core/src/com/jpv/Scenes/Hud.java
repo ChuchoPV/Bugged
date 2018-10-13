@@ -23,8 +23,7 @@ public class Hud {
     public static Stage stage;
     private static int y;
     private PlayScreen screen;
-    private boolean first;
-    public boolean btnRig;
+    public static boolean btnRig;
     public boolean btnLef;
     public boolean btnAt;
 
@@ -32,7 +31,6 @@ public class Hud {
 
     public Hud(PlayScreen screen){
         this.screen = screen;
-        first = true;
         Viewport viewport = new FitViewport(Level1.V_WIDTH, Level1.V_HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport,screen.getGame().batch);
         Gdx.input.setInputProcessor(stage);
