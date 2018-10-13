@@ -17,4 +17,16 @@ public class Obstacules extends InteractiveTiledObject {
     public void onHeadHit() {
         Gdx.app.log("Obstacules", "Collision");
     }
+
+    @Override
+    public void update() {
+        if(setToDesrtoy){
+            world.destroyBody(body);
+        }
+    }
+
+    @Override
+    public void destroy() {
+        setToDesrtoy = true;
+    }
 }

@@ -21,11 +21,12 @@ public abstract class InteractiveTiledObject {
     protected World world;
     protected TiledMap map;
     protected Rectangle bounds;
-    protected Body body;
+    public Body body;
     protected PlayScreen screen;
     public MapObject object;
 
     protected Fixture fixture;
+    protected boolean setToDesrtoy;
 
     public InteractiveTiledObject(PlayScreen screen, MapObject object){
         this.object = object;
@@ -33,6 +34,7 @@ public abstract class InteractiveTiledObject {
         this.world = screen.getWorld();
         this.map = screen.getMap();
         this.bounds = ((RectangleMapObject) object).getRectangle();
+        setToDesrtoy = false;
 
         BodyDef bdef = new BodyDef();  //Before creating a body we need to say it in what it consist of
         PolygonShape shape = new PolygonShape();
@@ -50,9 +52,13 @@ public abstract class InteractiveTiledObject {
     }
 
     public abstract void onHeadHit();
+    public abstract void update();
+    public abstract void destroy();
+
     public void setCategotyFilter(short filterBit){
         Filter filter = new Filter();
         filter.categoryBits = filterBit;
         fixture.setFilterData(filter);
     }
+
 }

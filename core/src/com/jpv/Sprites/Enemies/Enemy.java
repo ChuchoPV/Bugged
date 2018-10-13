@@ -15,6 +15,8 @@ public abstract class Enemy extends Sprite {
     public Vector2 velocity;
     public PlayScreen screen;
     protected MapObject object;
+    public int damaged;
+
 
     public Enemy(PlayScreen screen, float x, float y, MapObject object){
         this.object = object;
@@ -31,6 +33,10 @@ public abstract class Enemy extends Sprite {
     protected abstract void defineEnemy();
     public abstract void update(float dt);
     public abstract void onHeadHit();
+
+    public void destroy() {
+        damaged = 3;
+    }
 
     public void reverseVelocity(boolean x, boolean y){
         if(x)

@@ -48,6 +48,21 @@ public class WorldContactListener implements ContactListener {
                 else
                     ((Character) fixB.getUserData()).hit();
                 break;
+            case Level1.CHARACTER_BIT | Level1.BOSS_PIES_BIT:
+                if(fixA.getFilterData().categoryBits == Level1.CHARACTER_BIT) {
+                    ((Character) fixA.getUserData()).kill();
+                }
+                else {
+                    ((Character) fixB.getUserData()).kill();
+                }
+                break;
+            case Level1.CHARACTER_BIT | Level1.BOSS_COLLIDER_BIT:
+                if(fixA.getFilterData().categoryBits == Level1.CHARACTER_BIT) {
+                    Gdx.app.log("Character","damage");
+                }else {
+                    Gdx.app.log("Character","damage");
+                    break;
+                }
         }
     }
 

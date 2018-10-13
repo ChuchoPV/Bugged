@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
@@ -84,6 +85,21 @@ public class TheRedBug extends Enemy{
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
+
+        EdgeShape pies = new EdgeShape();
+        pies.set(new Vector2(160 / Level1.PPM, -160 / Level1.PPM), new Vector2(-160 / Level1.PPM, -160 / Level1.PPM));
+        fdef.shape = pies;
+        fdef.filter.categoryBits = Level1.BOSS_PIES_BIT;
+        fdef.isSensor = true;
+        b2body.createFixture(fdef).setUserData(this);
+
+        EdgeShape collider = new EdgeShape();
+        collider.set(new Vector2(-250 / Level1.PPM, -160 / Level1.PPM), new Vector2(-250 / Level1.PPM, 160 / Level1.PPM));
+        fdef.shape = collider;
+        fdef.filter.categoryBits = Level1.BOSS_COLLIDER_BIT;
+        fdef.isSensor = true;
+        b2body.createFixture(fdef).setUserData(this);
+
     }
 
     public void draw(Batch batch){
@@ -101,7 +117,9 @@ public class TheRedBug extends Enemy{
         TextureRegion region;
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
 
-        if(b2body.getLinearVelocity().y > 0 ) {
+        if(setToDestroy){
+            world.destroyBody(b2body);
+        }else if(b2body.getLinearVelocity().y > 0 ) {
             region = jump;
             if (screen.getPlayer().b2body.getPosition().x > b2body.getPosition().x) {
                 if (region.isFlipX())

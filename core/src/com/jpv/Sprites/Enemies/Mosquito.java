@@ -23,7 +23,6 @@ public class Mosquito extends Enemy {
     private boolean destroyed;
     private boolean damagedB;
     private boolean first;
-    private int damaged;
     private int move;
 
     private float stateTimer;
@@ -158,4 +157,5 @@ public class Mosquito extends Enemy {
 
         }
     }
+
 }

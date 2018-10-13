@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.EdgeShape;
+import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
@@ -195,13 +196,24 @@ public class Character extends Sprite {
             }
         }else if(currentState == State.DAMAGED)
             b2body.applyLinearImpulse(new Vector2(-0.1f,0),b2body.getWorldCenter(),true);
-        else if(currentState == State.DEAD)
-            if(first) {
+        else if(currentState == State.DEAD) {
+            if (first) {
                 for (Enemy enemy : screen.getCreator().getMosquitos())
                     world.destroyBody(enemy.b2body);
+
+                /*Filter filter = new Filter();
+                filter.maskBits = Level1.NOTHING_BIT;
+                for (Fixture fixture : screen.getCreator().getTheRedBug().b2body.getFixtureList()) {
+                    fixture.setFilterData(filter);
+                }
+                for (Fixture fix : screen.getCreator().getTheRedBug().b2body.getFixtureList()) {
+                    if(!fix.equals(b2body.getFixtureList().get(0))) {
+                        screen.getCreator().getTheRedBug().b2body.destroyFixture(fix);
+                    }
+                }*/
                 first = false;
             }
-        if(currentState == State.STANDING || currentState == State.JUMPING || currentState == State.RUNNING){
+        }if(currentState == State.STANDING || currentState == State.JUMPING || currentState == State.RUNNING){
             for(Fixture fix : b2body.getFixtureList()){
                 if(!fix.equals(b2body.getFixtureList().get(0)))
                     b2body.destroyFixture(fix);
@@ -302,6 +314,8 @@ public class Character extends Sprite {
         }
     }
 
+    public void kill(){ lifes = 1;}
+
     private boolean isDead(){
         return isDead;
     }
@@ -326,8 +340,8 @@ public class Character extends Sprite {
                 | Level1.ENEMY_BIT
                 | Level1.ENEMY_COLLIDER_BIT
                 | Level1.ITEM_BIT
-                | Level1.CHARACTER_ARMA_BIT
-                | Level1.BOSS_BIT;
+                | Level1.BOSS_COLLIDER_BIT
+                | Level1.BOSS_PIES_BIT;
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);

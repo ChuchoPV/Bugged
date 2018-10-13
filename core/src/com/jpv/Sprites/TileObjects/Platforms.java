@@ -17,5 +17,17 @@ public class Platforms extends InteractiveTiledObject {
     public void onHeadHit() {
         Gdx.app.log("Platforms", "Collision");
     }
+
+    @Override
+    public void update() {
+        if(setToDesrtoy){
+            world.destroyBody(body);
+        }
+    }
+
+    @Override
+    public void destroy() {
+        setToDesrtoy = true;
+    }
 }
 

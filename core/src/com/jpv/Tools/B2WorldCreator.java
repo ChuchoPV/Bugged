@@ -23,6 +23,8 @@ import com.jpv.Sprites.TileObjects.Platforms;
 public class B2WorldCreator {
     private Array<Mosquito> mosquitos;
     private TheRedBug theRedBug;
+    private Array<Obstacules> obstacules;
+    private Array<Platforms> platforms;
 
     public B2WorldCreator(PlayScreen screen){
         World world = screen.getWorld();
@@ -48,15 +50,17 @@ public class B2WorldCreator {
 
         }
 
+        obstacules = new Array<Obstacules>();
         // Create obstacules bodies / textures
         for (MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
             if(!object.getProperties().containsKey("Boss"))
-                new Obstacules(screen,object);
+                obstacules.add(new Obstacules(screen,object));
         }
 
+        platforms = new Array<Platforms>();
         // Create platforms bodies / textures
         for (MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {
-            new Platforms(screen,object);
+            platforms.add(new Platforms(screen,object));
         }
 
         //Create mosquitos
@@ -82,4 +86,10 @@ public class B2WorldCreator {
 
     public Array<Mosquito> getMosquitos() { return mosquitos; }
     public TheRedBug getTheRedBug() { return theRedBug; }
+    public Array<Obstacules> getObstacules() {
+        return obstacules;
+    }
+    public Array<Platforms> getPlatforms() {
+        return platforms;
+    }
 }
