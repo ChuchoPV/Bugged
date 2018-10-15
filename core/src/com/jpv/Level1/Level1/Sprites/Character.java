@@ -20,7 +20,6 @@ import com.jpv.Level1.Level1.Sprites.Enemies.Enemy;
 
 
 public class Character extends Sprite {
-
     public enum State {FALLING, JUMPING, STANDING, RUNNING, ATTACKING, DAMAGED, DEAD, WIN};
     public State currentState;
     private State prevState;
@@ -45,6 +44,7 @@ public class Character extends Sprite {
     public boolean damaged;
     private boolean isDead;
     private boolean first;
+    private boolean firstDam;
     public boolean win;
 
     public Character(PlayScreen screen){
@@ -59,6 +59,7 @@ public class Character extends Sprite {
         stateTimer = 0;
         timerVidas = 0;
         first = true;
+        firstDam = true;
         boss=false;
 
         Array<TextureRegion> frames = new Array<TextureRegion>();
@@ -71,8 +72,11 @@ public class Character extends Sprite {
         frames.clear();
 
         //get damage Animation frames and add them to marioRun Animation
+        TextureRegion temp;
         for(int i= 0; i<4; i++){
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("Hank_Damage"), i * 175,0,175,175));
+            temp = new TextureRegion(screen.getAtlas().findRegion("Hank_Damage"), i * 175,0,175,175);
+            temp.flip(true,false);
+            frames.add(temp);
         }
         damage = new Animation<TextureRegion>(0.2f,frames);
         frames.clear();
@@ -110,6 +114,11 @@ public class Character extends Sprite {
     public void update(float dt){
         timerVidas -= dt;
         stateTimer += dt;
+        if(currentState != State.DAMAGED){
+            firstDam = true;
+        }
+        Gdx.app.log("Velocity",""+b2body.getLinearVelocity().x);
+
 
         setPosition(b2body.getPosition().x - getWidth() / 2.3f, b2body.getPosition().y  - getHeight() / 2f); //6.2f
         setBounds(getX(),getY(),175 / Level1.PPM, 175 / Level1.PPM);
@@ -192,7 +201,15 @@ public class Character extends Sprite {
                 //setBounds(getX(), getY(), 240 / Level1.PPM, 175 / Level1.PPM); //Posible solucion pero aplasta a Hank y lo hace ver mal
             }
         }else if(currentState == State.DAMAGED) {
-                b2body.applyLinearImpulse(new Vector2(-0.1f, 0), b2body.getWorldCenter(), true);
+            if(!isDead()) {
+                if(isFlipX() && firstDam) {
+                    b2body.applyLinearImpulse(new Vector2(3f, 0), b2body.getWorldCenter(), true);
+                    firstDam = false;
+                }else if(!isFlipX() && firstDam){
+                    b2body.applyLinearImpulse(new Vector2(-3f, 0), b2body.getWorldCenter(), true);
+                    firstDam = false;
+                }
+            }
         }
         else if(currentState == State.DEAD) {
             if (first) {
@@ -234,8 +251,10 @@ public class Character extends Sprite {
                 break;
             case DAMAGED:
                 region = (TextureRegion) damage.getKeyFrame(stateTimer);
-                if (damage.isAnimationFinished(stateTimer))
+                if (damage.isAnimationFinished(stateTimer)) {
                     damaged = false;
+                    firstDam = true;
+                }
                 break;
             case JUMPING:
                 region = jumpAnimation;
@@ -266,6 +285,10 @@ public class Character extends Sprite {
     private State getState() {
         if(currentState != State.DAMAGED && isDead())
             return State.DEAD;
+        else if (damaged && !isDead()){ //timerVidas <= 0
+            //timerVidas = 1.3f;
+            return State.DAMAGED;
+        }
         else if (Gdx.input.isKeyPressed(Input.Keys.Z) && !isDead()){
             attacking = true;
             return State.ATTACKING;
@@ -285,6 +308,9 @@ public class Character extends Sprite {
         else if (b2body.getLinearVelocity().x != 0 && currentState != State.DAMAGED && !isDead()){
             if(attacking)
                 return State.ATTACKING;
+            else if(damaged){
+                return State.DAMAGED;
+            }
             else
                 return State.RUNNING;
         }
@@ -292,10 +318,7 @@ public class Character extends Sprite {
         else if (attacking)
             return State.ATTACKING;
         //aqui termina la modificacion para el swing
-        else if (damaged && !isDead()){ //timerVidas <= 0
-            //timerVidas = 1.3f;
-            return State.DAMAGED;
-        }
+
         else
             return State.STANDING;
     }

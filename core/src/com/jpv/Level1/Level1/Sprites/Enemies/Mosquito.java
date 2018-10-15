@@ -127,7 +127,7 @@ public class Mosquito extends Enemy {
         collider.set(vertice);
 
         fdef.shape = collider;
-        fdef.restitution = 2f;
+        fdef.restitution = 1f;
         fdef.filter.categoryBits = Level1.ENEMY_COLLIDER_BIT;
         b2body.createFixture(fdef).setUserData(this);
 
