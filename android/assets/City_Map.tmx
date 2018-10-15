@@ -685,7 +685,11 @@
   </object>
   <object id="1128" x="20407.1" y="564.13" width="74.5077" height="710.484"/>
   <object id="1129" x="5.32198" y="803.619" width="63.8638" height="481.639"/>
-  <object id="1131" x="18286.8" y="384.865" width="1456.64" height="61.7083"/>
+  <object id="1131" x="18286.8" y="384.865" width="1456.64" height="61.7083">
+   <properties>
+    <property name="Boss" value=""/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="Enemigos">
   <object id="68" x="2241" y="963" width="164" height="160">

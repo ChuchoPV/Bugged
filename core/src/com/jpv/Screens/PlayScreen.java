@@ -142,7 +142,7 @@ public class PlayScreen implements Screen {
                 creator.getTheRedBug().b2body.applyLinearImpulse(new Vector2(-5f, 9f), creator.getTheRedBug().b2body.getWorldCenter(), true);
                 first = false;
                 timerBoss += 1;
-            } else if(Gdx.input.isKeyPressed(Input.Keys.W) && creator.getTheRedBug().b2body.getLinearVelocity().y == 0){
+            } else if(Gdx.input.isKeyPressed(Input.Keys.S) && creator.getTheRedBug().b2body.getLinearVelocity().y == 0){
                 creator.getTheRedBug().b2body.applyLinearImpulse(new Vector2(5f, 9f), creator.getTheRedBug().b2body.getWorldCenter(), true);
                 first = true;
                 timerBoss += 1;
