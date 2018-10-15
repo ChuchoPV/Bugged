@@ -1,10 +1,9 @@
-package com.jpv.Sprites.TileObjects;
+package com.jpv.Level1.Sprites.TileObjects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.math.Rectangle;
-import com.jpv.Level1;
-import com.jpv.Screens.PlayScreen;
+import com.jpv.Level1.Level1;
+import com.jpv.Level1.Screens.PlayScreen;
 
 public class Platforms extends InteractiveTiledObject {
     public Platforms(PlayScreen screen, MapObject object) {

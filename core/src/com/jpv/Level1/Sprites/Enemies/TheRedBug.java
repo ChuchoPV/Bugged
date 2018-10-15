@@ -1,7 +1,5 @@
-package com.jpv.Sprites.Enemies;
+package com.jpv.Level1.Sprites.Enemies;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -13,10 +11,11 @@ import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
-import com.jpv.Level1;
-import com.jpv.Screens.PlayScreen;
+import com.jpv.Level1.Level1;
+import com.jpv.Level1.Screens.PlayScreen;
 
-public class TheRedBug extends Enemy{
+
+public class TheRedBug extends Enemy {
     private boolean setToDestroy;
     private boolean destroyed;
     private boolean damagedB;

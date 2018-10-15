@@ -1,4 +1,4 @@
-package com.jpv.Scenes;
+package com.jpv.Level1.Scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -14,10 +14,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.jpv.Level1;
-import com.jpv.Screens.PlayScreen;
-import com.jpv.Sprites.Character;
-import com.jpv.Tools.GenericButton;
+import com.jpv.Level1.Level1;
+import com.jpv.Level1.Screens.PlayScreen;
+import com.jpv.Level1.Tools.GenericButton;
+import com.jpv.Level1.Sprites.Character;
 
 public class Hud {
     public static Stage stage;

@@ -1,26 +1,23 @@
-package com.jpv.Sprites;
+package com.jpv.Level1.Sprites;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.EdgeShape;
-import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.jpv.Level1;
-import com.jpv.Scenes.Hud;
-import com.jpv.Screens.PlayScreen;
-import com.jpv.Sprites.Enemies.Enemy;
-import com.jpv.Sprites.Enemies.Mosquito;
+import com.jpv.Level1.Level1;
+import com.jpv.Level1.Scenes.Hud;
+import com.jpv.Level1.Screens.PlayScreen;
+import com.jpv.Level1.Sprites.Enemies.Enemy;
+
 
 public class Character extends Sprite {
 

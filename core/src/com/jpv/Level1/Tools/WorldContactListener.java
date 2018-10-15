@@ -1,4 +1,4 @@
-package com.jpv.Tools;
+package com.jpv.Level1.Tools;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Contact;
@@ -6,11 +6,12 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
-import com.jpv.Level1;
-import com.jpv.Sprites.Character;
-import com.jpv.Sprites.Enemies.Enemy;
-import com.jpv.Sprites.Items.Item;
-import com.jpv.Sprites.TileObjects.InteractiveTiledObject;
+import com.jpv.Level1.Level1;
+import com.jpv.Level1.Sprites.Enemies.Enemy;
+import com.jpv.Level1.Sprites.Items.Item;
+import com.jpv.Level1.Sprites.TileObjects.InteractiveTiledObject;
+import com.jpv.Level1.Sprites.Character;
+
 
 public class WorldContactListener implements ContactListener {
     @Override

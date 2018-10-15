@@ -1,4 +1,4 @@
-package com.jpv.Tools;
+package com.jpv.Level1.Tools;
 
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
@@ -12,12 +12,12 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.jpv.Level1;
-import com.jpv.Screens.PlayScreen;
-import com.jpv.Sprites.Enemies.Mosquito;
-import com.jpv.Sprites.Enemies.TheRedBug;
-import com.jpv.Sprites.TileObjects.Obstacules;
-import com.jpv.Sprites.TileObjects.Platforms;
+import com.jpv.Level1.Level1;
+import com.jpv.Level1.Screens.PlayScreen;
+import com.jpv.Level1.Sprites.Enemies.Mosquito;
+import com.jpv.Level1.Sprites.Enemies.TheRedBug;
+import com.jpv.Level1.Sprites.TileObjects.Obstacules;
+import com.jpv.Level1.Sprites.TileObjects.Platforms;
 
 
 public class B2WorldCreator {

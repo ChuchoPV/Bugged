@@ -1,11 +1,10 @@
-package com.jpv.Screens;
+package com.jpv.Level1.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -17,24 +16,20 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.jpv.Level1;
-import com.jpv.Scenes.Hud;
-import com.jpv.Sprites.Character;
-import com.jpv.Sprites.Enemies.Enemy;
-import com.jpv.Sprites.Enemies.TheRedBug;
-import com.jpv.Sprites.Items.Heart;
-import com.jpv.Sprites.Items.Item;
-import com.jpv.Sprites.Items.ItemDef;
-import com.jpv.Sprites.TileObjects.InteractiveTiledObject;
-import com.jpv.Sprites.TileObjects.Obstacules;
-import com.jpv.Sprites.TileObjects.Platforms;
-import com.jpv.Tools.B2WorldCreator;
-import com.jpv.Tools.WorldContactListener;
+import com.jpv.Level1.Level1;
+import com.jpv.Level1.Scenes.Hud;
+import com.jpv.Level1.Sprites.Enemies.Enemy;
+import com.jpv.Level1.Sprites.Items.Heart;
+import com.jpv.Level1.Sprites.Items.Item;
+import com.jpv.Level1.Sprites.Items.ItemDef;
+import com.jpv.Level1.Sprites.TileObjects.Obstacules;
+import com.jpv.Level1.Tools.B2WorldCreator;
+import com.jpv.Level1.Tools.WorldContactListener;
+import com.jpv.Level1.Sprites.Character;
 
-import java.security.Key;
+
 import java.util.concurrent.LinkedBlockingDeque;
 
 public class PlayScreen implements Screen {
@@ -98,6 +93,7 @@ public class PlayScreen implements Screen {
         itemsToSpawn = new LinkedBlockingDeque<ItemDef>();
 
     }
+    
 
     public void spawnItem(ItemDef idef) {
         itemsToSpawn.add(idef);

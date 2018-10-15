@@ -1,17 +1,14 @@
-package com.jpv.Sprites.Items;
+package com.jpv.Level1.Sprites.Items;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.jpv.Level1;
-import com.jpv.Scenes.Hud;
-import com.jpv.Screens.PlayScreen;
-import com.jpv.Sprites.Character;
+import com.jpv.Level1.Level1;
+import com.jpv.Level1.Scenes.Hud;
+import com.jpv.Level1.Screens.PlayScreen;
 
-import java.awt.Rectangle;
 
 
 public class Heart extends Item {
