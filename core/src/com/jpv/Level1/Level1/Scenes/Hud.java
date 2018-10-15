@@ -76,6 +76,7 @@ public class Hud {
 
         GenericButton btnJoystickRight = new GenericButton((Level1.V_WIDTH / Level1.PPM) + (10000 / Level1.PPM), (Level1.V_WIDTH / Level1.PPM ),"Joystick_Right.png","vacia.png");
         btnJoystickRight.button().addListener(new ClickListener() {
+
            @Override
            public void clicked(InputEvent event, float x, float y) {
                super.clicked(event, x, y);
