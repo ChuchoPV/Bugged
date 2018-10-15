@@ -137,7 +137,7 @@ public class Mosquito extends Enemy {
     }
 
     public void draw(Batch batch){
-        if(!destroyed || stateTimer < 1){
+        if(!destroyed){
             super.draw(batch);
         }
     }
