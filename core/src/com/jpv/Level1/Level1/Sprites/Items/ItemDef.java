@@ -1,4 +1,4 @@
-package com.jpv.Level1.Sprites.Items;
+package com.jpv.Level1.Level1.Sprites.Items;
 
 import com.badlogic.gdx.math.Vector2;
 

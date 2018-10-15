@@ -1,8 +1,9 @@
-package com.jpv.Level1;
+package com.jpv.Level1.Level1;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.jpv.Level1.Screens.PlayScreen;
+import com.jpv.Level1.Level1.Screens.PlayScreen;
+
 
 public class Level1 extends Game{
     public static final float V_WIDTH = 1280;

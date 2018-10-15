@@ -1,4 +1,4 @@
-package com.jpv.Level1.Screens;
+package com.jpv.Level1.Level1.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -18,17 +18,16 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.jpv.Level1.Level1;
-import com.jpv.Level1.Scenes.Hud;
-import com.jpv.Level1.Sprites.Enemies.Enemy;
-import com.jpv.Level1.Sprites.Items.Heart;
-import com.jpv.Level1.Sprites.Items.Item;
-import com.jpv.Level1.Sprites.Items.ItemDef;
-import com.jpv.Level1.Sprites.TileObjects.Obstacules;
-import com.jpv.Level1.Tools.B2WorldCreator;
-import com.jpv.Level1.Tools.WorldContactListener;
-import com.jpv.Level1.Sprites.Character;
-
+import com.jpv.Level1.Level1.Level1;
+import com.jpv.Level1.Level1.Scenes.Hud;
+import com.jpv.Level1.Level1.Sprites.Character;
+import com.jpv.Level1.Level1.Sprites.Enemies.Enemy;
+import com.jpv.Level1.Level1.Sprites.Items.Heart;
+import com.jpv.Level1.Level1.Sprites.Items.Item;
+import com.jpv.Level1.Level1.Sprites.Items.ItemDef;
+import com.jpv.Level1.Level1.Sprites.TileObjects.Obstacules;
+import com.jpv.Level1.Level1.Tools.B2WorldCreator;
+import com.jpv.Level1.Level1.Tools.WorldContactListener;
 
 import java.util.concurrent.LinkedBlockingDeque;
 

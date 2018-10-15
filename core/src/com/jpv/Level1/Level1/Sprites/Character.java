@@ -1,4 +1,4 @@
-package com.jpv.Level1.Sprites;
+package com.jpv.Level1.Level1.Sprites;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -13,10 +13,10 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.jpv.Level1.Level1;
-import com.jpv.Level1.Scenes.Hud;
-import com.jpv.Level1.Screens.PlayScreen;
-import com.jpv.Level1.Sprites.Enemies.Enemy;
+import com.jpv.Level1.Level1.Level1;
+import com.jpv.Level1.Level1.Scenes.Hud;
+import com.jpv.Level1.Level1.Screens.PlayScreen;
+import com.jpv.Level1.Level1.Sprites.Enemies.Enemy;
 
 
 public class Character extends Sprite {

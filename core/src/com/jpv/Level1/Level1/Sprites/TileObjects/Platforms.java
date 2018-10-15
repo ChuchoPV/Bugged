@@ -1,20 +1,20 @@
-package com.jpv.Level1.Sprites.TileObjects;
+package com.jpv.Level1.Level1.Sprites.TileObjects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapObject;
-import com.jpv.Level1.Level1;
-import com.jpv.Level1.Screens.PlayScreen;
+import com.jpv.Level1.Level1.Level1;
+import com.jpv.Level1.Level1.Screens.PlayScreen;
 
-public class Obstacules extends InteractiveTiledObject {
-    public Obstacules(PlayScreen screen, MapObject object) {
+public class Platforms extends InteractiveTiledObject {
+    public Platforms(PlayScreen screen, MapObject object) {
         super(screen, object);
         fixture.setUserData(this);
-        setCategotyFilter(Level1.OBSTACULE_BIT);
+        setCategotyFilter(Level1.PLATAFORM_BIT);
     }
 
     @Override
     public void onHeadHit() {
-        Gdx.app.log("Obstacules", "Collision");
+        Gdx.app.log("Platforms", "Collision");
     }
 
     @Override
@@ -29,3 +29,4 @@ public class Obstacules extends InteractiveTiledObject {
         setToDesrtoy = true;
     }
 }
+

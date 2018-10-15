@@ -1,4 +1,4 @@
-package com.jpv.Level1.Tools;
+package com.jpv.Level1.Level1.Tools;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
