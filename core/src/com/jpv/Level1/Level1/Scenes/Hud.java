@@ -76,11 +76,11 @@ public class Hud {
 
         GenericButton btnJoystickRight = new GenericButton((Level1.V_WIDTH / Level1.PPM) + (10000 / Level1.PPM), (Level1.V_WIDTH / Level1.PPM ),"Joystick_Right.png","vacia.png");
         btnJoystickRight.button().addListener(new ClickListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                btnRig = true;
-                return super.touchDown(event, x, y, pointer, button);
-            }
+           @Override
+           public void clicked(InputEvent event, float x, float y) {
+               super.clicked(event, x, y);
+               btnRig = true;
+           }
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {

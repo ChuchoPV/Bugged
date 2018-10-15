@@ -225,23 +225,30 @@ public class PlayScreen implements Screen {
     private void handleInput(float dt) {
 
         if(player.currentState != Character.State.DEAD) {
-            if (Gdx.input.isKeyJustPressed(Input.Keys.DPAD_UP)
-                    && player.b2body.getPosition().y < (Level1.V_HEIGHT + 500) / Level1.PPM
-                    && (player.currentState==Character.State.RUNNING || player.currentState==Character.State.STANDING)) {
-                player.b2body.applyLinearImpulse(new Vector2(0, 8f), player.b2body.getWorldCenter(), true);
-            }
-            if ((Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT) || Hud.btnRig)
-                    && player.b2body.getLinearVelocity().x <= 2 && player.currentState != Character.State.DAMAGED) {
-                player.b2body.applyLinearImpulse(new Vector2(0.5f, 0), player.b2body.getWorldCenter(), true);
-            }
+            if(player.currentState != Character.State.DAMAGED) {
+                if (Gdx.input.isKeyJustPressed(Input.Keys.DPAD_UP))
+                        //&& player.b2body.getPosition().y < (Level1.V_HEIGHT + 500) / Level1.PPM
+                        //&& (player.currentState == Character.State.RUNNING
+                        //|| player.currentState == Character.State.STANDING)) {
+                {
+                    player.b2body.applyLinearImpulse(new Vector2(0, 8f), player.b2body.getWorldCenter(), true);
+                }
+                if ((Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT) || Hud.btnRig)
+                        && player.b2body.getLinearVelocity().x <= 2 && player.currentState != Character.State.DAMAGED
+                        && !player.damaged) {
+                    player.b2body.applyLinearImpulse(new Vector2(0.5f, 0), player.b2body.getWorldCenter(), true);
+                }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) && player.b2body.getLinearVelocity().x >= -2 && player.currentState != Character.State.DAMAGED){
-                player.b2body.applyLinearImpulse(new Vector2(-0.5f, 0), player.b2body.getWorldCenter(), true);
+                if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) && player.b2body.getLinearVelocity().x >= -2
+                        && player.currentState != Character.State.DAMAGED
+                        && !player.damaged) {
+                    player.b2body.applyLinearImpulse(new Vector2(-0.5f, 0), player.b2body.getWorldCenter(), true);
+                }
+                if (player.currentState == Character.State.RUNNING && !(Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT)))
+                    if (player.b2body.getLinearVelocity().x > 0 || player.b2body.getLinearVelocity().x < 0)
+                        player.b2body.setLinearVelocity(0, 0);
+                //aqui es donde se tiene que poner el inicio de la animacion con algo asi como un timer.
             }
-            if(player.currentState==Character.State.RUNNING && !(Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT)))
-                if(player.b2body.getLinearVelocity().x>0 || player.b2body.getLinearVelocity().x<0)
-                    player.b2body.setLinearVelocity(0,0);
-            //aqui es donde se tiene que poner el inicio de la animacion con algo asi como un timer.
         }
 
     }

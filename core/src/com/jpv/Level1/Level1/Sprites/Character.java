@@ -42,7 +42,7 @@ public class Character extends Sprite {
     public boolean boss;
     private boolean attacking;
     public int lifes;
-    private boolean damaged;
+    public boolean damaged;
     private boolean isDead;
     private boolean first;
     public boolean win;
@@ -191,8 +191,9 @@ public class Character extends Sprite {
                 setBounds(getX(), getY(), 239 / Level1.PPM, 239 / Level1.PPM);
                 //setBounds(getX(), getY(), 240 / Level1.PPM, 175 / Level1.PPM); //Posible solucion pero aplasta a Hank y lo hace ver mal
             }
-        }else if(currentState == State.DAMAGED)
-            b2body.applyLinearImpulse(new Vector2(-0.1f,0),b2body.getWorldCenter(),true);
+        }else if(currentState == State.DAMAGED) {
+                b2body.applyLinearImpulse(new Vector2(-0.1f, 0), b2body.getWorldCenter(), true);
+        }
         else if(currentState == State.DEAD) {
             if (first) {
                 for (Enemy enemy : screen.getCreator().getMosquitos())

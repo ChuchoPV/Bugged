@@ -127,7 +127,7 @@ public class Mosquito extends Enemy {
         collider.set(vertice);
 
         fdef.shape = collider;
-        fdef.restitution = 1f;
+        fdef.restitution = 2f;
         fdef.filter.categoryBits = Level1.ENEMY_COLLIDER_BIT;
         b2body.createFixture(fdef).setUserData(this);
 
@@ -142,7 +142,7 @@ public class Mosquito extends Enemy {
 
     @Override
     public void onHeadHit() {
-        if(damaged == 3) {
+        if(damaged == 9) {
             if(object.getProperties().containsKey("Heart")){
                 screen.spawnItem(new ItemDef(new Vector2(b2body.getPosition().x, b2body.getPosition().y),
                 Heart.class));
