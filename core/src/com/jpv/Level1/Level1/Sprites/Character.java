@@ -246,8 +246,10 @@ public class Character extends Sprite {
                 break;
             case ATTACKING:
                 region = (TextureRegion) attack.getKeyFrame(stateTimer);
-                if (attack.isAnimationFinished(stateTimer))
+                if (attack.isAnimationFinished(stateTimer)) {
                     attacking = false;
+                    Hud.btnAt = false;
+                }
                 break;
             case DAMAGED:
                 region = (TextureRegion) damage.getKeyFrame(stateTimer);
@@ -283,44 +285,52 @@ public class Character extends Sprite {
     }
 
     private State getState() {
-        if(currentState != State.DAMAGED && isDead())
+        if(currentState != State.DAMAGED && isDead()) {
             return State.DEAD;
+        }
         else if (damaged && !isDead()){ //timerVidas <= 0
             //timerVidas = 1.3f;
             return State.DAMAGED;
         }
-        else if (Gdx.input.isKeyPressed(Input.Keys.Z) && !isDead()){
+        else if (Gdx.input.isKeyPressed(Input.Keys.Z) || Hud.getBtnAt() && !isDead()){
             attacking = true;
             return State.ATTACKING;
         }
         else if (b2body.getLinearVelocity().y > 0 && currentState != State.DAMAGED && !isDead()) {
-            if (!attacking)
+            if (!attacking) {
                 return State.JUMPING;
-            else
+            }
+            else {
                 return State.ATTACKING;
+            }
         }
         else if (b2body.getLinearVelocity().y < 0 && !isDead()){
-            if(!attacking)
+            if(!attacking) {
                 return State.FALLING;
-            else
+            }
+            else {
                 return State.ATTACKING;
+            }
         }
         else if (b2body.getLinearVelocity().x != 0 && currentState != State.DAMAGED && !isDead()){
-            if(attacking)
+            if(attacking) {
                 return State.ATTACKING;
+            }
             else if(damaged){
                 return State.DAMAGED;
             }
-            else
+            else {
                 return State.RUNNING;
+            }
         }
         //aqui empieza la modificacion para el swing completo
-        else if (attacking)
+        else if (attacking) {
             return State.ATTACKING;
+        }
         //aqui termina la modificacion para el swing
-
-        else
+        else {
             return State.STANDING;
+        }
     }
 
     public void hit() {

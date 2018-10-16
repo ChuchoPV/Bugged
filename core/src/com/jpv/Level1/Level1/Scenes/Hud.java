@@ -23,11 +23,10 @@ public class Hud {
     public static Stage stage;
     private static int y;
     private PlayScreen screen;
+    private boolean btnLef;
     public boolean btnRig;
-    public static int btnRight;
-    public boolean btnLef;
-    public boolean btnAt;
-    public boolean first;
+    public static boolean btnAt;
+    private boolean first;
     private static Array<Image> vidas;
 
     private static Sprite heart;
@@ -86,6 +85,7 @@ public class Hud {
                     btnRig = true;
                     first = false;
                 }
+                //screen.getPlayer().b2body.applyLinearImpulse(15f,0f,0,0,true);
                 return super.touchDown(event, x, y, pointer, button);
             }
 
@@ -101,20 +101,40 @@ public class Hud {
         GenericButton btnJoystickLeft = new GenericButton((Level1.V_WIDTH / Level1.PPM), (Level1.V_WIDTH / Level1.PPM ),"Joystick_left.png","vacia.png");
         btnJoystickLeft.setPlace((Level1.V_WIDTH / Level1.PPM), (Level1.V_WIDTH / Level1.PPM ));
         btnJoystickLeft.button().addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                super.clicked(event, x, y);
-                screen.getPlayer().b2body.applyLinearImpulse(new Vector2(-0.5f, 0), screen.getPlayer().b2body.getWorldCenter(), true);
-                if(screen.getPlayer().b2body.getLinearVelocity().x >= -2 && screen.getPlayer().currentState != Character.State.DAMAGED){
-                    screen.getPlayer().b2body.applyLinearImpulse(new Vector2(-0.5f, 0), screen.getPlayer().b2body.getWorldCenter(), true);
-                }
-              }
+             @Override
+             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                 if(first){
+                     btnLef = true;
+                     first = false;
+                 }
+                 //screen.getPlayer().b2body.applyLinearImpulse(15f,0f,0,0,true);
+                 return super.touchDown(event, x, y, pointer, button);
+             }
+
+             @Override
+             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                 super.touchUp(event, x, y, pointer, button);
+                 btnLef = false;
+                 first = true;
+             }
+        }
+        );
+
+        final GenericButton btnAttack = new GenericButton((Level1.V_WIDTH / Level1.PPM) + 1150, (Level1.V_WIDTH / Level1.PPM ) + 50,"Attack_Btn.png","vacia.png");
+        btnAttack.button().addListener(new ClickListener() {
+           @Override
+           public void clicked(InputEvent event, float x, float y) {
+               super.clicked(event, x, y);
+               btnAt = true;
+           }
+
         }
         );
 
         stage.addActor(btnJoystickUp.button());
         stage.addActor(btnJoystickRight.button());
         stage.addActor(btnJoystickLeft.button());
+        stage.addActor(btnAttack.button());
     }
 
     public static void updateLifes(int less){
@@ -139,6 +159,13 @@ public class Hud {
     public boolean getBtnRig(){
         return btnRig;
     }
+    public boolean getBtnLef(){
+        return btnLef;
+    }
+    public static boolean getBtnAt(){
+        return btnAt;
+    }
+
 
     public void dispose(){
         stage.dispose();
