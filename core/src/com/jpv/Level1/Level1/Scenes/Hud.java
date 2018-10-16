@@ -23,9 +23,11 @@ public class Hud {
     public static Stage stage;
     private static int y;
     private PlayScreen screen;
-    public static boolean btnRig;
+    public boolean btnRig;
+    public static int btnRight;
     public boolean btnLef;
     public boolean btnAt;
+    public boolean first;
 
     private static Sprite heart;
 
@@ -33,6 +35,7 @@ public class Hud {
         this.screen = screen;
         Viewport viewport = new FitViewport(Level1.V_WIDTH, Level1.V_HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport,screen.getGame().batch);
+        first = true;
         Gdx.input.setInputProcessor(stage);
         Array<Image> vidas = new Array<Image>();
 
@@ -59,7 +62,7 @@ public class Hud {
 
     }
 
-    public void createButtons() {
+    private void createButtons() {
 
         GenericButton btnJoystickUp = new GenericButton((Level1.V_WIDTH / Level1.PPM) + 50 , (Level1.V_WIDTH / Level1.PPM ) + 50,"Joystick_up.png","vacia.png");
         btnJoystickUp.button().addListener(new ClickListener() {
@@ -76,17 +79,20 @@ public class Hud {
 
         GenericButton btnJoystickRight = new GenericButton((Level1.V_WIDTH / Level1.PPM) + (10000 / Level1.PPM), (Level1.V_WIDTH / Level1.PPM ),"Joystick_Right.png","vacia.png");
         btnJoystickRight.button().addListener(new ClickListener() {
-
-           @Override
-           public void clicked(InputEvent event, float x, float y) {
-               super.clicked(event, x, y);
-               btnRig = true;
-           }
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                if(first){
+                    btnRig = true;
+                    first = false;
+                }
+                return super.touchDown(event, x, y, pointer, button);
+            }
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 super.touchUp(event, x, y, pointer, button);
                 btnRig = false;
+                first = true;
             }
         }
         );
@@ -122,6 +128,9 @@ public class Hud {
         }
     }
 
+    public boolean getBtnRig(){
+        return btnRig;
+    }
 
     public void dispose(){
         stage.dispose();
