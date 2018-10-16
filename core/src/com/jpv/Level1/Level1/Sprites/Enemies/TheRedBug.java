@@ -28,6 +28,7 @@ public class TheRedBug extends Enemy {
     private Animation damage;
     private TextureRegion jump;
     private TextureRegion fall;
+    private boolean first;
 
     public TheRedBug(PlayScreen screen, float x, float y, MapObject object) {
         super(screen, x, y, object);
@@ -62,6 +63,7 @@ public class TheRedBug extends Enemy {
         setToDestroy = false;
         destroyed = false;
         isRight = true;
+        first = true;
         setBounds(getX(),getY(), 500 / Level1.PPM,320 / Level1.PPM); //320 ,230
         b2body.setActive(true);
     }
@@ -117,11 +119,26 @@ public class TheRedBug extends Enemy {
     @Override
     public void update(float dt) {
         stateTimer += dt;
-        TextureRegion region;
+        TextureRegion region = null;
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
 
-        if(setToDestroy){
-            world.destroyBody(b2body);
+        if(damagedB && !setToDestroy && !destroyed){
+            setRegion((TextureRegion) damage.getKeyFrame(stateTimer));
+            setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 3);
+            if(damage.isAnimationFinished(stateTimer)) {
+                damagedB = false;
+            }
+        }
+        if(setToDestroy && !destroyed){
+            if(first){
+                world.destroyBody(b2body);
+                first = false;
+            }
+            setRegion((TextureRegion) kill.getKeyFrame(stateTimer));
+            if(kill.isAnimationFinished(stateTimer)) {
+                destroyed = true;
+                stateTimer = 0;
+            }
         }else if(b2body.getLinearVelocity().y > 0 ) {
             region = jump;
             if (screen.getPlayer().b2body.getPosition().x > b2body.getPosition().x) {
@@ -160,20 +177,7 @@ public class TheRedBug extends Enemy {
             b2body.setLinearVelocity(new Vector2(0f,0f));
             setRegion(region);
         }
-        //Esta es la parte que funciona
-        if(damagedB && !setToDestroy && !destroyed){
-            //stateTimer = 0;
-            setRegion((TextureRegion) damage.getKeyFrame(stateTimer));
-            setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 3);
-            if(damage.isAnimationFinished(stateTimer))
-                damagedB = false;
-        }else if(setToDestroy && !destroyed){
-            setRegion((TextureRegion) kill.getKeyFrame(stateTimer));
-            if(kill.isAnimationFinished(stateTimer)) {
-                destroyed = true;
-                stateTimer = 0;
-            }
-        }
+
     }
 
     @Override
