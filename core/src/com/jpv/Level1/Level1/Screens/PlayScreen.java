@@ -32,6 +32,7 @@ import com.jpv.Level1.Level1.Tools.WorldContactListener;
 import java.util.concurrent.LinkedBlockingDeque;
 
 public class PlayScreen implements Screen {
+    //region VARIABLES
     //Instance of out game
     private Level1 game;
 
@@ -60,6 +61,8 @@ public class PlayScreen implements Screen {
     private int timerBoss;
     private long startTime;
     private boolean first;
+
+    //endregion
 
     public PlayScreen(Level1 game){
         atlas = new TextureAtlas("ATLAS_FINAL.pack");
@@ -105,10 +108,6 @@ public class PlayScreen implements Screen {
         }
     }
 
-    public TextureAtlas getAtlas() {
-        return atlas;
-    }
-
     @Override
     public void show() {
 
@@ -133,7 +132,7 @@ public class PlayScreen implements Screen {
             for(Enemy enemy : creator.getMosquitos()) {
                 enemy.destroy();
             }
-            if (Gdx.input.isKeyPressed(Input.Keys.W) && creator.getTheRedBug().b2body.getLinearVelocity().y == 0) {
+            /*if (Gdx.input.isKeyPressed(Input.Keys.W) && creator.getTheRedBug().b2body.getLinearVelocity().y == 0) {
                 creator.getTheRedBug().b2body.applyLinearImpulse(new Vector2(-5f, 9f), creator.getTheRedBug().b2body.getWorldCenter(), true);
                 first = false;
                 timerBoss += 1;
@@ -141,7 +140,7 @@ public class PlayScreen implements Screen {
                 creator.getTheRedBug().b2body.applyLinearImpulse(new Vector2(5f, 9f), creator.getTheRedBug().b2body.getWorldCenter(), true);
                 first = true;
                 timerBoss += 1;
-            }
+            }*/
             //Code to optimize
             /*for(Platforms platforms : creator.getPlatforms()){
                 platforms.destroy();
@@ -149,7 +148,7 @@ public class PlayScreen implements Screen {
             for(Obstacules obstacules : creator.getObstacules()){
                 obstacules.destroy();
             }*/
-            //manageBoss(dt);
+            manageBoss(dt);
         }
 
         for(Enemy enemy : creator.getMosquitos()) {
@@ -293,12 +292,6 @@ public class PlayScreen implements Screen {
         }
     }
 
-    @Override
-    public void resize(int width, int height) {
-        gamePort.update(width,height);
-
-    }
-
     public TiledMap getMap() {
         return map;
     }
@@ -315,6 +308,16 @@ public class PlayScreen implements Screen {
 
     public Level1 getGame() {
         return game;
+    }
+
+    public TextureAtlas getAtlas() {
+        return atlas;
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        gamePort.update(width,height);
+
     }
 
     @Override

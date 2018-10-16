@@ -1,16 +1,15 @@
 package com.jpv.Level1.Level1.Tools;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.jpv.Level1.Level1.Level1;
+import com.jpv.Level1.Level1.Sprites.Character;
 import com.jpv.Level1.Level1.Sprites.Enemies.Enemy;
 import com.jpv.Level1.Level1.Sprites.Items.Item;
 import com.jpv.Level1.Level1.Sprites.TileObjects.InteractiveTiledObject;
-import com.jpv.Level1.Level1.Sprites.Character;
 
 
 public class WorldContactListener implements ContactListener {
@@ -51,19 +50,26 @@ public class WorldContactListener implements ContactListener {
                 break;
             case Level1.CHARACTER_BIT | Level1.BOSS_PIES_BIT:
                 if(fixA.getFilterData().categoryBits == Level1.CHARACTER_BIT) {
-                    ((Character) fixA.getUserData()).kill();
-                }
-                else {
-                    ((Character) fixB.getUserData()).kill();
+                    if(((Character) fixA.getUserData()).b2body.getLinearVelocity().y == 0) {
+                        ((Character) fixA.getUserData()).kill();
+                    }
+                }else {
+                    if(((Character) fixB.getUserData()).b2body.getLinearVelocity().y == 0) {
+                        ((Character) fixB.getUserData()).kill();
+                    }
                 }
                 break;
             case Level1.CHARACTER_BIT | Level1.BOSS_COLLIDER_BIT:
                 if(fixA.getFilterData().categoryBits == Level1.CHARACTER_BIT) {
-                    Gdx.app.log("Character","damage");
-                }else {
-                    Gdx.app.log("Character","damage");
-                    break;
+                    ((Character) fixA.getUserData()).hit();
                 }
+                else {
+                    ((Character) fixB.getUserData()).hit();
+                }
+
+                break;
+            case Level1.CHARACTER_ARMA_BIT | Level1.BOSS_BIT:
+                break;
         }
     }
 

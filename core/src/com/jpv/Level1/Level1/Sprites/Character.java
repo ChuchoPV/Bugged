@@ -16,7 +16,6 @@ import com.badlogic.gdx.utils.Array;
 import com.jpv.Level1.Level1.Level1;
 import com.jpv.Level1.Level1.Scenes.Hud;
 import com.jpv.Level1.Level1.Screens.PlayScreen;
-import com.jpv.Level1.Level1.Sprites.Enemies.Enemy;
 
 
 public class Character extends Sprite {
@@ -47,6 +46,7 @@ public class Character extends Sprite {
     private boolean firstDam;
     //endregion
 
+    //region CODE
     public Character(PlayScreen screen){
         super();
         this.screen = screen;
@@ -208,7 +208,7 @@ public class Character extends Sprite {
             }
         }
         else if(currentState == State.DEAD) {
-            if (first) {
+            /*if (first) {
                 for (Enemy enemy : screen.getCreator().getMosquitos())
                     world.destroyBody(enemy.b2body);
 
@@ -221,10 +221,11 @@ public class Character extends Sprite {
                     if(!fix.equals(b2body.getFixtureList().get(0))) {
                         screen.getCreator().getTheRedBug().b2body.destroyFixture(fix);
                     }
-                }*/
+                }
                 first = false;
             }
-        }if(currentState == State.STANDING || currentState == State.JUMPING || currentState == State.RUNNING){
+            */
+        }if(currentState != State.ATTACKING){
             for(Fixture fix : b2body.getFixtureList()){
                 if(!fix.equals(b2body.getFixtureList().get(0)))
                     b2body.destroyFixture(fix);
@@ -319,19 +320,23 @@ public class Character extends Sprite {
             return State.STANDING;
     }
 
-    public void hit(){
-        if(lifes == 1) {
-            Hud.updateLifes(true);
+    public void hit() {
+        if (lifes <= 1) {
+            Hud.updateLifes(-1);
             isDead = true;
 
-        }else{
+        } else {
             lifes--;
-            Hud.updateLifes(true);
+            Hud.updateLifes(-1);
             damaged = true;
         }
     }
 
-    public void kill(){ lifes = 1;}
+    public void kill() {
+        Hud.updateLifes(1);
+        isDead = true;
+    }
+
 
     private boolean isDead(){
         return isDead;
@@ -382,6 +387,8 @@ public class Character extends Sprite {
         fdefArma.isSensor = true;
         b2body.createFixture(fdefArma).setUserData(this);
     }
+
+    //endregion
 
 
 }

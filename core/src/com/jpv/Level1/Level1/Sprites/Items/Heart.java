@@ -39,7 +39,7 @@ public class Heart extends Item {
 
     @Override
     public void use() {
-        Hud.updateLifes(false);
+        Hud.updateLifes(0);
         destroy();
         screen.getPlayer().lifes++;
     }

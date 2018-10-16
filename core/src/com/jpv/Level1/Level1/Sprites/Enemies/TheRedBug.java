@@ -86,15 +86,22 @@ public class TheRedBug extends Enemy {
         b2body.createFixture(fdef).setUserData(this);
 
         EdgeShape pies = new EdgeShape();
-        pies.set(new Vector2(160 / Level1.PPM, -160 / Level1.PPM), new Vector2(-160 / Level1.PPM, -160 / Level1.PPM));
+        pies.set(new Vector2(140 / Level1.PPM, -160 / Level1.PPM), new Vector2(-140 / Level1.PPM, -160 / Level1.PPM));
         fdef.shape = pies;
         fdef.filter.categoryBits = Level1.BOSS_PIES_BIT;
         fdef.isSensor = true;
         b2body.createFixture(fdef).setUserData(this);
 
         EdgeShape collider = new EdgeShape();
-        collider.set(new Vector2(-250 / Level1.PPM, -160 / Level1.PPM), new Vector2(-250 / Level1.PPM, 160 / Level1.PPM));
+        collider.set(new Vector2(-240 / Level1.PPM, -160 / Level1.PPM), new Vector2(-240 / Level1.PPM, 160 / Level1.PPM));
         fdef.shape = collider;
+        fdef.filter.categoryBits = Level1.BOSS_COLLIDER_BIT;
+        fdef.isSensor = true;
+        b2body.createFixture(fdef).setUserData(this);
+
+        EdgeShape collider2 = new EdgeShape();
+        collider2.set(new Vector2(240 / Level1.PPM, -160 / Level1.PPM), new Vector2(240 / Level1.PPM, 160 / Level1.PPM));
+        fdef.shape = collider2;
         fdef.filter.categoryBits = Level1.BOSS_COLLIDER_BIT;
         fdef.isSensor = true;
         b2body.createFixture(fdef).setUserData(this);

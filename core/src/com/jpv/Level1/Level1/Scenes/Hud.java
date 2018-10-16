@@ -28,6 +28,7 @@ public class Hud {
     public boolean btnLef;
     public boolean btnAt;
     public boolean first;
+    private static Array<Image> vidas;
 
     private static Sprite heart;
 
@@ -37,7 +38,7 @@ public class Hud {
         stage = new Stage(viewport,screen.getGame().batch);
         first = true;
         Gdx.input.setInputProcessor(stage);
-        Array<Image> vidas = new Array<Image>();
+        vidas = new Array<Image>();
 
         Sprite image = new Sprite(new Texture("Hank_Image.png"));
         heart = new Sprite(new Texture("Heart.png"));
@@ -116,17 +117,24 @@ public class Hud {
         stage.addActor(btnJoystickLeft.button());
     }
 
-    public static void updateLifes(boolean less){
-        if(less){
+    public static void updateLifes(int less){
+        if(less == -1){
             stage.getActors().pop();
+            vidas.pop();
             y -= 8000;
 
-        }else{
+        }else if(less == 0){
             Image img = new Image(heart);
             img.setPosition((Level1.V_WIDTH / Level1.PPM) + (y / Level1.PPM), (Level1.V_WIDTH / Level1.PPM ) + 600);
+            vidas.add(img);
             stage.getActors().add(img);
+        }else{
+            for(int i = 0; i < vidas.size; i++){
+                stage.getActors().pop();
+            }
         }
     }
+
 
     public boolean getBtnRig(){
         return btnRig;
