@@ -115,6 +115,9 @@ public class Character extends Sprite {
         if(currentState != State.DAMAGED){
             firstDam = true;
         }
+        if(b2body.getPosition().y <0){
+            isDead = true;
+        }
 
         setPosition(b2body.getPosition().x - getWidth() / 2.3f, b2body.getPosition().y  - getHeight() / 2f); //6.2f
         setBounds(getX(),getY(),175 / Level1.PPM, 175 / Level1.PPM);
