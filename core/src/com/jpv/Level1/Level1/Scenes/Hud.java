@@ -25,8 +25,8 @@ public class Hud {
     private PlayScreen screen;
     private boolean btnLef;
     public boolean btnRig;
-    public boolean btnAt;
-    public boolean first;
+    public static boolean btnAt;
+    private boolean first;
     private static Array<Image> vidas;
 
     private static Sprite heart;
@@ -120,9 +120,21 @@ public class Hud {
         }
         );
 
+        final GenericButton btnAttack = new GenericButton((Level1.V_WIDTH / Level1.PPM) + 1150, (Level1.V_WIDTH / Level1.PPM ) + 50,"Attack_Btn.png","vacia.png");
+        btnAttack.button().addListener(new ClickListener() {
+           @Override
+           public void clicked(InputEvent event, float x, float y) {
+               super.clicked(event, x, y);
+               btnAt = true;
+           }
+
+        }
+        );
+
         stage.addActor(btnJoystickUp.button());
         stage.addActor(btnJoystickRight.button());
         stage.addActor(btnJoystickLeft.button());
+        stage.addActor(btnAttack.button());
     }
 
     public static void updateLifes(int less){
@@ -149,6 +161,9 @@ public class Hud {
     }
     public boolean getBtnLef(){
         return btnLef;
+    }
+    public static boolean getBtnAt(){
+        return btnAt;
     }
 
 

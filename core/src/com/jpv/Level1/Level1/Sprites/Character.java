@@ -243,8 +243,10 @@ public class Character extends Sprite {
                 break;
             case ATTACKING:
                 region = (TextureRegion) attack.getKeyFrame(stateTimer);
-                if (attack.isAnimationFinished(stateTimer))
+                if (attack.isAnimationFinished(stateTimer)) {
                     attacking = false;
+                    Hud.btnAt = false;
+                }
                 break;
             case DAMAGED:
                 region = (TextureRegion) damage.getKeyFrame(stateTimer);
@@ -287,7 +289,7 @@ public class Character extends Sprite {
             //timerVidas = 1.3f;
             return State.DAMAGED;
         }
-        else if (Gdx.input.isKeyPressed(Input.Keys.Z) && !isDead()){
+        else if (Gdx.input.isKeyPressed(Input.Keys.Z) || Hud.getBtnAt() && !isDead()){
             attacking = true;
             return State.ATTACKING;
         }
