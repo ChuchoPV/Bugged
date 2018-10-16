@@ -244,8 +244,9 @@ public class PlayScreen implements Screen {
                     player.b2body.applyLinearImpulse(new Vector2(-0.5f, 0), player.b2body.getWorldCenter(), true);
                 }
                 if (player.currentState == Character.State.RUNNING && !(Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT)))
-                    if (player.b2body.getLinearVelocity().x > 0 || player.b2body.getLinearVelocity().x < 0)
+                    if (player.b2body.getLinearVelocity().x > 0 || player.b2body.getLinearVelocity().x < 0) {
                         player.b2body.setLinearVelocity(0, 0);
+                    }
                 //aqui es donde se tiene que poner el inicio de la animacion con algo asi como un timer.
             }
         }
