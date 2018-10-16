@@ -249,6 +249,7 @@ public class Character extends Sprite {
                 if (attack.isAnimationFinished(stateTimer)) {
                     attacking = false;
                     Hud.btnAt = false;
+
                 }
                 break;
             case DAMAGED:
