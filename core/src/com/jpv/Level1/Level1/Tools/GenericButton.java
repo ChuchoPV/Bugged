@@ -6,14 +6,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class GenericButton {
-    Texture textBtnHelp;
-    TextureRegionDrawable trdHelp;
-    Texture textBtnOprimidoHelp;
-    TextureRegionDrawable trdOpHelp;
-    ImageButton btnHelp;
-    float x, y;
-    String boton, botonOp;
-
+    private ImageButton btnHelp;
+    private float x, y;
+    private String boton, botonOp;
 
     public GenericButton(float x, float y, String boton, String botonOp){
         this.x = x;
@@ -23,18 +18,22 @@ public class GenericButton {
         createButton();
     }
 
-    public void createButton(){
-        textBtnHelp = new Texture(boton);
-        trdHelp = new TextureRegionDrawable(new TextureRegion(textBtnHelp));
+    private void createButton(){
+        Texture textBtnHelp = new Texture(boton);
+        TextureRegionDrawable trdHelp = new TextureRegionDrawable(new TextureRegion(textBtnHelp));
         //imagenBotonOprimido
-        textBtnOprimidoHelp = new Texture(botonOp);
-        trdOpHelp = new TextureRegionDrawable(new TextureRegion(textBtnOprimidoHelp));
+        Texture textBtnOprimidoHelp = new Texture(botonOp);
+        TextureRegionDrawable trdOpHelp = new TextureRegionDrawable(new TextureRegion(textBtnOprimidoHelp));
         btnHelp = new ImageButton(trdHelp, trdOpHelp);
         btnHelp.setPosition(this.x, this.y);
     }
 
     public ImageButton button(){
         return btnHelp;
+    }
+
+    public void reziseImage(float x, float y){
+        
     }
 
     public void setPlace(float x, float y){
