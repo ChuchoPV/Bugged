@@ -115,8 +115,6 @@ public class Character extends Sprite {
         if(currentState != State.DAMAGED){
             firstDam = true;
         }
-        Gdx.app.log("Velocity",""+b2body.getLinearVelocity().x);
-
 
         setPosition(b2body.getPosition().x - getWidth() / 2.3f, b2body.getPosition().y  - getHeight() / 2f); //6.2f
         setBounds(getX(),getY(),175 / Level1.PPM, 175 / Level1.PPM);
@@ -345,7 +343,7 @@ public class Character extends Sprite {
 
     private void defineCharacter() {
         BodyDef bdef = new BodyDef();//650
-        bdef.position.set(650 / Level1.PPM ,240 / Level1.PPM); //18650
+        bdef.position.set(18650 / Level1.PPM ,240 / Level1.PPM); //18650
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
