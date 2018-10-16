@@ -66,9 +66,14 @@ public class WorldContactListener implements ContactListener {
                 else {
                     ((Character) fixB.getUserData()).hit();
                 }
-
                 break;
             case Level1.CHARACTER_ARMA_BIT | Level1.BOSS_BIT:
+                if(fixA.getFilterData().categoryBits == Level1.BOSS_BIT) {
+                    ((Enemy) fixA.getUserData()).onHeadHit();
+                }
+                else {
+                    ((Enemy) fixB.getUserData()).onHeadHit();
+                }
                 break;
         }
     }

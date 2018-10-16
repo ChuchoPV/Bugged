@@ -199,7 +199,7 @@ public class PlayScreen implements Screen {
             //your code here
             //Gdx.app.log("Tiempo",""+timerBoss);
             //Gdx.app.log("StartTimer",""+startTime);
-            Gdx.app.log("Tiempo", "" + timerBoss);
+            //Gdx.app.log("Tiempo", "" + timerBoss);
             if (first && creator.getTheRedBug().b2body.getLinearVelocity().y == 0) {
                 creator.getTheRedBug().b2body.applyLinearImpulse(new Vector2(-5f, 9f), creator.getTheRedBug().b2body.getWorldCenter(), true);
                 first = false;
@@ -215,7 +215,7 @@ public class PlayScreen implements Screen {
             startTime = TimeUtils.nanoTime();
         }
         if (timerBoss == 4) {
-            Gdx.app.log("Tiempo", "" + timerBoss);
+            //Gdx.app.log("Tiempo", "" + timerBoss);
             startTime = 0;
             timerBoss = 0;
         }

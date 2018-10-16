@@ -381,7 +381,10 @@ public class Character extends Sprite {
 
         fdefArma.filter.categoryBits = Level1.CHARACTER_ARMA_BIT;
         fdefArma.filter.maskBits = Level1.ENEMY_BIT
-                | Level1.ENEMY_COLLIDER_BIT;
+                | Level1.ENEMY_COLLIDER_BIT
+                | Level1.BOSS_PIES_BIT
+                | Level1.BOSS_COLLIDER_BIT
+                | Level1.BOSS_BIT;
 
         fdefArma.shape = shapeArma;
         fdefArma.isSensor = true;

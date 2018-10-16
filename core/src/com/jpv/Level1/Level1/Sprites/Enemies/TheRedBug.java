@@ -116,9 +116,6 @@ public class TheRedBug extends Enemy {
 
     @Override
     public void update(float dt) {
-        //199 boss      //189.64 Hank   //Uno, dos, tres quieto y después de nuevo
-        //Gdx.app.log("Posición",""+screen.getPlayer().b2body.getPosition().x);
-
         stateTimer += dt;
         TextureRegion region;
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
@@ -163,10 +160,29 @@ public class TheRedBug extends Enemy {
             b2body.setLinearVelocity(new Vector2(0f,0f));
             setRegion(region);
         }
+        //Esta es la parte que funciona
+        if(damagedB && !setToDestroy && !destroyed){
+            //stateTimer = 0;
+            setRegion((TextureRegion) damage.getKeyFrame(stateTimer));
+            setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 3);
+            if(damage.isAnimationFinished(stateTimer))
+                damagedB = false;
+        }else if(setToDestroy && !destroyed){
+            setRegion((TextureRegion) kill.getKeyFrame(stateTimer));
+            if(kill.isAnimationFinished(stateTimer)) {
+                destroyed = true;
+                stateTimer = 0;
+            }
+        }
     }
 
     @Override
     public void onHeadHit() {
-
+        if(damaged == 21) {
+            setToDestroy = true;
+        }else{
+            damagedB = true;
+            damaged++;
+        }
     }
 }
