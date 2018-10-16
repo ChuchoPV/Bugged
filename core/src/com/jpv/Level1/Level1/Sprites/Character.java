@@ -20,6 +20,7 @@ import com.jpv.Level1.Level1.Sprites.Enemies.Enemy;
 
 
 public class Character extends Sprite {
+    //region VARIABLES
     public enum State {FALLING, JUMPING, STANDING, RUNNING, ATTACKING, DAMAGED, DEAD, WIN};
     public State currentState;
     private State prevState;
@@ -36,7 +37,6 @@ public class Character extends Sprite {
     private TextureRegion jumpAnimation;
 
     private float stateTimer;
-    private float timerVidas;
     private boolean runningRight;
     public boolean boss;
     private boolean attacking;
@@ -45,7 +45,7 @@ public class Character extends Sprite {
     private boolean isDead;
     private boolean first;
     private boolean firstDam;
-    public boolean win;
+    //endregion
 
     public Character(PlayScreen screen){
         super();
@@ -57,7 +57,6 @@ public class Character extends Sprite {
         lifes = 3;
         damaged = false;
         stateTimer = 0;
-        timerVidas = 0;
         first = true;
         firstDam = true;
         boss=false;
@@ -112,7 +111,6 @@ public class Character extends Sprite {
     }
 
     public void update(float dt){
-        timerVidas -= dt;
         stateTimer += dt;
         if(currentState != State.DAMAGED){
             firstDam = true;
