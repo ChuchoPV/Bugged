@@ -23,9 +23,8 @@ public class Hud {
     public static Stage stage;
     private static int y;
     private PlayScreen screen;
+    private boolean btnLef;
     public boolean btnRig;
-    public static int btnRight;
-    public boolean btnLef;
     public boolean btnAt;
     public boolean first;
     private static Array<Image> vidas;
@@ -102,14 +101,22 @@ public class Hud {
         GenericButton btnJoystickLeft = new GenericButton((Level1.V_WIDTH / Level1.PPM), (Level1.V_WIDTH / Level1.PPM ),"Joystick_left.png","vacia.png");
         btnJoystickLeft.setPlace((Level1.V_WIDTH / Level1.PPM), (Level1.V_WIDTH / Level1.PPM ));
         btnJoystickLeft.button().addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                super.clicked(event, x, y);
-                screen.getPlayer().b2body.applyLinearImpulse(new Vector2(-0.5f, 0), screen.getPlayer().b2body.getWorldCenter(), true);
-                if(screen.getPlayer().b2body.getLinearVelocity().x >= -2 && screen.getPlayer().currentState != Character.State.DAMAGED){
-                    screen.getPlayer().b2body.applyLinearImpulse(new Vector2(-0.5f, 0), screen.getPlayer().b2body.getWorldCenter(), true);
-                }
-              }
+             @Override
+             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                 if(first){
+                     btnLef = true;
+                     first = false;
+                 }
+                 //screen.getPlayer().b2body.applyLinearImpulse(15f,0f,0,0,true);
+                 return super.touchDown(event, x, y, pointer, button);
+             }
+
+             @Override
+             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                 super.touchUp(event, x, y, pointer, button);
+                 btnLef = false;
+                 first = true;
+             }
         }
         );
 
@@ -140,6 +147,10 @@ public class Hud {
     public boolean getBtnRig(){
         return btnRig;
     }
+    public boolean getBtnLef(){
+        return btnLef;
+    }
+
 
     public void dispose(){
         stage.dispose();

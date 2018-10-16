@@ -235,18 +235,20 @@ public class PlayScreen implements Screen {
                 {
                     player.b2body.applyLinearImpulse(new Vector2(0, 8f), player.b2body.getWorldCenter(), true);
                 }
-                if ((Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT) || right)
-                        && player.b2body.getLinearVelocity().x <= 2 && player.currentState != Character.State.DAMAGED
+                if ((Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT) || hud.getBtnRig())
+                        && player.b2body.getLinearVelocity().x <= 2
+                        && player.currentState != Character.State.DAMAGED
                         && !player.damaged) {
                     player.b2body.applyLinearImpulse(new Vector2(0.5f, 0), player.b2body.getWorldCenter(), true);
                 }
 
-                if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) && player.b2body.getLinearVelocity().x >= -2
+                if ((Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || hud.getBtnLef())
+                        && player.b2body.getLinearVelocity().x >= -2
                         && player.currentState != Character.State.DAMAGED
                         && !player.damaged) {
                     player.b2body.applyLinearImpulse(new Vector2(-0.5f, 0), player.b2body.getWorldCenter(), true);
                 }
-                if (player.currentState == Character.State.RUNNING && !(Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT)  || hud.btnRig==true))
+                if (player.currentState == Character.State.RUNNING && !(Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || hud.getBtnLef() || Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT)  || hud.getBtnRig()))
                     if (player.b2body.getLinearVelocity().x > 0 || player.b2body.getLinearVelocity().x < 0) {
                         player.b2body.setLinearVelocity(0, 0);
                     }

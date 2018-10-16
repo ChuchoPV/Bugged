@@ -280,8 +280,9 @@ public class Character extends Sprite {
     }
 
     private State getState() {
-        if(currentState != State.DAMAGED && isDead())
+        if(currentState != State.DAMAGED && isDead()) {
             return State.DEAD;
+        }
         else if (damaged && !isDead()){ //timerVidas <= 0
             //timerVidas = 1.3f;
             return State.DAMAGED;
@@ -291,33 +292,40 @@ public class Character extends Sprite {
             return State.ATTACKING;
         }
         else if (b2body.getLinearVelocity().y > 0 && currentState != State.DAMAGED && !isDead()) {
-            if (!attacking)
+            if (!attacking) {
                 return State.JUMPING;
-            else
+            }
+            else {
                 return State.ATTACKING;
+            }
         }
         else if (b2body.getLinearVelocity().y < 0 && !isDead()){
-            if(!attacking)
+            if(!attacking) {
                 return State.FALLING;
-            else
+            }
+            else {
                 return State.ATTACKING;
+            }
         }
         else if (b2body.getLinearVelocity().x != 0 && currentState != State.DAMAGED && !isDead()){
-            if(attacking)
+            if(attacking) {
                 return State.ATTACKING;
+            }
             else if(damaged){
                 return State.DAMAGED;
             }
-            else
+            else {
                 return State.RUNNING;
+            }
         }
         //aqui empieza la modificacion para el swing completo
-        else if (attacking)
+        else if (attacking) {
             return State.ATTACKING;
+        }
         //aqui termina la modificacion para el swing
-
-        else
+        else {
             return State.STANDING;
+        }
     }
 
     public void hit() {
