@@ -10,11 +10,11 @@ import com.jpv.Level1.Level1.Tools.GenericButton;
 import com.jpv.Level1.PantallasMenu.Tools.Pantalla;
 
 public class PantallaLevelSelect extends Pantalla {
-    private final PantallaInicio pantallaInicio;
+    private final Bugged pantallaInicio;
     private Texture fondoLevelaSelect;
     private Stage escenaLevelSelect;
 
-    public PantallaLevelSelect(PantallaInicio pantallaInicio) {
+    public PantallaLevelSelect(Bugged pantallaInicio) {
         this.pantallaInicio = pantallaInicio;
     }
 

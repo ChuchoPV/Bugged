@@ -30,6 +30,7 @@ public class WinnerScreen implements Screen {
 
     private void crearEscena() {
         stage = new Stage(viewport, game.batch);
+        Gdx.input.setInputProcessor(stage);
 
         Texture textBtn = new Texture("LevelComplete.png");
         TextureRegionDrawable trd = new TextureRegionDrawable(new TextureRegion(textBtn));
@@ -40,7 +41,8 @@ public class WinnerScreen implements Screen {
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
                     screen.getHud().setStage();
-                    game.setScreen(new PantallaLevelSelect(game.getPantallaInicio()));
+                    game.getPantallaInicio().setScreen(new PantallaLevelSelect(game.getPantallaInicio()));
+                    dispose();
                 }
             }
         );
@@ -55,10 +57,7 @@ public class WinnerScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        if(Gdx.input.justTouched()){
-            game.setScreen(new PlayScreen(game));
-            dispose();
-        }
+
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.draw();

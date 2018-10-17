@@ -40,8 +40,8 @@ public class GameOverScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                screen.getHud().setStage();
                 game.getPantallaInicio().setScreen(new PlayScreen(game));
+                dispose();
             }
         }
         );
@@ -56,10 +56,7 @@ public class GameOverScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        if(Gdx.input.justTouched()){
-            game.setScreen(new PlayScreen(game));
-            dispose();
-        }
+
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.draw();

@@ -3,7 +3,7 @@ package com.jpv.Level1.Level1;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.jpv.Level1.Level1.Screens.PlayScreen;
-import com.jpv.Level1.PantallasMenu.PantallaInicio;
+import com.jpv.Level1.PantallasMenu.Bugged;
 
 
 public class Level1 extends Game{
@@ -27,9 +27,9 @@ public class Level1 extends Game{
     public static final short BOSS_COLLIDER_BIT = 4096;
 
     public SpriteBatch batch;
-    private PantallaInicio pantallaInicio;
+    private Bugged pantallaInicio;
 
-    public Level1(PantallaInicio pantallaincio) {
+    public Level1(Bugged pantallaincio) {
         batch = new SpriteBatch();
         this.pantallaInicio = pantallaincio;
         create();
@@ -39,7 +39,7 @@ public class Level1 extends Game{
         pantallaInicio.setScreen(new PlayScreen(this));
     }
 
-    public PantallaInicio getPantallaInicio() {
+    public Bugged getPantallaInicio() {
         return pantallaInicio;
     }
 }
