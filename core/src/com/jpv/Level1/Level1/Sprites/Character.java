@@ -88,7 +88,7 @@ public class Character extends Sprite {
         for(int i= 0; i<4; i++){
             frames.add(new TextureRegion(screen.getAtlas().findRegion("Hank_Idle"), i * 175,0,175,175));
         }
-        idle = new Animation<TextureRegion>(0.7f,frames);
+        idle = new Animation<TextureRegion>(3f,frames);
         frames.clear();
         //endregion
         //region ATTACK
@@ -122,9 +122,9 @@ public class Character extends Sprite {
     }
 
     public void update(float dt){
-        stateTimer += dt;
         //region STANDING REGION AND DEFAULT
         setPosition(b2body.getPosition().x - getWidth() / 2.3f, b2body.getPosition().y  - getHeight() / 2f); //6.2f
+
         setBounds(getX(),getY(),175 / Level1.PPM, 175 / Level1.PPM);
         TextureRegion frames = getFrame(dt);
         setRegion(frames);
@@ -262,7 +262,7 @@ public class Character extends Sprite {
         currentState = getState();
 
         if(currentState != prevState){
-            stateTimer  = 0;
+            stateTimer = 0;
         }
 
         TextureRegion region;
@@ -271,14 +271,12 @@ public class Character extends Sprite {
                 region = (TextureRegion) dead.getKeyFrame(stateTimer);
                 break;
             case ATTACKING:
-                //Gdx.app.log("Statetimer",""+stateTimer);
                 region = (TextureRegion) attack.getKeyFrame(stateTimer);
                 if (attack.isAnimationFinished(stateTimer)) {
-                    Gdx.app.log("Statetimer Final",""+stateTimer);
+                    //Gdx.app.log("Statetimer Final",""+stateTimer);
                     attacking = false;
                     Hud.btnAt = false;
                     stateTimer = 0;
-
                 }
                 break;
             case DAMAGED:
@@ -298,7 +296,7 @@ public class Character extends Sprite {
                 region = falling;
                 break;
             case STANDING:
-            case WIN:;
+            case WIN:
             default:
                 region = (TextureRegion) idle.getKeyFrame(stateTimer, true);
                 break;
@@ -360,9 +358,6 @@ public class Character extends Sprite {
             return State.ATTACKING;
         }else if(damaged){
             return State.DAMAGED;
-        }
-        else if(currentState == State.STANDING && Hud.btnAt) {
-            return State.ATTACKING;
         }
         //aqui termina la modificacion para el swing
         else if(win){
