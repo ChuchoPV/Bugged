@@ -15,7 +15,6 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jpv.Level1.Level1.Level1;
-import com.jpv.Level1.Level1.Screens.PauseScreen;
 import com.jpv.Level1.Level1.Screens.PlayScreen;
 import com.jpv.Level1.Level1.Sprites.Character;
 import com.jpv.Level1.Level1.Tools.GenericButton;
@@ -134,15 +133,17 @@ public class Hud {
         }
         );
         //endregion
+        //region PAUSE BUTTON
         GenericButton btnPausa = new GenericButton((Level1.V_WIDTH / Level1.PPM) + 1180, (Level1.V_WIDTH / Level1.PPM ) + 620,"pausa.png","vacia.png");
         btnPausa.button().addListener(new ClickListener() {
            @Override
            public void clicked(InputEvent event, float x, float y) {
                super.clicked(event, x, y);
-               screen.getGame().setScreen(new PauseScreen(screen));
+               //screen.getGame().getPantallaInicio().setScreen(new PauseScreen(screen));
            }
         }
         );
+        //endregion
 
         stage.addActor(btnJoystickUp.button());
         stage.addActor(btnJoystickRight.button());

@@ -280,10 +280,10 @@ public class PlayScreen implements Screen {
         Hud.stage.draw();
 
         if(gameOver()){
-            game.setScreen(new GameOverScreen(game));
+           // game.getPantallaInicio().setScreen(new GameOverScreen(game.getPantallaInicio()));
             dispose();
         }else if(winScreen()){
-            game.setScreen(new WinnerScreen(game));
+            //game.getPantallaInicio().setScreen(new WinnerScreen(game.getPantallaInicio()));
         }
 
     }
@@ -333,7 +333,6 @@ public class PlayScreen implements Screen {
     }
 
     //endregion
-
 
     //region SCREEN METHODS
     @Override
