@@ -64,7 +64,7 @@ public class Hud {
 
     private void createButtons() {
 
-
+        //region RIGHT BUTTON
         GenericButton btnJoystickRight = new GenericButton((Level1.V_WIDTH / Level1.PPM) + (15000 / Level1.PPM), (Level1.V_WIDTH / Level1.PPM ),"Joystick_Right.png","vacia.png");
         btnJoystickRight.button().addListener(new ClickListener() {
             @Override
@@ -84,7 +84,8 @@ public class Hud {
             }
         }
         );
-
+        //endregion
+        //region LEFT BUTTON
         GenericButton btnJoystickLeft = new GenericButton((Level1.V_WIDTH / Level1.PPM) + 20, (Level1.V_WIDTH / Level1.PPM ),"Joystick_left.png","vacia.png");
         btnJoystickLeft.button().addListener(new ClickListener() {
              @Override
@@ -105,7 +106,8 @@ public class Hud {
              }
         }
         );
-
+        //endregion
+        //region JUMP BUTTON
         GenericButton btnJoystickUp = new GenericButton((Level1.V_WIDTH / Level1.PPM) + 1100, (Level1.V_WIDTH / Level1.PPM ) + 100,"Attack_Btn.png","vacia.png");
         btnJoystickUp.button().addListener(new ClickListener() {
            @Override
@@ -119,17 +121,18 @@ public class Hud {
 
         }
         );
-
+        //endregion
+        //region ATTACK BUTTON
         GenericButton btnAttack = new GenericButton((Level1.V_WIDTH / Level1.PPM) + 1000, (Level1.V_WIDTH / Level1.PPM ),"Secondary_Btn.png","vacia.png");
         btnAttack.button().addListener(new ClickListener() {
            @Override
            public void clicked(InputEvent event, float x, float y) {
                super.clicked(event, x, y);
                btnAt = true;
-           }
-
-       }
+            }
+        }
         );
+        //endregion
 
         stage.addActor(btnJoystickUp.button());
         stage.addActor(btnJoystickRight.button());
@@ -157,7 +160,6 @@ public class Hud {
         }
     }
 
-
     public boolean getBtnRig(){
         return btnRig;
     }
@@ -167,7 +169,6 @@ public class Hud {
     public static boolean getBtnAt(){
         return btnAt;
     }
-
 
     public void dispose(){
         stage.dispose();
