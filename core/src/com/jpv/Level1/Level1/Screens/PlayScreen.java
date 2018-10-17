@@ -96,6 +96,8 @@ public class PlayScreen implements Screen {
 
     }
 
+    //region SPAWN ITEMS
+
     public void spawnItem(ItemDef idef) {
         itemsToSpawn.add(idef);
     }
@@ -107,16 +109,12 @@ public class PlayScreen implements Screen {
         }
     }
 
-    @Override
-    public void show() {
-
-    }
+    //endregion
 
     private void update(float dt){
         //handle the input to move around our world
         handleInput(dt);
         handleSpawingItems();
-        System.out.println(player.b2body.getLinearVelocity().x);
 
         world.step(1/60f,6,2);
         player.update(dt);
@@ -183,6 +181,7 @@ public class PlayScreen implements Screen {
         gamecam.update();
         //Setting the camara to our map
         renderer.setView(gamecam);
+
     }
 
     private void manageBoss(float dt) {
@@ -280,6 +279,7 @@ public class PlayScreen implements Screen {
         game.batch.end();
         Hud.stage.draw();
 
+        Gdx.app.log("Estado", ""+player.currentState);
         if(gameOver()){
             game.setScreen(new GameOverScreen(game));
             dispose();
@@ -332,6 +332,11 @@ public class PlayScreen implements Screen {
     //endregion
 
     //region SCREEN METHODS
+    @Override
+    public void show() {
+
+    }
+
     @Override
     public void resize(int width, int height) {
         gamePort.update(width,height);

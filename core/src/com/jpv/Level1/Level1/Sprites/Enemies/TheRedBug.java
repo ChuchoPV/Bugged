@@ -13,7 +13,6 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
 import com.jpv.Level1.Level1.Level1;
 import com.jpv.Level1.Level1.Screens.PlayScreen;
-import com.jpv.Level1.Level1.Sprites.Character;
 
 
 public class TheRedBug extends Enemy {
@@ -185,7 +184,7 @@ public class TheRedBug extends Enemy {
     public void onHeadHit() {
         if(damaged == 21) {
             setToDestroy = true;
-            screen.getPlayer().currentState = Character.State.WIN;
+            screen.getPlayer().win = true;
         }else{
             damagedB = true;
             damaged++;

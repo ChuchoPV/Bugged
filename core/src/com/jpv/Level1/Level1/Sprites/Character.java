@@ -42,8 +42,8 @@ public class Character extends Sprite {
     public int lifes;
     public boolean damaged;
     private boolean isDead;
-    private boolean first;
     private boolean firstDam;
+    public boolean win;
     //endregion
 
     //region CODE
@@ -57,9 +57,9 @@ public class Character extends Sprite {
         lifes = 3;
         damaged = false;
         stateTimer = 0;
-        first = true;
         firstDam = true;
         boss=false;
+        win = false;
 
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
@@ -269,6 +269,7 @@ public class Character extends Sprite {
                 region = falling;
                 break;
             case STANDING:
+            case WIN:;
             default:
                 region = (TextureRegion) idle.getKeyFrame(stateTimer, true);
                 break;
@@ -330,6 +331,9 @@ public class Character extends Sprite {
             return State.DAMAGED;
         }
         //aqui termina la modificacion para el swing
+        else if(win){
+            return State.WIN;
+        }
         else {
             return State.STANDING;
         }
@@ -363,7 +367,7 @@ public class Character extends Sprite {
 
     private void defineCharacter() {
         BodyDef bdef = new BodyDef();//650
-        bdef.position.set(650 / Level1.PPM ,240 / Level1.PPM); //18650
+        bdef.position.set(18650 / Level1.PPM ,240 / Level1.PPM); //18650
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
