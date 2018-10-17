@@ -86,6 +86,7 @@ public class Hud {
                     btnRig = true;
                     first = false;
                 }
+                //screen.getPlayer().b2body.applyLinearImpulse(15f,0f,0,0,true);
                 return super.touchDown(event, x, y, pointer, button);
             }
 
