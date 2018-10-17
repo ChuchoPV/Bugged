@@ -334,6 +334,7 @@ public class PlayScreen implements Screen {
 
     //endregion
 
+
     //region SCREEN METHODS
     @Override
     public void show() {
@@ -353,7 +354,6 @@ public class PlayScreen implements Screen {
 
     @Override
     public void resume() {
-
     }
 
     @Override
