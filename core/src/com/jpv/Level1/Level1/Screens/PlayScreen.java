@@ -279,7 +279,6 @@ public class PlayScreen implements Screen {
         game.batch.end();
         Hud.stage.draw();
 
-        Gdx.app.log("Estado", ""+player.currentState);
         if(gameOver()){
             game.setScreen(new GameOverScreen(game));
             dispose();
