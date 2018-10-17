@@ -48,6 +48,7 @@ public class Character extends Sprite {
 
     //region CODE
     public Character(PlayScreen screen){
+        //region INITIALIZE VARIABLE
         super();
         this.screen = screen;
         this.world = screen.getWorld();
@@ -60,9 +61,9 @@ public class Character extends Sprite {
         firstDam = true;
         boss=false;
         win = false;
-
+        //endregion
+        //region ANIMATION
         Array<TextureRegion> frames = new Array<TextureRegion>();
-
         //get run animation frames and add them to marioRun Animation
         for(int i= 0; i<13; i++){
             frames.add(new TextureRegion(screen.getAtlas().findRegion("Hank_Run"), i * 175,0,175,175));
@@ -105,28 +106,23 @@ public class Character extends Sprite {
             frames.add(new TextureRegion(screen.getAtlas().findRegion("Hank_Dead"), i * 175,0,175,175));
         }
         dead = new Animation<TextureRegion>(0.3f,frames);
-
+        //endregion
         defineCharacter();
         setBounds(0,0,175 / Level1.PPM, 175 / Level1.PPM);
     }
 
     public void update(float dt){
         stateTimer += dt;
-        if(currentState != State.DAMAGED){
-            firstDam = true;
-        }
-        if(b2body.getPosition().y <0){
-            isDead = true;
-        }
-
+        //region STANDING REGION AND DEFAULT
         setPosition(b2body.getPosition().x - getWidth() / 2.3f, b2body.getPosition().y  - getHeight() / 2f); //6.2f
         setBounds(getX(),getY(),175 / Level1.PPM, 175 / Level1.PPM);
         TextureRegion frames = getFrame(dt);
         setRegion(frames);
-
         if(currentState == State.STANDING && getFrame(dt).isFlipX()){
             setPosition(b2body.getPosition().x - getWidth() / 1.5f, b2body.getPosition().y  - getHeight() / 2f);
         }
+        //endregion
+        //region ATTACKING
         if(currentState == State.ATTACKING) {
             setPosition(b2body.getPosition().x - getWidth() / 1.8f, b2body.getPosition().y  - getHeight() / 2f);
             if(!getFrame(dt).isFlipX()){
@@ -190,16 +186,18 @@ public class Character extends Sprite {
                         b2body.destroyFixture(b2body.getFixtureList().get(i));
                 }
             }
-
             if(frames.isFlipX()) {
                 setPosition(b2body.getPosition().x - getWidth() / 1f, b2body.getPosition().y - getHeight() / 2f); //6.2f
-                setBounds(getX(), getY(), 239 / Level1.PPM, 239 / Level1.PPM);
+                setBounds(getX(), getY(), 240 / Level1.PPM, 240 / Level1.PPM);
             }if(!frames.isFlipX()){
                 setPosition(b2body.getPosition().x - getWidth() / 2f, b2body.getPosition().y - getHeight() / 2f); //6.2f
-                setBounds(getX(), getY(), 239 / Level1.PPM, 239 / Level1.PPM);
+                setBounds(getX(), getY(), 240 / Level1.PPM, 240 / Level1.PPM);
                 //setBounds(getX(), getY(), 240 / Level1.PPM, 175 / Level1.PPM); //Posible solucion pero aplasta a Hank y lo hace ver mal
             }
-        }else if(currentState == State.DAMAGED) {
+        }
+        //endregion
+        //region DAMAGED
+        else if(currentState == State.DAMAGED) {
             if(!isDead()) {
                 if(isFlipX() && firstDam) {
                     b2body.applyLinearImpulse(new Vector2(3f, 0), b2body.getWorldCenter(), true);
@@ -209,6 +207,16 @@ public class Character extends Sprite {
                     firstDam = false;
                 }
             }
+        }
+        //endregion
+        //region No DAMAGE LOGIC
+        if(currentState != State.DAMAGED){
+            firstDam = true;
+        }
+        //endregion
+        //region DEAD
+        if(b2body.getPosition().y <0){
+            isDead = true;
         }
         else if(currentState == State.DEAD) {
             /*if (first) {
@@ -228,12 +236,16 @@ public class Character extends Sprite {
                 first = false;
             }
             */
-        }if(currentState != State.ATTACKING){
+        }
+        //endregion
+        //region NO ATTACKING LOGIC
+        if(currentState != State.ATTACKING){
             for(Fixture fix : b2body.getFixtureList()){
                 if(!fix.equals(b2body.getFixtureList().get(0)))
                     b2body.destroyFixture(fix);
             }
         }
+        //endregion
     }
 
     private TextureRegion getFrame(float dt) {
@@ -356,7 +368,7 @@ public class Character extends Sprite {
         isDead = true;
     }
 
-
+    //region GETTERS
     private boolean isDead(){
         return isDead;
     }
@@ -364,6 +376,7 @@ public class Character extends Sprite {
     public float getStateTimer(){
         return stateTimer;
     }
+    //endregion
 
     private void defineCharacter() {
         BodyDef bdef = new BodyDef();//650

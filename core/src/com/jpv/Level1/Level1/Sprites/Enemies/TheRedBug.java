@@ -16,6 +16,7 @@ import com.jpv.Level1.Level1.Screens.PlayScreen;
 
 
 public class TheRedBug extends Enemy {
+    //region VARIABLES
     private boolean setToDestroy;
     private boolean destroyed;
     private boolean damagedB;
@@ -29,6 +30,7 @@ public class TheRedBug extends Enemy {
     private TextureRegion jump;
     private TextureRegion fall;
     private boolean first;
+    //endregion
 
     public TheRedBug(PlayScreen screen, float x, float y, MapObject object) {
         super(screen, x, y, object);
