@@ -283,12 +283,22 @@ public class PlayScreen implements Screen {
         if(gameOver()){
             game.setScreen(new GameOverScreen(game));
             dispose();
+        }else if(winScreen()){
+            game.setScreen(new WinnerScreen(game));
         }
 
     }
 
     private boolean gameOver(){
         if(player.currentState == Character.State.DEAD &&  player.getStateTimer() > 3){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    private boolean winScreen(){
+        if(player.currentState == Character.State.WIN && player.getStateTimer() > 3){
             return true;
         }else{
             return false;

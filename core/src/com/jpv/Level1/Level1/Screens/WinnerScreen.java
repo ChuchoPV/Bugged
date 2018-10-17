@@ -29,7 +29,7 @@ public class WinnerScreen implements Screen {
     private void crearEscena() {
         stage = new Stage(viewport, game.batch);
 
-        Texture textBtn = new Texture("GameOver.png");
+        Texture textBtn = new Texture("LevelComplete.png");
         TextureRegionDrawable trd = new TextureRegionDrawable(new TextureRegion(textBtn));
         ImageButton btn = new ImageButton(trd);
         btn.setPosition(Level1.V_WIDTH / Level1.PPM, Level1.V_HEIGHT / Level1.PPM);
