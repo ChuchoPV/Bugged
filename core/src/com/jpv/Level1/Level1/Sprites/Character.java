@@ -38,7 +38,7 @@ public class Character extends Sprite {
     private float stateTimer;
     private boolean runningRight;
     public boolean boss;
-    private boolean attacking;
+    public boolean attacking;
     public int lifes;
     public boolean damaged;
     private boolean isDead;
@@ -305,7 +305,7 @@ public class Character extends Sprite {
         else if (damaged && !isDead()){
             return State.DAMAGED;
         }
-        else if (Gdx.input.isKeyPressed(Input.Keys.Z) || Hud.getBtnAt() && !isDead()){
+        else if ((Gdx.input.isKeyPressed(Input.Keys.Z) || Hud.getBtnAt()) && !isDead()){
             attacking = true;
             return State.ATTACKING;
         }
@@ -342,11 +342,14 @@ public class Character extends Sprite {
         }else if(damaged){
             return State.DAMAGED;
         }
+        else if(currentState == State.STANDING && Hud.btnAt) {
+            return State.ATTACKING;
+        }
         //aqui termina la modificacion para el swing
         else if(win){
             return State.WIN;
         }
-        else {
+        else{
             return State.STANDING;
         }
     }
