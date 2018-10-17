@@ -2,7 +2,7 @@ package com.jpv;
 
 import com.badlogic.gdx.backends.iosrobovm.IOSApplication;
 import com.badlogic.gdx.backends.iosrobovm.IOSApplicationConfiguration;
-import com.jpv.Level1.Level1.Level1;
+import com.jpv.Level1.PantallasMenu.PantallaInicio;
 
 import org.robovm.apple.foundation.NSAutoreleasePool;
 import org.robovm.apple.uikit.UIApplication;
@@ -11,7 +11,7 @@ public class IOSLauncher extends IOSApplication.Delegate {
     @Override
     protected IOSApplication createApplication() {
         IOSApplicationConfiguration config = new IOSApplicationConfiguration();
-        return new IOSApplication(new Level1(), config);
+        return new IOSApplication(new PantallaInicio(), config);
     }
 
     public static void main(String[] argv) {
