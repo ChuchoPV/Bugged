@@ -16,32 +16,30 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jpv.Level1.Level1.Level1;
 
-public class GameOverScreen implements Screen {
+public class WinnerScreen implements Screen {
     private Viewport viewport;
     private Stage stage;
     private Level1 game;
 
-    public GameOverScreen(Game game){
+    public WinnerScreen(Game game){
         this.game = (Level1) game;
         viewport = new FitViewport(Level1.V_WIDTH,Level1.V_HEIGHT,new OrthographicCamera());
     }
 
     private void crearEscena() {
-        stage = new Stage(viewport, ((Level1) game).batch);
+        stage = new Stage(viewport, game.batch);
 
         Texture textBtn = new Texture("GameOver.png");
         TextureRegionDrawable trd = new TextureRegionDrawable(new TextureRegion(textBtn));
         ImageButton btn = new ImageButton(trd);
         btn.setPosition(Level1.V_WIDTH / Level1.PPM, Level1.V_HEIGHT / Level1.PPM);
-        //Acción del botón
         btn.addListener(new ClickListener() {
-                            @Override
-                            public void clicked(InputEvent event, float x, float y) {
-                                super.clicked(event, x, y);
-                                //pantallaInicio.setScreen(new PantallaJuego(pantallaInicio));
-                                game.setScreen(new PlayScreen(game));
-                            }
-                        }
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    game.setScreen(new PlayScreen(game));
+                }
+            }
         );
 
         stage.addActor(btn);
