@@ -280,10 +280,10 @@ public class PlayScreen implements Screen {
         Hud.stage.draw();
 
         if(gameOver()){
-            game.getPantallaInicio().setScreen(new GameOverScreen(game.getPantallaInicio()));
+            game.getPantallaInicio().setScreen(new GameOverScreen(this));
             dispose();
         }else if(winScreen()){
-            game.getPantallaInicio().setScreen(new WinnerScreen(game.getPantallaInicio()));
+            game.getPantallaInicio().setScreen(new WinnerScreen(this));
         }
 
     }

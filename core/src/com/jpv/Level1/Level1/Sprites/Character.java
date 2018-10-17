@@ -113,7 +113,7 @@ public class Character extends Sprite {
         for(int i= 0; i<6; i++){
             frames.add(new TextureRegion(screen.getAtlas().findRegion("Hank_Dead"), i * 175,0,175,175));
         }
-        dead = new Animation<TextureRegion>(0.3f,frames);
+        dead = new Animation<TextureRegion>(0.1f,frames);
         //endregion
 
         //endregion

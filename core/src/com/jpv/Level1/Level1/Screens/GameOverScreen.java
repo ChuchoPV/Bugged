@@ -1,6 +1,5 @@
 package com.jpv.Level1.Level1.Screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -19,10 +18,12 @@ import com.jpv.Level1.Level1.Level1;
 public class GameOverScreen implements Screen {
     private Viewport viewport;
     private Stage stage;
+    private PlayScreen screen;
     private Level1 game;
 
-    public GameOverScreen(Game game){
-        this.game = (Level1) game;
+    public GameOverScreen(PlayScreen screen){
+        this.screen = screen;
+        this.game = screen.getGame();
         viewport = new FitViewport(Level1.V_WIDTH,Level1.V_HEIGHT,new OrthographicCamera());
     }
 
@@ -39,6 +40,7 @@ public class GameOverScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
+                screen.getHud().setStage();
                 game.getPantallaInicio().setScreen(new PlayScreen(game));
             }
         }
