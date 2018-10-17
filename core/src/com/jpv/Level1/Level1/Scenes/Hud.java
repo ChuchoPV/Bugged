@@ -24,7 +24,7 @@ public class Hud {
     private static int y;
     private PlayScreen screen;
     private boolean btnLef;
-    public boolean btnRig;
+    private boolean btnRig;
     public static boolean btnAt;
     private boolean first;
     private static Array<Image> vidas;
@@ -126,15 +126,9 @@ public class Hud {
         GenericButton btnAttack = new GenericButton((Level1.V_WIDTH / Level1.PPM) + 1000, (Level1.V_WIDTH / Level1.PPM ),"Secondary_Btn.png","vacia.png");
         btnAttack.button().addListener(new ClickListener() {
            @Override
-           public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+           public void clicked(InputEvent event, float x, float y) {
+               super.clicked(event, x, y);
                btnAt = true;
-               return super.touchDown(event, x, y, pointer, button);
-           }
-
-           @Override
-           public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-               btnAt = false;
-               super.touchUp(event, x, y, pointer, button);
            }
         }
         );

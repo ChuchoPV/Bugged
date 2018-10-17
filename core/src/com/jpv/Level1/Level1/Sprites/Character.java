@@ -64,13 +64,15 @@ public class Character extends Sprite {
         //endregion
         //region ANIMATION
         Array<TextureRegion> frames = new Array<TextureRegion>();
+        //region RUN
         //get run animation frames and add them to marioRun Animation
         for(int i= 0; i<13; i++){
             frames.add(new TextureRegion(screen.getAtlas().findRegion("Hank_Run"), i * 175,0,175,175));
         }
         running = new Animation<TextureRegion>(0.20f,frames);
         frames.clear();
-
+        //endregion
+        //region DAMAGE
         //get damage Animation frames and add them to marioRun Animation
         TextureRegion temp;
         for(int i= 0; i<4; i++){
@@ -80,32 +82,40 @@ public class Character extends Sprite {
         }
         damage = new Animation<TextureRegion>(0.2f,frames);
         frames.clear();
-
+        //endregion
+        //region IDLE
         //get idle animation frames and add them to marioRun Animation
         for(int i= 0; i<4; i++){
             frames.add(new TextureRegion(screen.getAtlas().findRegion("Hank_Idle"), i * 175,0,175,175));
         }
         idle = new Animation<TextureRegion>(0.7f,frames);
         frames.clear();
-
+        //endregion
+        //region ATTACK
         //get attack animation frames and add them to marioRun Animation
         for(int i= 0; i<5; i++){
             frames.add(new TextureRegion(screen.getAtlas().findRegion("Hank_Swipe"), i * 280,0,280,280));
         }
+        //frames.add(new TextureRegion(new Texture("vacia.png")));
         attack = new Animation<TextureRegion>(0.3f,frames);
         frames.clear();
-
+        //endregion
+        //region JUMP
         //get jump frame frames and add them to marioRun Animation
         jumpAnimation = new TextureRegion(screen.getAtlas().findRegion("Hank_Jump"), 175,0,175,175);
-
+        //endregion
+        //region FALL
         //get fall frame frames and add them to marioRun Animation
         falling = new TextureRegion(screen.getAtlas().findRegion("Hank_Jump"), 525,0,175,175);
-
+        //endregion
+        //region DEAD
         //get dead animation frames and add them to marioRun Animation
         for(int i= 0; i<5; i++){
             frames.add(new TextureRegion(screen.getAtlas().findRegion("Hank_Dead"), i * 175,0,175,175));
         }
         dead = new Animation<TextureRegion>(0.3f,frames);
+        //endregion
+
         //endregion
         defineCharacter();
         setBounds(0,0,175 / Level1.PPM, 175 / Level1.PPM);
@@ -261,11 +271,13 @@ public class Character extends Sprite {
                 region = (TextureRegion) dead.getKeyFrame(stateTimer);
                 break;
             case ATTACKING:
+                //Gdx.app.log("Statetimer",""+stateTimer);
                 region = (TextureRegion) attack.getKeyFrame(stateTimer);
                 if (attack.isAnimationFinished(stateTimer)) {
-
+                    Gdx.app.log("Statetimer Final",""+stateTimer);
                     attacking = false;
                     Hud.btnAt = false;
+                    stateTimer = 0;
 
                 }
                 break;
