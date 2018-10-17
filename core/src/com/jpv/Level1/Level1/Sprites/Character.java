@@ -69,7 +69,7 @@ public class Character extends Sprite {
         for(int i= 0; i<13; i++){
             frames.add(new TextureRegion(screen.getAtlas().findRegion("Hank_Run"), i * 175,0,175,175));
         }
-        running = new Animation<TextureRegion>(0.20f,frames);
+        running = new Animation<TextureRegion>(0.09f,frames);
         frames.clear();
         //endregion
         //region DAMAGE
@@ -88,7 +88,7 @@ public class Character extends Sprite {
         for(int i= 0; i<4; i++){
             frames.add(new TextureRegion(screen.getAtlas().findRegion("Hank_Idle"), i * 175,0,175,175));
         }
-        idle = new Animation<TextureRegion>(3f,frames);
+        idle = new Animation<TextureRegion>(0.7f,frames);
         frames.clear();
         //endregion
         //region ATTACK
@@ -110,7 +110,7 @@ public class Character extends Sprite {
         //endregion
         //region DEAD
         //get dead animation frames and add them to marioRun Animation
-        for(int i= 0; i<5; i++){
+        for(int i= 0; i<6; i++){
             frames.add(new TextureRegion(screen.getAtlas().findRegion("Hank_Dead"), i * 175,0,175,175));
         }
         dead = new Animation<TextureRegion>(0.3f,frames);
@@ -124,7 +124,6 @@ public class Character extends Sprite {
     public void update(float dt){
         //region STANDING REGION AND DEFAULT
         setPosition(b2body.getPosition().x - getWidth() / 2.3f, b2body.getPosition().y  - getHeight() / 2f); //6.2f
-
         setBounds(getX(),getY(),175 / Level1.PPM, 175 / Level1.PPM);
         TextureRegion frames = getFrame(dt);
         setRegion(frames);
@@ -132,6 +131,7 @@ public class Character extends Sprite {
             setPosition(b2body.getPosition().x - getWidth() / 1.5f, b2body.getPosition().y  - getHeight() / 2f);
         }
         //endregion
+
         //region ATTACKING
         if(currentState == State.ATTACKING) {
             setPosition(b2body.getPosition().x - getWidth() / 1.8f, b2body.getPosition().y  - getHeight() / 2f);
@@ -164,9 +164,7 @@ public class Character extends Sprite {
                     for(int i = 1; i < b2body.getFixtureList().size; i++)
                         b2body.destroyFixture(b2body.getFixtureList().get(i));
                 }
-            }
-
-            else{
+            }else{
                 if(attack.getKeyFrameIndex(stateTimer) == 0){
                     redefineArma(new Vector2(75 , 75),
                             new Vector2(20 , 75),
@@ -206,6 +204,15 @@ public class Character extends Sprite {
             }
         }
         //endregion
+        if(currentState == State.STANDING){
+            setPosition(b2body.getPosition().x - getWidth() / 2.3f, b2body.getPosition().y  - getHeight() / 2f); //6.2f
+            setBounds(getX(),getY(),175 / Level1.PPM, 175 / Level1.PPM);
+            frames = getFrame(dt);
+            setRegion(frames);
+            if(currentState == State.STANDING && getFrame(dt).isFlipX()){
+                setPosition(b2body.getPosition().x - getWidth() / 1.5f, b2body.getPosition().y  - getHeight() / 2f);
+            }
+        }
         //region DAMAGED
         else if(currentState == State.DAMAGED) {
             if(!isDead()) {
@@ -261,9 +268,9 @@ public class Character extends Sprite {
     private TextureRegion getFrame(float dt) {
         currentState = getState();
 
-        if(currentState != prevState){
-            stateTimer = 0;
-        }
+        stateTimer = currentState == prevState ? stateTimer + dt : 0;
+        prevState = currentState;
+
 
         TextureRegion region;
         switch (currentState) {
@@ -273,7 +280,6 @@ public class Character extends Sprite {
             case ATTACKING:
                 region = (TextureRegion) attack.getKeyFrame(stateTimer);
                 if (attack.isAnimationFinished(stateTimer)) {
-                    //Gdx.app.log("Statetimer Final",""+stateTimer);
                     attacking = false;
                     Hud.btnAt = false;
                     stateTimer = 0;
@@ -309,8 +315,7 @@ public class Character extends Sprite {
             runningRight = true;
         }
 
-        stateTimer = currentState == prevState ? stateTimer + dt : 0;
-        prevState = currentState;
+        //stateTimer = currentState == prevState ? stateTimer + dt : 0;
 
         return region;
     }
@@ -322,7 +327,7 @@ public class Character extends Sprite {
         else if (damaged && !isDead()){
             return State.DAMAGED;
         }
-        else if ((Gdx.input.isKeyPressed(Input.Keys.Z) || Hud.getBtnAt()) && !isDead()){
+        else if ((Gdx.input.isKeyPressed(Input.Keys.Z) || Hud.getBtnAt()) && !attacking && !isDead()){
             attacking = true;
             return State.ATTACKING;
         }
@@ -354,11 +359,13 @@ public class Character extends Sprite {
             }
         }
         //aqui empieza la modificacion para el swing completo
+
         else if (attacking) {
             return State.ATTACKING;
         }else if(damaged){
             return State.DAMAGED;
         }
+
         //aqui termina la modificacion para el swing
         else if(win){
             return State.WIN;
