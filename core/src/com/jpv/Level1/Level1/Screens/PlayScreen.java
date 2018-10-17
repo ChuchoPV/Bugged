@@ -344,7 +344,7 @@ public class PlayScreen implements Screen {
 
     @Override
     public void pause() {
-
+        getGame().setScreen(new PauseScreen(this));
     }
 
     @Override
@@ -368,4 +368,8 @@ public class PlayScreen implements Screen {
     }
 
     //endregion
+
+
 }
+
+
