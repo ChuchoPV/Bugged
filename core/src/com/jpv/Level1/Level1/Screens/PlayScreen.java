@@ -61,7 +61,6 @@ public class PlayScreen implements Screen {
     private int timerBoss;
     private long startTime;
     private boolean first;
-    private boolean right;
 
     //endregion
 
@@ -96,7 +95,6 @@ public class PlayScreen implements Screen {
         itemsToSpawn = new LinkedBlockingDeque<ItemDef>();
 
     }
-    
 
     public void spawnItem(ItemDef idef) {
         itemsToSpawn.add(idef);
@@ -118,7 +116,6 @@ public class PlayScreen implements Screen {
         //handle the input to move around our world
         handleInput(dt);
         handleSpawingItems();
-        right=hud.btnRig;
         System.out.println(player.b2body.getLinearVelocity().x);
 
         world.step(1/60f,6,2);
@@ -298,6 +295,8 @@ public class PlayScreen implements Screen {
         }
     }
 
+    //region GETTERS
+
     public TiledMap getMap() {
         return map;
     }
@@ -320,6 +319,9 @@ public class PlayScreen implements Screen {
         return atlas;
     }
 
+    //endregion
+
+    //region SCREEN METHODS
     @Override
     public void resize(int width, int height) {
         gamePort.update(width,height);
@@ -350,4 +352,6 @@ public class PlayScreen implements Screen {
         hud.dispose();
 
     }
+
+    //endregion
 }
