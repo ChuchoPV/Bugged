@@ -1,4 +1,4 @@
-package com.jpv.Level1.Level1.Screens.PantallasMenu.Tools;
+package com.jpv.Level1.PantallasMenu.Tools;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;

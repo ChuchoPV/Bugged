@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jpv.Level1.Level1.Level1;
+import com.jpv.Level1.PantallasMenu.PantallaLevelSelect;
 
 public class WinnerScreen implements Screen {
     private Viewport viewport;
@@ -37,7 +38,7 @@ public class WinnerScreen implements Screen {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    game.setScreen(new PlayScreen(game));
+                    game.setScreen(new PantallaLevelSelect(game.getPantallaInicio()));
                 }
             }
         );

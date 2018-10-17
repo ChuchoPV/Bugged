@@ -1,4 +1,4 @@
-package com.jpv.Level1.Level1.Screens.PantallasMenu;
+package com.jpv.Level1.PantallasMenu;
 
 import com.badlogic.gdx.Game;
 

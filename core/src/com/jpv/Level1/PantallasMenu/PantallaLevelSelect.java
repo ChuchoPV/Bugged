@@ -1,19 +1,18 @@
-package com.jpv.Level1.Level1.Screens.PantallasMenu;
+package com.jpv.Level1.PantallasMenu;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.jpv.Level1.Level1.Level1;
-import com.jpv.Level1.Level1.Screens.PantallasMenu.Tools.Pantalla;
 import com.jpv.Level1.Level1.Tools.GenericButton;
+import com.jpv.Level1.PantallasMenu.Tools.Pantalla;
 
 public class PantallaLevelSelect extends Pantalla {
     private final PantallaInicio pantallaInicio;
-    public Texture fondoLevelaSelect;
-    public Stage escenaLevelSelect;
+    private Texture fondoLevelaSelect;
+    private Stage escenaLevelSelect;
 
     public PantallaLevelSelect(PantallaInicio pantallaInicio) {
         this.pantallaInicio = pantallaInicio;
@@ -34,7 +33,7 @@ public class PantallaLevelSelect extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                //new Level1(pantallaInicio);
+                new Level1(pantallaInicio);
                 }
             }
         );

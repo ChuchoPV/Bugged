@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jpv.Level1.Level1.Level1;
+import com.jpv.Level1.Level1.Screens.PauseScreen;
 import com.jpv.Level1.Level1.Screens.PlayScreen;
 import com.jpv.Level1.Level1.Sprites.Character;
 import com.jpv.Level1.Level1.Tools.GenericButton;
@@ -139,7 +140,7 @@ public class Hud {
            @Override
            public void clicked(InputEvent event, float x, float y) {
                super.clicked(event, x, y);
-               //screen.getGame().getPantallaInicio().setScreen(new PauseScreen(screen));
+               screen.getGame().getPantallaInicio().setScreen(new PauseScreen(screen));
            }
         }
         );

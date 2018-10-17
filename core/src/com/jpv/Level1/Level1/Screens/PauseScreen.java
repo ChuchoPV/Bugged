@@ -41,7 +41,7 @@ public class PauseScreen implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 screen.getHud().setStage();
-                //game.getPantallaInicio().setScreen(screen);
+                game.getPantallaInicio().setScreen(screen);
             }
         }
         );

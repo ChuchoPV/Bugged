@@ -39,8 +39,7 @@ public class GameOverScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                //pantallaInicio.setScreen(new PantallaJuego(pantallaInicio));
-                //game.getPantallaInicio().setScreen(new PlayScreen(game));
+                game.getPantallaInicio().setScreen(new PlayScreen(game));
             }
         }
         );
