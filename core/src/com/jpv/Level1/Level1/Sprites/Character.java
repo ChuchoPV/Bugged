@@ -251,6 +251,10 @@ public class Character extends Sprite {
     private TextureRegion getFrame(float dt) {
         currentState = getState();
 
+        if(currentState != prevState){
+            stateTimer  = 0;
+        }
+
         TextureRegion region;
         switch (currentState) {
             case DEAD:
@@ -259,6 +263,7 @@ public class Character extends Sprite {
             case ATTACKING:
                 region = (TextureRegion) attack.getKeyFrame(stateTimer);
                 if (attack.isAnimationFinished(stateTimer)) {
+
                     attacking = false;
                     Hud.btnAt = false;
 
@@ -293,8 +298,10 @@ public class Character extends Sprite {
             region.flip(true, false);
             runningRight = true;
         }
+
         stateTimer = currentState == prevState ? stateTimer + dt : 0;
         prevState = currentState;
+
         return region;
     }
 
