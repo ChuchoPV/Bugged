@@ -140,7 +140,9 @@ public class Hud {
     public static void updateLifes(int less){
         if(less == -1){
             stage.getActors().pop();
-            vidas.pop();
+            if(vidas.size != 0) {
+                vidas.pop();
+            }
             y -= 8000;
 
         }else if(less == 0){

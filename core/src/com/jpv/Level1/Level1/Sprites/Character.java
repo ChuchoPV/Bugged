@@ -289,8 +289,7 @@ public class Character extends Sprite {
         if(currentState != State.DAMAGED && isDead()) {
             return State.DEAD;
         }
-        else if (damaged && !isDead()){ //timerVidas <= 0
-            //timerVidas = 1.3f;
+        else if (damaged && !isDead()){
             return State.DAMAGED;
         }
         else if (Gdx.input.isKeyPressed(Input.Keys.Z) || Hud.getBtnAt() && !isDead()){
@@ -327,6 +326,8 @@ public class Character extends Sprite {
         //aqui empieza la modificacion para el swing completo
         else if (attacking) {
             return State.ATTACKING;
+        }else if(damaged){
+            return State.DAMAGED;
         }
         //aqui termina la modificacion para el swing
         else {
@@ -362,7 +363,7 @@ public class Character extends Sprite {
 
     private void defineCharacter() {
         BodyDef bdef = new BodyDef();//650
-        bdef.position.set(18650 / Level1.PPM ,240 / Level1.PPM); //18650
+        bdef.position.set(650 / Level1.PPM ,240 / Level1.PPM); //18650
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
