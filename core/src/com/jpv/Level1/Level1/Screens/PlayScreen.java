@@ -328,6 +328,10 @@ public class PlayScreen implements Screen {
         return atlas;
     }
 
+    public Hud getHud() {
+        return hud;
+    }
+
     //endregion
 
     //region SCREEN METHODS

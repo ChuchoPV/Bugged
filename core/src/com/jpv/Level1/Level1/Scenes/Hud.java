@@ -170,6 +170,9 @@ public class Hud {
             }
         }
     }
+    public void setStage(){
+        Gdx.input.setInputProcessor(stage);
+    }
 
     public boolean getBtnRig(){
         return btnRig;

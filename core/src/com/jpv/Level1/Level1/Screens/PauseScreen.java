@@ -40,6 +40,7 @@ public class PauseScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
+                screen.getHud().setStage();
                 game.setScreen(screen);
             }
         }
