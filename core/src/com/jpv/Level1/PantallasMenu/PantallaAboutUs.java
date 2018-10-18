@@ -31,12 +31,12 @@ public class PantallaAboutUs extends Pantalla {
         GenericButton btnBack = new GenericButton(ANCHO, ALTO,"PrincipalScreen/back_btn.png","PrincipalScreen/back_btn_pressed.png");
         btnBack.setPlace(ANCHO-btnBack.button().getWidth(),ALTO-btnBack.button().getHeight()-25);
         btnBack.button().addListener(new ClickListener() {
-                                         @Override
-                                         public void clicked(InputEvent event, float x, float y) {
-                                             super.clicked(event, x, y);
-                                             pantallaInicio.setScreen(new PantallaMenuPrincipal(pantallaInicio));
-                                         }
-                                     }
+             @Override
+             public void clicked(InputEvent event, float x, float y) {
+                 super.clicked(event, x, y);
+                 pantallaInicio.setScreen(new PantallaMenuPrincipal(pantallaInicio));
+             }
+         }
         );
 
         escena.addActor(btnBack.button());

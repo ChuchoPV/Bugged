@@ -59,7 +59,7 @@ public class WinnerScreen implements Screen {
          }
         );
 
-        GenericButton btnHome = new GenericButton((Level1.V_WIDTH / Level1.PPM) + 1150, (Level1.V_HEIGHT / Level1.PPM) + 600,"Home.png","Home.png");
+        GenericButton btnHome = new GenericButton((Level1.V_WIDTH / Level1.PPM) + 1150, (Level1.V_HEIGHT / Level1.PPM) + 600,"home.png","home.png");
         btnHome.button().addListener(new ClickListener() {
              @Override
              public void clicked(InputEvent event, float x, float y) {
