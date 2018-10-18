@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jpv.Level1.Level1.Level1;
 import com.jpv.Level1.Level1.Tools.GenericButton;
 import com.jpv.Level1.PantallasMenu.PantallaLevelSelect;
+import com.jpv.Level1.PantallasMenu.PantallaMenuPrincipal;
 
 public class WinnerScreen implements Screen {
     private Viewport viewport;
@@ -58,12 +59,12 @@ public class WinnerScreen implements Screen {
          }
         );
 
-        GenericButton btnHome = new GenericButton((Level1.V_WIDTH / Level1.PPM) + 1000, (Level1.V_HEIGHT / Level1.PPM) + 600,"Home.png","Home.png");
+        GenericButton btnHome = new GenericButton((Level1.V_WIDTH / Level1.PPM) + 1150, (Level1.V_HEIGHT / Level1.PPM) + 600,"Home.png","Home.png");
         btnHome.button().addListener(new ClickListener() {
              @Override
              public void clicked(InputEvent event, float x, float y) {
                  super.clicked(event, x, y);
-                 screen.getGame().getPantallaInicio().setScreen(new PantallaLevelSelect(screen.getGame().getPantallaInicio()));
+                 screen.getGame().getPantallaInicio().setScreen(new PantallaMenuPrincipal(screen.getGame().getPantallaInicio()));
              }
          }
         );
