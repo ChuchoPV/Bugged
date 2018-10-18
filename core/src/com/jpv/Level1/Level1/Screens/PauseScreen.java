@@ -2,7 +2,6 @@ package com.jpv.Level1.Level1.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -31,7 +30,7 @@ public class PauseScreen implements Screen {
         stage = new Stage(viewport, game.batch);
         Gdx.input.setInputProcessor(stage);
 
-        Texture textBtn = new Texture("PausaScreen.png");
+        Texture textBtn = new Texture("Pause_letters.png");
         TextureRegionDrawable trd = new TextureRegionDrawable(new TextureRegion(textBtn));
         ImageButton btn = new ImageButton(trd);
         btn.setPosition(Level1.V_WIDTH / Level1.PPM, Level1.V_HEIGHT / Level1.PPM);
@@ -57,8 +56,6 @@ public class PauseScreen implements Screen {
     @Override
     public void render(float delta) {
 
-        Gdx.gl.glClearColor(0,0,0,1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.draw();
     }
 

@@ -66,7 +66,7 @@ public class Hud {
     private void createButtons() {
 
         //region RIGHT BUTTON
-        GenericButton btnJoystickRight = new GenericButton((Level1.V_WIDTH / Level1.PPM) + (15000 / Level1.PPM), (Level1.V_WIDTH / Level1.PPM ),"Joystick_Right.png","vacia.png");
+        GenericButton btnJoystickRight = new GenericButton((Level1.V_WIDTH / Level1.PPM) + (15000 / Level1.PPM), (Level1.V_WIDTH / Level1.PPM ),"Joystick_Right.png","Joystick_Right_pressed.png");
         btnJoystickRight.button().addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -87,7 +87,7 @@ public class Hud {
         );
         //endregion
         //region LEFT BUTTON
-        GenericButton btnJoystickLeft = new GenericButton((Level1.V_WIDTH / Level1.PPM) + 20, (Level1.V_WIDTH / Level1.PPM ),"Joystick_left.png","vacia.png");
+        GenericButton btnJoystickLeft = new GenericButton((Level1.V_WIDTH / Level1.PPM) + 20, (Level1.V_WIDTH / Level1.PPM ),"Joystick_left.png","Joystick_left_pressed.png");
         btnJoystickLeft.button().addListener(new ClickListener() {
              @Override
              public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -109,7 +109,7 @@ public class Hud {
         );
         //endregion
         //region JUMP BUTTON
-        GenericButton btnJoystickUp = new GenericButton((Level1.V_WIDTH / Level1.PPM) + 1100, (Level1.V_WIDTH / Level1.PPM ) + 100,"Attack_Btn.png","vacia.png");
+        GenericButton btnJoystickUp = new GenericButton((Level1.V_WIDTH / Level1.PPM) + 1100, (Level1.V_WIDTH / Level1.PPM ) + 100,"Attack_Btn.png","Attack_Btn_pressed.png");
         btnJoystickUp.button().addListener(new ClickListener() {
            @Override
            public void clicked(InputEvent event, float x, float y) {
@@ -124,7 +124,7 @@ public class Hud {
         );
         //endregion
         //region ATTACK BUTTON
-        GenericButton btnAttack = new GenericButton((Level1.V_WIDTH / Level1.PPM) + 1000, (Level1.V_WIDTH / Level1.PPM ),"Secondary_Btn.png","vacia.png");
+        GenericButton btnAttack = new GenericButton((Level1.V_WIDTH / Level1.PPM) + 1000, (Level1.V_WIDTH / Level1.PPM ),"Secondary_Btn.png","Secondary_Btn_pressed.png");
         btnAttack.button().addListener(new ClickListener() {
            @Override
            public void clicked(InputEvent event, float x, float y) {
@@ -135,7 +135,7 @@ public class Hud {
         );
         //endregion
         //region PAUSE BUTTON
-        GenericButton btnPausa = new GenericButton((Level1.V_WIDTH / Level1.PPM) + 1180, (Level1.V_WIDTH / Level1.PPM ) + 620,"pausa.png","vacia.png");
+        GenericButton btnPausa = new GenericButton((Level1.V_WIDTH / Level1.PPM) + 1160, (Level1.V_WIDTH / Level1.PPM ) + 600,"pausa.png","pausa_pressed.png");
         btnPausa.button().addListener(new ClickListener() {
            @Override
            public void clicked(InputEvent event, float x, float y) {
