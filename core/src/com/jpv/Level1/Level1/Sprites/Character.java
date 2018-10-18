@@ -292,6 +292,7 @@ public class Character extends Sprite {
                 region = (TextureRegion) damage.getKeyFrame(stateTimer);
                 if (damage.isAnimationFinished(stateTimer)) {
                     damaged = false;
+                    attacking = false;
                     firstDam = true;
                 }
                 break;
