@@ -6,7 +6,7 @@ public class Bugged extends Game {
 
     @Override
     public void create () {
-        setScreen(new PantallaLevelSelect(this));
+        setScreen(new PantallaMenuPrincipal(this));
     }
 
 }

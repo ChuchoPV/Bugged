@@ -38,7 +38,6 @@ public class PantallaMenuPrincipal extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                //pantallaInicio.setScreen(new PantallaJuego(pantallaInicio));
                 pantallaInicio.setScreen(new PantallaLevelSelect(pantallaInicio));
             }
         }
@@ -50,8 +49,7 @@ public class PantallaMenuPrincipal extends Pantalla {
               @Override
               public void clicked(InputEvent event, float x, float y) {
                   super.clicked(event, x, y);
-                  //pantallaInicio.setScreen(new PantallaJuego(pantallaInicio));
-                  //pantallaInicio.setScreen(new PantallaOption(pantallaInicio));
+                  pantallaInicio.setScreen(new PantallaOption(pantallaInicio));
               }
           }
         );
@@ -62,8 +60,7 @@ public class PantallaMenuPrincipal extends Pantalla {
               @Override
               public void clicked(InputEvent event, float x, float y) {
                   super.clicked(event, x, y);
-                  //pantallaInicio.setScreen(new PantallaJuego(pantallaInicio));
-                  //pantallaInicio.setScreen(new PantallaHelp(pantallaInicio));
+                  pantallaInicio.setScreen(new PantallaHelp(pantallaInicio));
               }
           }
         );
@@ -74,7 +71,6 @@ public class PantallaMenuPrincipal extends Pantalla {
              @Override
              public void clicked(InputEvent event, float x, float y) {
                  super.clicked(event, x, y);
-                 //pantallaInicio.setScreen(new PantallaJuego(pantallaInicio));
                  pantallaInicio.setScreen(new PantallaAboutUs(pantallaInicio));
              }
          }
