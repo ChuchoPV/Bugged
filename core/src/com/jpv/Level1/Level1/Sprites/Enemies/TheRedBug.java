@@ -1,5 +1,6 @@
 package com.jpv.Level1.Level1.Sprites.Enemies;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -125,15 +126,19 @@ public class TheRedBug extends Enemy {
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
 
         if(damagedB && !setToDestroy && !destroyed){
+            Gdx.app.log("DAÑO", "Dañado... *********" + stateTimer);
             setRegion((TextureRegion) damage.getKeyFrame(stateTimer));
-            setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 3);
+            //setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 3);
             if(damage.isAnimationFinished(stateTimer)) {
                 damagedB = false;
+                Gdx.app.log("DAÑO", "TERMINA Dañado... *********" + stateTimer);
             }
+            return;
         }
         if(setToDestroy && !destroyed){
+            Gdx.app.log("DAÑO", "Muere... *********" + damaged);
             if(first){
-                world.destroyBody(b2body);
+                //world.destroyBody(b2body);
                 first = false;
             }
             setRegion((TextureRegion) kill.getKeyFrame(stateTimer));
@@ -141,6 +146,7 @@ public class TheRedBug extends Enemy {
                 destroyed = true;
                 stateTimer = 0;
             }
+            return;
         }else if(b2body.getLinearVelocity().y > 0 ) {
             region = jump;
             if (screen.getPlayer().b2body.getPosition().x > b2body.getPosition().x) {
@@ -166,6 +172,7 @@ public class TheRedBug extends Enemy {
             }
             setRegion(region);
         }else {
+            //Gdx.app.log("DAÑO", "IDLE... *********" + damaged);
             region = (TextureRegion) idle.getKeyFrame(stateTimer,true);
             if (screen.getPlayer().b2body.getPosition().x > b2body.getPosition().x){
                 if (region.isFlipX())
@@ -184,12 +191,20 @@ public class TheRedBug extends Enemy {
 
     @Override
     public void onHeadHit() {
-        if(damaged == 21) {
-            setToDestroy = true;
-            screen.getPlayer().win = true;
-        }else{
-            damagedB = true;
-            damaged++;
+        if (!damagedB) {
+            if (damaged == 3) {
+                Gdx.app.log("HIT", "INICIA LA DESTRUCCION: " + damaged);
+                setToDestroy = true;
+                //screen.getPlayer().win = true;
+                damagedB = true;
+                stateTimer = 0;
+            }
+            else {
+                stateTimer = 0;
+                damagedB = true;
+                damaged++;
+                Gdx.app.log("HIT", "Pega: " + damaged);
+            }
         }
     }
 }
