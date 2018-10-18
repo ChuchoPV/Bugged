@@ -30,10 +30,10 @@ public class PauseScreen implements Screen {
         stage = new Stage(viewport, game.batch);
         Gdx.input.setInputProcessor(stage);
 
-        Texture textBtn = new Texture("Pause_letters.png");
+        Texture textBtn = new Texture("Paused_letters.png");
         TextureRegionDrawable trd = new TextureRegionDrawable(new TextureRegion(textBtn));
         ImageButton btn = new ImageButton(trd);
-        btn.setPosition(Level1.V_WIDTH / Level1.PPM, Level1.V_HEIGHT / Level1.PPM);
+        btn.setPosition((Level1.V_WIDTH / Level1.PPM) + 350, (Level1.V_HEIGHT / Level1.PPM) +450);
         //Acción del botón
         btn.addListener(new ClickListener() {
             @Override
