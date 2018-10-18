@@ -108,9 +108,8 @@ public class PantallaLevelSelect extends Pantalla {
         escenaLevelSelect.addActor(btnBoss.button());
         escenaLevelSelect.addActor(btnBack.button());
         escenaLevelSelect.addActor(btnCS.button());
-
-
     }
+
     @Override
     public void render(float delta) {
         borrarPantalla(1,1,0.5f);

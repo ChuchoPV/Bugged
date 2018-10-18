@@ -14,6 +14,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jpv.Level1.Level1.Level1;
+import com.jpv.Level1.Level1.Tools.GenericButton;
+import com.jpv.Level1.PantallasMenu.PantallaLevelSelect;
+import com.jpv.Level1.PantallasMenu.PantallaMenuPrincipal;
 
 public class GameOverScreen implements Screen {
     private Viewport viewport;
@@ -46,7 +49,30 @@ public class GameOverScreen implements Screen {
         }
         );
 
+        GenericButton btnBack = new GenericButton(Level1.V_WIDTH / Level1.PPM, (Level1.V_HEIGHT / Level1.PPM) + 600,"PrincipalScreen/back_btn.png","PrincipalScreen/back_btn_pressed.png");
+        btnBack.button().addListener(new ClickListener() {
+             @Override
+             public void clicked(InputEvent event, float x, float y) {
+             super.clicked(event, x, y);
+             screen.getGame().getPantallaInicio().setScreen(new PantallaLevelSelect(screen.getGame().getPantallaInicio()));
+            }
+        }
+        );
+
+        GenericButton btnHome = new GenericButton((Level1.V_WIDTH / Level1.PPM) + 1000, (Level1.V_HEIGHT / Level1.PPM) + 600,"home.png","home.png");
+        btnHome.button().addListener(new ClickListener() {
+             @Override
+             public void clicked(InputEvent event, float x, float y) {
+                 super.clicked(event, x, y);
+                 screen.getGame().getPantallaInicio().setScreen(new PantallaMenuPrincipal(screen.getGame().getPantallaInicio()));
+             }
+         }
+        );
+
         stage.addActor(btn);
+        stage.addActor(btnBack.button());
+        stage.addActor(btnHome.button());
+
     }
 
     @Override
