@@ -203,7 +203,7 @@ public class TheRedBug extends Enemy {
             if (damaged == 3) {
                 Gdx.app.log("HIT", "INICIA LA DESTRUCCION: " + damaged);
                 setToDestroy = true;
-                //screen.getPlayer().win = true;
+                screen.getPlayer().win = true;
                 damagedB = true;
                 stateTimer = 0;
             }
