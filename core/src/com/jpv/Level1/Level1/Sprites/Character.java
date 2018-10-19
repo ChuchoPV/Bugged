@@ -381,14 +381,16 @@ public class Character extends Sprite {
 
     public void hit() {
         if(currentState != State.DAMAGED) {
-            if (lifes <= 1) {
-                Hud.updateLifes(-1);
-                isDead = true;
+            if(currentState != State.ATTACKING) {
+                if (lifes <= 1) {
+                    Hud.updateLifes(-1);
+                    isDead = true;
 
-            } else {
-                lifes--;
-                Hud.updateLifes(-1);
-                damaged = true;
+                } else {
+                    lifes--;
+                    Hud.updateLifes(-1);
+                    damaged = true;
+                }
             }
         }
     }
