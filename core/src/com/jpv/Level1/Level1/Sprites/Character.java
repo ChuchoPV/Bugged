@@ -380,7 +380,7 @@ public class Character extends Sprite {
     }
 
     public void hit() {
-        if(currentState != State.DAMAGED) {
+        if(currentState != State.DAMAGED || currentState != State.ATTACKING) {
             if (lifes <= 1) {
                 Hud.updateLifes(-1);
                 isDead = true;
@@ -410,7 +410,7 @@ public class Character extends Sprite {
 
     private void defineCharacter() {
         BodyDef bdef = new BodyDef();//650
-        bdef.position.set(18650 / Level1.PPM ,240 / Level1.PPM); //18650
+        bdef.position.set(650 / Level1.PPM ,240 / Level1.PPM); //18650
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
