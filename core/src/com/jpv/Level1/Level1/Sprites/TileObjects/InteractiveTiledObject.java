@@ -52,7 +52,7 @@ public abstract class InteractiveTiledObject {
     public abstract void update();
     public abstract void destroy();
 
-    public void setCategotyFilter(short filterBit){
+    public void setCategoryFilter(short filterBit){
         Filter filter = new Filter();
         filter.categoryBits = filterBit;
         fixture.setFilterData(filter);

@@ -9,7 +9,7 @@ public class Platforms extends InteractiveTiledObject {
     public Platforms(PlayScreen screen, MapObject object) {
         super(screen, object);
         fixture.setUserData(this);
-        setCategotyFilter(Level1.PLATAFORM_BIT);
+        setCategoryFilter(Level1.PLATAFORM_BIT);
     }
 
     @Override

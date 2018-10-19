@@ -223,32 +223,34 @@ public class PlayScreen implements Screen {
     private void handleInput(float dt) {
 
         if(player.currentState != Character.State.DEAD) {
-            if(player.currentState != Character.State.DAMAGED) {
-                if (Gdx.input.isKeyJustPressed(Input.Keys.DPAD_UP))
-                        //&& player.b2body.getPosition().y < (Level1.V_HEIGHT + 500) / Level1.PPM
-                        //&& (player.currentState == Character.State.RUNNING
-                        //|| player.currentState == Character.State.STANDING)) {
-                {
-                    player.b2body.applyLinearImpulse(new Vector2(0, 8f), player.b2body.getWorldCenter(), true);
-                }
-                if ((Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT) || hud.getBtnRig())
-                        && player.b2body.getLinearVelocity().x <= 3
-                        && player.currentState != Character.State.DAMAGED
-                        && !player.damaged) {
-                    player.b2body.applyLinearImpulse(new Vector2(0.5f, 0), player.b2body.getWorldCenter(), true);
-                }
-
-                if ((Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || hud.getBtnLef())
-                        && player.b2body.getLinearVelocity().x >= -3
-                        && player.currentState != Character.State.DAMAGED
-                        && !player.damaged) {
-                    player.b2body.applyLinearImpulse(new Vector2(-0.5f, 0), player.b2body.getWorldCenter(), true);
-                }
-                if (player.currentState == Character.State.RUNNING && !(Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || hud.getBtnLef() || Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT)  || hud.getBtnRig()))
-                    if (player.b2body.getLinearVelocity().x > 0 || player.b2body.getLinearVelocity().x < 0) {
-                        player.b2body.setLinearVelocity(0, 0);
+            if(player.currentState != Character.State.ATTACKING) {
+                if (player.currentState != Character.State.DAMAGED) {
+                    if (Gdx.input.isKeyJustPressed(Input.Keys.DPAD_UP))
+                    //&& player.b2body.getPosition().y < (Level1.V_HEIGHT + 500) / Level1.PPM
+                    //&& (player.currentState == Character.State.RUNNING
+                    //|| player.currentState == Character.State.STANDING)) {
+                    {
+                        player.b2body.applyLinearImpulse(new Vector2(0, 8f), player.b2body.getWorldCenter(), true);
                     }
-                //aqui es donde se tiene que poner el inicio de la animacion con algo asi como un timer.
+                    if ((Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT) || hud.getBtnRig())
+                            && player.b2body.getLinearVelocity().x <= 3
+                            && player.currentState != Character.State.DAMAGED
+                            && !player.damaged) {
+                        player.b2body.applyLinearImpulse(new Vector2(0.5f, 0), player.b2body.getWorldCenter(), true);
+                    }
+
+                    if ((Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || hud.getBtnLef())
+                            && player.b2body.getLinearVelocity().x >= -3
+                            && player.currentState != Character.State.DAMAGED
+                            && !player.damaged) {
+                        player.b2body.applyLinearImpulse(new Vector2(-0.5f, 0), player.b2body.getWorldCenter(), true);
+                    }
+                    if (player.currentState == Character.State.RUNNING && !(Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || hud.getBtnLef() || Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT) || hud.getBtnRig()))
+                        if (player.b2body.getLinearVelocity().x > 0 || player.b2body.getLinearVelocity().x < 0) {
+                            player.b2body.setLinearVelocity(0, 0);
+                        }
+                    //aqui es donde se tiene que poner el inicio de la animacion con algo asi como un timer.
+                }
             }
         }
 

@@ -9,7 +9,7 @@ public class Obstacules extends InteractiveTiledObject {
     public Obstacules(PlayScreen screen, MapObject object) {
         super(screen, object);
         fixture.setUserData(this);
-        setCategotyFilter(Level1.OBSTACULE_BIT);
+        setCategoryFilter(Level1.OBSTACULE_BIT);
     }
 
     @Override
