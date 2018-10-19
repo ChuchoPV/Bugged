@@ -42,7 +42,7 @@ public class WinnerScreen implements Screen {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    screen.getHud().setStage();
+                    screen.getHud().setInputProcessor();
                     game.getPantallaInicio().setScreen(new PantallaLevelSelect(game.getPantallaInicio()));
                     dispose();
                 }

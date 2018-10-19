@@ -173,7 +173,7 @@ public class Hud {
             }
         }
     }
-    public void setStage(){
+    public void setInputProcessor(){
         Gdx.input.setInputProcessor(stage);
     }
 
