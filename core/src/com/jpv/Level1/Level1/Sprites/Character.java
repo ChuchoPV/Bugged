@@ -380,7 +380,7 @@ public class Character extends Sprite {
     }
 
     public void hit() {
-        if(currentState != State.DAMAGED || currentState != State.ATTACKING) {
+        if(currentState != State.DAMAGED) {
             if (lifes <= 1) {
                 Hud.updateLifes(-1);
                 isDead = true;

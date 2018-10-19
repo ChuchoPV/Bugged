@@ -222,7 +222,7 @@ public class PlayScreen implements Screen {
 
     private void handleInput(float dt) {
 
-        if(player.currentState != Character.State.DEAD || player.currentState != Character.State.WIN) {
+        if(player.currentState != Character.State.DEAD) {
             if(player.currentState != Character.State.DAMAGED) {
                 if (Gdx.input.isKeyJustPressed(Input.Keys.DPAD_UP))
                         //&& player.b2body.getPosition().y < (Level1.V_HEIGHT + 500) / Level1.PPM
