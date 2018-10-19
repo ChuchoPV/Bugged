@@ -25,6 +25,7 @@ public class PauseScreen implements Screen {
         this.screen = screen;
         this.game = screen.getGame();
         viewport = new FitViewport(Level1.V_WIDTH,Level1.V_HEIGHT,new OrthographicCamera());
+
     }
 
     private void crearEscena() {
