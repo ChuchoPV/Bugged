@@ -40,7 +40,6 @@ public class PauseScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-
             }
         }
         );
@@ -68,7 +67,6 @@ public class PauseScreen implements Screen {
 
     @Override
     public void render(float delta) {
-
         stage.draw();
     }
 
