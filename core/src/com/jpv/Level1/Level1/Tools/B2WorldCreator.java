@@ -71,13 +71,13 @@ public class B2WorldCreator {
 
         }
 
-        for (MapObject object : map.getLayers().get(6).getObjects().getByType(PolygonMapObject.class)) {
+        for (MapObject object : map.getLayers().get(5).getObjects().getByType(PolygonMapObject.class)) {
             Polygon rect = ((PolygonMapObject) object).getPolygon();
             mosquitos.add(new Mosquito(screen, rect.getX() / Level1.PPM, rect.getY() / Level1.PPM, object));
 
         }
 
-        for(MapObject object : map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject object : map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             theRedBug = new TheRedBug(screen,rect.getX() / Level1.PPM, rect.getY() / Level1.PPM,object);
         }
