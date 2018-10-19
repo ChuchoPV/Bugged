@@ -142,17 +142,19 @@ public class Mosquito extends Enemy {
 
     @Override
     public void onHeadHit() {
-        if(damaged == 9) {
-            if(object.getProperties().containsKey("Heart")){
-                screen.spawnItem(new ItemDef(new Vector2(b2body.getPosition().x, b2body.getPosition().y),
-                Heart.class));
+        if(!damagedB) {
+            if (damaged == 9) {
+                if (object.getProperties().containsKey("Heart")) {
+                    screen.spawnItem(new ItemDef(new Vector2(b2body.getPosition().x, b2body.getPosition().y),
+                            Heart.class));
+                }
+                setToDestroy = true;
+
+            } else {
+                damagedB = true;
+                damaged++;
+
             }
-            setToDestroy = true;
-
-        }else{
-            damagedB = true;
-            damaged++;
-
         }
     }
 
