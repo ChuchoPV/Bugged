@@ -140,10 +140,10 @@ public class TheRedBug extends Enemy {
         //DESTRUYENDOSE
         if(setToDestroy && !destroyed){
             if(first){
-                //world.destroyBody(b2body);
                 first = false;
-
             }
+            this.b2body.setGravityScale(0);
+            this.b2body.setLinearVelocity(0,0);
             setRegion((TextureRegion) kill.getKeyFrame(stateTimer));
             if(kill.isAnimationFinished(stateTimer)) {
                 destroyed = true;
