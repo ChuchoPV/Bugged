@@ -142,6 +142,7 @@ public class Mosquito extends Enemy {
 
     @Override
     public void onHeadHit() {
+
         if(!damagedB) {
             if (damaged == 2) {
                 if (object.getProperties().containsKey("Heart")) {
