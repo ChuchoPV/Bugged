@@ -69,7 +69,6 @@
   <object id="148" x="6957.33" y="1533.33"/>
  </objectgroup>
  <objectgroup name="Obstaculos">
-  <object id="141" x="7404" y="1065.33" width="2.66667"/>
   <object id="142" x="12800" y="8" width="80" height="1280"/>
   <object id="143" x="11208" y="1440" width="8"/>
   <object id="144" x="-68" y="0" width="80" height="1280"/>
