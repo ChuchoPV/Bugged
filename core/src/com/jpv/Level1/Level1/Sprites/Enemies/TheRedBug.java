@@ -114,8 +114,11 @@ public class TheRedBug extends Enemy {
     }
 
     public void draw(Batch batch){
-        if(!destroyed || stateTimer < 1){
+        if(!destroyed /*|| stateTimer < 1*/){
             super.draw(batch);
+        }
+        else{
+            world.destroyBody(this.b2body);
         }
     }
 
@@ -125,8 +128,8 @@ public class TheRedBug extends Enemy {
         TextureRegion region = null;
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
 
+        //DAÑADO
         if(damagedB && !setToDestroy && !destroyed){
-            Gdx.app.log("DAÑO", "Dañado... *********" + stateTimer);
             setRegion((TextureRegion) damage.getKeyFrame(stateTimer));
             //setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 3);
             if(damage.isAnimationFinished(stateTimer)) {
@@ -135,8 +138,8 @@ public class TheRedBug extends Enemy {
             }
             return;
         }
+        //DESTRUYENDOSE
         if(setToDestroy && !destroyed){
-            Gdx.app.log("DAÑO", "Muere... *********" + damaged);
             if(first){
                 //world.destroyBody(b2body);
                 first = false;
@@ -147,6 +150,7 @@ public class TheRedBug extends Enemy {
                 stateTimer = 0;
             }
             return;
+        //SALTANDO
         }else if(b2body.getLinearVelocity().y > 0 ) {
             region = jump;
             if (screen.getPlayer().b2body.getPosition().x > b2body.getPosition().x) {
@@ -159,6 +163,7 @@ public class TheRedBug extends Enemy {
                 isRight = false;
             }
             setRegion(region);
+        //CAYENDO
         }else if(b2body.getLinearVelocity().y < 0 ){
             region = fall;
             if (screen.getPlayer().b2body.getPosition().x > b2body.getPosition().x){
@@ -171,8 +176,10 @@ public class TheRedBug extends Enemy {
                 isRight = false;
             }
             setRegion(region);
-        }else {
-            //Gdx.app.log("DAÑO", "IDLE... *********" + damaged);
+
+        }else{
+        //SI NADA DE LO DEMAS ESTA PASANDO, Y NO ESTOY MUERTO ESTOY QUIETO (IDLE)
+        if(!destroyed){
             region = (TextureRegion) idle.getKeyFrame(stateTimer,true);
             if (screen.getPlayer().b2body.getPosition().x > b2body.getPosition().x){
                 if (region.isFlipX())
@@ -185,6 +192,7 @@ public class TheRedBug extends Enemy {
             }
             b2body.setLinearVelocity(new Vector2(0f,0f));
             setRegion(region);
+        }
         }
 
     }
