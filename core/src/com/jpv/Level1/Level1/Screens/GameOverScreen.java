@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jpv.Level1.Level1.Level1;
+import com.jpv.Level1.Level1.Sprites.Character;
 import com.jpv.Level1.Level1.Tools.GenericButton;
 import com.jpv.Level1.PantallasMenu.PantallaLevelSelect;
 import com.jpv.Level1.PantallasMenu.PantallaMenuPrincipal;
@@ -42,9 +43,18 @@ public class GameOverScreen implements Screen {
         btn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                super.clicked(event, x, y);
-                game.getPantallaInicio().setScreen(new PlayScreen(game));
-                dispose();
+                if(screen.getPlayer().b2body.getPosition().x >= 650) {
+                    Gdx.app.log("Entre","");
+                    super.clicked(event, x, y);
+                    screen.getPlayer().b2body.getPosition().x = 11350;
+                    screen.getPlayer().currentState = Character.State.STANDING;
+                    game.getPantallaInicio().setScreen(screen);
+                    dispose();
+                }else{
+                    super.clicked(event, x, y);
+                    game.getPantallaInicio().setScreen(new PlayScreen(game)); //new PlayScreen(game)
+                    dispose();
+                }
             }
         }
         );
