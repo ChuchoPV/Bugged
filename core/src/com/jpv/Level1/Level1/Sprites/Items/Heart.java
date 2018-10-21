@@ -6,7 +6,6 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.jpv.Level1.Level1.Level1;
-import com.jpv.Level1.Level1.Scenes.Hud;
 import com.jpv.Level1.Level1.Screens.PlayScreen;
 
 
@@ -39,9 +38,9 @@ public class Heart extends Item {
 
     @Override
     public void use() {
-        Hud.updateLifes(0);
+        screen.getHud().updateLifes(0);
         destroy();
-        screen.getPlayer().lifes++;
+        screen.getPlayer().setLife(1);
     }
 
     @Override

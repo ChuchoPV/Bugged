@@ -281,7 +281,7 @@ public class PlayScreen implements Screen {
         for(Item item : items)
             item.draw(game.batch);
         game.batch.end();
-        Hud.stage.draw();
+        hud.getStage().draw();
 
         if(gameOver()){
             game.getPantallaInicio().setScreen(new GameOverScreen(this));
