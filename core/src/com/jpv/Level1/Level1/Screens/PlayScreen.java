@@ -185,20 +185,10 @@ public class PlayScreen implements Screen {
     }
 
     private void manageBoss(float dt) {
-        if(timerBoss == 0){
-            startTime = 0;
-            if (TimeUtils.timeSinceNanos(startTime) > 2000000000) {
-                timerBoss++;
-                startTime = TimeUtils.nanoTime();
-            }
-        }
-        if (TimeUtils.timeSinceNanos(startTime) > 2000000000 && timerBoss != 0) {
+        if (TimeUtils.timeSinceNanos(startTime) > 2000000000 && timerBoss != 4) {
             // if time passed since the time you set startTime at is more than 1 second
 
             //your code here
-            //Gdx.app.log("Tiempo",""+timerBoss);
-            //Gdx.app.log("StartTimer",""+startTime);
-            //Gdx.app.log("Tiempo", "" + timerBoss);
             if (first && creator.getTheRedBug().b2body.getLinearVelocity().y == 0) {
                 creator.getTheRedBug().b2body.applyLinearImpulse(new Vector2(-5f, 9f), creator.getTheRedBug().b2body.getWorldCenter(), true);
                 first = false;
@@ -214,8 +204,6 @@ public class PlayScreen implements Screen {
             startTime = TimeUtils.nanoTime();
         }
         if (timerBoss == 4) {
-            //Gdx.app.log("Tiempo", "" + timerBoss);
-            startTime = 0;
             timerBoss = 0;
         }
     }
