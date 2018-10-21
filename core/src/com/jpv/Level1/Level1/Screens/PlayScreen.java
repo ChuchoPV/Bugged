@@ -158,8 +158,8 @@ public class PlayScreen implements Screen {
 
         for(Item item : items)
             item.update(dt);
-        if(gamecam.position.x>190) {
-            gamecam.position.x = 190.1f;
+        if(gamecam.position.x>119) {
+            gamecam.position.x = 119.6f;
             if(gamecam.position.y > 3.6f) {
                 gamecam.position.y -= 0.05f;
             }
@@ -235,14 +235,16 @@ public class PlayScreen implements Screen {
                     if ((Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT) || hud.getBtnRig())
                             && player.b2body.getLinearVelocity().x <= 3
                             && player.currentState != Character.State.DAMAGED
-                            && !player.damaged) {
+                            && !player.damaged
+                            && player.currentState != Character.State.WIN){
                         player.b2body.applyLinearImpulse(new Vector2(0.5f, 0), player.b2body.getWorldCenter(), true);
                     }
 
                     if ((Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || hud.getBtnLef())
                             && player.b2body.getLinearVelocity().x >= -3
                             && player.currentState != Character.State.DAMAGED
-                            && !player.damaged) {
+                            && !player.damaged
+                            && player.currentState != Character.State.WIN) {
                         player.b2body.applyLinearImpulse(new Vector2(-0.5f, 0), player.b2body.getWorldCenter(), true);
                     }
                     if (player.currentState == Character.State.RUNNING && !(Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || hud.getBtnLef() || Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT) || hud.getBtnRig()))

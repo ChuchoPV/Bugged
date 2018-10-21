@@ -325,6 +325,7 @@ public class Character extends Sprite {
     }
 
     private State getState() {
+        if(currentState!=State.WIN){
         if(currentState != State.DAMAGED && isDead()) {
             return State.DEAD;
         }
@@ -377,6 +378,9 @@ public class Character extends Sprite {
         else{
             return State.STANDING;
         }
+        }
+        else
+            return State.WIN;
     }
 
     public void hit() {

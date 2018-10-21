@@ -65,6 +65,7 @@ public class Mosquito extends Enemy {
         if(damagedB && !setToDestroy && !destroyed){
             //stateTimer = 0;
             setRegion((TextureRegion) damage.getKeyFrame(stateTimer));
+            this.b2body.setLinearVelocity(0,0);
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 3);
             if(damage.isAnimationFinished(stateTimer))
                 damagedB = false;
