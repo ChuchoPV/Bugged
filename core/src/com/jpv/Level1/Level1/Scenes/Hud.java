@@ -141,7 +141,8 @@ public class Hud {
            @Override
            public void clicked(InputEvent event, float x, float y) {
                super.clicked(event, x, y);
-               screen.setPause(true);
+
+               screen.getGame().getPantallaInicio().setScreen(new PauseScreen(screen));
            }
         }
         );
