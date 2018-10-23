@@ -14,6 +14,9 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -27,7 +30,9 @@ import com.jpv.Level1.Level1.Sprites.Items.Item;
 import com.jpv.Level1.Level1.Sprites.Items.ItemDef;
 import com.jpv.Level1.Level1.Sprites.TileObjects.Obstacules;
 import com.jpv.Level1.Level1.Tools.B2WorldCreator;
+import com.jpv.Level1.Level1.Tools.GenericButton;
 import com.jpv.Level1.Level1.Tools.WorldContactListener;
+import com.jpv.Level1.PantallasMenu.PantallaMenuPrincipal;
 
 import java.util.concurrent.LinkedBlockingDeque;
 
@@ -62,6 +67,9 @@ public class PlayScreen implements Screen {
     private long startTime;
     private boolean first;
 
+    private Stage stage;
+    public boolean updateObjets;
+
     //endregion
 
     public PlayScreen(Level1 game){
@@ -94,6 +102,7 @@ public class PlayScreen implements Screen {
         items = new Array<Item>();
         itemsToSpawn = new LinkedBlockingDeque<ItemDef>();
 
+        updateObjets = true;
     }
 
     //region SPAWN ITEMS
@@ -248,8 +257,10 @@ public class PlayScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        update(delta);
 
+        if(updateObjets) {
+            update(delta);
+        }
         //Clear the game screen with black
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -296,6 +307,52 @@ public class PlayScreen implements Screen {
         }
     }
 
+
+    private void crearEscena() {
+        stage = new Stage(gamePort, game.batch);
+        Gdx.input.setInputProcessor(stage);
+
+        /*
+        Texture textBtn = new Texture("Pause.png");
+        TextureRegionDrawable trd = new TextureRegionDrawable(new TextureRegion(textBtn));
+        ImageButton btn = new ImageButton(trd);
+        //Acción del botón
+        btn.addListener(new ClickListener() {
+                            @Override
+                            public void clicked(InputEvent event, float x, float y) {
+                                super.clicked(event, x, y);
+                            }
+                        }
+        );*/
+
+        GenericButton btnPlay = new GenericButton((Level1.V_WIDTH / Level1.PPM) + 500, (Level1.V_HEIGHT / Level1.PPM) +250,
+                "Play_Btn_Pause.png","Play_Btn_Pause_pressed.png");
+        btnPlay.button().addListener(new ClickListener() {
+                                         @Override
+                                         public void clicked(InputEvent event, float x, float y) {
+                                             super.clicked(event, x, y);
+                                             getHud().setInputProcessor();
+                                             game.getPantallaInicio().setScreen(getScreen());
+                                         }
+                                     }
+        );
+
+        GenericButton btnHome = new GenericButton((Level1.V_WIDTH / Level1.PPM) + 700, (Level1.V_HEIGHT / Level1.PPM) + 250,"home.png","home.png");
+        btnHome.button().addListener(new ClickListener() {
+                                         @Override
+                                         public void clicked(InputEvent event, float x, float y) {
+                                             super.clicked(event, x, y);
+                                             getGame().getPantallaInicio().setScreen(new PantallaMenuPrincipal(getGame().getPantallaInicio()));
+                                         }
+                                     }
+        );
+
+
+        //stage.addActor(btn);
+        stage.addActor(btnPlay.button());
+        stage.addActor(btnHome.button());
+    }
+
     //region GETTERS
 
     public TiledMap getMap() {
@@ -324,12 +381,15 @@ public class PlayScreen implements Screen {
         return hud;
     }
 
+    public Screen getScreen(){
+        return this;
+    }
+
     //endregion
 
     //region SCREEN METHODS
     @Override
     public void show() {
-
     }
 
     @Override
@@ -340,7 +400,7 @@ public class PlayScreen implements Screen {
 
     @Override
     public void pause() {
-        getGame().getPantallaInicio().setScreen(new PauseScreen(this));
+        updateObjets = false;
     }
 
     @Override

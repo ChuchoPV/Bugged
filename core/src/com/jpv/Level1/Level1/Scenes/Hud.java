@@ -15,10 +15,10 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jpv.Level1.Level1.Level1;
-import com.jpv.Level1.Level1.Screens.PauseScreen;
 import com.jpv.Level1.Level1.Screens.PlayScreen;
 import com.jpv.Level1.Level1.Sprites.Character;
 import com.jpv.Level1.Level1.Tools.GenericButton;
+import com.jpv.Level1.PantallasMenu.PantallaMenuPrincipal;
 
 public class Hud {
     public Stage stage;
@@ -29,6 +29,9 @@ public class Hud {
     private boolean btnAt;
     private boolean first;
     private Array<Image> vidas;
+    private Image letters;
+    private GenericButton btnHome;
+    private GenericButton btnPlay;
 
     private Sprite heart;
 
@@ -141,8 +144,9 @@ public class Hud {
            @Override
            public void clicked(InputEvent event, float x, float y) {
                super.clicked(event, x, y);
-
-               screen.getGame().getPantallaInicio().setScreen(new PauseScreen(screen));
+               createPauseButtons();
+               paused();
+               screen.pause();
            }
         }
         );
@@ -153,6 +157,47 @@ public class Hud {
         stage.addActor(btnJoystickLeft.button());
         stage.addActor(btnAttack.button());
         stage.addActor(btnPausa.button());
+
+
+    }
+
+    private void createPauseButtons(){
+        //region PAUSA BUTTONS
+        letters = new Image(new Texture("Paused_letters.png"));
+        letters.setPosition((Level1.V_WIDTH / Level1.PPM) + 350, (Level1.V_HEIGHT / Level1.PPM) +400);
+
+        btnPlay = new GenericButton((Level1.V_WIDTH / Level1.PPM) + 500, (Level1.V_HEIGHT / Level1.PPM) +250,
+                "Play_Btn_Pause.png","Play_Btn_Pause_pressed.png");
+        btnPlay.button().addListener(new ClickListener() {
+             @Override
+             public void clicked(InputEvent event, float x, float y) {
+                 super.clicked(event, x, y);
+                 screen.getHud().setInputProcessor();
+                 //screen.getGame().getPantallaInicio().setScreen(screen);
+                 screen.updateObjets = true;
+                 for(int i = 0; i < 3; i++){
+                     stage.getActors().pop();
+                 }
+             }
+         }
+        );
+
+        btnHome = new GenericButton((Level1.V_WIDTH / Level1.PPM) + 700, (Level1.V_HEIGHT / Level1.PPM) + 250,"home.png","home.png");
+        btnHome.button().addListener(new ClickListener() {
+             @Override
+             public void clicked(InputEvent event, float x, float y) {
+                 super.clicked(event, x, y);
+                 screen.getGame().getPantallaInicio().setScreen(new PantallaMenuPrincipal(screen.getGame().getPantallaInicio()));
+             }
+         }
+        );
+        //endregion
+    }
+
+    private void paused(){
+        stage.addActor(letters);
+        stage.addActor(btnPlay.button());
+        stage.addActor(btnHome.button());
     }
 
     public void updateLifes(int less){
