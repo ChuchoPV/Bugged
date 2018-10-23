@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jpv.Level1.Level1.Level1;
 import com.jpv.Level1.Level1.Tools.GenericButton;
+import com.jpv.Level1.PantallasMenu.PantallaMenuPrincipal;
 
 public class PauseScreen implements Screen {
     private Viewport viewport;
@@ -44,7 +45,7 @@ public class PauseScreen implements Screen {
         }
         );
 
-        GenericButton btnPlay = new GenericButton((Level1.V_WIDTH / Level1.PPM) + 600, (Level1.V_HEIGHT / Level1.PPM) +250,
+        GenericButton btnPlay = new GenericButton((Level1.V_WIDTH / Level1.PPM) + 500, (Level1.V_HEIGHT / Level1.PPM) +250,
                 "Play_Btn_Pause.png","Play_Btn_Pause_pressed.png");
         btnPlay.button().addListener(new ClickListener() {
             @Override
@@ -56,8 +57,20 @@ public class PauseScreen implements Screen {
         }
         );
 
+        GenericButton btnHome = new GenericButton((Level1.V_WIDTH / Level1.PPM) + 700, (Level1.V_HEIGHT / Level1.PPM) + 250,"home.png","home.png");
+        btnHome.button().addListener(new ClickListener() {
+                                         @Override
+                                         public void clicked(InputEvent event, float x, float y) {
+                                             super.clicked(event, x, y);
+                                             screen.getGame().getPantallaInicio().setScreen(new PantallaMenuPrincipal(screen.getGame().getPantallaInicio()));
+                                         }
+                                     }
+        );
+
+
         stage.addActor(btn);
         stage.addActor(btnPlay.button());
+        stage.addActor(btnHome.button());
     }
 
     @Override
