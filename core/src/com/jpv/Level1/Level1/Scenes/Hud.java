@@ -144,13 +144,17 @@ public class Hud {
            @Override
            public void clicked(InputEvent event, float x, float y) {
                super.clicked(event, x, y);
-               createPauseButtons();
+               if(isCreatedPauseButtonsCreated()) {
+                   createPauseButtons();
+               }
                paused();
                screen.pause();
            }
         }
         );
         //endregion
+
+        createPauseButtons();
 
         stage.addActor(btnJoystickUp.button());
         stage.addActor(btnJoystickRight.button());
@@ -161,7 +165,7 @@ public class Hud {
 
     }
 
-    private void createPauseButtons(){
+    public void createPauseButtons(){
         //region PAUSA BUTTONS
         letters = new Image(new Texture("Paused_letters.png"));
         letters.setPosition((Level1.V_WIDTH / Level1.PPM) + 350, (Level1.V_HEIGHT / Level1.PPM) +400);
@@ -193,11 +197,16 @@ public class Hud {
         );
         //endregion
     }
-
-    private void paused(){
+    public void paused(){
         stage.addActor(letters);
         stage.addActor(btnPlay.button());
         stage.addActor(btnHome.button());
+    }
+    private boolean isCreatedPauseButtonsCreated(){
+        if(stage.getActors().contains(letters,true)){
+            return true;
+        }
+        return false;
     }
 
     public void updateLifes(int less){
