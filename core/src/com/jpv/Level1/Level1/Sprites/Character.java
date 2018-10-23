@@ -14,7 +14,6 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.jpv.Level1.Level1.Level1;
-import com.jpv.Level1.Level1.Scenes.Hud;
 import com.jpv.Level1.Level1.Screens.PlayScreen;
 
 
@@ -39,7 +38,7 @@ public class Character extends Sprite {
     private boolean runningRight;
     public boolean boss;
     private boolean attacking;
-    public int lifes;
+    private int lifes;
     public boolean damaged;
     private boolean isDead;
     private boolean firstDam;
@@ -284,7 +283,7 @@ public class Character extends Sprite {
                 region = (TextureRegion) attack.getKeyFrame(stateTimer);
                 if (attack.isAnimationFinished(stateTimer)) {
                     attacking = false;
-                    Hud.btnAt = false;
+                    screen.getHud().setBtnAt(false);
                     stateTimer = 0;
                 }
                 break;
@@ -325,13 +324,14 @@ public class Character extends Sprite {
     }
 
     private State getState() {
+        if(currentState!=State.WIN){
         if(currentState != State.DAMAGED && isDead()) {
             return State.DEAD;
         }
         else if (damaged && !isDead()){
             return State.DAMAGED;
         }
-        else if ((Gdx.input.isKeyPressed(Input.Keys.Z) || Hud.getBtnAt()) && !attacking && !isDead()){
+        else if ((Gdx.input.isKeyPressed(Input.Keys.Z) || screen.getHud().getBtnAt()) && !attacking && !isDead()){
             attacking = true;
             return State.ATTACKING;
         }
@@ -377,24 +377,29 @@ public class Character extends Sprite {
         else{
             return State.STANDING;
         }
+        }
+        else
+            return State.WIN;
     }
 
     public void hit() {
-        if(currentState != State.DAMAGED || currentState != State.ATTACKING) {
-            if (lifes <= 1) {
-                Hud.updateLifes(-1);
-                isDead = true;
+        if(currentState != State.DAMAGED) {
+            if(currentState != State.ATTACKING) {
+                if (lifes <= 1) {
+                    screen.getHud().updateLifes(-1);
+                    isDead = true;
 
-            } else {
-                lifes--;
-                Hud.updateLifes(-1);
-                damaged = true;
+                } else {
+                    lifes--;
+                    screen.getHud().updateLifes(-1);
+                    damaged = true;
+                }
             }
         }
     }
 
     public void kill() {
-        Hud.updateLifes(1);
+        screen.getHud().updateLifes(1);
         isDead = true;
     }
 
@@ -402,15 +407,17 @@ public class Character extends Sprite {
     private boolean isDead(){
         return isDead;
     }
-
     public float getStateTimer(){
         return stateTimer;
+    }
+    public void setLife(int lifes){
+        this.lifes += lifes;
     }
     //endregion
 
     private void defineCharacter() {
         BodyDef bdef = new BodyDef();//650
-        bdef.position.set(18650 / Level1.PPM ,240 / Level1.PPM); //18650
+        bdef.position.set(11350 / Level1.PPM ,240 / Level1.PPM); //11350
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 

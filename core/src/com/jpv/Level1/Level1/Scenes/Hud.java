@@ -21,16 +21,16 @@ import com.jpv.Level1.Level1.Sprites.Character;
 import com.jpv.Level1.Level1.Tools.GenericButton;
 
 public class Hud {
-    public static Stage stage;
-    private static int y;
+    public Stage stage;
+    private int y;
     private PlayScreen screen;
     private boolean btnLef;
     private boolean btnRig;
-    public static boolean btnAt;
+    private boolean btnAt;
     private boolean first;
-    private static Array<Image> vidas;
+    private Array<Image> vidas;
 
-    private static Sprite heart;
+    private Sprite heart;
 
     public Hud(PlayScreen screen){
         this.screen = screen;
@@ -54,6 +54,7 @@ public class Hud {
         for (int i= 0; i < 3; i++){
             img = new Image(heartReg);
             img.setPosition( (Level1.V_WIDTH / Level1.PPM) + (y / Level1.PPM), (Level1.V_WIDTH / Level1.PPM ) + 600);
+            img.setName("vida");
             vidas.add(img);
             y += 8000;
         }
@@ -153,7 +154,7 @@ public class Hud {
         stage.addActor(btnPausa.button());
     }
 
-    public static void updateLifes(int less){
+    public void updateLifes(int less){
         if(less == -1){
             stage.getActors().pop();
             if(vidas.size != 0) {
@@ -164,6 +165,8 @@ public class Hud {
         }else if(less == 0){
             Image img = new Image(heart);
             img.setPosition((Level1.V_WIDTH / Level1.PPM) + (y / Level1.PPM), (Level1.V_WIDTH / Level1.PPM ) + 600);
+            img.setName("vida");
+            y += 8000;
             vidas.add(img);
             stage.getActors().add(img);
         }else{
@@ -182,8 +185,14 @@ public class Hud {
     public boolean getBtnLef(){
         return btnLef;
     }
-    public static boolean getBtnAt(){
+    public boolean getBtnAt(){
         return btnAt;
+    }
+    public void setBtnAt(boolean btnAt){
+        this.btnAt = btnAt;
+    }
+    public Stage getStage() {
+        return stage;
     }
 
     public void dispose(){

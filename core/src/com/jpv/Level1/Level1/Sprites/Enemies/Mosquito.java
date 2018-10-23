@@ -65,6 +65,7 @@ public class Mosquito extends Enemy {
         if(damagedB && !setToDestroy && !destroyed){
             //stateTimer = 0;
             setRegion((TextureRegion) damage.getKeyFrame(stateTimer));
+            this.b2body.setLinearVelocity(0,0);
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 3);
             if(damage.isAnimationFinished(stateTimer))
                 damagedB = false;
@@ -143,7 +144,7 @@ public class Mosquito extends Enemy {
     @Override
     public void onHeadHit() {
         if(!damagedB) {
-            if (damaged == 9) {
+            if (damaged == 2) {
                 if (object.getProperties().containsKey("Heart")) {
                     screen.spawnItem(new ItemDef(new Vector2(b2body.getPosition().x, b2body.getPosition().y),
                             Heart.class));
