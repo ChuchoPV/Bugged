@@ -137,8 +137,10 @@ public class Hud {
         btnAttack.button().addListener(new ClickListener() {
            @Override
            public void clicked(InputEvent event, float x, float y) {
-               super.clicked(event, x, y);
-               btnAt = true;
+               if(!isCreatedPauseButtonsCreated()) {
+                   super.clicked(event, x, y);
+                   btnAt = true;
+               }
            }
         }
         );
