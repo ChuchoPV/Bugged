@@ -68,6 +68,7 @@ public class Hud {
     }
 
     private void createButtons() {
+        createPauseButtons();
 
         //region RIGHT BUTTON
         GenericButton btnJoystickRight = new GenericButton((Level1.V_WIDTH / Level1.PPM) + (15000 / Level1.PPM), (Level1.V_WIDTH / Level1.PPM ),"Joystick_Right.png","Joystick_Right_pressed.png");
@@ -146,15 +147,13 @@ public class Hud {
                super.clicked(event, x, y);
                if(isCreatedPauseButtonsCreated()) {
                    createPauseButtons();
+                   paused();
                }
-               paused();
                screen.pause();
            }
         }
         );
         //endregion
-
-        createPauseButtons();
 
         stage.addActor(btnJoystickUp.button());
         stage.addActor(btnJoystickRight.button());
@@ -176,12 +175,12 @@ public class Hud {
              @Override
              public void clicked(InputEvent event, float x, float y) {
                  super.clicked(event, x, y);
-                 screen.getHud().setInputProcessor();
                  //screen.getGame().getPantallaInicio().setScreen(screen);
                  screen.updateObjets = true;
                  for(int i = 0; i < 3; i++){
                      stage.getActors().pop();
                  }
+                 screen.getHud().setInputProcessor();
              }
          }
         );
@@ -203,7 +202,7 @@ public class Hud {
         stage.addActor(btnHome.button());
     }
     private boolean isCreatedPauseButtonsCreated(){
-        if(stage.getActors().contains(letters,true)){
+        if(stage.getActors().contains(letters,true) || stage.getActors().contains(btnHome.button(),true)){
             return true;
         }
         return false;
