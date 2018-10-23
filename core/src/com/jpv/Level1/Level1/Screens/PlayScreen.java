@@ -400,9 +400,12 @@ public class PlayScreen implements Screen {
 
     @Override
     public void pause() {
-        updateObjets = false;
-        getHud().createPauseButtons();
-        getHud().paused();
+        if(getHud().isFirstPause()) {
+            updateObjets = false;
+            getHud().createPauseButtons();
+            getHud().paused();
+            getHud().setFirstPause(false);
+        }
     }
 
     @Override

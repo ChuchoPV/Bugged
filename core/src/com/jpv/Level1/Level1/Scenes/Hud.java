@@ -28,6 +28,7 @@ public class Hud {
     private boolean btnRig;
     private boolean btnAt;
     private boolean first;
+    private boolean firstPause;
     private Array<Image> vidas;
     private Image letters;
     private GenericButton btnHome;
@@ -42,6 +43,7 @@ public class Hud {
         first = true;
         Gdx.input.setInputProcessor(stage);
         vidas = new Array<Image>();
+        firstPause = true;
 
         Sprite image = new Sprite(new Texture("Hank_Image.png"));
         heart = new Sprite(new Texture("Heart.png"));
@@ -145,12 +147,15 @@ public class Hud {
            @Override
            public void clicked(InputEvent event, float x, float y) {
                super.clicked(event, x, y);
-               if(isCreatedPauseButtonsCreated()) {
-                   createPauseButtons();
-                   paused();
+               if(firstPause) {
+                   if (isCreatedPauseButtonsCreated()) {
+                       createPauseButtons();
+                       paused();
 
+                   }
+                   screen.pause();
+                   firstPause = false;
                }
-               screen.pause();
            }
         }
         );
@@ -182,6 +187,7 @@ public class Hud {
                      stage.getActors().pop();
                  }
                  screen.getHud().setInputProcessor();
+                 firstPause = true;
              }
          }
         );
@@ -248,6 +254,12 @@ public class Hud {
     }
     public Stage getStage() {
         return stage;
+    }
+    public boolean isFirstPause() {
+        return firstPause;
+    }
+    public void setFirstPause(boolean firstPause){
+        this.firstPause = firstPause;
     }
 
     public void dispose(){
