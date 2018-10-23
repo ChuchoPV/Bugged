@@ -5,7 +5,9 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -14,6 +16,11 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -27,6 +34,7 @@ import com.jpv.Level1.Level1.Sprites.Items.Item;
 import com.jpv.Level1.Level1.Sprites.Items.ItemDef;
 import com.jpv.Level1.Level1.Sprites.TileObjects.Obstacules;
 import com.jpv.Level1.Level1.Tools.B2WorldCreator;
+import com.jpv.Level1.Level1.Tools.GenericButton;
 import com.jpv.Level1.Level1.Tools.WorldContactListener;
 
 import java.util.concurrent.LinkedBlockingDeque;
@@ -62,6 +70,9 @@ public class PlayScreen implements Screen {
     private long startTime;
     private boolean first;
 
+    private Stage escenaPausa;
+    private boolean pause;
+
     //endregion
 
     public PlayScreen(Level1 game){
@@ -94,6 +105,8 @@ public class PlayScreen implements Screen {
         items = new Array<Item>();
         itemsToSpawn = new LinkedBlockingDeque<ItemDef>();
 
+        pause = false;
+        crearEscena();
     }
 
     //region SPAWN ITEMS
@@ -256,15 +269,17 @@ public class PlayScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        update(delta);
-
         //Clear the game screen with black
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         //renderer our game map
         renderer.render();
         //renderer our Box2DDebbugerLines
         b2dr.render(world,gamecam.combined);
+
+
+        update(delta);
 
         //Rendering everything
         game.batch.setProjectionMatrix(gamecam.combined);
@@ -278,6 +293,7 @@ public class PlayScreen implements Screen {
             item.draw(game.batch);
         game.batch.end();
         Hud.stage.draw();
+        escenaPausa.draw();
 
         if(gameOver()){
             game.getPantallaInicio().setScreen(new GameOverScreen(this));
@@ -285,7 +301,6 @@ public class PlayScreen implements Screen {
         }else if(winScreen()){
             game.getPantallaInicio().setScreen(new WinnerScreen(this));
         }
-
     }
 
     private boolean gameOver(){
@@ -332,6 +347,9 @@ public class PlayScreen implements Screen {
         return hud;
     }
 
+    public void setPause(boolean pause) {
+        this.pause = pause;
+    }
     //endregion
 
     //region SCREEN METHODS
@@ -368,6 +386,41 @@ public class PlayScreen implements Screen {
         b2dr.dispose();
         hud.dispose();
 
+    }
+
+    //CrearEscenaPausa
+
+    private void crearEscena() {
+        escenaPausa = new Stage(gamePort, game.batch);
+        Gdx.input.setInputProcessor(escenaPausa);
+
+        Texture textBtn = new Texture("Paused_letters.png");
+        TextureRegionDrawable trd = new TextureRegionDrawable(new TextureRegion(textBtn));
+        ImageButton btn = new ImageButton(trd);
+        btn.setPosition((Level1.V_WIDTH / Level1.PPM) + 350, (Level1.V_HEIGHT / Level1.PPM) +450);
+        //Acción del botón
+        btn.addListener(new ClickListener() {
+                            @Override
+                            public void clicked(InputEvent event, float x, float y) {
+                                super.clicked(event, x, y);
+                            }
+                        }
+        );
+
+        GenericButton btnPlay = new GenericButton((Level1.V_WIDTH / Level1.PPM) + 600, (Level1.V_HEIGHT / Level1.PPM) +250,
+                "Play_Btn_Pause.png","Play_Btn_Pause_pressed.png");
+        btnPlay.button().addListener(new ClickListener() {
+                                         @Override
+                                         public void clicked(InputEvent event, float x, float y) {
+                                             super.clicked(event, x, y);
+                                             getHud().setInputProcessor();
+                                             pause = false;
+                                         }
+                                     }
+        );
+
+        escenaPausa.addActor(btn);
+        escenaPausa.addActor(btnPlay.button());
     }
 
     //endregion
