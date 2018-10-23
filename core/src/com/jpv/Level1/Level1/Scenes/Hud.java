@@ -120,10 +120,12 @@ public class Hud {
         btnJoystickUp.button().addListener(new ClickListener() {
            @Override
            public void clicked(InputEvent event, float x, float y) {
-               super.clicked(event, x, y);
-               if(screen.getPlayer().b2body.getPosition().y < (Level1.V_HEIGHT + 500) / Level1.PPM
-                       && (screen.getPlayer().currentState== Character.State.RUNNING || screen.getPlayer().currentState==Character.State.STANDING)) {
-                   screen.getPlayer().b2body.applyLinearImpulse(new Vector2(0, 8f), screen.getPlayer().b2body.getWorldCenter(), true);
+               if(!isCreatedPauseButtonsCreated()) {
+                   super.clicked(event, x, y);
+                   if (screen.getPlayer().b2body.getPosition().y < (Level1.V_HEIGHT + 500) / Level1.PPM
+                           && (screen.getPlayer().currentState == Character.State.RUNNING || screen.getPlayer().currentState == Character.State.STANDING)) {
+                       screen.getPlayer().b2body.applyLinearImpulse(new Vector2(0, 8f), screen.getPlayer().b2body.getWorldCenter(), true);
+                   }
                }
            }
 
