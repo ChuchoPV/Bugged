@@ -148,6 +148,7 @@ public class Hud {
                if(isCreatedPauseButtonsCreated()) {
                    createPauseButtons();
                    paused();
+
                }
                screen.pause();
            }
