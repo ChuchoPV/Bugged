@@ -101,11 +101,11 @@ public class Character extends Sprite {
         //endregion
         //region JUMP
         //get jump frame frames and add them to marioRun Animation
-        jumpAnimation = new TextureRegion(screen.getAtlas().findRegion("Hank_Jump"), 175,0,175,175);
+        jumpAnimation = new TextureRegion(screen.getAtlas().findRegion("Hank_Jump"), 0,0,175,175);
         //endregion
         //region FALL
         //get fall frame frames and add them to marioRun Animation
-        falling = new TextureRegion(screen.getAtlas().findRegion("Hank_Jump"), 525,0,175,175);
+        falling = new TextureRegion(screen.getAtlas().findRegion("Hank_Jump"), 175,0,175,175);
         //endregion
         //region DEAD
         //get dead animation frames and add them to marioRun Animation

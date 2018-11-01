@@ -118,30 +118,31 @@ public class Hud {
         //region JUMP BUTTON
         GenericButton btnJoystickUp = new GenericButton((Level1.V_WIDTH / Level1.PPM) + 1100, (Level1.V_WIDTH / Level1.PPM ) + 100,"Attack_Btn.png","Attack_Btn_pressed.png");
         btnJoystickUp.button().addListener(new ClickListener() {
-           @Override
-           public void clicked(InputEvent event, float x, float y) {
-               if(!isCreatedPauseButtonsCreated()) {
-                   super.clicked(event, x, y);
-                   if (screen.getPlayer().b2body.getPosition().y < (Level1.V_HEIGHT + 500) / Level1.PPM
-                           && (screen.getPlayer().currentState == Character.State.RUNNING || screen.getPlayer().currentState == Character.State.STANDING)) {
-                       screen.getPlayer().b2body.applyLinearImpulse(new Vector2(0, 8f), screen.getPlayer().b2body.getWorldCenter(), true);
-                   }
-               }
-           }
-
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                if(!isCreatedPauseButtonsCreated()) {
+                    super.clicked(event, x, y);
+                    if (screen.getPlayer().b2body.getPosition().y < (Level1.V_HEIGHT + 500) / Level1.PPM
+                            && (screen.getPlayer().currentState == Character.State.RUNNING || screen.getPlayer().currentState == Character.State.STANDING)) {
+                        screen.getPlayer().b2body.applyLinearImpulse(new Vector2(0, 8f), screen.getPlayer().b2body.getWorldCenter(), true);
+                    }
+                }
+                return super.touchDown(event, x, y, pointer, button);
+            }
         }
         );
         //endregion
         //region ATTACK BUTTON
         GenericButton btnAttack = new GenericButton((Level1.V_WIDTH / Level1.PPM) + 1000, (Level1.V_WIDTH / Level1.PPM ),"Secondary_Btn.png","Secondary_Btn_pressed.png");
         btnAttack.button().addListener(new ClickListener() {
-           @Override
-           public void clicked(InputEvent event, float x, float y) {
-               if(!isCreatedPauseButtonsCreated()) {
-                   super.clicked(event, x, y);
-                   btnAt = true;
-               }
-           }
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                if(!isCreatedPauseButtonsCreated()) {
+                    super.clicked(event, x, y);
+                    btnAt = true;
+                }
+               return super.touchDown(event, x, y, pointer, button);
+            }
         }
         );
         //endregion
