@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.jpv.Level1.PantallasMenu.Bugged;
+import com.jpv.Bugged.PantallasMenu.Bugged;
 
 public class AndroidLauncher extends AndroidApplication {
 	@Override
