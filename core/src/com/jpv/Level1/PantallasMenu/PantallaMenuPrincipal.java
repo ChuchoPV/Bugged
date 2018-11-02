@@ -2,6 +2,7 @@ package com.jpv.Level1.PantallasMenu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -16,6 +17,9 @@ public class PantallaMenuPrincipal extends Pantalla {
     public Sprite titulo;
     public float angulo;
 
+    //sistema de particulas
+    //private ParticleEffect sp;
+
     public PantallaMenuPrincipal(Bugged pantallaInicio) {
         this.pantallaInicio = pantallaInicio;
     }
@@ -27,6 +31,11 @@ public class PantallaMenuPrincipal extends Pantalla {
         titulo = new Sprite(new Texture("PrincipalScreen/Titulo.png"));
         titulo.setPosition(ANCHO / 6-80, ALTO / 2+120);
         Gdx.input.setInputProcessor(escenaMenuPrincipal);
+        //carga sistema de particulas
+        /*sp=new ParticleEffect();
+        sp.load(Gdx.files.internal("lluvia.pe"),Gdx.files.internal(""));
+        sp.getEmitters().get(0).setPosition(0,ALTO);
+        sp.start();*/
     }
 
     private void crearEscena() {
@@ -84,11 +93,13 @@ public class PantallaMenuPrincipal extends Pantalla {
 
         @Override
     public void render(float delta) {
+            //sp.update(delta);
             borrarPantalla(1,1,0.5f);
             batch.setProjectionMatrix((camara.combined));
             batch.begin();
             batch.draw(fondoMenuPrincipal,0,0);
             titulo.draw(batch);
+            //sp.draw(batch);
             batch.end();
             escenaMenuPrincipal.draw();
 

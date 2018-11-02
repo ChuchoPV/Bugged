@@ -201,7 +201,6 @@ public class TheRedBug extends Enemy {
     public void onHeadHit() {
         if (!damagedB) {
             if (damaged == 3) {
-                Gdx.app.log("HIT", "INICIA LA DESTRUCCION: " + damaged);
                 setToDestroy = true;
                 screen.getPlayer().win = true;
                 damagedB = true;
@@ -211,7 +210,6 @@ public class TheRedBug extends Enemy {
                 stateTimer = 0;
                 damagedB = true;
                 damaged++;
-                Gdx.app.log("HIT", "Pega: " + damaged);
             }
         }
     }
