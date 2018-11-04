@@ -14,6 +14,7 @@ import com.jpv.Bugged.Niveles.LevelManager;
 import com.jpv.Bugged.Niveles.Screens.PlayScreen;
 import com.jpv.Bugged.Niveles.Sprites.Items.Heart;
 import com.jpv.Bugged.Niveles.Sprites.Items.ItemDef;
+import com.jpv.Bugged.Niveles.Sprites.Items.Proyectil;
 
 public class Slug extends Enemy{
     private boolean setToDestroy;
@@ -147,6 +148,9 @@ public class Slug extends Enemy{
                     screen.spawnItem(new ItemDef(new Vector2(b2body.getPosition().x, b2body.getPosition().y),
                             Heart.class));
                 }
+                screen.setEnemyType("slug");
+                screen.spawnItem(new ItemDef(new Vector2(b2body.getPosition().x, b2body.getPosition().y),
+                        Proyectil.class));
                 setToDestroy = true;
 
             } else {

@@ -25,10 +25,13 @@ import com.jpv.Bugged.Niveles.Sprites.Enemies.Enemy;
 import com.jpv.Bugged.Niveles.Sprites.Items.Heart;
 import com.jpv.Bugged.Niveles.Sprites.Items.Item;
 import com.jpv.Bugged.Niveles.Sprites.Items.ItemDef;
+import com.jpv.Bugged.Niveles.Sprites.Items.Proyectil;
 import com.jpv.Bugged.Niveles.Sprites.TileObjects.Obstacules;
 import com.jpv.Bugged.Niveles.Tools.B2WorldCreator;
 import com.jpv.Bugged.Niveles.Tools.WorldContactListener;
 
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.concurrent.LinkedBlockingDeque;
 
 public class PlayScreen implements Screen {
@@ -57,13 +60,15 @@ public class PlayScreen implements Screen {
     private Character player;
 
     private Array<Item> items;
-    private LinkedBlockingDeque<ItemDef> itemsToSpawn;
+    private LinkedBlockingDeque<ItemDef> heartsToSpawn;
+    private Deque<ItemDef> proyectilToSpawn;
 
     private int timerBoss;
     private long startTime;
     private boolean first;
 
     public boolean updateObjets;
+    private String enemyType;
 
     private int level;
 
@@ -109,21 +114,30 @@ public class PlayScreen implements Screen {
         first = true;
 
         items = new Array<Item>();
-        itemsToSpawn = new LinkedBlockingDeque<ItemDef>();
+        heartsToSpawn = new LinkedBlockingDeque<ItemDef>();
+        proyectilToSpawn = new LinkedList<ItemDef>();
 
         updateObjets = true;
+        enemyType = "";
     }
 
     //region SPAWN ITEMS
 
     public void spawnItem(ItemDef idef) {
-        itemsToSpawn.add(idef);
+        if(idef.type == Proyectil.class){
+            proyectilToSpawn.add(idef);
+        }else {
+            heartsToSpawn.add(idef);
+        }
     }
 
     private void handleSpawingItems(){
-        if(!itemsToSpawn.isEmpty()){
-            ItemDef idef = itemsToSpawn.poll();
+        if(!heartsToSpawn.isEmpty()){
+            ItemDef idef = heartsToSpawn.poll();
             items.add(new Heart(this, idef.position.x, idef.position.y));
+        }if(!proyectilToSpawn.isEmpty()){
+            ItemDef idef = proyectilToSpawn.poll();
+            items.add(new Proyectil(this, idef.position.x, idef.position.y, enemyType));
         }
     }
 
@@ -322,7 +336,7 @@ public class PlayScreen implements Screen {
         }
     }
 
-    //region GETTERS
+    //region GETTERS & SETTERS
 
     public TiledMap getMap() {
         return map;
@@ -356,6 +370,14 @@ public class PlayScreen implements Screen {
 
     public int getLevel(){
         return level;
+    }
+
+    public String getEnemyType(){
+        return enemyType;
+    }
+
+    public void setEnemyType(String enemy){
+        this.enemyType = enemy;
     }
 
     //endregion
