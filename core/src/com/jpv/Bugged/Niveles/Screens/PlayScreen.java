@@ -162,6 +162,11 @@ public class PlayScreen implements Screen {
             if(enemy.getX() < player.getX() + 224 / LevelManager.PPM) {
                 enemy.b2body.setActive(true);
             }
+        }for(Enemy enemy : creator.getSpiders()) {
+            enemy.update(dt);
+            if(enemy.getX() < player.getX() + 224 / LevelManager.PPM) {
+                enemy.b2body.setActive(true);
+            }
         }
 
         creator.getTheRedBug().update(dt);
@@ -280,6 +285,9 @@ public class PlayScreen implements Screen {
             enemy.draw(game.batch);
         }
         for(Enemy enemy : creator.getSlugs()) {
+            enemy.draw(game.batch);
+        }
+        for(Enemy enemy : creator.getSpiders()) {
             enemy.draw(game.batch);
         }
         creator.getTheRedBug().draw(game.batch);

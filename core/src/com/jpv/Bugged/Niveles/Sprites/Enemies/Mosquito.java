@@ -119,7 +119,7 @@ public class Mosquito extends Enemy {
 
 
         fdef.shape = shape;
-        b2body.createFixture(fdef);
+        b2body.createFixture(fdef).setUserData(this);
 
         //Create collider hear
         PolygonShape collider = new PolygonShape();

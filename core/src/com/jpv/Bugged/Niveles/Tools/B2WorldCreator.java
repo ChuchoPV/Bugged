@@ -14,6 +14,7 @@ import com.jpv.Bugged.Niveles.LevelManager;
 import com.jpv.Bugged.Niveles.Screens.PlayScreen;
 import com.jpv.Bugged.Niveles.Sprites.Enemies.Mosquito;
 import com.jpv.Bugged.Niveles.Sprites.Enemies.Slug;
+import com.jpv.Bugged.Niveles.Sprites.Enemies.Spider;
 import com.jpv.Bugged.Niveles.Sprites.Enemies.TheRedBug;
 import com.jpv.Bugged.Niveles.Sprites.TileObjects.Obstacules;
 import com.jpv.Bugged.Niveles.Sprites.TileObjects.Platforms;
@@ -22,6 +23,7 @@ import com.jpv.Bugged.Niveles.Sprites.TileObjects.Platforms;
 public class B2WorldCreator {
     private Array<Mosquito> mosquitos;
     private Array<Slug> slugs;
+    private Array<Spider> spiders;
     private TheRedBug theRedBug;
     private Array<Obstacules> obstacules;
     private Array<Platforms> platforms;
@@ -67,10 +69,13 @@ public class B2WorldCreator {
         //Create Enemies
         mosquitos = new Array<Mosquito>();
         slugs = new Array<Slug>();
+        spiders = new Array<Spider>();
         for (MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             if(object.getProperties().containsKey("Slug")) {
                 slugs.add(new Slug(screen, rect.getX() / LevelManager.PPM, rect.getY() / LevelManager.PPM, object));
+            }else if(object.getProperties().containsKey("Spider")) {
+                spiders.add(new Spider(screen, rect.getX() / LevelManager.PPM, rect.getY() / LevelManager.PPM, object));
             }else{
                 mosquitos.add(new Mosquito(screen, rect.getX() / LevelManager.PPM, rect.getY() / LevelManager.PPM, object));
             }
@@ -85,10 +90,13 @@ public class B2WorldCreator {
     }
 
     public Array<Mosquito> getMosquitos() { return mosquitos; }
-    public TheRedBug getTheRedBug() { return theRedBug; }
     public Array<Slug> getSlugs() {
         return slugs;
     }
+    public Array<Spider> getSpiders() {
+        return spiders;
+    }
+    public TheRedBug getTheRedBug() { return theRedBug; }
     public Array<Obstacules> getObstacules() {
         return obstacules;
     }

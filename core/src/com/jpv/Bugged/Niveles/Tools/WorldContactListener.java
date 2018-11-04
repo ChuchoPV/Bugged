@@ -31,10 +31,11 @@ public class WorldContactListener implements ContactListener {
                 }
                 break;
             case LevelManager.CHARACTER_ARMA_BIT | LevelManager.ENEMY_COLLIDER_BIT:
-                if(fixA.getFilterData().categoryBits == LevelManager.ENEMY_COLLIDER_BIT)
-                    ((Enemy)fixA.getUserData()).onHeadHit();
-                else
-                    ((Enemy)fixB.getUserData()).onHeadHit();
+                if(fixA.getFilterData().categoryBits == LevelManager.ENEMY_COLLIDER_BIT) {
+                    ((Enemy) fixA.getUserData()).onHeadHit();
+                }else {
+                    ((Enemy) fixB.getUserData()).onHeadHit();
+                }
                 break;
             case LevelManager.ITEM_BIT | LevelManager.CHARACTER_BIT:
                 if(fixA.getFilterData().categoryBits == LevelManager.ITEM_BIT)

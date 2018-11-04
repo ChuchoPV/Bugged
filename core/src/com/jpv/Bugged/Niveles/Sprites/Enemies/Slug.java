@@ -119,7 +119,12 @@ public class Slug extends Enemy{
 
         //Create collider hear
         PolygonShape collider = new PolygonShape();
-        collider.setAsBox(57/ LevelManager.PPM, 40 / LevelManager.PPM);
+        Vector2[] vertice = new Vector2[4];
+        vertice[0] = new Vector2(-57 , -40).scl(1 / LevelManager.PPM);
+        vertice[1] = new Vector2(57 , -40).scl(1 / LevelManager.PPM);
+        vertice[2] = new Vector2(-57     , 40).scl(1 / LevelManager.PPM);
+        vertice[3] = new Vector2(57 , 40).scl(1 / LevelManager.PPM);
+        collider.set(vertice);
 
         fdef.shape = collider;
         fdef.filter.categoryBits = LevelManager.ENEMY_COLLIDER_BIT;
