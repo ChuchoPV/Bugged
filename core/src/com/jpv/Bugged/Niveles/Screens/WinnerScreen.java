@@ -1,4 +1,4 @@
-package com.jpv.Bugged.Level1.Screens;
+package com.jpv.Bugged.Niveles.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -13,8 +13,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.jpv.Bugged.Level1.LevelManager;
-import com.jpv.Bugged.Level1.Tools.GenericButton;
+import com.jpv.Bugged.Niveles.LevelManager;
+import com.jpv.Bugged.Niveles.Tools.GenericButton;
 import com.jpv.Bugged.PantallasMenu.PantallaLevelSelect;
 import com.jpv.Bugged.PantallasMenu.PantallaMenuPrincipal;
 

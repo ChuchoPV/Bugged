@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.jpv.Bugged.Level1.LevelManager;
-import com.jpv.Bugged.Level1.Tools.GenericButton;
+import com.jpv.Bugged.Niveles.LevelManager;
+import com.jpv.Bugged.Niveles.Tools.GenericButton;
 import com.jpv.Bugged.PantallasMenu.Tools.Pantalla;
 
 public class PantallaLevelSelect extends Pantalla {

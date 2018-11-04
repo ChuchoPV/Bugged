@@ -1,11 +1,11 @@
-package com.jpv.Bugged.Level1.Sprites.Items;
+package com.jpv.Bugged.Niveles.Sprites.Items;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
-import com.jpv.Bugged.Level1.LevelManager;
-import com.jpv.Bugged.Level1.Screens.PlayScreen;
+import com.jpv.Bugged.Niveles.LevelManager;
+import com.jpv.Bugged.Niveles.Screens.PlayScreen;
 
 public abstract class Item extends Sprite{
     protected PlayScreen screen;

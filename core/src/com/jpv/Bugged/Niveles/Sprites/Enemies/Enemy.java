@@ -1,4 +1,4 @@
-package com.jpv.Bugged.Level1.Sprites.Enemies;
+package com.jpv.Bugged.Niveles.Sprites.Enemies;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.MapObject;
@@ -6,7 +6,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
-import com.jpv.Bugged.Level1.Screens.PlayScreen;
+import com.jpv.Bugged.Niveles.Screens.PlayScreen;
 
 public abstract class Enemy extends Sprite {
     protected World world;

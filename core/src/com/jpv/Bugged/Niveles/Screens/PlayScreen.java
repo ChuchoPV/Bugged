@@ -1,4 +1,4 @@
-package com.jpv.Bugged.Level1.Screens;
+package com.jpv.Bugged.Niveles.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -18,16 +18,16 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.jpv.Bugged.Level1.LevelManager;
-import com.jpv.Bugged.Level1.Scenes.Hud;
-import com.jpv.Bugged.Level1.Sprites.Character;
-import com.jpv.Bugged.Level1.Sprites.Enemies.Enemy;
-import com.jpv.Bugged.Level1.Sprites.Items.Heart;
-import com.jpv.Bugged.Level1.Sprites.Items.Item;
-import com.jpv.Bugged.Level1.Sprites.Items.ItemDef;
-import com.jpv.Bugged.Level1.Sprites.TileObjects.Obstacules;
-import com.jpv.Bugged.Level1.Tools.B2WorldCreator;
-import com.jpv.Bugged.Level1.Tools.WorldContactListener;
+import com.jpv.Bugged.Niveles.LevelManager;
+import com.jpv.Bugged.Niveles.Scenes.Hud;
+import com.jpv.Bugged.Niveles.Sprites.Character;
+import com.jpv.Bugged.Niveles.Sprites.Enemies.Enemy;
+import com.jpv.Bugged.Niveles.Sprites.Items.Heart;
+import com.jpv.Bugged.Niveles.Sprites.Items.Item;
+import com.jpv.Bugged.Niveles.Sprites.Items.ItemDef;
+import com.jpv.Bugged.Niveles.Sprites.TileObjects.Obstacules;
+import com.jpv.Bugged.Niveles.Tools.B2WorldCreator;
+import com.jpv.Bugged.Niveles.Tools.WorldContactListener;
 
 import java.util.concurrent.LinkedBlockingDeque;
 

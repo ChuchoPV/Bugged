@@ -1,8 +1,8 @@
-package com.jpv.Bugged.Level1;
+package com.jpv.Bugged.Niveles;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.jpv.Bugged.Level1.Screens.PlayScreen;
+import com.jpv.Bugged.Niveles.Screens.PlayScreen;
 import com.jpv.Bugged.PantallasMenu.Bugged;
 
 

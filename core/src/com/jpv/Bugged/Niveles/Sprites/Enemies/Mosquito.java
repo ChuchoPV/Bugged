@@ -1,4 +1,4 @@
-package com.jpv.Bugged.Level1.Sprites.Enemies;
+package com.jpv.Bugged.Niveles.Sprites.Enemies;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -10,10 +10,10 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
-import com.jpv.Bugged.Level1.LevelManager;
-import com.jpv.Bugged.Level1.Screens.PlayScreen;
-import com.jpv.Bugged.Level1.Sprites.Items.Heart;
-import com.jpv.Bugged.Level1.Sprites.Items.ItemDef;
+import com.jpv.Bugged.Niveles.LevelManager;
+import com.jpv.Bugged.Niveles.Screens.PlayScreen;
+import com.jpv.Bugged.Niveles.Sprites.Items.Heart;
+import com.jpv.Bugged.Niveles.Sprites.Items.ItemDef;
 
 
 public class Mosquito extends Enemy {

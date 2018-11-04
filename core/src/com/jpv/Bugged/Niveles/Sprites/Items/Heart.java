@@ -1,12 +1,12 @@
-package com.jpv.Bugged.Level1.Sprites.Items;
+package com.jpv.Bugged.Niveles.Sprites.Items;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.jpv.Bugged.Level1.LevelManager;
-import com.jpv.Bugged.Level1.Screens.PlayScreen;
+import com.jpv.Bugged.Niveles.LevelManager;
+import com.jpv.Bugged.Niveles.Screens.PlayScreen;
 
 
 public class Heart extends Item {

@@ -1,9 +1,9 @@
-package com.jpv.Bugged.Level1.Sprites.TileObjects;
+package com.jpv.Bugged.Niveles.Sprites.TileObjects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapObject;
-import com.jpv.Bugged.Level1.LevelManager;
-import com.jpv.Bugged.Level1.Screens.PlayScreen;
+import com.jpv.Bugged.Niveles.LevelManager;
+import com.jpv.Bugged.Niveles.Screens.PlayScreen;
 
 public class Obstacules extends InteractiveTiledObject {
     public Obstacules(PlayScreen screen, MapObject object) {
