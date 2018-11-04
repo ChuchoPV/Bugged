@@ -10,11 +10,11 @@ import com.jpv.Bugged.Niveles.Screens.PlayScreen;
 public abstract class Item extends Sprite{
     protected PlayScreen screen;
     protected World world;
-    protected Boolean toDestroy;
-    protected Boolean destroyed;
+    private Boolean toDestroy;
+    private Boolean destroyed;
     protected Body b2body;
 
-    public Item(PlayScreen screen, float x, float y){
+    Item(PlayScreen screen, float x, float y){
         this.screen =screen;
         this.world = screen.getWorld();
         setPosition(x,y);

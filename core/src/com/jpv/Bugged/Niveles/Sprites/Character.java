@@ -410,8 +410,8 @@ public class Character extends Sprite {
     public float getStateTimer(){
         return stateTimer;
     }
-    public void setLife(int lifes){
-        this.lifes += lifes;
+    public void setLife(){
+        this.lifes += 1;
     }
     //endregion
 
