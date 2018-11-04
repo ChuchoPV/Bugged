@@ -1,10 +1,8 @@
 package com.jpv.Bugged.Niveles.Tools;
 
 import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -15,6 +13,7 @@ import com.badlogic.gdx.utils.Array;
 import com.jpv.Bugged.Niveles.LevelManager;
 import com.jpv.Bugged.Niveles.Screens.PlayScreen;
 import com.jpv.Bugged.Niveles.Sprites.Enemies.Mosquito;
+import com.jpv.Bugged.Niveles.Sprites.Enemies.Slug;
 import com.jpv.Bugged.Niveles.Sprites.Enemies.TheRedBug;
 import com.jpv.Bugged.Niveles.Sprites.TileObjects.Obstacules;
 import com.jpv.Bugged.Niveles.Sprites.TileObjects.Platforms;
@@ -22,6 +21,7 @@ import com.jpv.Bugged.Niveles.Sprites.TileObjects.Platforms;
 
 public class B2WorldCreator {
     private Array<Mosquito> mosquitos;
+    private Array<Slug> slugs;
     private TheRedBug theRedBug;
     private Array<Obstacules> obstacules;
     private Array<Platforms> platforms;
@@ -53,27 +53,27 @@ public class B2WorldCreator {
         obstacules = new Array<Obstacules>();
         // Create obstacules bodies / textures
         for (MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
-            if(!object.getProperties().containsKey("Boss"))
-                obstacules.add(new Obstacules(screen,object));
+            if(!object.getProperties().containsKey("Boss")) {
+                obstacules.add(new Obstacules(screen, object));
+            }
         }
 
         platforms = new Array<Platforms>();
         // Create platforms bodies / textures
         for (MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {
-            platforms.add(new Platforms(screen,object));
+                platforms.add(new Platforms(screen,object));
         }
 
-        //Create mosquitos
+        //Create Enemies
         mosquitos = new Array<Mosquito>();
+        slugs = new Array<Slug>();
         for (MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            mosquitos.add(new Mosquito(screen, rect.getX() / LevelManager.PPM, rect.getY() / LevelManager.PPM, object));
-
-        }
-
-        for (MapObject object : map.getLayers().get(5).getObjects().getByType(PolygonMapObject.class)) {
-            Polygon rect = ((PolygonMapObject) object).getPolygon();
-            mosquitos.add(new Mosquito(screen, rect.getX() / LevelManager.PPM, rect.getY() / LevelManager.PPM, object));
+            if(object.getProperties().containsKey("Slug")) {
+                slugs.add(new Slug(screen, rect.getX() / LevelManager.PPM, rect.getY() / LevelManager.PPM, object));
+            }else{
+                mosquitos.add(new Mosquito(screen, rect.getX() / LevelManager.PPM, rect.getY() / LevelManager.PPM, object));
+            }
 
         }
 
@@ -86,6 +86,9 @@ public class B2WorldCreator {
 
     public Array<Mosquito> getMosquitos() { return mosquitos; }
     public TheRedBug getTheRedBug() { return theRedBug; }
+    public Array<Slug> getSlugs() {
+        return slugs;
+    }
     public Array<Obstacules> getObstacules() {
         return obstacules;
     }

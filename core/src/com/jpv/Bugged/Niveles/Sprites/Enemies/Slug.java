@@ -15,63 +15,65 @@ import com.jpv.Bugged.Niveles.Screens.PlayScreen;
 import com.jpv.Bugged.Niveles.Sprites.Items.Heart;
 import com.jpv.Bugged.Niveles.Sprites.Items.ItemDef;
 
-
-public class Mosquito extends Enemy {
+public class Slug extends Enemy{
     private boolean setToDestroy;
     private boolean destroyed;
     private boolean damagedB;
     private boolean first;
-    private int move;
 
     private float stateTimer;
     private Animation idle;
     private Animation kill;
+    private Animation attack;
     private Animation damage;
 
-    public Mosquito(PlayScreen screen, float x, float y, MapObject object) {
+    public Slug(PlayScreen screen, float x, float y, MapObject object) {
         super(screen, x, y,object);
-        this.b2body.setGravityScale(0);
         TextureAtlas atlas = screen.getAtlas();
         Array<TextureRegion> frames = new Array<TextureRegion>();
-        for(int i = 0; i < 8; i++) {
-            frames.add(new TextureRegion(atlas.findRegion("mosquito_idle"), i * 160, 0, 160, 160));
+
+        for(int i = 0; i < 4; i++) {
+            frames.add(new TextureRegion(atlas.findRegion("slug_idle"), i * 144, 0, 144, 100));
 
         }idle = new Animation<TextureRegion>(0.1f, frames);
         frames.clear();
 
         for(int i = 0; i < 4; i++) {
-            frames.add(new TextureRegion(atlas.findRegion("mosquito_damage"), i * 160, 0, 160, 160));
+            frames.add(new TextureRegion(atlas.findRegion("slug_damage"), i * 144, 0, 144, 100));
         }damage = new Animation<TextureRegion>(0.2f, frames);
         frames.clear();
 
         for(int i = 0; i < 9; i++) {
-            frames.add(new TextureRegion(atlas.findRegion("mosquito_dead"), i * 160, 0, 160, 160));
+            frames.add(new TextureRegion(atlas.findRegion("slug_dead"), i * 144, 0, 144, 100));
         }kill = new Animation<TextureRegion>(0.1f, frames);
         frames.clear();
 
+        for(int i = 0; i < 10; i++) {
+            frames.add(new TextureRegion(atlas.findRegion("slug_atk"), i * 144, 0, 144, 100));
+        }attack = new Animation<TextureRegion>(0.1f, frames);
+
         stateTimer = 0;
         damaged = 0;
-        move = 0;
         damagedB = false;
         setToDestroy = false;
         destroyed = false;
         first = true;
-        setBounds(getX(),getY(), 160 / LevelManager.PPM,160 / LevelManager.PPM);
+        setBounds(getX(),getY(), 144 / LevelManager.PPM,100 / LevelManager.PPM);
 
     }
 
     public void update(float dt){
         //Esta es la parte que funciona
         stateTimer += dt;
-        move ++;
 
         if(damagedB && !setToDestroy && !destroyed){
             //stateTimer = 0;
             setRegion((TextureRegion) damage.getKeyFrame(stateTimer));
             this.b2body.setLinearVelocity(0,0);
-            setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 3);
-            if(damage.isAnimationFinished(stateTimer))
+            setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
+            if(damage.isAnimationFinished(stateTimer)) {
                 damagedB = false;
+            }
         }else if(setToDestroy && !destroyed){
             if(first) {
                 world.destroyBody(b2body);
@@ -83,17 +85,11 @@ public class Mosquito extends Enemy {
                 stateTimer = 0;
             }
         }else if(!destroyed) {
-            setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 3);
+            setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
             setRegion((TextureRegion) idle.getKeyFrame(stateTimer,true));
             damagedB = false;
-            b2body.setLinearVelocity(velocity);
             if(idle.isAnimationFinished(stateTimer)){
                 stateTimer = 0;
-            }
-            //stateTimer = 0;
-            if (move > 50){
-                reverseVelocity(false, true);
-                move = 0;
             }
         }
     }
@@ -107,7 +103,7 @@ public class Mosquito extends Enemy {
 
         FixtureDef fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(60/ LevelManager.PPM, 60 / LevelManager.PPM);
+        shape.setAsBox(57/ LevelManager.PPM, 40 / LevelManager.PPM);
         fdef.filter.categoryBits = LevelManager.ENEMY_BIT;
         fdef.filter.maskBits = LevelManager.GROUND_BIT
                 | LevelManager.PLATAFORM_BIT
@@ -123,12 +119,7 @@ public class Mosquito extends Enemy {
 
         //Create collider hear
         PolygonShape collider = new PolygonShape();
-        Vector2[] vertice = new Vector2[4];
-        vertice[0] = new Vector2(-60 , -60).scl(1 / LevelManager.PPM);
-        vertice[1] = new Vector2(60 , -60).scl(1 / LevelManager.PPM);
-        vertice[2] = new Vector2(-60     , 60).scl(1 / LevelManager.PPM);
-        vertice[3] = new Vector2(60 , 60).scl(1 / LevelManager.PPM);
-        collider.set(vertice);
+        collider.setAsBox(57/ LevelManager.PPM, 40 / LevelManager.PPM);
 
         fdef.shape = collider;
         fdef.filter.categoryBits = LevelManager.ENEMY_COLLIDER_BIT;

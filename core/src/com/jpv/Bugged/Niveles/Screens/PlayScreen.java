@@ -97,7 +97,7 @@ public class PlayScreen implements Screen {
         //Setting the variables of our world
         world = new World(new Vector2(0,-10),true);
         b2dr = new Box2DDebugRenderer();
-        b2dr.setDrawBodies(false);
+        //b2dr.setDrawBodies(false);
         b2dr.SHAPE_STATIC.set(0,0,0,1);
         //Instance of out player
         player = new Character(this);
@@ -148,34 +148,27 @@ public class PlayScreen implements Screen {
             for(Enemy enemy : creator.getMosquitos()) {
                 enemy.destroy();
             }
-            /*if (Gdx.input.isKeyPressed(Input.Keys.W) && creator.getTheRedBug().b2body.getLinearVelocity().y == 0) {
-                creator.getTheRedBug().b2body.applyLinearImpulse(new Vector2(-5f, 9f), creator.getTheRedBug().b2body.getWorldCenter(), true);
-                first = false;
-                timerBoss += 1;
-            } else if(Gdx.input.isKeyPressed(Input.Keys.S) && creator.getTheRedBug().b2body.getLinearVelocity().y == 0){
-                creator.getTheRedBug().b2body.applyLinearImpulse(new Vector2(5f, 9f), creator.getTheRedBug().b2body.getWorldCenter(), true);
-                first = true;
-                timerBoss += 1;
-            }*/
-            //Code to optimize
-            /*for(Platforms platforms : creator.getPlatforms()){
-                platforms.destroy();
-            }
-            for(Obstacules obstacules : creator.getObstacules()){
-                obstacules.destroy();
-            }*/
             manageBoss(dt);
         }
 
         for(Enemy enemy : creator.getMosquitos()) {
             enemy.update(dt);
-            if(enemy.getX() < player.getX() + 224 / LevelManager.PPM)
+            if(enemy.getX() < player.getX() + 224 / LevelManager.PPM) {
                 enemy.b2body.setActive(true);
+            }
         }
+        for(Enemy enemy : creator.getSlugs()) {
+            enemy.update(dt);
+            if(enemy.getX() < player.getX() + 224 / LevelManager.PPM) {
+                enemy.b2body.setActive(true);
+            }
+        }
+
         creator.getTheRedBug().update(dt);
 
-        for(Item item : items)
+        for(Item item : items) {
             item.update(dt);
+        }
         if(gamecam.position.x>119) {
             gamecam.position.x = 119.6f;
             if(gamecam.position.y > 3.6f) {
@@ -283,11 +276,16 @@ public class PlayScreen implements Screen {
         game.batch.begin();
         //hud.heart.draw(game.batch);
         player.draw(game.batch);
-        for(Enemy enemy : creator.getMosquitos())
+        for(Enemy enemy : creator.getMosquitos()) {
             enemy.draw(game.batch);
+        }
+        for(Enemy enemy : creator.getSlugs()) {
+            enemy.draw(game.batch);
+        }
         creator.getTheRedBug().draw(game.batch);
-        for(Item item : items)
+        for(Item item : items) {
             item.draw(game.batch);
+        }
         game.batch.end();
         hud.getStage().draw();
 
