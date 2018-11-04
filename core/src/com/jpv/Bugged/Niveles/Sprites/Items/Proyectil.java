@@ -30,7 +30,7 @@ public class Proyectil extends Item{
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(10 / LevelManager.PPM);
-        fdef.filter.categoryBits = LevelManager.ITEM_BIT;
+        fdef.filter.categoryBits = LevelManager.ENEMY_PROYECT;
         fdef.filter.maskBits = LevelManager.CHARACTER_BIT
                 | LevelManager.OBJECT_BIT
                 | LevelManager.GROUND_BIT

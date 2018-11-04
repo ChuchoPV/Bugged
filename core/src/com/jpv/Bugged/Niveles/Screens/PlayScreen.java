@@ -175,11 +175,13 @@ public class PlayScreen implements Screen {
             enemy.update(dt);
             if(enemy.getX() < player.getX() + 224 / LevelManager.PPM) {
                 enemy.b2body.setActive(true);
+                enemy.setShot(true);
             }
         }for(Enemy enemy : creator.getSpiders()) {
             enemy.update(dt);
             if(enemy.getX() < player.getX() + 224 / LevelManager.PPM) {
                 enemy.b2body.setActive(true);
+                enemy.setShot(true);
             }
         }
 

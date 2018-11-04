@@ -41,7 +41,7 @@ public abstract class Item extends Sprite{
         }
     }
 
-    void destroy(){
+    public void destroy(){
         toDestroy = true;
     }
 }

@@ -33,6 +33,7 @@ public abstract class Enemy extends Sprite {
     protected abstract void defineEnemy();
     public abstract void update(float dt);
     public abstract void onHeadHit();
+    public abstract void setShot(boolean shot);
 
     public void destroy() {
         damaged = 3;

@@ -212,4 +212,9 @@ public class TheRedBug extends Enemy {
             }
         }
     }
+
+    @Override
+    public void setShot(boolean shot) {
+
+    }
 }

@@ -161,4 +161,9 @@ public class Mosquito extends Enemy {
         }
     }
 
+    @Override
+    public void setShot(boolean shot) {
+
+    }
+
 }

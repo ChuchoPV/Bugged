@@ -30,6 +30,9 @@ public class Spider extends Enemy{
     private TextureRegion fall;
     private Animation damage;
 
+    private boolean shot;
+    private float shotTimer;
+
     public Spider(PlayScreen screen, float x, float y, MapObject object) {
         super(screen, x, y,object);
         TextureAtlas atlas = screen.getAtlas();
@@ -64,6 +67,8 @@ public class Spider extends Enemy{
         setToDestroy = false;
         destroyed = false;
         first = true;
+        shot = false;
+        shotTimer = 0;
         setBounds(getX(),getY(), 133 / LevelManager.PPM,120 / LevelManager.PPM);
 
     }
@@ -71,6 +76,13 @@ public class Spider extends Enemy{
     public void update(float dt){
         //Esta es la parte que funciona
         stateTimer += dt;
+        shotTimer += dt;
+        if(shot && shotTimer >= 1){
+            screen.setEnemyType("spider");
+            screen.spawnItem(new ItemDef(new Vector2(b2body.getPosition().x, b2body.getPosition().y),
+                    Proyectil.class));
+            shotTimer = 0;
+        }
 
         if(damagedB && !setToDestroy && !destroyed){
             //stateTimer = 0;
@@ -144,6 +156,12 @@ public class Spider extends Enemy{
             super.draw(batch);
         }
     }
+    public void setShot(boolean shot){
+        this.shot = shot;
+    }
+    public boolean getShot() {
+        return shot;
+    }
 
     @Override
     public void onHeadHit() {
@@ -153,9 +171,7 @@ public class Spider extends Enemy{
                     screen.spawnItem(new ItemDef(new Vector2(b2body.getPosition().x, b2body.getPosition().y),
                             Heart.class));
                 }
-                screen.setEnemyType("spider");
-                screen.spawnItem(new ItemDef(new Vector2(b2body.getPosition().x, b2body.getPosition().y),
-                        Proyectil.class));
+                setShot(false);
                 setToDestroy = true;
 
             } else {

@@ -76,6 +76,16 @@ public class WorldContactListener implements ContactListener {
                     ((Enemy) fixB.getUserData()).onHeadHit();
                 }
                 break;
+            case LevelManager.ENEMY_PROYECT | LevelManager.OBSTACULE_BIT:
+            case LevelManager.ENEMY_PROYECT | LevelManager.PLATAFORM_BIT:
+            case LevelManager.ENEMY_PROYECT | LevelManager.GROUND_BIT:
+                if(fixA.getFilterData().categoryBits == LevelManager.ENEMY_PROYECT) {
+                    ((Item) fixA.getUserData()).destroy();
+                }
+                else {
+                    ((Item) fixB.getUserData()).destroy();
+                }
+                break;
         }
     }
 

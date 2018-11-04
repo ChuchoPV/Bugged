@@ -1,5 +1,6 @@
 package com.jpv.Bugged.Niveles.Sprites.Enemies;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -27,6 +28,9 @@ public class Slug extends Enemy{
     private Animation kill;
     private Animation attack;
     private Animation damage;
+
+    private boolean shot;
+    private float shotTimer;
 
     public Slug(PlayScreen screen, float x, float y, MapObject object) {
         super(screen, x, y,object);
@@ -59,6 +63,8 @@ public class Slug extends Enemy{
         setToDestroy = false;
         destroyed = false;
         first = true;
+        shot = false;
+        shotTimer = 0;
         setBounds(getX(),getY(), 144 / LevelManager.PPM,100 / LevelManager.PPM);
 
     }
@@ -66,6 +72,14 @@ public class Slug extends Enemy{
     public void update(float dt){
         //Esta es la parte que funciona
         stateTimer += dt;
+        shotTimer += dt;
+        Gdx.app.log("ShotTimer",""+shotTimer);
+        if(shot && shotTimer >= 1){
+            screen.setEnemyType("slug");
+            screen.spawnItem(new ItemDef(new Vector2(b2body.getPosition().x, b2body.getPosition().y),
+                    Proyectil.class));
+            shotTimer = 0;
+        }
 
         if(damagedB && !setToDestroy && !destroyed){
             //stateTimer = 0;
@@ -139,6 +153,12 @@ public class Slug extends Enemy{
             super.draw(batch);
         }
     }
+    public void setShot(boolean shot){
+        this.shot = shot;
+    }
+    public boolean getShot() {
+        return shot;
+    }
 
     @Override
     public void onHeadHit() {
@@ -148,9 +168,7 @@ public class Slug extends Enemy{
                     screen.spawnItem(new ItemDef(new Vector2(b2body.getPosition().x, b2body.getPosition().y),
                             Heart.class));
                 }
-                screen.setEnemyType("slug");
-                screen.spawnItem(new ItemDef(new Vector2(b2body.getPosition().x, b2body.getPosition().y),
-                        Proyectil.class));
+                setShot(false);
                 setToDestroy = true;
 
             } else {
