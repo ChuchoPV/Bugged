@@ -44,6 +44,7 @@ public class PlayScreen implements Screen {
     //Hearts and score
     private Hud hud;
 
+
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
 
