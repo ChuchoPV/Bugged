@@ -53,7 +53,7 @@ public class Proyectil extends Item{
         super.update(dt);
         setPosition(b2body.getPosition().x -getWidth() / 2.5f , b2body.getPosition().y - getHeight() / 1.3f);
         b2body.setActive(true);
-        if(b2body.getLinearVelocity().x <= 0.5f){
+        if(b2body.getLinearVelocity().x <= 0.2f){
             b2body.applyLinearImpulse(new Vector2(-0.1f,0),b2body.getWorldCenter(),true);
         }
 

@@ -77,7 +77,7 @@ public class Spider extends Enemy{
         //Esta es la parte que funciona
         stateTimer += dt;
         shotTimer += dt;
-        if(shot && shotTimer >= 1){
+        if(shot && shotTimer >= 2){
             screen.setEnemyType("spider");
             screen.spawnItem(new ItemDef(new Vector2(b2body.getPosition().x, b2body.getPosition().y),
                     Proyectil.class));

@@ -74,7 +74,7 @@ public class Slug extends Enemy{
         stateTimer += dt;
         shotTimer += dt;
         Gdx.app.log("ShotTimer",""+shotTimer);
-        if(shot && shotTimer >= 1){
+        if(shot && shotTimer >= 2){
             screen.setEnemyType("slug");
             screen.spawnItem(new ItemDef(new Vector2(b2body.getPosition().x, b2body.getPosition().y),
                     Proyectil.class));

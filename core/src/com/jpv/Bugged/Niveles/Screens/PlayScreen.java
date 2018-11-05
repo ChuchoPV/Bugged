@@ -15,7 +15,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jpv.Bugged.Niveles.LevelManager;
@@ -63,8 +62,9 @@ public class PlayScreen implements Screen {
     private LinkedBlockingDeque<ItemDef> heartsToSpawn;
     private Deque<ItemDef> proyectilToSpawn;
 
-    private int timerBoss;
+    private float timerBoss;
     private long startTime;
+    private float stopBossTimer;
     private boolean first;
 
     public boolean updateObjets;
@@ -109,8 +109,9 @@ public class PlayScreen implements Screen {
         creator = new B2WorldCreator(this);
         world.setContactListener(new WorldContactListener());
         hud = new Hud(this);
-        timerBoss = 1;
-        startTime = TimeUtils.nanoTime();
+        timerBoss = 0;
+        startTime = 0;
+        stopBossTimer = 0;
         first = true;
 
         items = new Array<Item>();
@@ -217,26 +218,24 @@ public class PlayScreen implements Screen {
     }
 
     private void manageBoss(float dt) {
-        if (TimeUtils.timeSinceNanos(startTime) > 2000000000 && timerBoss != 4) {
-            // if time passed since the time you set startTime at is more than 1 second
-
-            //your code here
+        Gdx.app.log("TimerBoss",""+timerBoss);
+        Gdx.app.log("StartTime",""+startTime);
+        timerBoss += dt;
+        if (timerBoss <= 4) {
             if (first && creator.getTheRedBug().b2body.getLinearVelocity().y == 0) {
                 creator.getTheRedBug().b2body.applyLinearImpulse(new Vector2(-5f, 9f), creator.getTheRedBug().b2body.getWorldCenter(), true);
                 first = false;
-                timerBoss += 1;
             } else if(creator.getTheRedBug().b2body.getLinearVelocity().y == 0){
                 creator.getTheRedBug().b2body.applyLinearImpulse(new Vector2(5f, 9f), creator.getTheRedBug().b2body.getWorldCenter(), true);
                 first = true;
-                timerBoss += 1;
             }
-
-            //also you can set the new startTime
-            //so this block will execute every one second
-            startTime = TimeUtils.nanoTime();
         }
-        if (timerBoss == 4) {
-            timerBoss = 0;
+        if (timerBoss >= 4) {
+            startTime += dt;
+            if(startTime >= 2){
+                timerBoss = 0;
+                startTime = 0;
+            }
         }
     }
 
