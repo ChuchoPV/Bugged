@@ -73,13 +73,26 @@ public class Slug extends Enemy{
         //Esta es la parte que funciona
         stateTimer += dt;
         shotTimer += dt;
-        Gdx.app.log("ShotTimer",""+shotTimer);
+        //Gdx.app.log("distance",""+shotTimer);
+
+        if(this.playerDistance()<7){
+            this.setShot(true);
+        }
+        else{
+            this.setShot(false);
+        }
+        Gdx.app.log("distance",""+this.playerDistance());
+        Gdx.app.log("Shot?",""+this.getShot());
         if(shot && shotTimer >= 2){
             screen.setEnemyType("slug");
-            screen.spawnItem(new ItemDef(new Vector2(b2body.getPosition().x, b2body.getPosition().y),
+            /*screen.spawnItem(new ItemDef(new Vector2(b2body.getPosition().x, b2body.getPosition().y),
+                    Proyectil.class));*/
+            screen.spawnItem(new ItemDef(this.b2body.getPosition(),
                     Proyectil.class));
             shotTimer = 0;
         }
+
+
 
         if(damagedB && !setToDestroy && !destroyed){
             //stateTimer = 0;
@@ -177,6 +190,16 @@ public class Slug extends Enemy{
 
             }
         }
+    }
+
+    //Metodo prueba para saber si el jugador esta
+    // cerca del enemigo y sabe si este deberia estar disparando
+    public double playerDistance(){
+        double ejey=Math.pow((screen.getPlayer().b2body.getPosition().y-this.b2body.getPosition().y),2);
+        double ejex=Math.pow((screen.getPlayer().b2body.getPosition().x-this.b2body.getPosition().x),2);
+        double distance=Math.sqrt(ejex+ejey);
+        return distance;
+
     }
 
 }
