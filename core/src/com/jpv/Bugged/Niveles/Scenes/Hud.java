@@ -27,6 +27,7 @@ public class Hud {
     private boolean btnLef;
     private boolean btnRig;
     private boolean btnAt;
+    private boolean btnShot;
     private boolean first;
     private boolean firstPause;
     private Array<Image> vidas;
@@ -165,11 +166,27 @@ public class Hud {
         }
         );
         //endregion
+        //region SHOT
+        final GenericButton btnShotx = new GenericButton((LevelManager.V_WIDTH / LevelManager.PPM) + 1000, (LevelManager.V_WIDTH / LevelManager.PPM ) + 1500
+                ,"Cycle_Btn.png","Cycle_Btn_pressed.png");
+        btnShotx.button().addListener(new ClickListener() {
+                                           @Override
+                                           public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+           if(!isCreatedPauseButtonsCreated()) {
+               super.clicked(event, x, y);
+               btnShot = true;
+           }
+           return super.touchDown(event, x, y, pointer, button);
+       }
+   }
+        );
+        //endregion
 
         stage.addActor(btnJoystickUp.button());
         stage.addActor(btnJoystickRight.button());
         stage.addActor(btnJoystickLeft.button());
         stage.addActor(btnAttack.button());
+        stage.addActor(btnShotx.button());
         stage.addActor(btnPausa.button());
 
 
@@ -254,9 +271,11 @@ public class Hud {
     public boolean getBtnAt(){
         return btnAt;
     }
+    public boolean getBtnShot(){ return btnShot;}
     public void setBtnAt(boolean btnAt){
         this.btnAt = btnAt;
     }
+    public void setBtnShot(boolean btnShot){ this.btnShot = btnShot;}
     public Stage getStage() {
         return stage;
     }

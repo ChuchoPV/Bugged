@@ -19,7 +19,7 @@ import com.jpv.Bugged.Niveles.Screens.PlayScreen;
 
 public class Character extends Sprite {
     //region VARIABLES
-    public enum State {FALLING, JUMPING, STANDING, RUNNING, ATTACKING, DAMAGED, DEAD, WIN};
+    public enum State {FALLING, JUMPING, STANDING, RUNNING, ATTACKING, DAMAGED, SHOT, DEAD, WIN};
     public State currentState;
     private State prevState;
     private World world;
@@ -31,6 +31,7 @@ public class Character extends Sprite {
     private Animation attack;
     private Animation dead;
     private Animation damage;
+    private Animation shot;
     private TextureRegion falling;
     private TextureRegion jumpAnimation;
 
@@ -38,6 +39,7 @@ public class Character extends Sprite {
     private boolean runningRight;
     public boolean boss;
     private boolean attacking;
+    private boolean shotting;
     private int lifes;
     public boolean damaged;
     private boolean isDead;
@@ -57,6 +59,7 @@ public class Character extends Sprite {
         lifes = 3;
         damaged = false;
         stateTimer = 0;
+        shotting = false;
         firstDam = true;
         boss=false;
         win = false;
@@ -97,6 +100,14 @@ public class Character extends Sprite {
         }
         //frames.add(new TextureRegion(new Texture("vacia.png")));
         attack = new Animation<TextureRegion>(0.3f,frames);
+        frames.clear();
+        //endregion
+        //region DISPARO
+        //get attack animation frames and add them to marioRun Animation
+        for(int i= 0; i<5; i++){
+            frames.add(new TextureRegion(screen.getAtlas().findRegion("Hank_Shoot"), i * 175,0,175,175));
+        }
+        shot = new Animation<TextureRegion>(0.3f,frames);
         frames.clear();
         //endregion
         //region JUMP
@@ -304,6 +315,14 @@ public class Character extends Sprite {
             case FALLING:
                 region = falling;
                 break;
+            case SHOT:
+                region = (TextureRegion) shot.getKeyFrame(stateTimer);
+                if (attack.isAnimationFinished(stateTimer)) {
+                    shotting = false;
+                    screen.getHud().setBtnShot(false);
+                    stateTimer = 0;
+                }
+                break;
             case STANDING:
             case WIN:
             default:
@@ -334,6 +353,10 @@ public class Character extends Sprite {
         else if ((Gdx.input.isKeyPressed(Input.Keys.Z) || screen.getHud().getBtnAt()) && !attacking && !isDead()){
             attacking = true;
             return State.ATTACKING;
+        }
+        else if((Gdx.input.isKeyPressed(Input.Keys.V) || screen.getHud().getBtnAt())){
+            shotting = true;
+            return State.SHOT;
         }
         else if (b2body.getLinearVelocity().y > 0 && currentState != State.DAMAGED && !isDead()) {
             if (!attacking) {
@@ -369,7 +392,6 @@ public class Character extends Sprite {
         }else if(damaged){
             return State.DAMAGED;
         }
-
         //aqui termina la modificacion para el swing
         else if(win){
             return State.WIN;
