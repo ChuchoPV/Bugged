@@ -1,6 +1,5 @@
 package com.jpv.Bugged.Niveles.Sprites.Enemies;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -34,6 +33,7 @@ public class Slug extends Enemy{
 
     public Slug(PlayScreen screen, float x, float y, MapObject object) {
         super(screen, x, y,object);
+        b2body.setActive(true);
         TextureAtlas atlas = screen.getAtlas();
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
@@ -81,8 +81,6 @@ public class Slug extends Enemy{
         else{
             this.setShot(false);
         }
-        Gdx.app.log("distance",""+this.playerDistance());
-        Gdx.app.log("Shot?",""+this.getShot());
         if(shot && shotTimer >= 2){
             screen.setEnemyType("slug");
             /*screen.spawnItem(new ItemDef(new Vector2(b2body.getPosition().x, b2body.getPosition().y),
@@ -194,7 +192,7 @@ public class Slug extends Enemy{
 
     //Metodo prueba para saber si el jugador esta
     // cerca del enemigo y sabe si este deberia estar disparando
-    public double playerDistance(){
+    private double playerDistance(){
         double ejey=Math.pow((screen.getPlayer().b2body.getPosition().y-this.b2body.getPosition().y),2);
         double ejex=Math.pow((screen.getPlayer().b2body.getPosition().x-this.b2body.getPosition().x),2);
         double distance=Math.sqrt(ejex+ejey);
