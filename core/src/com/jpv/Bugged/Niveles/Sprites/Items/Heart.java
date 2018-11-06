@@ -40,7 +40,7 @@ public class Heart extends Item {
     public void use() {
         screen.getHud().updateLifes(0);
         destroy();
-        screen.getPlayer().setLife();
+        screen.getPlayer().sumLife();
     }
 
     @Override

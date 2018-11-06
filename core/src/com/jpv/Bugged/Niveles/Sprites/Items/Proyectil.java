@@ -43,9 +43,9 @@ public class Proyectil extends Item{
 
     @Override
     public void use() {
-        screen.getHud().updateLifes(0);
+        screen.getHud().updateLifes(-1);
         destroy();
-        screen.getPlayer().setLife();
+        screen.getPlayer().lessLife();
     }
 
     @Override

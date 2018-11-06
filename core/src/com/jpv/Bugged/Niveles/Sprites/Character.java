@@ -410,14 +410,17 @@ public class Character extends Sprite {
     public float getStateTimer(){
         return stateTimer;
     }
-    public void setLife(){
-        this.lifes += 1;
+    public void lessLife(){
+        this.lifes--;
+    }
+    public void sumLife(){
+        this.lifes++;
     }
     //endregion
 
     private void defineCharacter() {
         BodyDef bdef = new BodyDef();//650
-        bdef.position.set(11350 / LevelManager.PPM ,240 / LevelManager.PPM); //11350
+        bdef.position.set(650 / LevelManager.PPM ,240 / LevelManager.PPM); //11350
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
@@ -432,7 +435,8 @@ public class Character extends Sprite {
                 | LevelManager.ENEMY_COLLIDER_BIT
                 | LevelManager.ITEM_BIT
                 | LevelManager.BOSS_COLLIDER_BIT
-                | LevelManager.BOSS_PIES_BIT;
+                | LevelManager.BOSS_PIES_BIT
+                | LevelManager.ENEMY_PROYECT;
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
