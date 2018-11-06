@@ -75,7 +75,7 @@ public class PlayScreen implements Screen {
     //endregion
 
     public PlayScreen(LevelManager game, int level){
-        atlas = new TextureAtlas("ATLAS_FINAL.pack");
+        atlas = new TextureAtlas("ATLAS_Final.pack");
         //Our game
         this.game = game;
         //Set the number of level
