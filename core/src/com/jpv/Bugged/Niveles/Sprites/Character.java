@@ -107,7 +107,7 @@ public class Character extends Sprite {
         for(int i= 0; i<5; i++){
             frames.add(new TextureRegion(screen.getAtlas().findRegion("Hank_Shoot"), i * 175,0,175,175));
         }
-        shot = new Animation<TextureRegion>(0.05f,frames);
+        shot = new Animation<TextureRegion>(0.1f,frames);
         frames.clear();
         //endregion
         //region JUMP
@@ -279,7 +279,6 @@ public class Character extends Sprite {
     }
 
     private TextureRegion getFrame(float dt) {
-        Gdx.app.log("Estado",""+currentState);
         currentState = getState();
 
         stateTimer = currentState == prevState ? stateTimer + dt : 0;
@@ -296,6 +295,7 @@ public class Character extends Sprite {
                 if (attack.isAnimationFinished(stateTimer)) {
                     attacking = false;
                     screen.getHud().setBtnAt(false);
+                    currentState = State.STANDING;
                     stateTimer = 0;
                 }
                 break;
@@ -305,6 +305,7 @@ public class Character extends Sprite {
                     damaged = false;
                     attacking = false;
                     firstDam = true;
+
                 }
                 break;
             case JUMPING:
@@ -318,10 +319,12 @@ public class Character extends Sprite {
                 break;
             case SHOT:
                 region = (TextureRegion) shot.getKeyFrame(stateTimer);
-                if (attack.isAnimationFinished(stateTimer)) {
+                if (shot.isAnimationFinished(stateTimer)) {
                     shotting = false;
                     screen.getHud().setBtnShot(false);
                     stateTimer = 0;
+                    currentState = State.STANDING;
+
                 }
                 break;
             case STANDING:
@@ -392,7 +395,7 @@ public class Character extends Sprite {
             return State.ATTACKING;
         }else if(damaged){
             return State.DAMAGED;
-        }else if(shotting){
+        }else if(attacking && shotting){
             return  State.SHOT;
         }
         //aqui termina la modificacion para el swing
