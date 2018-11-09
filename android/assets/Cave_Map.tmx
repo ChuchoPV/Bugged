@@ -4,7 +4,7 @@
   <image source="Cave_Tileset.png" width="1680" height="720"/>
  </tileset>
  <tileset firstgid="190" name="Subs_Tileset" tilewidth="80" tileheight="80" tilecount="126" columns="18">
-  <image source="../Level_2/Tileset 2.png" width="1440" height="560"/>
+  <image source="Cave_Tileset.png" width="1440" height="560"/>
  </tileset>
  <layer name="BG" width="160" height="18">
   <data encoding="csv">

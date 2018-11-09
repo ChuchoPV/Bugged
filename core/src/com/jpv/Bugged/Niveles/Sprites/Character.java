@@ -279,6 +279,7 @@ public class Character extends Sprite {
     }
 
     private TextureRegion getFrame(float dt) {
+        Gdx.app.log("Estado",""+currentState);
         currentState = getState();
 
         stateTimer = currentState == prevState ? stateTimer + dt : 0;
