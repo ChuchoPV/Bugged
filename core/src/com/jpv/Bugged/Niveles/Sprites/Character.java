@@ -103,11 +103,11 @@ public class Character extends Sprite {
         frames.clear();
         //endregion
         //region DISPARO
-        //get attack animation frames and add them to marioRun Animation
+        //get shot animation frames and add them to marioRun Animation
         for(int i= 0; i<5; i++){
             frames.add(new TextureRegion(screen.getAtlas().findRegion("Hank_Shoot"), i * 175,0,175,175));
         }
-        shot = new Animation<TextureRegion>(0.3f,frames);
+        shot = new Animation<TextureRegion>(0.05f,frames);
         frames.clear();
         //endregion
         //region JUMP
@@ -354,7 +354,7 @@ public class Character extends Sprite {
             attacking = true;
             return State.ATTACKING;
         }
-        else if((Gdx.input.isKeyPressed(Input.Keys.V) || screen.getHud().getBtnAt())){
+        else if((Gdx.input.isKeyPressed(Input.Keys.V) || screen.getHud().getBtnShot())){
             shotting = true;
             return State.SHOT;
         }
@@ -391,6 +391,8 @@ public class Character extends Sprite {
             return State.ATTACKING;
         }else if(damaged){
             return State.DAMAGED;
+        }else if(shotting){
+            return  State.SHOT;
         }
         //aqui termina la modificacion para el swing
         else if(win){

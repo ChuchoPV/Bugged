@@ -167,11 +167,11 @@ public class Hud {
         );
         //endregion
         //region SHOT
-        final GenericButton btnShotx = new GenericButton((LevelManager.V_WIDTH / LevelManager.PPM) + 1000, (LevelManager.V_WIDTH / LevelManager.PPM ) + 1500
+        GenericButton btnShotx = new GenericButton((LevelManager.V_WIDTH / LevelManager.PPM) + 1000, (LevelManager.V_WIDTH / LevelManager.PPM ) + 200
                 ,"Cycle_Btn.png","Cycle_Btn_pressed.png");
         btnShotx.button().addListener(new ClickListener() {
-                                           @Override
-                                           public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+           @Override
+           public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
            if(!isCreatedPauseButtonsCreated()) {
                super.clicked(event, x, y);
                btnShot = true;
