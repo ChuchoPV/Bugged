@@ -167,7 +167,7 @@ public class Hud {
         );
         //endregion
         //region SHOT
-        GenericButton btnShotx = new GenericButton((LevelManager.V_WIDTH / LevelManager.PPM) + 1000, (LevelManager.V_WIDTH / LevelManager.PPM ) + 200
+        GenericButton btnShotx = new GenericButton((LevelManager.V_WIDTH / LevelManager.PPM) + 1010, (LevelManager.V_WIDTH / LevelManager.PPM ) + 130
                 ,"Cycle_Btn.png","Cycle_Btn_pressed.png");
         btnShotx.button().addListener(new ClickListener() {
            @Override

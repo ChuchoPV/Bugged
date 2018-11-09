@@ -395,8 +395,8 @@ public class Character extends Sprite {
             return State.ATTACKING;
         }else if(damaged){
             return State.DAMAGED;
-        }else if(attacking && shotting){
-            return  State.SHOT;
+        }else if(shotting){
+            return State.SHOT;
         }
         //aqui termina la modificacion para el swing
         else if(win){
