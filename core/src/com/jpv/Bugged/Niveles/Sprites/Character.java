@@ -138,6 +138,7 @@ public class Character extends Sprite {
     public void update(float dt){
         //region STANDING REGION AND DEFAULT
         TextureRegion frames = getFrame(dt);
+        Gdx.app.log();
         //if(currentState == State.STANDING || currentState != State.ATTACKING) {
             setPosition(b2body.getPosition().x - getWidth() / 2.3f, b2body.getPosition().y - getHeight() / 2f); //6.2f
             setBounds(getX(), getY(), 175 / LevelManager.PPM, 175 / LevelManager.PPM);
