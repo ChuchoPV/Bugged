@@ -13,8 +13,20 @@ public abstract class Item extends Sprite{
     private Boolean toDestroy;
     private Boolean destroyed;
     protected Body b2body;
+    protected String enemy;
 
-    Item(PlayScreen screen, float x, float y){
+    public Item(PlayScreen screen, float x, float y, String enemy){
+        this.screen =screen;
+        this.world = screen.getWorld();
+        setPosition(x,y);
+        this.enemy = enemy;
+        setBounds(getX(), getY(), 80 / LevelManager.PPM, 80 / LevelManager.PPM);
+        defineItem();
+        toDestroy = false;
+        destroyed = false;
+    }
+
+    public Item(PlayScreen screen, float x, float y){
         this.screen =screen;
         this.world = screen.getWorld();
         setPosition(x,y);

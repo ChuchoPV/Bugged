@@ -15,6 +15,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.jpv.Bugged.Niveles.LevelManager;
 import com.jpv.Bugged.Niveles.Screens.PlayScreen;
+import com.jpv.Bugged.Niveles.Sprites.Items.ItemDef;
+import com.jpv.Bugged.Niveles.Sprites.Items.Proyectil;
 
 
 public class Character extends Sprite {
@@ -44,6 +46,7 @@ public class Character extends Sprite {
     public boolean damaged;
     private boolean isDead;
     private boolean firstDam;
+    private boolean firstShot;
     public boolean win;
     //endregion
 
@@ -63,6 +66,7 @@ public class Character extends Sprite {
         firstDam = true;
         boss=false;
         win = false;
+        firstShot = true;
         //endregion
         //region ANIMATION
         Array<TextureRegion> frames = new Array<TextureRegion>();
@@ -276,6 +280,15 @@ public class Character extends Sprite {
             }
         }
         //endregion
+        //region Shot
+        if(currentState == State.SHOT){
+            if(firstShot) {
+                screen.spawnItem(new ItemDef(new Vector2(b2body.getPosition().x, b2body.getPosition().y),
+                        Proyectil.class));
+                firstShot = false;
+            }
+        }
+        //endregion
     }
 
     private TextureRegion getFrame(float dt) {
@@ -305,7 +318,6 @@ public class Character extends Sprite {
                     damaged = false;
                     attacking = false;
                     firstDam = true;
-
                 }
                 break;
             case JUMPING:
@@ -324,7 +336,7 @@ public class Character extends Sprite {
                     screen.getHud().setBtnShot(false);
                     stateTimer = 0;
                     currentState = State.STANDING;
-
+                    firstShot = true;
                 }
                 break;
             case STANDING:
@@ -443,6 +455,9 @@ public class Character extends Sprite {
     }
     public void sumLife(){
         this.lifes++;
+    }
+    public boolean isShotting(){
+        return shotting;
     }
     //endregion
 

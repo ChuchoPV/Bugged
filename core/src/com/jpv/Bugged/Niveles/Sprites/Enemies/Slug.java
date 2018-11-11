@@ -167,9 +167,6 @@ public class Slug extends Enemy{
     public void setShot(boolean shot){
         this.shot = shot;
     }
-    public boolean getShot() {
-        return shot;
-    }
 
     @Override
     public void onHeadHit() {

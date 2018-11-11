@@ -61,6 +61,7 @@ public class PlayScreen implements Screen {
     private Array<Item> items;
     private LinkedBlockingDeque<ItemDef> heartsToSpawn;
     private Deque<ItemDef> proyectilToSpawn;
+    private Deque<ItemDef> proyectilesHank;
 
     private float timerBoss;
     private long startTime;
@@ -117,6 +118,7 @@ public class PlayScreen implements Screen {
         items = new Array<Item>();
         heartsToSpawn = new LinkedBlockingDeque<ItemDef>();
         proyectilToSpawn = new LinkedList<ItemDef>();
+        proyectilesHank = new LinkedList<ItemDef>();
 
         updateObjets = true;
         enemyType = "";
@@ -125,14 +127,22 @@ public class PlayScreen implements Screen {
     //region SPAWN ITEMS
 
     public void spawnItem(ItemDef idef) {
-        if(idef.type == Proyectil.class){
+        if(getPlayer().isShotting()){
+            proyectilesHank.add(idef);
+        }
+        else if(idef.type == Proyectil.class){
             proyectilToSpawn.add(idef);
-        }else {
+        }
+        else {
             heartsToSpawn.add(idef);
         }
     }
 
     private void handleSpawingItems(){
+        if(getPlayer().isShotting() && !proyectilesHank.isEmpty()){
+            ItemDef idef = proyectilesHank.poll();
+            items.add(new Proyectil(this, idef.position.x, idef.position.y, "Hank"));
+        }
         if(!heartsToSpawn.isEmpty()){
             ItemDef idef = heartsToSpawn.poll();
             items.add(new Heart(this, idef.position.x, idef.position.y));
