@@ -22,7 +22,7 @@ public class Proyectil extends Item{
             setRegion(new TextureRegion(screen.getAtlas().findRegion("slug_prjct"), 0, 0, 50, 70));
         }
         else {
-            TextureRegion region = new TextureRegion(screen.getAtlas().findRegion("spider_prjct"), 0, 0, 50, 70); //Hank_Shoot
+            TextureRegion region = new TextureRegion(screen.getAtlas().findRegion("Hank_Shoot"), 0, 0, 50, 70); //Hank_Shoot
             region.flip(true,false);
             setRegion(region);
         }
