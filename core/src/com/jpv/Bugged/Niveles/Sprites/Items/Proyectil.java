@@ -22,12 +22,12 @@ public class Proyectil extends Item{
             setRegion(new TextureRegion(screen.getAtlas().findRegion("slug_prjct"), 0, 0, 50, 70));
         }
         else {
-            TextureRegion region = new TextureRegion(screen.getAtlas().findRegion("Hank_Shoot"), 0, 0, 50, 70); //Hank_Shoot
+            TextureRegion region = new TextureRegion(screen.getAtlas().findRegion("projectile_salt"), 0, 0, 50, 70); //Hank_Shoot
             region.flip(true,false);
             setRegion(region);
         }
     }
-
+    
     @Override
     public void defineItem() {
         if(super.enemy.equals("spider") || super.enemy.equals("slug")){
