@@ -84,9 +84,20 @@ public class Spider extends Enemy{
             shotTimer = 0;
         }
 
+        flip=super.toFlip();
+        TextureRegion region;
+
         if(damagedB && !setToDestroy && !destroyed){
             //stateTimer = 0;
-            setRegion((TextureRegion) damage.getKeyFrame(stateTimer));
+            region=(TextureRegion) damage.getKeyFrame(stateTimer);
+            if(flip) {
+                if (region.isFlipX())
+                    region.flip(true, false);
+            }else{
+                if(!region.isFlipX())
+                    region.flip(true,false);
+            }
+            setRegion(region);
             this.b2body.setLinearVelocity(0,0);
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
             if(damage.isAnimationFinished(stateTimer)) {
@@ -104,7 +115,15 @@ public class Spider extends Enemy{
             }
         }else if(!destroyed) {
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
-            setRegion((TextureRegion) idle.getKeyFrame(stateTimer,true));
+            region=(TextureRegion) idle.getKeyFrame(stateTimer,true);
+            if(flip) {
+                if (region.isFlipX())
+                    region.flip(true, false);
+            }else{
+                if(!region.isFlipX())
+                    region.flip(true,false);
+            }
+            setRegion(region);
             damagedB = false;
             if(idle.isAnimationFinished(stateTimer)){
                 stateTimer = 0;

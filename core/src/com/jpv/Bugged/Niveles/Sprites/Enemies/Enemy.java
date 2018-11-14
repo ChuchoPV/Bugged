@@ -17,6 +17,7 @@ public abstract class Enemy extends Sprite {
     public PlayScreen screen;
     protected MapObject object;
     public int damaged;
+    protected boolean flip;
 
 
     public Enemy(PlayScreen screen, float x, float y, MapObject object){

@@ -81,7 +81,7 @@ public class Mosquito extends Enemy {
         move ++;
 
         boolean flip=super.toFlip();
-        TextureRegion region=null;
+        TextureRegion region;
 
         if(damagedB && !setToDestroy && !destroyed){
             //stateTimer = 0;
@@ -112,7 +112,7 @@ public class Mosquito extends Enemy {
             }
         }else if(!destroyed) {
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 3);
-            region=(TextureRegion) idle.getKeyFrame(stateTimer);
+            region=(TextureRegion) idle.getKeyFrame(stateTimer,true);
             if(flip){
                 if(!region.isFlipX())
                     region.flip(true,false);
