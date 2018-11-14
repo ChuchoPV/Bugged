@@ -125,8 +125,9 @@ public class PlayScreen implements Screen {
     }
 
     //region SPAWN ITEMS
-
-    public void spawnItem(ItemDef idef) {
+    private boolean fliped;
+    public void spawnItem(ItemDef idef, boolean fliped) {
+        this.fliped = fliped;
         if(getPlayer().isShotting()){
             proyectilesHank.add(idef);
         }
@@ -141,14 +142,14 @@ public class PlayScreen implements Screen {
     private void handleSpawingItems(){
         if(getPlayer().isShotting() && !proyectilesHank.isEmpty()){
             ItemDef idef = proyectilesHank.poll();
-            items.add(new Proyectil(this, idef.position.x, idef.position.y, "Hank"));
+            items.add(new Proyectil(this, idef.position.x, idef.position.y, "Hank",fliped));
         }
         if(!heartsToSpawn.isEmpty()){
             ItemDef idef = heartsToSpawn.poll();
             items.add(new Heart(this, idef.position.x, idef.position.y));
         }if(!proyectilToSpawn.isEmpty()){
             ItemDef idef = proyectilToSpawn.poll();
-            items.add(new Proyectil(this, idef.position.x, idef.position.y, enemyType));
+            items.add(new Proyectil(this, idef.position.x, idef.position.y, enemyType,fliped));
         }
     }
 

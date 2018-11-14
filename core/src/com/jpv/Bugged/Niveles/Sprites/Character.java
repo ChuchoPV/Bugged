@@ -284,7 +284,7 @@ public class Character extends Sprite {
         if(currentState == State.SHOT){
             if(firstShot) {
                 screen.spawnItem(new ItemDef(new Vector2(b2body.getPosition().x, b2body.getPosition().y),
-                        Proyectil.class));
+                        Proyectil.class),false);
                 firstShot = false;
             }
         }

@@ -10,13 +10,13 @@ import com.jpv.Bugged.Niveles.Screens.PlayScreen;
 import com.jpv.Bugged.Niveles.Sprites.Character;
 
 public class Proyectil extends Item{
-    private String enemy;
-    public boolean direction=false;
-    private boolean first=true;
+    private boolean first;
+    private boolean fliped;
 
-    public Proyectil(PlayScreen screen, float x, float y, String enemy) {
+    public Proyectil(PlayScreen screen, float x, float y, String enemy, boolean fliped) {
         super(screen, x, y, enemy);
-        this.enemy = enemy;
+        first = true;
+        this.fliped = fliped;
         b2body.setGravityScale(0);
         if(enemy.equals("spider")) {
             setRegion(new TextureRegion(screen.getAtlas().findRegion("spider_prjct"), 0, 0, 50, 70));
@@ -95,7 +95,7 @@ public class Proyectil extends Item{
             this.b2body.setLinearVelocity(-4f,0);
 
         if(first) {
-            super.reverseVelocity(direction, false);
+            super.reverseVelocity(fliped, false);
             first = false;
         }
 

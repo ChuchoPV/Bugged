@@ -30,6 +30,7 @@ public class Slug extends Enemy{
 
     private boolean shot;
     private float shotTimer;
+    private boolean isFlip;
 
     public Slug(PlayScreen screen, float x, float y, MapObject object) {
         super(screen, x, y,object);
@@ -65,6 +66,7 @@ public class Slug extends Enemy{
         first = true;
         shot = false;
         shotTimer = 0;
+        isFlip = false;
         setBounds(getX(),getY(), 144 / LevelManager.PPM,100 / LevelManager.PPM);
 
     }
@@ -86,7 +88,7 @@ public class Slug extends Enemy{
             /*screen.spawnItem(new ItemDef(new Vector2(b2body.getPosition().x, b2body.getPosition().y),
                     Proyectil.class));*/
             screen.spawnItem(new ItemDef(this.b2body.getPosition(),
-                    Proyectil.class));
+                    Proyectil.class), isFlip());
             shotTimer = 0;
         }
 
@@ -123,11 +125,15 @@ public class Slug extends Enemy{
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
             region=(TextureRegion) idle.getKeyFrame(stateTimer,true);
             if(flip) {
-                if (!region.isFlipX())
+                if (!region.isFlipX()) {
                     region.flip(true, false);
+                    isFlip = true;
+                }
             }else{
-                if(region.isFlipX())
-                    region.flip(true,false);
+                if(region.isFlipX()) {
+                    region.flip(true, false);
+                    isFlip = false;
+                }
             }
             setRegion(region);
             damagedB = false;
@@ -184,6 +190,9 @@ public class Slug extends Enemy{
     public void setShot(boolean shot){
         this.shot = shot;
     }
+    public boolean isFlip() {
+        return isFlip;
+    }
 
     @Override
     public void onHeadHit() {
@@ -191,7 +200,7 @@ public class Slug extends Enemy{
             if (damaged == 2) {
                 if (object.getProperties().containsKey("Heart")) {
                     screen.spawnItem(new ItemDef(new Vector2(b2body.getPosition().x, b2body.getPosition().y),
-                            Heart.class));
+                            Heart.class), false);
                 }
                 setShot(false);
                 setToDestroy = true;

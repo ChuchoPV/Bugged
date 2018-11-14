@@ -1,6 +1,5 @@
 package com.jpv.Bugged.Niveles.Sprites.Enemies;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -187,7 +186,7 @@ public class Mosquito extends Enemy {
             if (damaged == 2) {
                 if (object.getProperties().containsKey("Heart")) {
                     screen.spawnItem(new ItemDef(new Vector2(b2body.getPosition().x, b2body.getPosition().y),
-                            Heart.class));
+                            Heart.class),false);
                 }
                 setToDestroy = true;
 

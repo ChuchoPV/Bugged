@@ -32,6 +32,7 @@ public class Spider extends Enemy{
 
     private boolean shot;
     private float shotTimer;
+    private boolean isFlip;
 
     public Spider(PlayScreen screen, float x, float y, MapObject object) {
         super(screen, x, y,object);
@@ -69,6 +70,7 @@ public class Spider extends Enemy{
         first = true;
         shot = false;
         shotTimer = 0;
+        isFlip = false;
         setBounds(getX(),getY(), 133 / LevelManager.PPM,120 / LevelManager.PPM);
 
     }
@@ -80,7 +82,7 @@ public class Spider extends Enemy{
         if(shot && shotTimer >= 2){
             screen.setEnemyType("spider");
             screen.spawnItem(new ItemDef(new Vector2(b2body.getPosition().x, b2body.getPosition().y),
-                    Proyectil.class));
+                    Proyectil.class),isFlip());
             shotTimer = 0;
         }
 
@@ -178,7 +180,9 @@ public class Spider extends Enemy{
     public void setShot(boolean shot){
         this.shot = shot;
     }
-
+    public boolean isFlip() {
+        return isFlip;
+    }
     public boolean getShot() {
         return shot;
     }
@@ -189,7 +193,7 @@ public class Spider extends Enemy{
             if (damaged == 2) {
                 if (object.getProperties().containsKey("Heart")) {
                     screen.spawnItem(new ItemDef(new Vector2(b2body.getPosition().x, b2body.getPosition().y),
-                            Heart.class));
+                            Heart.class),false);
                 }
                 setShot(false);
                 setToDestroy = true;
