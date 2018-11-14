@@ -159,6 +159,7 @@ public class Spider extends Enemy{
     public void setShot(boolean shot){
         this.shot = shot;
     }
+
     public boolean getShot() {
         return shot;
     }

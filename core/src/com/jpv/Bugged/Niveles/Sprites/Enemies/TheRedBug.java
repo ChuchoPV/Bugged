@@ -55,6 +55,7 @@ public class TheRedBug extends Enemy {
             frames.add(new TextureRegion(atlas.findRegion("RedBug_damage"),i * 320, 0, 320,230));
         damage = new Animation<TextureRegion>(0.2f, frames);
 
+
         for(int i = 0; i < 10; i++)
             frames.add(new TextureRegion(atlas.findRegion("RedBug_dead"),i * 320, 0, 320,230));
         kill = new Animation<TextureRegion>(0.1f, frames);

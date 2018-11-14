@@ -174,7 +174,7 @@ public class Hud {
            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
            if(!isCreatedPauseButtonsCreated()) {
                super.clicked(event, x, y);
-               btnShot = true;
+               screen.getPlayer().shotting=!screen.getPlayer().shotting;
            }
            return super.touchDown(event, x, y, pointer, button);
        }

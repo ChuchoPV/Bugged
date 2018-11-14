@@ -41,7 +41,7 @@ public class Character extends Sprite {
     private boolean runningRight;
     public boolean boss;
     private boolean attacking;
-    private boolean shotting;
+    public boolean shotting;
     private int lifes;
     public boolean damaged;
     private boolean isDead;
@@ -138,7 +138,6 @@ public class Character extends Sprite {
     public void update(float dt){
         //region STANDING REGION AND DEFAULT
         TextureRegion frames = getFrame(dt);
-        Gdx.app.log();
         //if(currentState == State.STANDING || currentState != State.ATTACKING) {
             setPosition(b2body.getPosition().x - getWidth() / 2.3f, b2body.getPosition().y - getHeight() / 2f); //6.2f
             setBounds(getX(), getY(), 175 / LevelManager.PPM, 175 / LevelManager.PPM);
@@ -151,9 +150,9 @@ public class Character extends Sprite {
 
         //region ATTACKING
         if(currentState == State.ATTACKING) {
-            setPosition(b2body.getPosition().x - getWidth() / 1.8f, b2body.getPosition().y  - getHeight() / 0.5f);
+            setPosition(b2body.getPosition().x - getWidth() / 1.8f, b2body.getPosition().y  - getHeight() / .5f);//.5f
             if(frames.isFlipX()) {
-                setPosition(b2body.getPosition().x - getWidth() / 1f, b2body.getPosition().y - getHeight() / 2); //6.2f
+                setPosition(b2body.getPosition().x - getWidth() / 1f, b2body.getPosition().y - getHeight() / 2f); //6.2f
                 setBounds(getX(), getY(), 240 / LevelManager.PPM, 240 / LevelManager.PPM);
                 setRegion(frames);
             }if(!frames.isFlipX()){
