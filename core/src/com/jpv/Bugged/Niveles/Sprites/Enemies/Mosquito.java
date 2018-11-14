@@ -1,5 +1,6 @@
 package com.jpv.Bugged.Niveles.Sprites.Enemies;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -33,16 +34,30 @@ public class Mosquito extends Enemy {
         this.b2body.setGravityScale(0);
         TextureAtlas atlas = screen.getAtlas();
         Array<TextureRegion> frames = new Array<TextureRegion>();
+
+        TextureRegion temp;
         for(int i = 0; i < 8; i++) {
             frames.add(new TextureRegion(atlas.findRegion("mosquito_idle"), i * 160, 0, 160, 160));
-
         }idle = new Animation<TextureRegion>(0.1f, frames);
         frames.clear();
 
+
         for(int i = 0; i < 4; i++) {
             frames.add(new TextureRegion(atlas.findRegion("mosquito_damage"), i * 160, 0, 160, 160));
-        }damage = new Animation<TextureRegion>(0.2f, frames);
+            /*temp = new TextureRegion(screen.getAtlas().findRegion("mosquito_damage"), i * 175,0,175,175);
+            temp.flip(true,false);
+            frames.add(temp);*/
+        }
+        damage = new Animation<TextureRegion>(0.2f, frames);
         frames.clear();
+
+        /*
+        TextureRegion temp;
+        for(int i= 0; i<4; i++){
+            temp = new TextureRegion(screen.getAtlas().findRegion("mosquito_damage"), i * 175,0,175,175);
+            temp.flip(true,false);
+            frames.add(temp);
+        }*/
 
         for(int i = 0; i < 9; i++) {
             frames.add(new TextureRegion(atlas.findRegion("mosquito_dead"), i * 160, 0, 160, 160));
@@ -65,9 +80,22 @@ public class Mosquito extends Enemy {
         stateTimer += dt;
         move ++;
 
+        boolean flip=super.toFlip();
+        TextureRegion region=null;
+
         if(damagedB && !setToDestroy && !destroyed){
             //stateTimer = 0;
-            setRegion((TextureRegion) damage.getKeyFrame(stateTimer));
+            region=(TextureRegion) damage.getKeyFrame(stateTimer);
+
+            if(flip) {
+                if (!region.isFlipX())
+                    region.flip(true, false);
+            }else{
+                if(region.isFlipX())
+                    region.flip(true,false);
+            }
+
+            setRegion(region);
             this.b2body.setLinearVelocity(0,0);
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 3);
             if(damage.isAnimationFinished(stateTimer))
@@ -84,7 +112,17 @@ public class Mosquito extends Enemy {
             }
         }else if(!destroyed) {
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 3);
-            setRegion((TextureRegion) idle.getKeyFrame(stateTimer,true));
+            region=(TextureRegion) idle.getKeyFrame(stateTimer);
+            if(flip){
+                if(!region.isFlipX())
+                    region.flip(true,false);
+            }
+            else{
+                if(region.isFlipX())
+                    region.flip(true,false);
+            }
+            setRegion(region);
+            //setRegion((TextureRegion) idle.getKeyFrame(stateTimer,true));
             damagedB = false;
             b2body.setLinearVelocity(velocity);
             if(idle.isAnimationFinished(stateTimer)){

@@ -1,6 +1,7 @@
 package com.jpv.Bugged.Niveles.Sprites.Enemies;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
@@ -37,6 +38,15 @@ public abstract class Enemy extends Sprite {
 
     public void destroy() {
         damaged = 3;
+    }
+
+    //protected abstract TextureRegion getFrame(float dt);
+
+    protected boolean toFlip(){
+        if(this.screen.getPlayer().b2body.getPosition().x>this.b2body.getPosition().x){
+            return true;
+        }
+        return false;
     }
 
     public void reverseVelocity(boolean x, boolean y){
