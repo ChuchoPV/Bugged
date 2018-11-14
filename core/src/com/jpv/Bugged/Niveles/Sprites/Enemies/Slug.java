@@ -97,10 +97,10 @@ public class Slug extends Enemy{
             //stateTimer = 0;
             region=(TextureRegion) damage.getKeyFrame(stateTimer);
             if(flip) {
-                if (region.isFlipX())
+                if (!region.isFlipX())
                     region.flip(true, false);
             }else{
-                if(!region.isFlipX())
+                if(region.isFlipX())
                     region.flip(true,false);
             }
             setRegion(region);
@@ -123,10 +123,10 @@ public class Slug extends Enemy{
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
             region=(TextureRegion) idle.getKeyFrame(stateTimer,true);
             if(flip) {
-                if (region.isFlipX())
+                if (!region.isFlipX())
                     region.flip(true, false);
             }else{
-                if(!region.isFlipX())
+                if(region.isFlipX())
                     region.flip(true,false);
             }
             setRegion(region);

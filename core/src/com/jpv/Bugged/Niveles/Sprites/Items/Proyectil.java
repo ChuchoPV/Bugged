@@ -11,6 +11,8 @@ import com.jpv.Bugged.Niveles.Sprites.Character;
 
 public class Proyectil extends Item{
     private String enemy;
+    public boolean direction=false;
+    private boolean first=true;
 
     public Proyectil(PlayScreen screen, float x, float y, String enemy) {
         super(screen, x, y, enemy);
@@ -82,11 +84,19 @@ public class Proyectil extends Item{
         super.update(dt);
         setPosition(b2body.getPosition().x -getWidth() / 2.5f , b2body.getPosition().y - getHeight() / 1.3f);
         b2body.setActive(true);
-        if((screen.getPlayer().currentState == Character.State.SHOT && b2body.getLinearVelocity().x <= 0.2f)){
-            b2body.applyLinearImpulse(new Vector2(0.1f,0),b2body.getWorldCenter(),true);
+        if((screen.getPlayer().currentState == Character.State.SHOT)){
+            //this.b2body.applyLinearImpulse(new Vector2(0.1f,0),b2body.getWorldCenter(),true);
+            this.b2body.setLinearVelocity(.2f,0);
         }
         else if(b2body.getLinearVelocity().x <= 0.2f){
-            b2body.applyLinearImpulse(new Vector2(-0.1f,0),b2body.getWorldCenter(),true);
+            this.b2body.applyLinearImpulse(new Vector2(-0.1f,0),b2body.getWorldCenter(),true);
+        }
+        if (this.b2body.getLinearVelocity().x<=-4f)
+            this.b2body.setLinearVelocity(-4f,0);
+
+        if(first) {
+            super.reverseVelocity(direction, false);
+            first = false;
         }
 
     }

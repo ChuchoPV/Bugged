@@ -1,7 +1,6 @@
 package com.jpv.Bugged.Niveles.Sprites.Enemies;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
@@ -57,4 +56,9 @@ public abstract class Enemy extends Sprite {
         if(y)
             velocity.y = -velocity.y;
     }
+
+    public Enemy getEnemy(){
+        return this;
+    }
+
 }
