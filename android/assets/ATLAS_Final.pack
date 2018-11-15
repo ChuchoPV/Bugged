@@ -1,0 +1,271 @@
+ATLAS_FINAL.png
+size: 4001, 3817
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Ant_atk
+  rotate: false
+  xy: 0, 3217
+  size: 3468, 300
+  orig: 3468, 300
+  offset: 0, 0
+  index: -1
+Ant_damage
+  rotate: false
+  xy: 0, 1927
+  size: 2312, 300
+  orig: 2312, 300
+  offset: 0, 0
+  index: -1
+Ant_dead
+  rotate: false
+  xy: 0, 3517
+  size: 4000, 300
+  orig: 4000, 300
+  offset: 0, 0
+  index: -1
+Ant_Idle
+  rotate: false
+  xy: 0, 2227
+  size: 2312, 300
+  orig: 2312, 300
+  offset: 0, 0
+  index: -1
+Hank_Damage
+  rotate: false
+  xy: 1305, 175
+  size: 700, 175
+  orig: 700, 175
+  offset: 0, 0
+  index: -1
+Hank_Dead
+  rotate: false
+  xy: 0, 525
+  size: 1050, 175
+  orig: 1050, 175
+  offset: 0, 0
+  index: -1
+Hank_Idle
+  rotate: false
+  xy: 2005, 175
+  size: 700, 175
+  orig: 700, 175
+  offset: 0, 0
+  index: -1
+Hank_Jump
+  rotate: false
+  xy: 1752, 0
+  size: 350, 175
+  orig: 350, 175
+  offset: 0, 0
+  index: -1
+Hank_Run
+  rotate: false
+  xy: 0, 1316
+  size: 2450, 175
+  orig: 2450, 175
+  offset: 0, 0
+  index: -1
+Hank_Shoot
+  rotate: false
+  xy: 2637, 350
+  size: 875, 175
+  orig: 875, 175
+  offset: 0, 0
+  index: -1
+Hank_Swipe
+  rotate: false
+  xy: 0, 1491
+  size: 1680, 280
+  orig: 1680, 280
+  offset: 0, 0
+  index: -1
+mosquito_damage
+  rotate: false
+  xy: 665, 175
+  size: 640, 160
+  orig: 640, 160
+  offset: 0, 0
+  index: -1
+mosquito_dead
+  rotate: false
+  xy: 0, 700
+  size: 1440, 160
+  orig: 1440, 160
+  offset: 0, 0
+  index: -1
+mosquito_idle
+  rotate: false
+  xy: 2330, 525
+  size: 1280, 160
+  orig: 1280, 160
+  offset: 0, 0
+  index: -1
+projectile_salt
+  rotate: false
+  xy: 200, 0
+  size: 200, 27
+  orig: 200, 27
+  offset: 0, 0
+  index: -1
+RadBug_Jump
+  rotate: false
+  xy: 0, 930
+  size: 1280, 230
+  orig: 1280, 230
+  offset: 0, 0
+  index: -1
+RedBug_damage
+  rotate: false
+  xy: 2720, 700
+  size: 1280, 230
+  orig: 1280, 230
+  offset: 0, 0
+  index: -1
+RedBug_dead
+  rotate: false
+  xy: 0, 2527
+  size: 3200, 230
+  orig: 3200, 230
+  offset: 0, 0
+  index: -1
+RedBug_idle
+  rotate: false
+  xy: 1280, 930
+  size: 1280, 230
+  orig: 1280, 230
+  offset: 0, 0
+  index: -1
+slug_atk
+  rotate: false
+  xy: 1197, 350
+  size: 1440, 100
+  orig: 1440, 100
+  offset: 0, 0
+  index: -1
+slug_damage
+  rotate: false
+  xy: 600, 0
+  size: 576, 100
+  orig: 576, 100
+  offset: 0, 0
+  index: -1
+slug_dead
+  rotate: false
+  xy: 2705, 175
+  size: 1296, 100
+  orig: 1296, 100
+  offset: 0, 0
+  index: -1
+slug_idle
+  rotate: false
+  xy: 1176, 0
+  size: 576, 100
+  orig: 576, 100
+  offset: 0, 0
+  index: -1
+slug_prjct
+  rotate: false
+  xy: 0, 0
+  size: 200, 27
+  orig: 200, 27
+  offset: 0, 0
+  index: -1
+Snail_atk
+  rotate: false
+  xy: 0, 2987
+  size: 3520, 230
+  orig: 3520, 230
+  offset: 0, 0
+  index: -1
+Snail_Damage
+  rotate: false
+  xy: 1440, 700
+  size: 1280, 230
+  orig: 1280, 230
+  offset: 0, 0
+  index: -1
+Snail_Dead_short
+  rotate: false
+  xy: 0, 2757
+  size: 3350, 230
+  orig: 3350, 230
+  offset: 0, 0
+  index: -1
+Snail_idle
+  rotate: false
+  xy: 2560, 930
+  size: 1280, 230
+  orig: 1280, 230
+  offset: 0, 0
+  index: -1
+spider_atk
+  rotate: false
+  xy: 0, 175
+  size: 665, 120
+  orig: 665, 120
+  offset: 0, 0
+  index: -1
+spider_damage
+  rotate: false
+  xy: 2102, 0
+  size: 532, 120
+  orig: 532, 120
+  offset: 0, 0
+  index: -1
+spider_dead
+  rotate: false
+  xy: 0, 350
+  size: 1197, 120
+  orig: 1197, 120
+  offset: 0, 0
+  index: -1
+spider_idle
+  rotate: false
+  xy: 2634, 0
+  size: 532, 120
+  orig: 532, 120
+  offset: 0, 0
+  index: -1
+spider_jump
+  rotate: false
+  xy: 3166, 0
+  size: 532, 120
+  orig: 532, 120
+  offset: 0, 0
+  index: -1
+spider_prjct
+  rotate: false
+  xy: 400, 0
+  size: 200, 27
+  orig: 200, 27
+  offset: 0, 0
+  index: -1
+SpiderBoss_atk
+  rotate: false
+  xy: 1920, 1160
+  size: 1920, 156
+  orig: 1920, 156
+  offset: 0, 0
+  index: -1
+SpiderBoss_Damage
+  rotate: false
+  xy: 1050, 525
+  size: 1280, 156
+  orig: 1280, 156
+  offset: 0, 0
+  index: -1
+SpiderBoss_Dead
+  rotate: false
+  xy: 0, 1771
+  size: 3520, 156
+  orig: 3520, 156
+  offset: 0, 0
+  index: -1
+SpiderBoss_idle
+  rotate: false
+  xy: 0, 1160
+  size: 1920, 154
+  orig: 1920, 154
+  offset: 0, 0
+  index: -1
