@@ -14,7 +14,7 @@ public abstract class Item extends Sprite{
     private Boolean toDestroy;
     private Boolean destroyed;
     protected Body b2body;
-    protected Vector2 velocity;
+    private Vector2 velocity;
     protected String enemy;
 
     public Item(PlayScreen screen, float x, float y, String enemy){

@@ -50,6 +50,7 @@ public class Mosquito extends Enemy {
         damage = new Animation<TextureRegion>(0.2f, frames);
         frames.clear();
 
+
         /*
         TextureRegion temp;
         for(int i= 0; i<4; i++){
@@ -200,7 +201,6 @@ public class Mosquito extends Enemy {
 
     @Override
     public void setShot(boolean shot) {
-
     }
 
 }

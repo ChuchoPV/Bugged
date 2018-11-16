@@ -25,6 +25,7 @@ import com.jpv.Bugged.Niveles.Sprites.Items.Heart;
 import com.jpv.Bugged.Niveles.Sprites.Items.Item;
 import com.jpv.Bugged.Niveles.Sprites.Items.ItemDef;
 import com.jpv.Bugged.Niveles.Sprites.Items.Proyectil;
+import com.jpv.Bugged.Niveles.Sprites.Items.ProyectilHank;
 import com.jpv.Bugged.Niveles.Sprites.TileObjects.Obstacules;
 import com.jpv.Bugged.Niveles.Tools.B2WorldCreator;
 import com.jpv.Bugged.Niveles.Tools.WorldContactListener;
@@ -128,7 +129,7 @@ public class PlayScreen implements Screen {
     private boolean fliped;
     public void spawnItem(ItemDef idef, boolean fliped) {
         this.fliped = fliped;
-        if(getPlayer().isShotting()){
+        if(idef.type == ProyectilHank.class){
             proyectilesHank.add(idef);
         }
         else if(idef.type == Proyectil.class){
@@ -140,7 +141,7 @@ public class PlayScreen implements Screen {
     }
 
     private void handleSpawingItems(){
-        if(getPlayer().isShotting() && !proyectilesHank.isEmpty()){
+        if(!proyectilesHank.isEmpty()){
             ItemDef idef = proyectilesHank.poll();
             items.add(new Proyectil(this, idef.position.x, idef.position.y, "Hank",fliped));
         }
