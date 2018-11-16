@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="16" height="18" tilewidth="80" tileheight="80" infinite="0" nextlayerid="13" nextobjectid="3676">
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="16" height="18" tilewidth="80" tileheight="80" infinite="0" nextlayerid="13" nextobjectid="3682">
  <tileset firstgid="1" name="Cave_Tileset" tilewidth="80" tileheight="80" tilecount="189" columns="21">
   <image source="Videojuegos/Bugged/android/assets/Cave_Tileset.png" width="1680" height="720"/>
  </tileset>
@@ -171,6 +171,8 @@
   <object id="3666" x="170.333" y="253" width="3.33333" height="3.33333"/>
   <object id="3667" x="173.667" y="248.66" width="4" height="4.33333"/>
   <object id="3668" x="178.333" y="244.33" width="3.33333" height="4.33333"/>
+  <object id="3678" x="0" y="160" width="80" height="1120"/>
+  <object id="3680" x="1200" y="160" width="80" height="1120"/>
  </objectgroup>
  <objectgroup id="7" name="Enemigos">
   <object id="3669" x="880" y="560" width="160" height="160">
@@ -199,6 +201,6 @@
   </object>
  </objectgroup>
  <objectgroup id="5" name="Jefe">
-  <object id="3675" x="800" y="480" width="320" height="320"/>
+  <object id="3677" x="800" y="480" width="320" height="320"/>
  </objectgroup>
 </map>
