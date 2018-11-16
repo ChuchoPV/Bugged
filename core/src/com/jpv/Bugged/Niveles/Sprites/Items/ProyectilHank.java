@@ -73,7 +73,6 @@ public class ProyectilHank extends Item{
             super.reverseVelocity(fliped, false);
             first = false;
         }
-
     }
 
 }

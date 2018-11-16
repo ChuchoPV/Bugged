@@ -143,7 +143,7 @@ public class PlayScreen implements Screen {
     private void handleSpawingItems(){
         if(!proyectilesHank.isEmpty()){
             ItemDef idef = proyectilesHank.poll();
-            items.add(new Proyectil(this, idef.position.x, idef.position.y, "Hank",fliped));
+            items.add(new ProyectilHank(this, idef.position.x, idef.position.y,fliped));
         }
         if(!heartsToSpawn.isEmpty()){
             ItemDef idef = heartsToSpawn.poll();
