@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="16" height="18" tilewidth="80" tileheight="80" infinite="0" nextlayerid="13" nextobjectid="3682">
  <tileset firstgid="1" name="Cave_Tileset" tilewidth="80" tileheight="80" tilecount="189" columns="21">
-  <image source="Videojuegos/Bugged/android/assets/Cave_Tileset.png" width="1680" height="720"/>
+  <image source="Cave_Tileset.png" width="1680" height="720"/>
  </tileset>
  <tileset firstgid="190" name="Subs_Tileset" tilewidth="80" tileheight="80" tilecount="189" columns="21">
-  <image source="Videojuegos/Bugged/android/assets/Cave_Tileset.png" width="1680" height="720"/>
+  <image source="Cave_Tileset.png" width="1680" height="720"/>
  </tileset>
  <layer id="11" name="BG" width="16" height="18">
   <data encoding="csv">
