@@ -21,7 +21,7 @@ import com.jpv.Bugged.Niveles.Tools.GenericButton;
 import com.jpv.Bugged.PantallasMenu.PantallaMenuPrincipal;
 
 public class Hud {
-    public Stage stage;
+    private Stage stage;
     private int y;
     private PlayScreen screen;
     private boolean btnLef;
