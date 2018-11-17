@@ -16,7 +16,6 @@ import com.badlogic.gdx.utils.Array;
 import com.jpv.Bugged.Niveles.LevelManager;
 import com.jpv.Bugged.Niveles.Screens.PlayScreen;
 import com.jpv.Bugged.Niveles.Sprites.Items.ItemDef;
-import com.jpv.Bugged.Niveles.Sprites.Items.Proyectil;
 import com.jpv.Bugged.Niveles.Sprites.Items.ProyectilHank;
 
 
@@ -360,65 +359,70 @@ public class Character extends Sprite {
 
     private State getState() {
         if(currentState!=State.WIN){
-        if(currentState != State.DAMAGED && isDead()) {
-            return State.DEAD;
-        }
-        else if (damaged && !isDead()){
-            return State.DAMAGED;
-        }
-        else if ((Gdx.input.isKeyPressed(Input.Keys.Z) || screen.getHud().getBtnAt()) && !attacking && !isDead()){
-            attacking = true;
-            return State.ATTACKING;
-        }
-        else if((Gdx.input.isKeyPressed(Input.Keys.V) || screen.getHud().getBtnShot())){
-            shotting = true;
-            return State.SHOT;
-        }
-        else if (b2body.getLinearVelocity().y > 0 && currentState != State.DAMAGED && !isDead()) {
-            if (!attacking) {
-                return State.JUMPING;
+            if(currentState != State.DAMAGED && isDead()) {
+                return State.DEAD;
             }
-            else {
-                return State.ATTACKING;
-            }
-        }
-        else if (b2body.getLinearVelocity().y < 0 && !isDead()){
-            if(!attacking) {
-                return State.FALLING;
-            }
-            else {
-                return State.ATTACKING;
-            }
-        }
-        else if (b2body.getLinearVelocity().x != 0 && currentState != State.DAMAGED && !isDead()){
-            if(attacking) {
-                return State.ATTACKING;
-            }
-            else if(damaged){
+            else if (damaged && !isDead()){
                 return State.DAMAGED;
             }
-            else {
-                return State.RUNNING;
+            else if ((Gdx.input.isKeyPressed(Input.Keys.Z) || screen.getHud().getBtnAt()) && !attacking && !isDead()){
+                attacking = true;
+                return State.ATTACKING;
             }
-        }
-        //aqui empieza la modificacion para el swing completo
+            else if((Gdx.input.isKeyPressed(Input.Keys.V) || screen.getHud().getBtnShot())){
+                shotting = true;
+                return State.SHOT;
+            }
+            else if (b2body.getLinearVelocity().y > 0 && currentState != State.DAMAGED && !isDead()) {
+                if (!attacking || !shotting) {
+                    return State.JUMPING;
+                }
+                else if(attacking){
+                    return State.ATTACKING;
+                }else{
+                    return State.SHOT;
+                }
+            }
+            else if (b2body.getLinearVelocity().y < 0 && !isDead()){
+                if(!attacking || !shotting) {
+                    return State.FALLING;
+                }
+                else if(attacking){
+                    return State.ATTACKING;
+                }else{
+                    return State.SHOT;
+                }
+            }
+            else if (b2body.getLinearVelocity().x != 0 && currentState != State.DAMAGED && !isDead()){
+                if(attacking) {
+                    return State.ATTACKING;
+                }
+                //else if(damaged){
+                //    return State.DAMAGED;
+                //}
+                else if(shotting) {
+                    return State.SHOT;
+                }else {
+                    return State.RUNNING;
+                }
+            }
+            //aqui empieza la modificacion para el swing completo
 
-        else if (attacking) {
-            return State.ATTACKING;
-        }else if(damaged){
-            return State.DAMAGED;
-        }else if(shotting){
-            return State.SHOT;
-        }
-        //aqui termina la modificacion para el swing
-        else if(win){
-            return State.WIN;
-        }
-        else{
-            return State.STANDING;
-        }
-        }
-        else
+            else if (attacking) {
+                return State.ATTACKING;
+            }else if(damaged){
+                return State.DAMAGED;
+            }else if(shotting){
+                return State.SHOT;
+            }
+            //aqui termina la modificacion para el swing
+            else if(win){
+                return State.WIN;
+            }
+            else{
+                return State.STANDING;
+            }
+        }else
             return State.WIN;
     }
 
