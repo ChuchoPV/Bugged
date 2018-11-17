@@ -17,7 +17,7 @@ public class PantallaLevelSelect extends Pantalla {
 
     public PantallaLevelSelect(Bugged pantallaInicio) {
         this.pantallaInicio = pantallaInicio;
-        this.isHank=this.pantallaInicio.isHank;
+        this.isHank=this.pantallaInicio.isHank();
     }
 
     @Override
@@ -95,18 +95,32 @@ public class PantallaLevelSelect extends Pantalla {
             }
             }
         );
-
-        //Boton Character Selecton
-        GenericButton btnCS = new GenericButton(ANCHO, ALTO,"Level_Select/CharacterSelect_Btn.png","Level_Select/CharacterSelect_Btn_pressed.png");
-        btnCS.setPlace(btnBack.button().getWidth()-80,150);
-        btnCS.button().addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                super.clicked(event, x, y);
-                pantallaInicio.setScreen(new PantallaCharacterSelection(pantallaInicio));
-                }
-            }
-        );
+        GenericButton btnCS;
+        if(pantallaInicio.isHank()) {
+            //Boton Character Selecton
+            btnCS = new GenericButton(ANCHO, ALTO, "CharacterSelectionScreen/Hank_Select_Button_small.png", "CharacterSelectionScreen/Hank_Select_Button_Pressed_small.png");
+            btnCS.setPlace(btnBack.button().getWidth() - 40, 175);
+            btnCS.button().addListener(new ClickListener() {
+                                           @Override
+                                           public void clicked(InputEvent event, float x, float y) {
+                   super.clicked(event, x, y);
+                   pantallaInicio.setScreen(new PantallaCharacterSelection(pantallaInicio));
+               }
+           }
+            );
+        }else{
+            //Boton Character Selecton
+            btnCS = new GenericButton(ANCHO, ALTO, "CharacterSelectionScreen/Bridgete_Select_Button_small.png", "CharacterSelectionScreen/Bridgete_Select_Button_Pressed_small.png");
+            btnCS.setPlace(btnBack.button().getWidth() - 40, 175);
+            btnCS.button().addListener(new ClickListener() {
+                                           @Override
+                                           public void clicked(InputEvent event, float x, float y) {
+                   super.clicked(event, x, y);
+                   pantallaInicio.setScreen(new PantallaCharacterSelection(pantallaInicio));
+                  }
+           }
+            );
+        }
 
         escenaLevelSelect.addActor(btnCity.button());
         escenaLevelSelect.addActor(btnSuburbs.button());

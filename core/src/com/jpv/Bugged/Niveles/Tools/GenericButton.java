@@ -32,10 +32,6 @@ public class GenericButton {
         return btnHelp;
     }
 
-    public void reziseImage(float x, float y){
-        
-    }
-
     public void setPlace(float x, float y){
         this.x = x;
         this.y = y;
