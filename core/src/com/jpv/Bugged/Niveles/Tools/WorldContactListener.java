@@ -92,7 +92,7 @@ public class WorldContactListener implements ContactListener {
             case LevelManager.CHARACTER_PROYECT | LevelManager.OBSTACULE_BIT:
             case LevelManager.CHARACTER_PROYECT | LevelManager.PLATAFORM_BIT:
             case LevelManager.CHARACTER_PROYECT | LevelManager.GROUND_BIT:
-                if(fixA.getFilterData().categoryBits == LevelManager.ENEMY_PROYECT) {
+                if(fixA.getFilterData().categoryBits == LevelManager.ENEMY_PROYECT || fixA.getFilterData().categoryBits == LevelManager.CHARACTER_PROYECT) {
                     ((Item) fixA.getUserData()).destroy();
                 }
                 else {

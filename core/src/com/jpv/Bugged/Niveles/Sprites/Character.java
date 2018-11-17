@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.Array;
 import com.jpv.Bugged.Niveles.LevelManager;
 import com.jpv.Bugged.Niveles.Screens.PlayScreen;
 import com.jpv.Bugged.Niveles.Sprites.Items.ItemDef;
+import com.jpv.Bugged.Niveles.Sprites.Items.Proyectil;
 import com.jpv.Bugged.Niveles.Sprites.Items.ProyectilHank;
 
 
@@ -283,8 +284,7 @@ public class Character extends Sprite {
         //region Shot
         if(currentState == State.SHOT){
             if(firstShot) {
-                screen.spawnItem(new ItemDef(new Vector2(b2body.getPosition().x, b2body.getPosition().y),
-                        ProyectilHank.class),false);
+                screen.spawnItem(new ItemDef(new Vector2(b2body.getPosition().x, b2body.getPosition().y), ProyectilHank.class),isFlipX());
                 firstShot = false;
             }
         }
