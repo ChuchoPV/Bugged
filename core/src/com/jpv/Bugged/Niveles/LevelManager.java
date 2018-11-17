@@ -27,6 +27,8 @@ public class LevelManager extends Game{
     public static final short BOSS_COLLIDER_BIT = 4096;
     public static final short ENEMY_PROYECT = 8192;
     public static final short CHARACTER_PROYECT = 16384;
+    public static final int SLUG_CONTACT = 32768;
+
 
 
     public SpriteBatch batch;
