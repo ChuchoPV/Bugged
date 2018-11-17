@@ -96,7 +96,7 @@ public class PlayScreen implements Screen {
         }else if(level == 4){
             map = mapLoader.load("Cave_Map.tmx");
         }else{
-            map = mapLoader.load("Mountain_Map.tmx");
+            map = mapLoader.load("Final.tmx");
         }
         renderer = new OrthogonalTiledMapRenderer(map, 1 / LevelManager.PPM);
         //The camara set at the world

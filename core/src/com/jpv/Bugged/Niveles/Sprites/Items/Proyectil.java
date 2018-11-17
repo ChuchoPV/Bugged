@@ -7,7 +7,6 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.jpv.Bugged.Niveles.LevelManager;
 import com.jpv.Bugged.Niveles.Screens.PlayScreen;
-import com.jpv.Bugged.Niveles.Sprites.Character;
 
 public class Proyectil extends Item{
     private boolean first;
@@ -64,9 +63,6 @@ public class Proyectil extends Item{
         super.update(dt);
         setPosition(b2body.getPosition().x -getWidth() / 2.5f , b2body.getPosition().y - getHeight() / 1.3f);
         this.b2body.setActive(true);
-
-
-
 
         if(!fliped){
             if(this.b2body.getLinearVelocity().x<velocity*10){
