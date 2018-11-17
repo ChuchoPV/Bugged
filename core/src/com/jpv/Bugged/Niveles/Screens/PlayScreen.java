@@ -202,6 +202,7 @@ public class PlayScreen implements Screen {
 
         for(Item item : items) {
             item.update(dt);
+
         }
         if(gamecam.position.x>119) {
             gamecam.position.x = 119.6f;
