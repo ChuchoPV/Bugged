@@ -7,11 +7,13 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.jpv.Bugged.Niveles.LevelManager;
 import com.jpv.Bugged.Niveles.Screens.PlayScreen;
+import com.jpv.Bugged.Niveles.Sprites.Character;
 
 public class Proyectil extends Item{
     private boolean first;
     private boolean fliped;
     private float velocity=1;
+    private boolean active=true;
 
     public Proyectil(PlayScreen screen, float x, float y, String enemy, boolean fliped) {
         super(screen, x, y, enemy);
@@ -21,13 +23,16 @@ public class Proyectil extends Item{
         if(enemy.equals("spider")) {
             setRegion(new TextureRegion(screen.getAtlas().findRegion("spider_prjct"), 0, 0, 50, 70));
         }else if(enemy.equals("slug")) {
-            setRegion(new TextureRegion(screen.getAtlas().findRegion("slug_prjct"), 0, 0, 50, 70));
+            //setRegion(new TextureRegion(screen.getAtlas().findRegion("slug_prjct"), 0, 0, 50, 70));
+            TextureRegion region = new TextureRegion(screen.getAtlas().findRegion("slug_prjct"), 0, 0, 50, 70); //Hank_Shoot
+            region.flip(this.fliped,false);
+            setRegion(region);
         }
-        else {
+        /*else {
             TextureRegion region = new TextureRegion(screen.getAtlas().findRegion("projectile_salt"), 0, 0, 50, 70); //Hank_Shoot
             region.flip(fliped,false);
             setRegion(region);
-        }
+        }*/
     }
     
     @Override
@@ -54,30 +59,33 @@ public class Proyectil extends Item{
     @Override
     public void use() {
         screen.getHud().updateLifes(-1);
-        destroy();
         screen.getPlayer().lessLife();
+        super.destroy();
     }
 
     @Override
     public void update(float dt) {
         super.update(dt);
-        setPosition(b2body.getPosition().x -getWidth() / 2.5f , b2body.getPosition().y - getHeight() / 1.3f);
+        setPosition(this.b2body.getPosition().x - getWidth() / 2.5f, this.b2body.getPosition().y - getHeight() / 1.3f);
         this.b2body.setActive(true);
+        //System.out.println(this.fliped);
 
-        if(!fliped){
-            if(this.b2body.getLinearVelocity().x<velocity*10){
-                this.b2body.applyLinearImpulse(new Vector2(velocity,0),this.b2body.getWorldCenter(),true);
-            }
-            else{
-                this.b2body.setLinearVelocity(velocity*10,0);
-            }
-        }
-        else{
-            if(this.b2body.getLinearVelocity().x>-velocity*10){
-                this.b2body.applyLinearImpulse(new Vector2(-velocity,0),this.b2body.getWorldCenter(),true);
-            }
-            else{
-                this.b2body.setLinearVelocity(-velocity*10,0);
+
+        if (active) {
+            if (this.fliped) {
+                if (this.b2body.getLinearVelocity().x < velocity * 10) {
+                    this.b2body.applyLinearImpulse(new Vector2(velocity, 0), this.b2body.getWorldCenter(), true);
+                } else {
+                    this.b2body.setLinearVelocity(velocity * 10, 0);
+                    active=false;
+                }
+            } else {
+                if (this.b2body.getLinearVelocity().x > -velocity * 10) {
+                    this.b2body.applyLinearImpulse(new Vector2(-velocity, 0), this.b2body.getWorldCenter(), true);
+                } else {
+                    this.b2body.setLinearVelocity(-velocity * 10, 0);
+                    active=false;
+                }
             }
         }
     }
