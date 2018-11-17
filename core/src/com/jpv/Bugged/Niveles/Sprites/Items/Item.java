@@ -16,6 +16,7 @@ public abstract class Item extends Sprite{
     protected Body b2body;
     private Vector2 velocity;
     protected String enemy;
+    private float lifetime;
 
     public Item(PlayScreen screen, float x, float y, String enemy){
         this.screen =screen;
@@ -27,6 +28,7 @@ public abstract class Item extends Sprite{
         defineItem();
         toDestroy = false;
         destroyed = false;
+        lifetime = 0;
     }
 
     public Item(PlayScreen screen, float x, float y){
@@ -45,9 +47,20 @@ public abstract class Item extends Sprite{
 
     public void update(float dt){
         if(toDestroy && !destroyed){
-            world.destroyBody(b2body);
             destroyed = true;
+            world.destroyBody(this.b2body);
+            if(screen.getItems().size != 0) {
+                screen.getItems().pop();
+            }
         }
+        if(Math.abs(this.b2body.getLinearVelocity().x) <= 0 && lifetime > 0){
+            destroyed = true;
+            //world.destroyBody(this.b2body);
+            if(screen.getItems().size != 0) {
+                screen.getItems().pop();
+            }
+        }
+        lifetime += dt;
     }
 
     public void draw(Batch batch){

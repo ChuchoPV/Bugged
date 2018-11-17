@@ -202,8 +202,8 @@ public class PlayScreen implements Screen {
 
         for(Item item : items) {
             item.update(dt);
-
         }
+        Gdx.app.log("Lenght",""+items.size);
         if(gamecam.position.x>119) {
             gamecam.position.x = 119.6f;
             if(gamecam.position.y > 3.6f) {
@@ -392,6 +392,10 @@ public class PlayScreen implements Screen {
 
     public void setEnemyType(String enemy){
         this.enemyType = enemy;
+    }
+
+    public Array<Item> getItems() {
+        return items;
     }
 
     //endregion

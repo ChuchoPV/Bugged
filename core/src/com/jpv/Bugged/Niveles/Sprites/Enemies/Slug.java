@@ -190,7 +190,7 @@ public class Slug extends Enemy{
     public void setShot(boolean shot){
         this.shot = shot;
     }
-    public boolean isFlip() {
+    private boolean isFlip() {
         return isFlip;
     }
 
