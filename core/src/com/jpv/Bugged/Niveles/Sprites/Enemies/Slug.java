@@ -82,7 +82,7 @@ public class Slug extends Enemy{
         else{
             this.setShot(false);
         }
-        if(shot && shotTimer >= 2){
+        if(shot && shotTimer >= 2 && !damagedB){
             screen.setEnemyType("slug");
             /*screen.spawnItem(new ItemDef(new Vector2(b2body.getPosition().x, b2body.getPosition().y),
                     Proyectil.class));*/

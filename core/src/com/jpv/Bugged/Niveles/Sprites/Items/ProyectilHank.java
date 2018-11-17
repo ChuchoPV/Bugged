@@ -16,9 +16,9 @@ public class ProyectilHank extends Item {
 
     public ProyectilHank(PlayScreen screen, float x, float y, boolean fliped) {
         super(screen, x, y);
-        first = true;
+        this.first = true;
         this.fliped = fliped;
-        b2body.setGravityScale(0);
+        this.b2body.setGravityScale(0);
         TextureRegion region = new TextureRegion(screen.getAtlas().findRegion("projectile_salt"), 0, 0, 50, 70); //Hank_Shoot
         region.flip(this.fliped, false);
         setRegion(region);
