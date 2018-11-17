@@ -136,7 +136,7 @@ public class Character extends Sprite {
             //region RUN
             //get run animation frames and add them to marioRun Animation
             for (int i = 0; i < 14; i++) {
-                frames.add(new TextureRegion(atlas2.findRegion("Brid_Run"), i * 175, 0, 175, 175));
+                frames.add(new TextureRegion(atlas2.findRegion("Brid_Run"), i * 130, 0, 130, 175));
             }
             running = new Animation<TextureRegion>(0.09f, frames);
             frames.clear();
