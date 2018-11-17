@@ -72,6 +72,8 @@ public class ProyectilHank extends Item {
             } else {
                 this.b2body.setLinearVelocity(velocity * 10, 0);
             }
+
+
         } else {
             if (this.b2body.getLinearVelocity().x > -velocity * 10) {
                 this.b2body.applyLinearImpulse(new Vector2(-velocity, 0), this.b2body.getWorldCenter(), true);
