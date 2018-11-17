@@ -12,6 +12,7 @@ import com.jpv.Bugged.Niveles.Sprites.Character;
 public class Proyectil extends Item{
     private boolean first;
     private boolean fliped;
+    private float velocity=1;
 
     public Proyectil(PlayScreen screen, float x, float y, String enemy, boolean fliped) {
         super(screen, x, y, enemy);
@@ -25,7 +26,7 @@ public class Proyectil extends Item{
         }
         else {
             TextureRegion region = new TextureRegion(screen.getAtlas().findRegion("projectile_salt"), 0, 0, 50, 70); //Hank_Shoot
-            region.flip(true,false);
+            region.flip(fliped,false);
             setRegion(region);
         }
     }
@@ -62,21 +63,26 @@ public class Proyectil extends Item{
     public void update(float dt) {
         super.update(dt);
         setPosition(b2body.getPosition().x -getWidth() / 2.5f , b2body.getPosition().y - getHeight() / 1.3f);
-        b2body.setActive(true);
-        if((screen.getPlayer().currentState == Character.State.SHOT)){
-            //this.b2body.applyLinearImpulse(new Vector2(0.1f,0),b2body.getWorldCenter(),true);
-            this.b2body.setLinearVelocity(.2f,0);
-        }
-        else if(b2body.getLinearVelocity().x <= 0.2f){
-            this.b2body.applyLinearImpulse(new Vector2(-0.1f,0),b2body.getWorldCenter(),true);
-        }
-        if (this.b2body.getLinearVelocity().x<=-4f)
-            this.b2body.setLinearVelocity(-4f,0);
+        this.b2body.setActive(true);
 
-        if(first) {
-            super.reverseVelocity(fliped, false);
-            first = false;
-        }
 
+
+
+        if(!fliped){
+            if(this.b2body.getLinearVelocity().x<velocity*10){
+                this.b2body.applyLinearImpulse(new Vector2(velocity,0),this.b2body.getWorldCenter(),true);
+            }
+            else{
+                this.b2body.setLinearVelocity(velocity*10,0);
+            }
+        }
+        else{
+            if(this.b2body.getLinearVelocity().x>-velocity*10){
+                this.b2body.applyLinearImpulse(new Vector2(-velocity,0),this.b2body.getWorldCenter(),true);
+            }
+            else{
+                this.b2body.setLinearVelocity(-velocity*10,0);
+            }
+        }
     }
 }
