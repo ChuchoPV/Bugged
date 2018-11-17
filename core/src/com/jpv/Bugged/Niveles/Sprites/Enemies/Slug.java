@@ -178,6 +178,7 @@ public class Slug extends Enemy{
         b2body.createFixture(fdef).setUserData(this);
 
         //Create collider hear
+
         PolygonShape colliderDisp = new PolygonShape();
         Vector2[] vertice2 = new Vector2[4];
         vertice2[0] = new Vector2(-57 , -40).scl(1 / LevelManager.PPM);
