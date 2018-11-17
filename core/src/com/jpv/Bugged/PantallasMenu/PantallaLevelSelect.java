@@ -13,9 +13,11 @@ public class PantallaLevelSelect extends Pantalla {
     private final Bugged pantallaInicio;
     private Texture fondoLevelaSelect;
     private Stage escenaLevelSelect;
+    public boolean isHank;
 
     public PantallaLevelSelect(Bugged pantallaInicio) {
         this.pantallaInicio = pantallaInicio;
+        this.isHank=this.pantallaInicio.isHank;
     }
 
     @Override
@@ -33,7 +35,7 @@ public class PantallaLevelSelect extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                new LevelManager(pantallaInicio, 1);
+                new LevelManager(pantallaInicio, 1,isHank);
                 }
             }
         );
@@ -44,7 +46,7 @@ public class PantallaLevelSelect extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                new LevelManager(pantallaInicio, 2);
+                new LevelManager(pantallaInicio, 2,isHank);
             }
             }
         );
@@ -55,7 +57,7 @@ public class PantallaLevelSelect extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                new LevelManager(pantallaInicio, 3);
+                new LevelManager(pantallaInicio, 3,isHank);
             }
             }
         );
@@ -66,7 +68,7 @@ public class PantallaLevelSelect extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                new LevelManager(pantallaInicio, 4);
+                new LevelManager(pantallaInicio, 4,isHank);
             }
             }
         );
@@ -77,7 +79,7 @@ public class PantallaLevelSelect extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                new LevelManager(pantallaInicio, 5);
+                new LevelManager(pantallaInicio, 5,isHank);
             }
             }
         );

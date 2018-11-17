@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.jpv.Bugged.Niveles.LevelManager;
 import com.jpv.Bugged.Niveles.Tools.GenericButton;
 import com.jpv.Bugged.PantallasMenu.Tools.Pantalla;
 
@@ -15,7 +16,7 @@ public class PantallaCharacterSelection extends Pantalla {
     private final Bugged pantallaInicio;
     public Texture fondo;
     public Stage escenaCharacterSelection;
-    public Boolean hank;
+    public Boolean hank=true;
 
     public PantallaCharacterSelection(Bugged pantallaInicio) {
         this.pantallaInicio = pantallaInicio;
@@ -45,6 +46,7 @@ public class PantallaCharacterSelection extends Pantalla {
                                 @Override
                                 public void clicked(InputEvent event, float x, float y) {
                                     super.clicked(event, x, y);
+                                    pantallaInicio.setHank(false);
                                     //pantallaInicio.setScreen(new PantallaJuego(pantallaInicio));
                                 }
                             }
@@ -63,6 +65,7 @@ public class PantallaCharacterSelection extends Pantalla {
                                 @Override
                                 public void clicked(InputEvent event, float x, float y) {
                                     super.clicked(event, x, y);
+                                    pantallaInicio.setHank(true);
                                     //pantallaInicio.setScreen(new PantallaJuego(pantallaInicio));
                                 }
                             }
