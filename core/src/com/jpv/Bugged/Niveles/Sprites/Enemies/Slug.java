@@ -75,7 +75,6 @@ public class Slug extends Enemy{
         //Esta es la parte que funciona
         stateTimer += dt;
         shotTimer += dt;
-        //Gdx.app.log("distance",""+shotTimer);
 
         if(this.playerDistance()<7){
             this.setShot(true);
@@ -88,7 +87,7 @@ public class Slug extends Enemy{
             /*screen.spawnItem(new ItemDef(new Vector2(b2body.getPosition().x, b2body.getPosition().y),
                     Proyectil.class));*/
             screen.spawnItem(new ItemDef(this.b2body.getPosition(),
-                    Proyectil.class), isFlip());
+                    Proyectil.class), this.isFlip());
             shotTimer = 0;
         }
 

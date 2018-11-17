@@ -374,7 +374,7 @@ public class Character extends Sprite {
                 return State.SHOT;
             }
             else if (b2body.getLinearVelocity().y > 0 && currentState != State.DAMAGED && !isDead()) {
-                if (!attacking || !shotting) {
+                if (!attacking && !shotting) {
                     return State.JUMPING;
                 }
                 else if(attacking){
@@ -384,7 +384,7 @@ public class Character extends Sprite {
                 }
             }
             else if (b2body.getLinearVelocity().y < 0 && !isDead()){
-                if(!attacking || !shotting) {
+                if(!attacking && !shotting) {
                     return State.FALLING;
                 }
                 else if(attacking){
