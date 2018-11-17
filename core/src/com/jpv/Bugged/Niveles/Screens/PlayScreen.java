@@ -39,7 +39,6 @@ public class PlayScreen implements Screen {
     //region VARIABLES
     //Instance of out game
     private LevelManager game;
-
     private TextureAtlas atlas;
 
     //Basic playscreen variables
@@ -72,6 +71,7 @@ public class PlayScreen implements Screen {
 
     public boolean updateObjets;
     private String enemyType;
+    private boolean isHank;
 
     private int level;
 
@@ -107,6 +107,7 @@ public class PlayScreen implements Screen {
         b2dr = new Box2DDebugRenderer();
         //b2dr.setDrawBodies(false);
         b2dr.SHAPE_STATIC.set(0,0,0,1);
+        this.isHank = game.isHank();
         //Instance of out player
         player = new Character(this);
         creator = new B2WorldCreator(this);
@@ -397,6 +398,10 @@ public class PlayScreen implements Screen {
 
     public Array<Item> getItems() {
         return items;
+    }
+
+    public boolean isHank() {
+        return isHank;
     }
 
     //endregion

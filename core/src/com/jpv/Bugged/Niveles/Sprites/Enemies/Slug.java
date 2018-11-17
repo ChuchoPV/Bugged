@@ -150,46 +150,36 @@ public class Slug extends Enemy{
         b2body = world.createBody(bdef);
 
         FixtureDef fdef = new FixtureDef();
+
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(57/ LevelManager.PPM, 40 / LevelManager.PPM);
-        fdef.filter.categoryBits = LevelManager.ENEMY_BIT;
+        fdef.filter.categoryBits = LevelManager.SHOTTER_CONTACT;
         fdef.filter.maskBits = LevelManager.GROUND_BIT
                 | LevelManager.PLATAFORM_BIT
                 | LevelManager.OBSTACULE_BIT
                 | LevelManager.ENEMY_BIT
                 | LevelManager.OBJECT_BIT
-                | LevelManager.CHARACTER_BIT;
+                | LevelManager.CHARACTER_BIT
+                | LevelManager.CHARACTER_PROYECT;
 
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
 
         //Create collider hear
-        PolygonShape collider = new PolygonShape();
-        Vector2[] vertice = new Vector2[4];
-        vertice[0] = new Vector2(-57 , -40).scl(1 / LevelManager.PPM);
-        vertice[1] = new Vector2(57 , -40).scl(1 / LevelManager.PPM);
-        vertice[2] = new Vector2(-57     , 40).scl(1 / LevelManager.PPM);
-        vertice[3] = new Vector2(57 , 40).scl(1 / LevelManager.PPM);
-        collider.set(vertice);
-
-        fdef.shape = collider;
-        fdef.filter.categoryBits = LevelManager.ENEMY_COLLIDER_BIT;
-        b2body.createFixture(fdef).setUserData(this);
-
-        //Create collider hear
-
+        /*
         PolygonShape colliderDisp = new PolygonShape();
         Vector2[] vertice2 = new Vector2[4];
-        vertice2[0] = new Vector2(-57 , -40).scl(1 / LevelManager.PPM);
-        vertice2[1] = new Vector2(57 , -40).scl(1 / LevelManager.PPM);
-        vertice2[2] = new Vector2(-57     , 40).scl(1 / LevelManager.PPM);
-        vertice2[3] = new Vector2(57 , 40).scl(1 / LevelManager.PPM);
-        colliderDisp.set(vertice);
+        vertice2[0] = new Vector2(-30 , -70).scl(1 / LevelManager.PPM);
+        vertice2[1] = new Vector2(30 , -70).scl(1 / LevelManager.PPM);
+        vertice2[2] = new Vector2(-30     , 70).scl(1 / LevelManager.PPM);
+        vertice2[3] = new Vector2(30 , 70).scl(1 / LevelManager.PPM);
+        colliderDisp.set(vertice2);
 
         fdef.shape = colliderDisp;
-        fdef.filter.categoryBits = LevelManager.ENEMY_COLLIDER_BIT;
+        fdef.filter.categoryBits = LevelManager.SHOTTER_CONTACT;
         b2body.createFixture(fdef).setUserData(this);
+        */
 
 
     }

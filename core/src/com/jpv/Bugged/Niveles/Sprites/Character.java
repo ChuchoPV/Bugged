@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -69,67 +70,129 @@ public class Character extends Sprite {
         firstShot = true;
         //endregion
         //region ANIMATION
-        Array<TextureRegion> frames = new Array<TextureRegion>();
-        //region RUN
-        //get run animation frames and add them to marioRun Animation
-        for(int i= 0; i<13; i++){
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("Hank_Run"), i * 175,0,175,175));
+        if(screen.isHank()) {
+            Array<TextureRegion> frames = new Array<TextureRegion>();
+            //region RUN
+            //get run animation frames and add them to marioRun Animation
+            for (int i = 0; i < 13; i++) {
+                frames.add(new TextureRegion(screen.getAtlas().findRegion("Hank_Run"), i * 175, 0, 175, 175));
+            }
+            running = new Animation<TextureRegion>(0.09f, frames);
+            frames.clear();
+            //endregion
+            //region DAMAGE
+            //get damage Animation frames and add them to marioRun Animation
+            TextureRegion temp;
+            for (int i = 0; i < 4; i++) {
+                temp = new TextureRegion(screen.getAtlas().findRegion("Hank_Damage"), i * 175, 0, 175, 175);
+                temp.flip(true, false);
+                frames.add(temp);
+            }
+            damage = new Animation<TextureRegion>(0.2f, frames);
+            frames.clear();
+            //endregion
+            //region IDLE
+            //get idle animation frames and add them to marioRun Animation
+            for (int i = 0; i < 4; i++) {
+                frames.add(new TextureRegion(screen.getAtlas().findRegion("Hank_Idle"), i * 175, 0, 175, 175));
+            }
+            idle = new Animation<TextureRegion>(0.7f, frames);
+            frames.clear();
+            //endregion
+            //region ATTACK
+            //get attack animation frames and add them to marioRun Animation
+            for (int i = 0; i < 5; i++) {
+                frames.add(new TextureRegion(screen.getAtlas().findRegion("Hank_Swipe"), i * 280, 0, 280, 280));
+            }
+            //frames.add(new TextureRegion(new Texture("vacia.png")));
+            attack = new Animation<TextureRegion>(0.3f, frames);
+            frames.clear();
+            //endregion
+            //region DISPARO
+            //get shot animation frames and add them to marioRun Animation
+            for (int i = 0; i < 5; i++) {
+                frames.add(new TextureRegion(screen.getAtlas().findRegion("Hank_Shoot"), i * 175, 0, 175, 175));
+            }
+            shot = new Animation<TextureRegion>(0.1f, frames);
+            frames.clear();
+            //endregion
+            //region JUMP
+            //get jump frame frames and add them to marioRun Animation
+            jumpAnimation = new TextureRegion(screen.getAtlas().findRegion("Hank_Jump"), 0, 0, 175, 175);
+            //endregion
+            //region FALL
+            //get fall frame frames and add them to marioRun Animation
+            falling = new TextureRegion(screen.getAtlas().findRegion("Hank_Jump"), 175, 0, 175, 175);
+            //endregion
+            //region DEAD
+            //get dead animation frames and add them to marioRun Animation
+            for (int i = 0; i < 6; i++) {
+                frames.add(new TextureRegion(screen.getAtlas().findRegion("Hank_Dead"), i * 175, 0, 175, 175));
+            }
+            dead = new Animation<TextureRegion>(0.1f, frames);
+        }else{
+            TextureAtlas atlas2 = new TextureAtlas("ATLAS_Final_2.pack");
+            Array<TextureRegion> frames = new Array<TextureRegion>();
+            //region RUN
+            //get run animation frames and add them to marioRun Animation
+            for (int i = 0; i < 14; i++) {
+                frames.add(new TextureRegion(atlas2.findRegion("Brid_Run"), i * 175, 0, 175, 175));
+            }
+            running = new Animation<TextureRegion>(0.09f, frames);
+            frames.clear();
+            //endregion
+            //region DAMAGE
+            //get damage Animation frames and add them to marioRun Animation
+            TextureRegion temp;
+            for (int i = 0; i < 4; i++) {
+                temp = new TextureRegion(atlas2.findRegion("Brid_Damage"), i * 175, 0, 175, 175);
+                temp.flip(true, false);
+                frames.add(temp);
+            }
+            damage = new Animation<TextureRegion>(0.2f, frames);
+            frames.clear();
+            //endregion
+            //region IDLE
+            //get idle animation frames and add them to marioRun Animation
+            for (int i = 0; i < 4; i++) {
+                frames.add(new TextureRegion(atlas2.findRegion("Brid_Idle"), i * 175, 0, 175, 175));
+            }
+            idle = new Animation<TextureRegion>(0.7f, frames);
+            frames.clear();
+            //endregion
+            //region ATTACK
+            //get attack animation frames and add them to marioRun Animation
+            for (int i = 0; i < 5; i++) {
+                frames.add(new TextureRegion(atlas2.findRegion("Brid_Swipe"), i * 280, 0, 280, 280));
+            }
+            //frames.add(new TextureRegion(new Texture("vacia.png")));
+            attack = new Animation<TextureRegion>(0.3f, frames);
+            frames.clear();
+            //endregion
+            //region DISPARO
+            //get shot animation frames and add them to marioRun Animation
+            for (int i = 0; i < 5; i++) {
+                frames.add(new TextureRegion(atlas2.findRegion("Brid_Shoot"), i * 175, 0, 175, 175));
+            }
+            shot = new Animation<TextureRegion>(0.1f, frames);
+            frames.clear();
+            //endregion
+            //region JUMP
+            //get jump frame frames and add them to marioRun Animation
+            jumpAnimation = new TextureRegion(atlas2.findRegion("Brid_Jump"), 0, 0, 80, 80);
+            //endregion
+            //region FALL
+            //get fall frame frames and add them to marioRun Animation
+            falling = new TextureRegion(atlas2.findRegion("Brid_Jump"), 80, 0, 80, 80);
+            //endregion
+            //region DEAD
+            //get dead animation frames and add them to marioRun Animation
+            for (int i = 0; i < 6; i++) {
+                frames.add(new TextureRegion(atlas2.findRegion("Brit_Dead"), i * 175, 0, 175, 175));
+            }
+            dead = new Animation<TextureRegion>(0.1f, frames);
+            //endregion
         }
-        running = new Animation<TextureRegion>(0.09f,frames);
-        frames.clear();
-        //endregion
-        //region DAMAGE
-        //get damage Animation frames and add them to marioRun Animation
-        TextureRegion temp;
-        for(int i= 0; i<4; i++){
-            temp = new TextureRegion(screen.getAtlas().findRegion("Hank_Damage"), i * 175,0,175,175);
-            temp.flip(true,false);
-            frames.add(temp);
-        }
-        damage = new Animation<TextureRegion>(0.2f,frames);
-        frames.clear();
-        //endregion
-        //region IDLE
-        //get idle animation frames and add them to marioRun Animation
-        for(int i= 0; i<4; i++){
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("Hank_Idle"), i * 175,0,175,175));
-        }
-        idle = new Animation<TextureRegion>(0.7f,frames);
-        frames.clear();
-        //endregion
-        //region ATTACK
-        //get attack animation frames and add them to marioRun Animation
-        for(int i= 0; i<5; i++){
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("Hank_Swipe"), i * 280,0,280,280));
-        }
-        //frames.add(new TextureRegion(new Texture("vacia.png")));
-        attack = new Animation<TextureRegion>(0.3f,frames);
-        frames.clear();
-        //endregion
-        //region DISPARO
-        //get shot animation frames and add them to marioRun Animation
-        for(int i= 0; i<5; i++){
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("Hank_Shoot"), i * 175,0,175,175));
-        }
-        shot = new Animation<TextureRegion>(0.1f,frames);
-        frames.clear();
-        //endregion
-        //region JUMP
-        //get jump frame frames and add them to marioRun Animation
-        jumpAnimation = new TextureRegion(screen.getAtlas().findRegion("Hank_Jump"), 0,0,175,175);
-        //endregion
-        //region FALL
-        //get fall frame frames and add them to marioRun Animation
-        falling = new TextureRegion(screen.getAtlas().findRegion("Hank_Jump"), 175,0,175,175);
-        //endregion
-        //region DEAD
-        //get dead animation frames and add them to marioRun Animation
-        for(int i= 0; i<6; i++){
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("Hank_Dead"), i * 175,0,175,175));
-        }
-        dead = new Animation<TextureRegion>(0.1f,frames);
-        //endregion
-
         //endregion
         defineCharacter();
         setBounds(0,0,175 / LevelManager.PPM, 175 / LevelManager.PPM);
@@ -479,7 +542,6 @@ public class Character extends Sprite {
                 | LevelManager.PLATAFORM_BIT
                 | LevelManager.OBSTACULE_BIT
                 | LevelManager.ENEMY_BIT
-                | LevelManager.ENEMY_COLLIDER_BIT
                 | LevelManager.ITEM_BIT
                 | LevelManager.BOSS_COLLIDER_BIT
                 | LevelManager.BOSS_PIES_BIT
@@ -501,7 +563,6 @@ public class Character extends Sprite {
 
         fdefArma.filter.categoryBits = LevelManager.CHARACTER_ARMA_BIT;
         fdefArma.filter.maskBits = LevelManager.ENEMY_BIT
-                | LevelManager.ENEMY_COLLIDER_BIT
                 | LevelManager.BOSS_PIES_BIT
                 | LevelManager.BOSS_COLLIDER_BIT
                 | LevelManager.BOSS_BIT;

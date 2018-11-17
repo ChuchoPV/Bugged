@@ -11,7 +11,6 @@ public class LevelManager extends Game{
     public static final float V_HEIGHT = 720;
     public static final float PPM = 100;
 
-    public static final short NOTHING_BIT = 0;
     public static final short GROUND_BIT = 1;
     public static final short CHARACTER_BIT = 2;
     public static final short CHARACTER_HEAD_BIT = 4;
@@ -20,25 +19,24 @@ public class LevelManager extends Game{
     public static final short OBSTACULE_BIT = 32;
     public static final short OBJECT_BIT = 64;
     public static final short ENEMY_BIT = 128;
-    public static final short ENEMY_COLLIDER_BIT = 256;
+    public static final short SHOTTER_CONTACT= 256;
     public static final short ITEM_BIT = 512;
     public static final short BOSS_BIT = 1024;
     public static final short BOSS_PIES_BIT = 2048;
     public static final short BOSS_COLLIDER_BIT = 4096;
     public static final short ENEMY_PROYECT = 8192;
     public static final short CHARACTER_PROYECT = 16384;
-    public static final int SLUG_CONTACT = 32768;
-
-
 
     public SpriteBatch batch;
     private Bugged pantallaInicio;
     private int level;
+    private boolean isHank;
 
-    public LevelManager(Bugged pantallaincio, int level) {
+    public LevelManager(Bugged pantallaincio, int level, boolean isHank) {
         this.level = level;
         batch = new SpriteBatch();
         this.pantallaInicio = pantallaincio;
+        this.isHank = isHank;
         create();
 	}
 
@@ -49,5 +47,7 @@ public class LevelManager extends Game{
     public Bugged getPantallaInicio() {
         return pantallaInicio;
     }
-
+    public boolean isHank() {
+        return isHank;
+    }
 }

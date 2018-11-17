@@ -30,8 +30,8 @@ public class WorldContactListener implements ContactListener {
                     ((InteractiveTiledObject) fixA.getUserData()).onHeadHit();
                 }
                 break;
-            case LevelManager.CHARACTER_ARMA_BIT | LevelManager.ENEMY_COLLIDER_BIT:
-                if(fixA.getFilterData().categoryBits == LevelManager.ENEMY_COLLIDER_BIT) {
+            case LevelManager.CHARACTER_ARMA_BIT | LevelManager.ENEMY_BIT:
+                if(fixA.getFilterData().categoryBits == LevelManager.ENEMY_BIT) {
                     ((Enemy) fixA.getUserData()).onHeadHit();
                 }else {
                     ((Enemy) fixB.getUserData()).onHeadHit();
@@ -84,6 +84,16 @@ public class WorldContactListener implements ContactListener {
                 else {
                     ((Item) fixB.getUserData()).destroy();
                     ((Character) fixA.getUserData()).hit();
+                }
+                break;
+            case LevelManager.CHARACTER_PROYECT | LevelManager.SHOTTER_CONTACT:
+                if(fixA.getFilterData().categoryBits == LevelManager.SHOTTER_CONTACT) {
+                    ((Item) fixB.getUserData()).destroy();
+                    ((Enemy) fixA.getUserData()).onHeadHit();
+                }
+                else {
+                    ((Item) fixA.getUserData()).destroy();
+                    ((Enemy) fixB.getUserData()).onHeadHit();
                 }
                 break;
             case LevelManager.ENEMY_PROYECT | LevelManager.OBSTACULE_BIT:

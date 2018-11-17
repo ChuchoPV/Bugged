@@ -158,7 +158,7 @@ public class Mosquito extends Enemy {
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
-
+        /*
         //Create collider hear
         PolygonShape collider = new PolygonShape();
         Vector2[] vertice = new Vector2[4];
@@ -171,7 +171,7 @@ public class Mosquito extends Enemy {
         fdef.shape = collider;
         fdef.filter.categoryBits = LevelManager.ENEMY_COLLIDER_BIT;
         b2body.createFixture(fdef).setUserData(this);
-
+        */
 
     }
 

@@ -7,7 +7,6 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.jpv.Bugged.Niveles.LevelManager;
 import com.jpv.Bugged.Niveles.Screens.PlayScreen;
-import com.jpv.Bugged.Niveles.Sprites.Character;
 
 public class ProyectilHank extends Item {
     private boolean first;
@@ -37,7 +36,7 @@ public class ProyectilHank extends Item {
         shape.setRadius(10 / LevelManager.PPM);
         fdef.filter.categoryBits = LevelManager.CHARACTER_PROYECT;
         fdef.filter.maskBits = LevelManager.ENEMY_BIT
-                | LevelManager.ENEMY_COLLIDER_BIT
+                | LevelManager.SHOTTER_CONTACT
                 | LevelManager.OBJECT_BIT
                 | LevelManager.GROUND_BIT
                 | LevelManager.PLATAFORM_BIT
