@@ -30,9 +30,6 @@ import com.jpv.Bugged.Niveles.Sprites.TileObjects.Obstacules;
 import com.jpv.Bugged.Niveles.Tools.B2WorldCreator;
 import com.jpv.Bugged.Niveles.Tools.WorldContactListener;
 
-
-import java.util.Deque;
-import java.util.LinkedList;
 import java.util.concurrent.LinkedBlockingDeque;
 
 public class PlayScreen implements Screen {
@@ -61,8 +58,8 @@ public class PlayScreen implements Screen {
 
     private Array<Item> items;
     private LinkedBlockingDeque<ItemDef> heartsToSpawn;
-    private Deque<ItemDef> proyectilToSpawn;
-    private Deque<ItemDef> proyectilesHank;
+    private LinkedBlockingDeque<ItemDef> proyectilToSpawn;
+    private LinkedBlockingDeque<ItemDef> proyectilesHank;
 
     private float timerBoss;
     private long startTime;
@@ -120,8 +117,8 @@ public class PlayScreen implements Screen {
 
         items = new Array<Item>();
         heartsToSpawn = new LinkedBlockingDeque<ItemDef>();
-        proyectilToSpawn = new LinkedList<ItemDef>();
-        proyectilesHank = new LinkedList<ItemDef>();
+        proyectilToSpawn = new LinkedBlockingDeque<ItemDef>();
+        proyectilesHank = new LinkedBlockingDeque<ItemDef>();
 
         updateObjets = true;
         enemyType = "";
