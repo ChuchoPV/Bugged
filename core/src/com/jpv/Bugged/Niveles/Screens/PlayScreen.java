@@ -56,10 +56,12 @@ public class PlayScreen implements Screen {
     //Creating out Character and other sprites
     private Character player;
 
-    private Array<Item> items;
+    private Array<Item> hearts;
+    private Array<Item> proyectiles;
+    private Array<Item> proyectilesHank;
     private LinkedBlockingDeque<ItemDef> heartsToSpawn;
     private LinkedBlockingDeque<ItemDef> proyectilToSpawn;
-    private LinkedBlockingDeque<ItemDef> proyectilesHank;
+    private LinkedBlockingDeque<ItemDef> proyectilesHankToSpawn;
 
     private float timerBoss;
     private long startTime;
@@ -115,10 +117,12 @@ public class PlayScreen implements Screen {
         stopBossTimer = 0;
         first = true;
 
-        items = new Array<Item>();
+        hearts = new Array<Item>();
+        proyectiles = new Array<Item>();
+        proyectilesHank = new Array<Item>();
         heartsToSpawn = new LinkedBlockingDeque<ItemDef>();
         proyectilToSpawn = new LinkedBlockingDeque<ItemDef>();
-        proyectilesHank = new LinkedBlockingDeque<ItemDef>();
+        proyectilesHankToSpawn = new LinkedBlockingDeque<ItemDef>();
 
         updateObjets = true;
         enemyType = "";
@@ -129,7 +133,7 @@ public class PlayScreen implements Screen {
     public void spawnItem(ItemDef idef, boolean fliped) {
         this.fliped = fliped;
         if(idef.type == ProyectilHank.class){
-            proyectilesHank.add(idef);
+            proyectilesHankToSpawn.add(idef);
         }
         else if(idef.type == Proyectil.class){
             proyectilToSpawn.add(idef);
@@ -140,16 +144,16 @@ public class PlayScreen implements Screen {
     }
 
     private void handleSpawingItems(){
-        if(!proyectilesHank.isEmpty()){
-            ItemDef idef = proyectilesHank.poll();
-            items.add(new ProyectilHank(this, idef.position.x, idef.position.y,fliped));
+        if(!proyectilesHankToSpawn.isEmpty()){
+            ItemDef idef = proyectilesHankToSpawn.poll();
+            proyectilesHank.add(new ProyectilHank(this, idef.position.x, idef.position.y,fliped));
         }
         if(!heartsToSpawn.isEmpty()){
             ItemDef idef = heartsToSpawn.poll();
-            items.add(new Heart(this, idef.position.x, idef.position.y));
+            hearts.add(new Heart(this, idef.position.x, idef.position.y));
         }if(!proyectilToSpawn.isEmpty()){
             ItemDef idef = proyectilToSpawn.poll();
-            items.add(new Proyectil(this, idef.position.x, idef.position.y, enemyType,fliped));
+            proyectiles.add(new Proyectil(this, idef.position.x, idef.position.y, enemyType,fliped));
         }
     }
 
@@ -199,10 +203,16 @@ public class PlayScreen implements Screen {
 
         creator.getTheRedBug().update(dt);
 
-        for(Item item : items) {
+        for(Item item : hearts) {
             item.update(dt);
         }
-        Gdx.app.log("Lenght",""+items.size);
+        for(Item item : proyectilesHank) {
+            item.update(dt);
+        }
+        for(Item item : proyectiles) {
+            item.update(dt);
+        }
+        Gdx.app.log("Lenght",""+hearts.size);
         if(gamecam.position.x>119) {
             gamecam.position.x = 119.6f;
             if(gamecam.position.y > 3.6f) {
@@ -318,7 +328,7 @@ public class PlayScreen implements Screen {
             enemy.draw(game.batch);
         }
         creator.getTheRedBug().draw(game.batch);
-        for(Item item : items) {
+        for(Item item : hearts) {
             item.draw(game.batch);
         }
         game.batch.end();
@@ -385,8 +395,16 @@ public class PlayScreen implements Screen {
         this.enemyType = enemy;
     }
 
-    public Array<Item> getItems() {
-        return items;
+    public Array<Item> getHearts() {
+        return hearts;
+    }
+
+    public Array<Item> getProyectiles() {
+        return proyectiles;
+    }
+
+    public Array<Item> getProyectilesHank() {
+        return proyectilesHank;
     }
 
     public boolean isHank() {

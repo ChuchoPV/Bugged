@@ -7,7 +7,6 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.jpv.Bugged.Niveles.LevelManager;
 import com.jpv.Bugged.Niveles.Screens.PlayScreen;
-import com.jpv.Bugged.Niveles.Sprites.Character;
 
 public class Proyectil extends Item{
     private boolean first;
@@ -28,11 +27,6 @@ public class Proyectil extends Item{
             region.flip(this.fliped,false);
             setRegion(region);
         }
-        /*else {
-            TextureRegion region = new TextureRegion(screen.getAtlas().findRegion("projectile_salt"), 0, 0, 50, 70); //Hank_Shoot
-            region.flip(fliped,false);
-            setRegion(region);
-        }*/
     }
     
     @Override

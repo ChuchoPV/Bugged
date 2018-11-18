@@ -50,15 +50,21 @@ public abstract class Item extends Sprite{
         if(toDestroy && !destroyed){
             destroyed = true;
             //world.destroyBody(this.b2body);
-            if(screen.getItems().size != 0) {
-                screen.getItems().pop();
+            if(screen.getHearts().size != 0) {
+                screen.getHearts().pop();
+            }
+            if(screen.getProyectiles().size != 0){
+                screen.getProyectiles().pop();
+            }
+            if(screen.getProyectilesHank().size != 0){
+                screen.getProyectilesHank().pop();
             }
         }
         if(Math.abs(this.b2body.getLinearVelocity().x) <= 0 && lifetime > 0 && !this.enemy.equals("hank")){
             destroyed = true;
             //world.destroyBody(this.b2body);
-            if(screen.getItems().size != 0) {
-                screen.getItems().pop();
+            if(screen.getHearts().size != 0) {
+                screen.getHearts().pop();
             }
         }
         lifetime += dt;
