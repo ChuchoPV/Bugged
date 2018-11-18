@@ -67,6 +67,12 @@ public abstract class Item extends Sprite{
             if(screen.getHearts().size != 0) {
                 screen.getHearts().pop();
             }
+            if(screen.getProyectiles().size != 0){
+                screen.getProyectiles().pop();
+            }
+            if(screen.getProyectilesHank().size != 0){
+                screen.getProyectilesHank().pop();
+            }
         }
         lifetime += dt;
     }

@@ -240,8 +240,6 @@ public class PlayScreen implements Screen {
     }
 
     private void manageBoss(float dt) {
-        Gdx.app.log("TimerBoss",""+timerBoss);
-        Gdx.app.log("StartTime",""+startTime);
         timerBoss += dt;
         if (timerBoss <= 4) {
             if (first && creator.getTheRedBug().b2body.getLinearVelocity().y == 0) {
