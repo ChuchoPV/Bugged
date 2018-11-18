@@ -334,19 +334,11 @@ public class PlayScreen implements Screen {
     }
 
     private boolean gameOver(){
-        if(player.currentState == Character.State.DEAD &&  player.getStateTimer() > 3){
-            return true;
-        }else{
-            return false;
-        }
+        return player.currentState == Character.State.DEAD && player.getStateTimer() > 3;
     }
 
     private boolean winScreen(){
-        if(player.currentState == Character.State.WIN && player.getStateTimer() > 3){
-            return true;
-        }else{
-            return false;
-        }
+        return player.currentState == Character.State.WIN && player.getStateTimer() > 3;
     }
 
     //region GETTERS & SETTERS
