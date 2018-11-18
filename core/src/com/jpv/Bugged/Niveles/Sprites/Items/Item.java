@@ -48,7 +48,7 @@ public abstract class Item extends Sprite{
     public abstract void use();
 
     public void update(float dt){
-        if(this.toDestroy && !this.destroyed){
+        if(this.toDestroy && !this.destroyed && this.enemy.equals("hank")){
             this.destroyed = true;
             world.destroyBody(this.b2body);
             if(screen.getHearts().size != 0) {
