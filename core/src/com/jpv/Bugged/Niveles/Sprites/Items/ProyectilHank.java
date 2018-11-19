@@ -48,6 +48,7 @@ public class ProyectilHank extends Sprite {
         bdef.type = BodyDef.BodyType.DynamicBody;
         this.b2body = world.createBody(bdef);
 
+
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(10 / LevelManager.PPM);
