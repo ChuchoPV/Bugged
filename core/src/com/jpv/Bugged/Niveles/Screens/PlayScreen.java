@@ -64,7 +64,7 @@ public class PlayScreen implements Screen {
     private LinkedBlockingDeque<ItemDef> proyectilesHankToSpawn;
 
     private float timerBoss;
-    private long startTime;
+    //private long startTime;
     private float stopBossTimer;
     private boolean first;
 
@@ -113,7 +113,7 @@ public class PlayScreen implements Screen {
         world.setContactListener(new WorldContactListener());
         hud = new Hud(this);
         timerBoss = 0;
-        startTime = 0;
+        //startTime = 0;
         stopBossTimer = 0;
         first = true;
 
@@ -244,7 +244,6 @@ public class PlayScreen implements Screen {
 
     private void manageBoss(float dt) {
         timerBoss += dt;
-        startTime+=dt;
         if(timerBoss<4) {
             if (creator.getTheRedBug().b2body.getLinearVelocity().y == 0 && creator.getTheRedBug().b2body.getPosition().y < 3.23 && creator.getTheRedBug().b2body.getLinearVelocity().x==0) {
                 if (first) {
@@ -259,29 +258,6 @@ public class PlayScreen implements Screen {
         else if(timerBoss>6){
             this.timerBoss=0;
         }
-
-        //if (timerBoss <= 4) {
-            /*if (first && creator.getTheRedBug().b2body.getLinearVelocity().y == 0 ) {
-                creator.getTheRedBug().b2body.applyLinearImpulse(new Vector2(-5f, 9f), creator.getTheRedBug().b2body.getWorldCenter(), true);
-                first = false;
-            } else if(creator.getTheRedBug().b2body.getLinearVelocity().y == 0){
-                creator.getTheRedBug().b2body.applyLinearImpulse(new Vector2(5f, 9f), creator.getTheRedBug().b2body.getWorldCenter(), true);
-                first = true;
-            }*/
-            System.out.println(this.first);
-        //}
-        if(startTime>=6){
-            timerBoss=0;
-            startTime=0;
-        }
-        /*
-        if (timerBoss >= 4) {
-            startTime += dt;
-            if(startTime >= 2){
-                timerBoss = 0;
-                startTime = 0;
-            }
-        }*/
     }
 
     private void handleInput(float dt) {
