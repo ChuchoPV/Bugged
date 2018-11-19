@@ -244,22 +244,44 @@ public class PlayScreen implements Screen {
 
     private void manageBoss(float dt) {
         timerBoss += dt;
-        if (timerBoss <= 4) {
-            if (first && creator.getTheRedBug().b2body.getLinearVelocity().y == 0) {
+        startTime+=dt;
+        if(timerBoss<4) {
+            if (creator.getTheRedBug().b2body.getLinearVelocity().y == 0 && creator.getTheRedBug().b2body.getPosition().y < 3.23 && creator.getTheRedBug().b2body.getLinearVelocity().x==0) {
+                if (first) {
+                    creator.getTheRedBug().b2body.applyLinearImpulse(new Vector2(-5f, 9f), creator.getTheRedBug().b2body.getWorldCenter(), true);
+                    this.first = false;
+                } else {
+                    creator.getTheRedBug().b2body.applyLinearImpulse(new Vector2(5f, 9f), creator.getTheRedBug().b2body.getWorldCenter(), true);
+                    this.first = true;
+                }
+            }
+        }
+        else if(timerBoss>6){
+            this.timerBoss=0;
+        }
+
+        //if (timerBoss <= 4) {
+            /*if (first && creator.getTheRedBug().b2body.getLinearVelocity().y == 0 ) {
                 creator.getTheRedBug().b2body.applyLinearImpulse(new Vector2(-5f, 9f), creator.getTheRedBug().b2body.getWorldCenter(), true);
                 first = false;
             } else if(creator.getTheRedBug().b2body.getLinearVelocity().y == 0){
                 creator.getTheRedBug().b2body.applyLinearImpulse(new Vector2(5f, 9f), creator.getTheRedBug().b2body.getWorldCenter(), true);
                 first = true;
-            }
+            }*/
+            System.out.println(this.first);
+        //}
+        if(startTime>=6){
+            timerBoss=0;
+            startTime=0;
         }
+        /*
         if (timerBoss >= 4) {
             startTime += dt;
             if(startTime >= 2){
                 timerBoss = 0;
                 startTime = 0;
             }
-        }
+        }*/
     }
 
     private void handleInput(float dt) {
