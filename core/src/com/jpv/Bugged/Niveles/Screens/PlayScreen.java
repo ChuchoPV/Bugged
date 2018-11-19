@@ -58,7 +58,7 @@ public class PlayScreen implements Screen {
 
     private Array<Item> hearts;
     private Array<Item> proyectiles;
-    private Array<Item> proyectilesHank;
+    private Array<ProyectilHank> proyectilesHank;
     private LinkedBlockingDeque<ItemDef> heartsToSpawn;
     private LinkedBlockingDeque<ItemDef> proyectilToSpawn;
     private LinkedBlockingDeque<ItemDef> proyectilesHankToSpawn;
@@ -119,7 +119,7 @@ public class PlayScreen implements Screen {
 
         hearts = new Array<Item>();
         proyectiles = new Array<Item>();
-        proyectilesHank = new Array<Item>();
+        proyectilesHank = new Array<ProyectilHank>();
         heartsToSpawn = new LinkedBlockingDeque<ItemDef>();
         proyectilToSpawn = new LinkedBlockingDeque<ItemDef>();
         proyectilesHankToSpawn = new LinkedBlockingDeque<ItemDef>();
@@ -132,27 +132,28 @@ public class PlayScreen implements Screen {
     private boolean fliped;
     public void spawnItem(ItemDef idef, boolean fliped) {
         this.fliped=fliped;
-        if(idef.type == ProyectilHank.class){
-            proyectilesHankToSpawn.add(idef);
-        }
-        else if(idef.type == Proyectil.class){
-            proyectilToSpawn.add(idef);
-        }
-        else {
+        if(proyectilesHankToSpawn.isEmpty()) {
+            if (idef.type == Proyectil.class) {
+                proyectilToSpawn.add(idef);
+            }
+            if (idef.type == ProyectilHank.class) {
+                proyectilesHankToSpawn.add(idef);
+            }
+        }else if(idef.type == Heart.class){
             heartsToSpawn.add(idef);
         }
     }
 
     private void handleSpawingItems(){
         if(!proyectilesHankToSpawn.isEmpty()){
-            ItemDef idef = proyectilesHankToSpawn.poll();
+            ItemDef idef = proyectilesHankToSpawn.pop();
             proyectilesHank.add(new ProyectilHank(this, idef.position.x, idef.position.y,fliped));
         }
         if(!heartsToSpawn.isEmpty()){
-            ItemDef idef = heartsToSpawn.poll();
+            ItemDef idef = heartsToSpawn.pop();
             hearts.add(new Heart(this, idef.position.x, idef.position.y));
         }if(!proyectilToSpawn.isEmpty()){
-            ItemDef idef = proyectilToSpawn.poll();
+            ItemDef idef = proyectilToSpawn.pop();
             proyectiles.add(new Proyectil(this, idef.position.x, idef.position.y, enemyType,fliped));
         }
     }
@@ -206,7 +207,7 @@ public class PlayScreen implements Screen {
         for(Item item : hearts) {
             item.update(dt);
         }
-        for(Item item : proyectilesHank) {
+        for(ProyectilHank item : proyectilesHank) {
             item.update(dt);
         }
         for(Item item : proyectiles) {
@@ -329,7 +330,7 @@ public class PlayScreen implements Screen {
         for(Item item : hearts) {
             item.draw(game.batch);
         }
-        for(Item item : proyectilesHank){
+        for(ProyectilHank item : proyectilesHank){
             item.draw(game.batch);
         }
         for(Item item : proyectiles){
@@ -407,7 +408,7 @@ public class PlayScreen implements Screen {
         return proyectiles;
     }
 
-    public Array<Item> getProyectilesHank() {
+    public Array<ProyectilHank> getProyectilesHank() {
         return proyectilesHank;
     }
 

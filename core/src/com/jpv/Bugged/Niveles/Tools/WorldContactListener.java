@@ -9,6 +9,7 @@ import com.jpv.Bugged.Niveles.LevelManager;
 import com.jpv.Bugged.Niveles.Sprites.Character;
 import com.jpv.Bugged.Niveles.Sprites.Enemies.Enemy;
 import com.jpv.Bugged.Niveles.Sprites.Items.Item;
+import com.jpv.Bugged.Niveles.Sprites.Items.ProyectilHank;
 import com.jpv.Bugged.Niveles.Sprites.TileObjects.InteractiveTiledObject;
 
 
@@ -88,21 +89,29 @@ public class WorldContactListener implements ContactListener {
                 break;
             case LevelManager.CHARACTER_PROYECT | LevelManager.SHOTTER_CONTACT:
                 if(fixA.getFilterData().categoryBits == LevelManager.SHOTTER_CONTACT) {
-                    ((Item) fixB.getUserData()).destroy();
+                    ((ProyectilHank) fixB.getUserData()).destroy();
                     ((Enemy) fixA.getUserData()).onHeadHit();
                 }
                 else {
-                    ((Item) fixA.getUserData()).destroy();
+                    ((ProyectilHank) fixA.getUserData()).destroy();
                     ((Enemy) fixB.getUserData()).onHeadHit();
+                }
+                break;
+            case LevelManager.CHARACTER_PROYECT | LevelManager.OBSTACULE_BIT:
+            case LevelManager.CHARACTER_PROYECT | LevelManager.PLATAFORM_BIT:
+            case LevelManager.CHARACTER_PROYECT | LevelManager.GROUND_BIT:
+                if(fixA.getFilterData().categoryBits == LevelManager.CHARACTER_PROYECT) {
+                    ((ProyectilHank) fixA.getUserData()).destroy();
+                }
+                else {
+                    ((ProyectilHank) fixB.getUserData()).destroy();
                 }
                 break;
             case LevelManager.ENEMY_PROYECT | LevelManager.OBSTACULE_BIT:
             case LevelManager.ENEMY_PROYECT | LevelManager.PLATAFORM_BIT:
             case LevelManager.ENEMY_PROYECT | LevelManager.GROUND_BIT:
-            case LevelManager.CHARACTER_PROYECT | LevelManager.OBSTACULE_BIT:
-            case LevelManager.CHARACTER_PROYECT | LevelManager.PLATAFORM_BIT:
-            case LevelManager.CHARACTER_PROYECT | LevelManager.GROUND_BIT:
-                if(fixA.getFilterData().categoryBits == LevelManager.ENEMY_PROYECT || fixA.getFilterData().categoryBits == LevelManager.CHARACTER_PROYECT) {
+            case LevelManager.ENEMY_PROYECT | LevelManager.ENEMY_BIT:
+                if(fixA.getFilterData().categoryBits == LevelManager.ENEMY_PROYECT) {
                     ((Item) fixA.getUserData()).destroy();
                 }
                 else {

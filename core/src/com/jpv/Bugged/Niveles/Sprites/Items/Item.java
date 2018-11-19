@@ -2,7 +2,6 @@ package com.jpv.Bugged.Niveles.Sprites.Items;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.jpv.Bugged.Niveles.LevelManager;
@@ -14,7 +13,7 @@ public abstract class Item extends Sprite{
     private Boolean toDestroy;
     private Boolean destroyed;
     protected Body b2body;
-    private Vector2 velocity;
+    //private Vector2 velocity;
     protected String enemy;
     private float lifetime;
 
@@ -24,7 +23,7 @@ public abstract class Item extends Sprite{
         setPosition(x,y);
         this.enemy = enemy;
         setBounds(getX(), getY(), 80 / LevelManager.PPM, 80 / LevelManager.PPM);
-        this.velocity = new Vector2(0,0);
+        //this.velocity = new Vector2(0,0);
         defineItem();
         this.toDestroy = false;
         this.destroyed = false;
@@ -40,40 +39,29 @@ public abstract class Item extends Sprite{
         defineItem();
         toDestroy = false;
         destroyed = false;
-
-
     }
 
     public abstract void defineItem();
     public abstract void use();
 
     public void update(float dt){
-        if(this.toDestroy && !this.destroyed && this.enemy.equals("hank")){
+        if(this.toDestroy && !this.destroyed){
             this.destroyed = true;
             world.destroyBody(this.b2body);
-            if(screen.getHearts().size != 0) {
-                screen.getHearts().pop();
-            }
-            if(screen.getProyectiles().size != 0){
-                screen.getProyectiles().pop();
-            }
-            if(screen.getProyectilesHank().size != 0){
-                screen.getProyectilesHank().pop();
-            }
-        }
-        if(Math.abs(this.b2body.getLinearVelocity().x) <= 0 && lifetime > 0 && !this.enemy.equals("hank")){
-            destroyed = true;
-            world.destroyBody(this.b2body);
-            if(screen.getHearts().size != 0) {
-                screen.getHearts().pop();
-            }
-            if(screen.getProyectiles().size != 0){
-                screen.getProyectiles().pop();
-            }
-            if(screen.getProyectilesHank().size != 0){
-                screen.getProyectilesHank().pop();
+            if(this.enemy.equals("heart")){
+                if (screen.getHearts().size != 0) {
+                    screen.getHearts().peek();
+                }
+            }else {
+                if (screen.getProyectiles().size != 0) {
+                    screen.getProyectiles().peek();
+                }
             }
         }
+        if(Math.abs(this.b2body.getLinearVelocity().x) <= 0 && lifetime > 0 && !enemy.equals("heart")){
+            destroy();
+        }
+
         lifetime += dt;
     }
 
@@ -83,13 +71,6 @@ public abstract class Item extends Sprite{
         }
     }
 
-    /*public void reverseVelocity(boolean x, boolean y){
-        if(x)
-            velocity.x = -velocity.x;
-
-        if(y)
-            velocity.y = -velocity.y;
-    }*/
 
     public void destroy(){
         this.toDestroy = true;

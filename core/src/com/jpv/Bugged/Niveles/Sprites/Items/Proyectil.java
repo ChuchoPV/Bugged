@@ -34,7 +34,7 @@ public class Proyectil extends Item{
             BodyDef bdef = new BodyDef();
             bdef.position.set(getX(),getY());
             bdef.type = BodyDef.BodyType.DynamicBody;
-            this.b2body = world.createBody(bdef);
+            this.b2body = super.world.createBody(bdef);
 
             FixtureDef fdef = new FixtureDef();
             CircleShape shape = new CircleShape();

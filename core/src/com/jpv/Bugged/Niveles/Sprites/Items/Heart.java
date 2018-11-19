@@ -11,7 +11,7 @@ import com.jpv.Bugged.Niveles.Screens.PlayScreen;
 
 public class Heart extends Item {
     public Heart(PlayScreen screen, float x, float y) {
-        super(screen, x, y);
+        super(screen, x, y, "heart");
         setRegion(new TextureRegion(new Texture("Heart.png")));
     }
 
