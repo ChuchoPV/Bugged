@@ -12,9 +12,12 @@ public class PantallaOption extends Pantalla {
     private final Bugged pantallaInicio;
     Texture fondoOptions;
     public Stage escenaOptions;
+    boolean soundIsOn=true;
+    boolean musicIsOn=true;
 
     public PantallaOption(Bugged pantallaInicio) {
         this.pantallaInicio = pantallaInicio;
+//        this.soundIsOn=this.pantallaInicio.soundIsOn();
     }
 
 
@@ -37,11 +40,70 @@ public class PantallaOption extends Pantalla {
                  super.clicked(event, x, y);
                  pantallaInicio.setScreen(new PantallaMenuPrincipal(pantallaInicio));
              }
-         }
+        }
         );
 
-        escenaOptions.addActor(btnBack.button());
+        GenericButton btnSound;
+        if(soundIsOn == true) {
+            //Boton sonido
+            btnSound = new GenericButton(ANCHO, ALTO,"Options/Sound_btn.png","Options/Sound_btn_press.png");
+            btnSound.setPlace(ANCHO-btnSound.button().getWidth()-185,ALTO-btnSound.button().getHeight()-310);
+            btnSound.button().addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    soundIsOn = false;
+                    pantallaInicio.setScreen(new PantallaOption(pantallaInicio));
+                }
+            }
+            );
+        }else{
+            //Boton sonido apagado
+            btnSound = new GenericButton(ANCHO, ALTO,"Options/Sound_off_btn.png","Options/Sound_off_btn_press.png");
+            btnSound.setPlace(ANCHO-btnSound.button().getWidth()-185,ALTO-btnSound.button().getHeight()-310);
+            btnSound.button().addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    soundIsOn = true;
+                    pantallaInicio.setScreen(new PantallaOption(pantallaInicio));
+                }
+            }
+            );
+        }
 
+        GenericButton btnMusic;
+        if(musicIsOn == true) {
+            //Boton musica
+            btnMusic = new GenericButton(ANCHO, ALTO,"Options/Music_btn.png","Options/Music_btn_press.png");
+            btnMusic.setPlace(ANCHO-btnMusic.button().getWidth()-190,ALTO-btnMusic.button().getHeight()-455);
+            btnMusic.button().addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    musicIsOn = false;
+                    pantallaInicio.setScreen(new PantallaOption(pantallaInicio));
+                }
+            }
+            );
+        }else{
+            //Boton musica apagada
+            btnMusic = new GenericButton(ANCHO, ALTO,"Options/Music_off_btn.png","Options/Music_off_btn_press.png");
+            btnMusic.setPlace(ANCHO-btnMusic.button().getWidth()-190,ALTO-btnMusic.button().getHeight()-455);
+            btnMusic.button().addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    musicIsOn = true;
+                    pantallaInicio.setScreen(new PantallaOption(pantallaInicio));
+                }
+            }
+            );
+        }
+
+        escenaOptions.addActor(btnBack.button());
+        escenaOptions.addActor(btnSound.button());
+        escenaOptions.addActor(btnMusic.button());
     }
 
     @Override
