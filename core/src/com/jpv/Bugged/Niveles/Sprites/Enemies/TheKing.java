@@ -14,8 +14,7 @@ import com.badlogic.gdx.utils.Array;
 import com.jpv.Bugged.Niveles.LevelManager;
 import com.jpv.Bugged.Niveles.Screens.PlayScreen;
 
-
-public class TheRedBug extends Enemy {
+public class TheKing extends Enemy {
     //region VARIABLES
     private boolean setToDestroy;
     private boolean destroyed;
@@ -24,45 +23,71 @@ public class TheRedBug extends Enemy {
     private int damaged;
 
     private float stateTimer;
+
     private Animation idle;
     private Animation kill;
     private Animation damage;
-    private TextureRegion jump;
-    private TextureRegion fall;
+    private Animation idle2;
+    private Animation damage2;
+    private Animation idle3;
+    private Animation damage3;
+
     private boolean first;
     //endregion
 
-    public TheRedBug(PlayScreen screen, float x, float y, MapObject object) {
+    public TheKing(PlayScreen screen, float x, float y, MapObject object) {
         super(screen, x, y, object);
-        TextureAtlas atlas = screen.getAtlas();
+        TextureAtlas atlas = new TextureAtlas("ATLAS_Final_2.pack");
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
-        TextureRegion temp = null;
-        for(int i = 0; i < 4; i++) {
-            temp = new TextureRegion(atlas.findRegion("RedBug_idle"), i * 320, 0, 320, 230);
-            temp.flip(true, false);
-            frames.add(temp);
+        //region FASE1
+        TextureRegion temp;
+        for(int i = 0; i < 8; i++) {
+            frames.add(new TextureRegion(atlas.findRegion("king_1_idle"), i * 281, 0, 281, 320));
         }
         idle = new Animation<TextureRegion>(0.1f, frames);
         frames.clear();
 
-        jump = new TextureRegion(atlas.findRegion("RadBug_Jump"), 320,0,320,230);
-        jump.flip(true,false);
-        fall = new TextureRegion(atlas.findRegion("RadBug_Jump"), 640,0,320,230);
-        fall.flip(true,false);
-
         for(int i = 0; i < 4; i++) {
-            temp = new TextureRegion(atlas.findRegion("RedBug_damage"), i * 320, 0, 320, 230);
+            frames.add(new TextureRegion(atlas.findRegion("king_1_damage"), i * 302, 0, 302, 352));
+        }
+        damage = new Animation<TextureRegion>(0.2f, frames);
+        //endregion
+        //region FASE2
+        for(int i = 0; i < 4; i++) {
+            temp = new TextureRegion(atlas.findRegion("king_2_idle"), i * 320, 0, 320, 230);
             temp.flip(true, false);
             frames.add(temp);
         }
-        damage = new Animation<TextureRegion>(0.2f, frames);
+        idle2 = new Animation<TextureRegion>(0.1f, frames);
+        frames.clear();
 
-
-        for(int i = 0; i < 10; i++) {
-            temp = new TextureRegion(atlas.findRegion("RedBug_dead"), i * 320, 0, 320, 230);
+        for(int i = 0; i < 4; i++) {
+            temp = new TextureRegion(atlas.findRegion("king_2_damage"), i * 320, 0, 320, 230);
             temp.flip(true, false);
             frames.add(temp);
+        }
+        damage2 = new Animation<TextureRegion>(0.2f, frames);
+        //endregion
+        //region FASE3
+        for(int i = 0; i < 4; i++) {
+            temp = new TextureRegion(atlas.findRegion("king_3_idle"), i * 320, 0, 320, 230);
+            temp.flip(true, false);
+            frames.add(temp);
+        }
+        idle2 = new Animation<TextureRegion>(0.1f, frames);
+        frames.clear();
+
+        for(int i = 0; i < 4; i++) {
+            temp = new TextureRegion(atlas.findRegion("king_3_damage"), i * 320, 0, 320, 230);
+            temp.flip(true, false);
+            frames.add(temp);
+        }
+        damage2 = new Animation<TextureRegion>(0.2f, frames);
+        //endregion
+
+        for(int i = 0; i < 13; i++) {
+             frames.add(new TextureRegion(atlas.findRegion("king_dead"), i * 315, 0, 315, 352));
         }
         kill = new Animation<TextureRegion>(0.1f, frames);
 
@@ -73,8 +98,18 @@ public class TheRedBug extends Enemy {
         destroyed = false;
         isRight = true;
         first = true;
-        setBounds(getX(),getY(), 500 / LevelManager.PPM,320 / LevelManager.PPM); //320 ,230
+        this.b2body.setGravityScale(0);
+        setBounds(getX(),getY(), 280 / LevelManager.PPM,320 / LevelManager.PPM); //320 ,230
         b2body.setActive(true);
+    }
+
+    public void draw(Batch batch){
+        if(!destroyed){
+            super.draw(batch);
+        }
+        else{
+            world.destroyBody(this.b2body);
+        }
     }
 
     @Override
@@ -119,15 +154,6 @@ public class TheRedBug extends Enemy {
 
     }
 
-    public void draw(Batch batch){
-        if(!destroyed /*|| stateTimer < 1*/){
-            super.draw(batch);
-        }
-        else{
-            world.destroyBody(this.b2body);
-        }
-    }
-
     @Override
     public void update(float dt) {
         stateTimer += dt;
@@ -144,60 +170,33 @@ public class TheRedBug extends Enemy {
             return;
         }
         //DESTRUYENDOSE
-        if(setToDestroy && !destroyed){
-            if(first){
+        if(setToDestroy && !destroyed) {
+            if (first) {
                 first = false;
             }
             this.b2body.setGravityScale(0);
-            this.b2body.setLinearVelocity(0,0);
+            this.b2body.setLinearVelocity(0, 0);
             setRegion((TextureRegion) kill.getKeyFrame(stateTimer));
-            if(kill.isAnimationFinished(stateTimer)) {
+            if (kill.isAnimationFinished(stateTimer)) {
                 destroyed = true;
                 stateTimer = 0;
             }
-        //SALTANDO
-        }else if(b2body.getLinearVelocity().y > 0 ) {
-            region = jump;
-            if (screen.getPlayer().b2body.getPosition().x > b2body.getPosition().x) {
-                if (region.isFlipX())
-                    region.flip(true, false);
-                isRight = false;
-            }else if (screen.getPlayer().b2body.getPosition().x < b2body.getPosition().x && !isRight) {
-                if (!region.isFlipX())
-                    region.flip(true, false);
-                isRight = false;
-            }
-            setRegion(region);
-        //CAYENDO
-        }else if(b2body.getLinearVelocity().y < 0 ){
-            region = fall;
-            if (screen.getPlayer().b2body.getPosition().x > b2body.getPosition().x){
-                if (region.isFlipX())
-                    region.flip(true, false);
-                isRight = false;
-            }else if (screen.getPlayer().b2body.getPosition().x < b2body.getPosition().x && !isRight) {
-                if (!region.isFlipX())
-                    region.flip(true, false);
-                isRight = false;
-            }
-            setRegion(region);
-
         }else{
-        //SI NADA DE LO DEMAS ESTA PASANDO, Y NO ESTOY MUERTO ESTOY QUIETO (IDLE)
-        if(!destroyed){
-            region = (TextureRegion) idle.getKeyFrame(stateTimer,true);
-            if (screen.getPlayer().b2body.getPosition().x > b2body.getPosition().x){
-                if (region.isFlipX())
-                    region.flip(true, false);
-                isRight = false;
-            }else if (screen.getPlayer().b2body.getPosition().x < b2body.getPosition().x && !isRight) {
-                if (!region.isFlipX())
-                    region.flip(true, false);
-                isRight = false;
+            //SI NADA DE LO DEMAS ESTA PASANDO, Y NO ESTOY MUERTO ESTOY QUIETO (IDLE)
+            if(!destroyed){
+                region = (TextureRegion) idle.getKeyFrame(stateTimer,true);
+                if (screen.getPlayer().b2body.getPosition().x > b2body.getPosition().x){
+                    if (region.isFlipX())
+                        region.flip(true, false);
+                    isRight = false;
+                }else if (screen.getPlayer().b2body.getPosition().x < b2body.getPosition().x && !isRight) {
+                    if (!region.isFlipX())
+                        region.flip(true, false);
+                    isRight = false;
+                }
+                b2body.setLinearVelocity(new Vector2(0f,0f));
+                setRegion(region);
             }
-            b2body.setLinearVelocity(new Vector2(0f,0f));
-            setRegion(region);
-        }
         }
 
     }
@@ -217,6 +216,7 @@ public class TheRedBug extends Enemy {
                 damaged++;
             }
         }
+
     }
 
     @Override

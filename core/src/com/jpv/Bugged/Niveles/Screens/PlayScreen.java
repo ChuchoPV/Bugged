@@ -204,7 +204,11 @@ public class PlayScreen implements Screen {
             }
         }
 
-        creator.getTheRedBug().update(dt);
+        if(level == 1) {
+            creator.getTheRedBug().update(dt);
+        }if(level == 5) {
+            creator.getTheking().update(dt);
+        }
 
         for(Item item : hearts) {
             item.update(dt);
@@ -215,7 +219,8 @@ public class PlayScreen implements Screen {
         for(Item item : proyectiles) {
             item.update(dt);
         }
-        //Gdx.app.log("Lenght",""+hearts.size);
+
+
         if(gamecam.position.x>119) {
             gamecam.position.x = 119.6f;
             if(gamecam.position.y > 3.6f) {
@@ -328,7 +333,11 @@ public class PlayScreen implements Screen {
         for(Enemy enemy : creator.getSpiders()) {
             enemy.draw(game.batch);
         }
-        creator.getTheRedBug().draw(game.batch);
+        if(level == 1) {
+            creator.getTheRedBug().draw(game.batch);
+        }if(level == 5) {
+            creator.getTheking().draw(game.batch);
+        }
         for(Item item : hearts) {
             item.draw(game.batch);
         }

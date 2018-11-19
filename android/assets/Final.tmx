@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="16" height="18" tilewidth="80" tileheight="80" infinite="0" nextlayerid="13" nextobjectid="3682">
+<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="16" height="18" tilewidth="80" tileheight="80" infinite="0" nextobjectid="3682">
  <tileset firstgid="1" name="Cave_Tileset" tilewidth="80" tileheight="80" tilecount="189" columns="21">
   <image source="Cave_Tileset.png" width="1680" height="720"/>
  </tileset>
  <tileset firstgid="190" name="Subs_Tileset" tilewidth="80" tileheight="80" tilecount="189" columns="21">
   <image source="Cave_Tileset.png" width="1680" height="720"/>
  </tileset>
- <layer id="11" name="BG" width="16" height="18">
+ <layer name="BG" width="16" height="18">
   <data encoding="csv">
 9,10,11,12,13,14,15,16,17,18,19,20,21,9,10,11,
 30,31,32,33,34,35,36,37,38,39,40,41,42,30,31,32,
@@ -28,7 +28,7 @@
 86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86
 </data>
  </layer>
- <layer id="12" name="Graficos" width="16" height="18">
+ <layer name="Graficos" width="16" height="18">
   <data encoding="csv">
 86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,
 107,86,86,86,86,86,86,86,86,86,86,86,86,86,86,107,
@@ -50,15 +50,15 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="10" name="Piso">
+ <objectgroup name="Piso">
   <object id="3550" x="0" y="1280" width="1280" height="160"/>
   <object id="3551" x="160" y="1200" width="960" height="80"/>
   <object id="3552" x="0" y="0" width="1280" height="160"/>
   <object id="3555" x="81.8182" y="160.606" width="1120" height="80"/>
   <object id="3556" x="240" y="240" width="800" height="80"/>
  </objectgroup>
- <objectgroup id="9" name="Plataformas"/>
- <objectgroup id="8" name="Obstaculos">
+ <objectgroup name="Plataformas"/>
+ <objectgroup name="Obstaculos">
   <object id="3557" x="1.33333" y="1276.33" width="103.333" height="3.33333"/>
   <object id="3558" x="5" y="1271.67" width="3.66667" height="4.66667"/>
   <object id="3559" x="9.33333" y="1268" width="3.33333" height="3.66667"/>
@@ -174,7 +174,7 @@
   <object id="3678" x="0" y="160" width="80" height="1120"/>
   <object id="3680" x="1200" y="160" width="80" height="1120"/>
  </objectgroup>
- <objectgroup id="7" name="Enemigos">
+ <objectgroup name="Enemigos">
   <object id="3669" x="880" y="560" width="160" height="160">
    <properties>
     <property name="Fase2" value=""/>
@@ -200,7 +200,11 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="5" name="Jefe">
-  <object id="3677" x="800" y="480" width="320" height="320"/>
+ <objectgroup name="Jefe">
+  <object id="3677" x="800" y="480" width="320" height="320">
+   <properties>
+    <property name="King" value=""/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

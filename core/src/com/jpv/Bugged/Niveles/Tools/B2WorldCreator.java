@@ -15,6 +15,7 @@ import com.jpv.Bugged.Niveles.Screens.PlayScreen;
 import com.jpv.Bugged.Niveles.Sprites.Enemies.Mosquito;
 import com.jpv.Bugged.Niveles.Sprites.Enemies.Slug;
 import com.jpv.Bugged.Niveles.Sprites.Enemies.Spider;
+import com.jpv.Bugged.Niveles.Sprites.Enemies.TheKing;
 import com.jpv.Bugged.Niveles.Sprites.Enemies.TheRedBug;
 import com.jpv.Bugged.Niveles.Sprites.TileObjects.Obstacules;
 import com.jpv.Bugged.Niveles.Sprites.TileObjects.Platforms;
@@ -25,6 +26,7 @@ public class B2WorldCreator {
     private Array<Slug> slugs;
     private Array<Spider> spiders;
     private TheRedBug theRedBug;
+    private TheKing theking;
     private Array<Obstacules> obstacules;
     private Array<Platforms> platforms;
 
@@ -84,7 +86,11 @@ public class B2WorldCreator {
 
         for(MapObject object : map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            theRedBug = new TheRedBug(screen,rect.getX() / LevelManager.PPM, rect.getY() / LevelManager.PPM,object);
+            if(object.getProperties().containsKey("King")) {
+                theking = new TheKing(screen, rect.getX() / LevelManager.PPM, rect.getY() / LevelManager.PPM, object);
+            }else{
+                theRedBug = new TheRedBug(screen, rect.getX() / LevelManager.PPM, rect.getY() / LevelManager.PPM, object);
+            }
         }
 
     }
@@ -97,10 +103,7 @@ public class B2WorldCreator {
         return spiders;
     }
     public TheRedBug getTheRedBug() { return theRedBug; }
-    public Array<Obstacules> getObstacules() {
-        return obstacules;
-    }
-    public Array<Platforms> getPlatforms() {
-        return platforms;
+    public TheKing getTheking() {
+        return theking;
     }
 }

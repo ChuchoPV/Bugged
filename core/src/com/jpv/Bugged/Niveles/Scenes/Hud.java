@@ -21,6 +21,7 @@ import com.jpv.Bugged.Niveles.Tools.GenericButton;
 import com.jpv.Bugged.PantallasMenu.PantallaMenuPrincipal;
 
 public class Hud {
+    //region VARIABLES
     private Stage stage;
     private int y;
     private PlayScreen screen;
@@ -34,8 +35,8 @@ public class Hud {
     private Image letters;
     private GenericButton btnHome;
     private GenericButton btnPlay;
-
     private Sprite heart;
+    //endregion
 
     public Hud(PlayScreen screen){
         this.screen = screen;
@@ -167,19 +168,32 @@ public class Hud {
         );
         //endregion
         //region SHOT
-        GenericButton btnShotx = new GenericButton((LevelManager.V_WIDTH / LevelManager.PPM) + 1010, (LevelManager.V_WIDTH / LevelManager.PPM ) + 130
-                ,"Cycle_Btn.png","Cycle_Btn_pressed.png");
-        btnShotx.button().addListener(new ClickListener() {
-           @Override
-           public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-           if(!isCreatedPauseButtonsCreated() && !screen.getPlayer().shotting && screen.getProyectilesHank().size<1) {
-               super.clicked(event, x, y);
-               screen.getPlayer().shotting=!screen.getPlayer().shotting;
-           }
-           return super.touchDown(event, x, y, pointer, button);
-       }
-   }
-        );
+        GenericButton btnShotx;
+        if(screen.getLevel() != 1) {
+            btnShotx = new GenericButton((LevelManager.V_WIDTH / LevelManager.PPM) + 1010, (LevelManager.V_WIDTH / LevelManager.PPM) + 130
+                    , "Cycle_Btn.png", "Cycle_Btn_pressed.png");
+            btnShotx.button().addListener(new ClickListener() {
+                      @Override
+                      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                          if (!isCreatedPauseButtonsCreated() && !screen.getPlayer().shotting && screen.getProyectilesHank().size < 1) {
+                              super.clicked(event, x, y);
+                              screen.getPlayer().shotting = !screen.getPlayer().shotting;
+                            }
+                          return super.touchDown(event, x, y, pointer, button);
+                      }
+                    }
+            );
+        }else{
+            btnShotx = new GenericButton((LevelManager.V_WIDTH / LevelManager.PPM) + 1010, (LevelManager.V_WIDTH / LevelManager.PPM) + 130
+                    , "vacia.png", "vacia.png");
+            btnShotx.button().addListener(new ClickListener() {
+                                              @Override
+                                              public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                          return super.touchDown(event, x, y, pointer, button);
+                      }
+                  }
+            );
+        }
         //endregion
 
         stage.addActor(btnJoystickUp.button());
@@ -188,7 +202,6 @@ public class Hud {
         stage.addActor(btnAttack.button());
         stage.addActor(btnShotx.button());
         stage.addActor(btnPausa.button());
-
 
     }
 
