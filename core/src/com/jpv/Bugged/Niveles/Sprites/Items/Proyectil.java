@@ -16,9 +16,9 @@ public class Proyectil extends Item{
 
     public Proyectil(PlayScreen screen, float x, float y, String enemy, boolean fliped) {
         super(screen, x, y, enemy);
-        first = true;
+        this.first = true;
         this.fliped = fliped;
-        b2body.setGravityScale(0);
+        this.b2body.setGravityScale(0);
         if(enemy.equals("spider")) {
             setRegion(new TextureRegion(screen.getAtlas().findRegion("spider_prjct"), 0, 0, 50, 70));
         }else if(enemy.equals("slug")) {
@@ -34,7 +34,7 @@ public class Proyectil extends Item{
             BodyDef bdef = new BodyDef();
             bdef.position.set(getX(),getY());
             bdef.type = BodyDef.BodyType.DynamicBody;
-            b2body = world.createBody(bdef);
+            this.b2body = world.createBody(bdef);
 
             FixtureDef fdef = new FixtureDef();
             CircleShape shape = new CircleShape();
@@ -47,7 +47,7 @@ public class Proyectil extends Item{
                     | LevelManager.OBSTACULE_BIT;
 
             fdef.shape = shape;
-            b2body.createFixture(fdef).setUserData(this);
+            this.b2body.createFixture(fdef).setUserData(this);
     }
 
     @Override
@@ -62,8 +62,6 @@ public class Proyectil extends Item{
         super.update(dt);
         setPosition(this.b2body.getPosition().x - getWidth() / 2.5f, this.b2body.getPosition().y - getHeight() / 1.3f);
         this.b2body.setActive(true);
-        //System.out.println(this.fliped);
-
 
         if (active) {
             if (this.fliped) {
@@ -71,14 +69,14 @@ public class Proyectil extends Item{
                     this.b2body.applyLinearImpulse(new Vector2(velocity, 0), this.b2body.getWorldCenter(), true);
                 } else {
                     this.b2body.setLinearVelocity(velocity * 10, 0);
-                    active=false;
+                    this.active=false;
                 }
             } else {
                 if (this.b2body.getLinearVelocity().x > -velocity * 10) {
                     this.b2body.applyLinearImpulse(new Vector2(-velocity, 0), this.b2body.getWorldCenter(), true);
                 } else {
                     this.b2body.setLinearVelocity(-velocity * 10, 0);
-                    active=false;
+                    this.active=false;
                 }
             }
         }

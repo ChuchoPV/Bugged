@@ -24,11 +24,11 @@ public abstract class Item extends Sprite{
         setPosition(x,y);
         this.enemy = enemy;
         setBounds(getX(), getY(), 80 / LevelManager.PPM, 80 / LevelManager.PPM);
-        velocity = new Vector2(0,0);
+        this.velocity = new Vector2(0,0);
         defineItem();
-        toDestroy = false;
-        destroyed = false;
-        lifetime = 0;
+        this.toDestroy = false;
+        this.destroyed = false;
+        this.lifetime = 0;
     }
 
     public Item(PlayScreen screen, float x, float y){
@@ -48,9 +48,9 @@ public abstract class Item extends Sprite{
     public abstract void use();
 
     public void update(float dt){
-        if(toDestroy && !destroyed){
-            destroyed = true;
-            //world.destroyBody(this.b2body);
+        if(this.toDestroy && !this.destroyed){
+            this.destroyed = true;
+            world.destroyBody(this.b2body);
             if(screen.getHearts().size != 0) {
                 screen.getHearts().pop();
             }
@@ -63,7 +63,7 @@ public abstract class Item extends Sprite{
         }
         if(Math.abs(this.b2body.getLinearVelocity().x) <= 0 && lifetime > 0 && !this.enemy.equals("hank")){
             destroyed = true;
-            //world.destroyBody(this.b2body);
+            world.destroyBody(this.b2body);
             if(screen.getHearts().size != 0) {
                 screen.getHearts().pop();
             }
@@ -77,15 +77,15 @@ public abstract class Item extends Sprite{
         }
     }
 
-    public void reverseVelocity(boolean x, boolean y){
+    /*public void reverseVelocity(boolean x, boolean y){
         if(x)
             velocity.x = -velocity.x;
 
         if(y)
             velocity.y = -velocity.y;
-    }
+    }*/
 
     public void destroy(){
-        toDestroy = true;
+        this.toDestroy = true;
     }
 }

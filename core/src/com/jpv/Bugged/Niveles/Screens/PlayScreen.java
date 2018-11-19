@@ -131,7 +131,7 @@ public class PlayScreen implements Screen {
     //region SPAWN ITEMS
     private boolean fliped;
     public void spawnItem(ItemDef idef, boolean fliped) {
-        this.fliped = fliped;
+        this.fliped=fliped;
         if(idef.type == ProyectilHank.class){
             proyectilesHankToSpawn.add(idef);
         }
@@ -212,7 +212,7 @@ public class PlayScreen implements Screen {
         for(Item item : proyectiles) {
             item.update(dt);
         }
-        Gdx.app.log("Lenght",""+hearts.size);
+        //Gdx.app.log("Lenght",""+hearts.size);
         if(gamecam.position.x>119) {
             gamecam.position.x = 119.6f;
             if(gamecam.position.y > 3.6f) {
@@ -329,6 +329,12 @@ public class PlayScreen implements Screen {
         }
         creator.getTheRedBug().draw(game.batch);
         for(Item item : hearts) {
+            item.draw(game.batch);
+        }
+        for(Item item : proyectilesHank){
+            item.draw(game.batch);
+        }
+        for(Item item : proyectiles){
             item.draw(game.batch);
         }
         game.batch.end();
