@@ -45,6 +45,7 @@ public class WorldContactListener implements ContactListener {
                     ((Item)fixB.getUserData()).use();
                 break;
             case LevelManager.CHARACTER_BIT | LevelManager.ENEMY_BIT:
+            case LevelManager.CHARACTER_BIT | LevelManager.SHOTTER_CONTACT:
                 if(fixA.getFilterData().categoryBits == LevelManager.CHARACTER_BIT)
                     ((Character) fixA.getUserData()).hit();
                 else

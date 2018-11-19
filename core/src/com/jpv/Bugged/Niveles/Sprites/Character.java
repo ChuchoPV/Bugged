@@ -545,7 +545,8 @@ public class Character extends Sprite {
                 | LevelManager.ITEM_BIT
                 | LevelManager.BOSS_COLLIDER_BIT
                 | LevelManager.BOSS_PIES_BIT
-                | LevelManager.ENEMY_PROYECT;
+                | LevelManager.ENEMY_PROYECT
+                | LevelManager.SHOTTER_CONTACT;
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);

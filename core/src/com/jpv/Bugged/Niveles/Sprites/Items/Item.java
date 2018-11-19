@@ -13,9 +13,7 @@ public abstract class Item extends Sprite{
     private Boolean toDestroy;
     private Boolean destroyed;
     protected Body b2body;
-    //private Vector2 velocity;
     protected String enemy;
-    private float lifetime;
 
     public Item(PlayScreen screen, float x, float y, String enemy){
         this.screen =screen;
@@ -23,22 +21,9 @@ public abstract class Item extends Sprite{
         setPosition(x,y);
         this.enemy = enemy;
         setBounds(getX(), getY(), 80 / LevelManager.PPM, 80 / LevelManager.PPM);
-        //this.velocity = new Vector2(0,0);
         defineItem();
         this.toDestroy = false;
         this.destroyed = false;
-        this.lifetime = 0;
-    }
-
-    public Item(PlayScreen screen, float x, float y){
-        this.screen =screen;
-        this.world = screen.getWorld();
-        this.enemy = "hank";
-        setPosition(x,y);
-        setBounds(getX(), getY(), 80 / LevelManager.PPM, 80 / LevelManager.PPM);
-        defineItem();
-        toDestroy = false;
-        destroyed = false;
     }
 
     public abstract void defineItem();
@@ -48,21 +33,13 @@ public abstract class Item extends Sprite{
         if(this.toDestroy && !this.destroyed){
             this.destroyed = true;
             world.destroyBody(this.b2body);
-            if(this.enemy.equals("heart")){
-                if (screen.getHearts().size != 0) {
-                    screen.getHearts().peek();
-                }
-            }else {
-                if (screen.getProyectiles().size != 0) {
-                    screen.getProyectiles().peek();
-                }
+            if (screen.getHearts().size != 0) {
+                screen.getHearts().peek();
+            }
+            if (screen.getProyectiles().size != 0) {
+                screen.getProyectiles().peek();
             }
         }
-        if(Math.abs(this.b2body.getLinearVelocity().x) <= 0 && lifetime > 0 && !enemy.equals("heart")){
-            destroy();
-        }
-
-        lifetime += dt;
     }
 
     public void draw(Batch batch){

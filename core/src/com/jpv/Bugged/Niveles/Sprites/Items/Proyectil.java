@@ -9,14 +9,13 @@ import com.jpv.Bugged.Niveles.LevelManager;
 import com.jpv.Bugged.Niveles.Screens.PlayScreen;
 
 public class Proyectil extends Item{
-    private boolean first;
     private boolean fliped;
-    private float velocity=1;
     private boolean active=true;
+    private float lifetime;
 
     public Proyectil(PlayScreen screen, float x, float y, String enemy, boolean fliped) {
         super(screen, x, y, enemy);
-        this.first = true;
+        this.lifetime = 0;
         this.fliped = fliped;
         this.b2body.setGravityScale(0);
         if(enemy.equals("spider")) {
@@ -31,23 +30,23 @@ public class Proyectil extends Item{
     
     @Override
     public void defineItem() {
-            BodyDef bdef = new BodyDef();
-            bdef.position.set(getX(),getY());
-            bdef.type = BodyDef.BodyType.DynamicBody;
-            this.b2body = super.world.createBody(bdef);
+        BodyDef bdef = new BodyDef();
+        bdef.position.set(getX(),getY());
+        bdef.type = BodyDef.BodyType.DynamicBody;
+        this.b2body = super.world.createBody(bdef);
 
-            FixtureDef fdef = new FixtureDef();
-            CircleShape shape = new CircleShape();
-            shape.setRadius(10 / LevelManager.PPM);
-            fdef.filter.categoryBits = LevelManager.ENEMY_PROYECT;
-            fdef.filter.maskBits = LevelManager.CHARACTER_BIT
-                    | LevelManager.OBJECT_BIT
-                    | LevelManager.GROUND_BIT
-                    | LevelManager.PLATAFORM_BIT
-                    | LevelManager.OBSTACULE_BIT;
+        FixtureDef fdef = new FixtureDef();
+        CircleShape shape = new CircleShape();
+        shape.setRadius(10 / LevelManager.PPM);
+        fdef.filter.categoryBits = LevelManager.ENEMY_PROYECT;
+        fdef.filter.maskBits = LevelManager.CHARACTER_BIT
+                | LevelManager.OBJECT_BIT
+                | LevelManager.GROUND_BIT
+                | LevelManager.PLATAFORM_BIT
+                | LevelManager.OBSTACULE_BIT;
 
-            fdef.shape = shape;
-            this.b2body.createFixture(fdef).setUserData(this);
+        fdef.shape = shape;
+        this.b2body.createFixture(fdef).setUserData(this);
     }
 
     @Override
@@ -60,10 +59,16 @@ public class Proyectil extends Item{
     @Override
     public void update(float dt) {
         super.update(dt);
+        if(Math.abs(this.b2body.getLinearVelocity().x) <= 0 && lifetime > 0 && !enemy.equals("heart")){
+            destroy();
+        }
+        lifetime += dt;
+
         setPosition(this.b2body.getPosition().x - getWidth() / 2.5f, this.b2body.getPosition().y - getHeight() / 1.3f);
         this.b2body.setActive(true);
 
         if (active) {
+            float velocity = 1;
             if (this.fliped) {
                 if (this.b2body.getLinearVelocity().x < velocity * 10) {
                     this.b2body.applyLinearImpulse(new Vector2(velocity, 0), this.b2body.getWorldCenter(), true);

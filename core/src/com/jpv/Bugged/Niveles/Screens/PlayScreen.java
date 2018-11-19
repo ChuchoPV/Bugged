@@ -132,16 +132,18 @@ public class PlayScreen implements Screen {
     private boolean fliped;
     public void spawnItem(ItemDef idef, boolean fliped) {
         this.fliped=fliped;
-        if(proyectilesHankToSpawn.isEmpty()) {
+        if(idef.type == Heart.class){
+            heartsToSpawn.add(idef);
+        }
+        else if(proyectilesHankToSpawn.isEmpty()) {
             if (idef.type == Proyectil.class) {
                 proyectilToSpawn.add(idef);
             }
             if (idef.type == ProyectilHank.class) {
                 proyectilesHankToSpawn.add(idef);
             }
-        }else if(idef.type == Heart.class){
-            heartsToSpawn.add(idef);
         }
+
     }
 
     private void handleSpawingItems(){
