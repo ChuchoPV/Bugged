@@ -202,7 +202,6 @@ public class Hud {
         stage.addActor(btnAttack.button());
         stage.addActor(btnShotx.button());
         stage.addActor(btnPausa.button());
-
     }
 
     public void createPauseButtons(){
@@ -232,6 +231,7 @@ public class Hud {
              @Override
              public void clicked(InputEvent event, float x, float y) {
                  super.clicked(event, x, y);
+                 screen.getMusic().stop();
                  screen.getGame().getPantallaInicio().setScreen(new PantallaMenuPrincipal(screen.getGame().getPantallaInicio()));
              }
          }

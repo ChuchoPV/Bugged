@@ -3,6 +3,7 @@ package com.jpv.Bugged.Niveles.Screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -73,6 +74,7 @@ public class PlayScreen implements Screen {
     private boolean isHank;
 
     private int level;
+    private Music music;
 
     //endregion
 
@@ -89,14 +91,27 @@ public class PlayScreen implements Screen {
         TmxMapLoader mapLoader = new TmxMapLoader();
         if(level == 1){
             map = mapLoader.load("City_Map.tmx");
+            music = game.getManager().get("music/Scarf & Chocolates.mp3", Music.class);
+            music.play();
+            music.setLooping(true);
         }else if(level == 2){
             map = mapLoader.load("Subs_Map.tmx");
+            music = game.getManager().get("music/Sinner.mp3", Music.class);
         }else if(level == 3){
             map = mapLoader.load("Mountain_Map.tmx");
+            music = game.getManager().get("music/Piano Lesson.mp3", Music.class);
         }else if(level == 4){
             map = mapLoader.load("Cave_Map.tmx");
+            music = game.getManager().get("music/Sofa Memorabilida (kumatora).mp3", Music.class);
         }else{
             map = mapLoader.load("Final.tmx");
+            music = game.getManager().get("music/Coconut Water.mp3", Music.class);
+        }
+        if(game.getPantallaInicio().musicIsOn()){
+            music.play();
+            music.setLooping(true);
+        }else{
+            music.stop();
         }
         renderer = new OrthogonalTiledMapRenderer(map, 1 / LevelManager.PPM);
         //The camara set at the world
@@ -126,6 +141,8 @@ public class PlayScreen implements Screen {
 
         updateObjets = true;
         enemyType = "";
+
+
     }
 
     //region SPAWN ITEMS
@@ -307,10 +324,10 @@ public class PlayScreen implements Screen {
 
     @Override
     public void render(float delta) {
-
         if(updateObjets) {
             update(delta);
         }
+        game.getManager().update();
         //Clear the game screen with black
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -359,11 +376,13 @@ public class PlayScreen implements Screen {
 
     }
 
-    private boolean gameOver(){
+    private boolean gameOver() {
+        //music.stop();
         return player.currentState == Character.State.DEAD && player.getStateTimer() > 3;
     }
 
     private boolean winScreen(){
+        //music.stop();
         return player.currentState == Character.State.WIN && player.getStateTimer() > 3;
     }
 
@@ -427,6 +446,9 @@ public class PlayScreen implements Screen {
         return isHank;
     }
 
+    public Music getMusic() {
+        return music;
+    }
     //endregion
 
     //region SCREEN METHODS

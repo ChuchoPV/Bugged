@@ -10,12 +10,12 @@ import com.jpv.Bugged.PantallasMenu.Tools.Pantalla;
 
 public class PantallaOption extends Pantalla {
     private final Bugged pantallaInicio;
-    Texture fondoOptions;
-    public Stage escenaOptions;
-    public boolean soundIsOn;
-    public boolean musicIsOn;
+    private Texture fondoOptions;
+    private Stage escenaOptions;
+    private boolean soundIsOn;
+    private boolean musicIsOn;
 
-    public PantallaOption(Bugged pantallaInicio) {
+    PantallaOption(Bugged pantallaInicio) {
         this.pantallaInicio = pantallaInicio;
         this.soundIsOn=this.pantallaInicio.soundIsOn();
         this.musicIsOn=this.pantallaInicio.musicIsOn();
