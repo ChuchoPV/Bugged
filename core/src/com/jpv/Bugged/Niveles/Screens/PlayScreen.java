@@ -64,6 +64,7 @@ public class PlayScreen implements Screen {
     private LinkedBlockingDeque<ItemDef> proyectilToSpawn;
     private LinkedBlockingDeque<ItemDef> proyectilesHankToSpawn;
 
+    private float tiempo=0;
     private float timerBoss;
     private float startTimeBoss;
     //private float stopBossTimer;
@@ -202,18 +203,15 @@ public class PlayScreen implements Screen {
             //Gdx.app.log("PosicionP",this.player.b2body.getPosition().toString());
             int fase=this.order66();
             Vector2 kingpin=this.creator.getTheking().b2body.getPosition(),kingvel=this.creator.getTheking().b2body.getLinearVelocity();
+            tiempo+=dt;
             switch (fase) {
                 //region FASE1
                 case (1):
-                    System.out.println(first);
+                    System.out.println(tiempo);
                     float Bx=11.585f,Ax=1.221665f,Ay=3.928f;
-                    if(kingvel.x==0 && creator.getTheking().isFlipX()==first){
-                        if(kingpin.x<5){
-                            first=true;
-                        }
-                        else{
-                            first=false;
-                        }
+                    if(kingvel.x==0 && tiempo>5){
+                        first=!first;
+                        tiempo=0;
                     }else {
                         if (first) {
                             this.getCreator().getTheking().b2body.setLinearVelocity(Bx - kingpin.x, Ay - kingpin.y);
