@@ -27,6 +27,7 @@ public class PantallaOption extends Pantalla {
         crearEscena();
         fondoOptions = new Texture("Options/Options.png");
         Gdx.input.setInputProcessor(escenaOptions);
+        Gdx.input.setCatchBackKey(true);
     }
 
     private void crearEscena() {

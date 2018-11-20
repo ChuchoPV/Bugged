@@ -145,8 +145,7 @@ public class PlayScreen implements Screen {
 
         updateObjets = true;
         enemyType = "";
-
-
+        Gdx.input.setCatchBackKey(true);
     }
 
     //region SPAWN ITEMS

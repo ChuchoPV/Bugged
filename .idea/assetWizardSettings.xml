@@ -35,7 +35,7 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundLayerName" value="ic_launcher_background" />
-                                      <entry key="foregroundImage" value="$USER_HOME$/Downloads/Icon_2.png" />
+                                      <entry key="foregroundImage" value="$USER_HOME$/Downloads/Icon_comp.png" />
                                       <entry key="foregroundLayerName" value="ic_launcher_foreground" />
                                       <entry key="outputName" value="bugged_icon" />
                                     </map>

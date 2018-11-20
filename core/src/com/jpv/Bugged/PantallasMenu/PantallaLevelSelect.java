@@ -25,6 +25,8 @@ public class PantallaLevelSelect extends Pantalla {
         crearEscena();
         fondoLevelaSelect = new Texture("Level_Select/Level_Select.png");
         Gdx.input.setInputProcessor(escenaLevelSelect);
+        Gdx.input.setCatchBackKey(true);
+
     }
     private void crearEscena() {
         escenaLevelSelect = new Stage(vista);
