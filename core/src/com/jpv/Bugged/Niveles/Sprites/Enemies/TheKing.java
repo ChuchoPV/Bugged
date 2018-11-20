@@ -185,13 +185,13 @@ public class TheKing extends Enemy {
             //SI NADA DE LO DEMAS ESTA PASANDO, Y NO ESTOY MUERTO ESTOY QUIETO (IDLE)
             if(!destroyed){
                 region = (TextureRegion) idle.getKeyFrame(stateTimer,true);
-                if(super.toFlip()){
+                if(!super.toFlip()){
                 //if (screen.getPlayer().b2body.getPosition().x > b2body.getPosition().x){
                     if (region.isFlipX())
                         region.flip(true, false);
                     isRight = false;
                 }//else if (screen.getPlayer().b2body.getPosition().x < b2body.getPosition().x && !isRight) {
-                else if(!super.toFlip()){
+                else if(super.toFlip()){
                     if (!region.isFlipX())
                         region.flip(true, false);
                     isRight = false;
