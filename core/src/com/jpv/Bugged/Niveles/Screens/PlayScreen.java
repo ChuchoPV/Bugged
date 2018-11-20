@@ -236,9 +236,6 @@ public class PlayScreen implements Screen {
             this.getCreator().getTheking().flipper();
         }
 
-        if(this.level != 5 || this.level != 1){
-
-        }
 
         //region OBJECT_UPDATES
         if(player.boss) {
@@ -289,23 +286,29 @@ public class PlayScreen implements Screen {
 
         //region THE_RED_BUG_MANAGER
         if(gamecam.position.x>119) {
-            gamecam.position.x = 119.6f;
-            if(gamecam.position.y > 3.6f) {
-                gamecam.position.y -= 0.05f;
+            if((this.level != 5 || this.level != 1) && gamecam.position.x>119) {
+                player.currentState = Character.State.WIN;
+            }else {
+                gamecam.position.x = 119.6f;
+                if (gamecam.position.y > 3.6f) {
+                    gamecam.position.y -= 0.05f;
+                }
+                for (MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
+                    if (object.getProperties().containsKey("Boss"))
+                        new Obstacules(this, object);
+                }
+                player.boss = true;
             }
-            for (MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
-                if(object.getProperties().containsKey("Boss"))
-                    new Obstacules(this,object);
+        } else {
+            if(this.level != 5) {
+                if (player.b2body.getPosition().x >= (LevelManager.V_WIDTH / 2 / LevelManager.PPM)) {
+                    gamecam.position.x = player.b2body.getPosition().x;
+                }
+                if (player.b2body.getPosition().y >= (LevelManager.V_HEIGHT / 2 / LevelManager.PPM)
+                        && player.b2body.getPosition().y <= ((LevelManager.V_HEIGHT + 360) / LevelManager.PPM)) {
+                    gamecam.position.y = player.b2body.getPosition().y;
+                }
             }
-            player.boss=true;
-        }
-        else {
-            if (player.b2body.getPosition().x >= (LevelManager.V_WIDTH / 2 / LevelManager.PPM))
-                gamecam.position.x = player.b2body.getPosition().x;
-
-            if (player.b2body.getPosition().y >= (LevelManager.V_HEIGHT / 2 / LevelManager.PPM)
-                    && player.b2body.getPosition().y <= ((LevelManager.V_HEIGHT + 360) / LevelManager.PPM))
-                gamecam.position.y = player.b2body.getPosition().y;
         }
 
         //endregion
