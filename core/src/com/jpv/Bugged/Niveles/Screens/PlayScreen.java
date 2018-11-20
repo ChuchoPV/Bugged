@@ -107,12 +107,14 @@ public class PlayScreen implements Screen {
             map = mapLoader.load("Final.tmx");
             music = game.getManager().get("music/Coconut Water.mp3", Music.class);
         }
+
         if(game.getPantallaInicio().musicIsOn()){
             music.play();
             music.setLooping(true);
         }else{
             music.stop();
         }
+
         renderer = new OrthogonalTiledMapRenderer(map, 1 / LevelManager.PPM);
         //The camara set at the world
         gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() /2,0);
