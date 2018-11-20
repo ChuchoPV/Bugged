@@ -76,13 +76,13 @@ public class Slug extends Enemy{
         stateTimer += dt;
         shotTimer += dt;
 
-        if(this.playerDistance()<7){
+        if(this.playerDistance()<7 && !this.screen.getPlayer().shotting){
             this.setShot(true);
         }
         else{
             this.setShot(false);
         }
-        if(shot && shotTimer >= 2 && !damagedB){
+        if(shot && shotTimer >= 2 && !damagedB && !destroyed){
             screen.setEnemyType("slug");
             /*screen.spawnItem(new ItemDef(new Vector2(b2body.getPosition().x, b2body.getPosition().y),
                     Proyectil.class));*/
