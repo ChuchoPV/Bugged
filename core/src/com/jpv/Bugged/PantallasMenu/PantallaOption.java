@@ -12,12 +12,13 @@ public class PantallaOption extends Pantalla {
     private final Bugged pantallaInicio;
     Texture fondoOptions;
     public Stage escenaOptions;
-    boolean soundIsOn=true;
-    boolean musicIsOn=true;
+    public boolean soundIsOn;
+    public boolean musicIsOn;
 
     public PantallaOption(Bugged pantallaInicio) {
         this.pantallaInicio = pantallaInicio;
-//        this.soundIsOn=this.pantallaInicio.soundIsOn();
+        this.soundIsOn=this.pantallaInicio.soundIsOn();
+        this.musicIsOn=this.pantallaInicio.musicIsOn();
     }
 
 
@@ -44,7 +45,7 @@ public class PantallaOption extends Pantalla {
         );
 
         GenericButton btnSound;
-        if(soundIsOn == true) {
+        if(soundIsOn) {
             //Boton sonido
             btnSound = new GenericButton(ANCHO, ALTO,"Options/Sound_btn.png","Options/Sound_btn_press.png");
             btnSound.setPlace(ANCHO-btnSound.button().getWidth()-185,ALTO-btnSound.button().getHeight()-310);
@@ -52,7 +53,7 @@ public class PantallaOption extends Pantalla {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    soundIsOn = false;
+                    pantallaInicio.setSound(false);
                     pantallaInicio.setScreen(new PantallaOption(pantallaInicio));
                 }
             }
@@ -65,7 +66,7 @@ public class PantallaOption extends Pantalla {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    soundIsOn = true;
+                    pantallaInicio.setSound(true);
                     pantallaInicio.setScreen(new PantallaOption(pantallaInicio));
                 }
             }
@@ -73,7 +74,7 @@ public class PantallaOption extends Pantalla {
         }
 
         GenericButton btnMusic;
-        if(musicIsOn == true) {
+        if(musicIsOn) {
             //Boton musica
             btnMusic = new GenericButton(ANCHO, ALTO,"Options/Music_btn.png","Options/Music_btn_press.png");
             btnMusic.setPlace(ANCHO-btnMusic.button().getWidth()-190,ALTO-btnMusic.button().getHeight()-455);
@@ -81,7 +82,7 @@ public class PantallaOption extends Pantalla {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    musicIsOn = false;
+                    pantallaInicio.setMusic(false);
                     pantallaInicio.setScreen(new PantallaOption(pantallaInicio));
                 }
             }
@@ -94,7 +95,7 @@ public class PantallaOption extends Pantalla {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    musicIsOn = true;
+                    pantallaInicio.setMusic(true);
                     pantallaInicio.setScreen(new PantallaOption(pantallaInicio));
                 }
             }

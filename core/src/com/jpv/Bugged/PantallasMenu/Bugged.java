@@ -4,6 +4,8 @@ import com.badlogic.gdx.Game;
 
 public class Bugged extends Game {
     private boolean isHank=true;
+    private boolean soundIsOn=true;
+    private boolean musicIsOn=true;
 
     @Override
     public void create () {
@@ -15,6 +17,20 @@ public class Bugged extends Game {
     }
     public boolean isHank() {
         return isHank;
+    }
+
+    public void setSound(boolean bool){
+        this.soundIsOn=bool;
+    }
+    public boolean soundIsOn() {
+        return soundIsOn;
+    }
+
+    public void setMusic(boolean bool){
+        this.musicIsOn=bool;
+    }
+    public boolean musicIsOn() {
+        return musicIsOn;
     }
 }
 
