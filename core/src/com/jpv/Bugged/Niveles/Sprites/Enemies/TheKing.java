@@ -102,7 +102,7 @@ public class TheKing extends Enemy {
         isRight = true;
         first = true;
         this.b2body.setGravityScale(0);
-        setBounds(getX(),getY(), 280 / LevelManager.PPM,320 / LevelManager.PPM); //320 ,230
+        setBounds(getX(),getY(), 320 / LevelManager.PPM,320 / LevelManager.PPM); //320 ,230
         b2body.setActive(true);
     }
 
@@ -124,7 +124,7 @@ public class TheKing extends Enemy {
 
         FixtureDef fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(240/ LevelManager.PPM, 160 / LevelManager.PPM); //160,110
+        shape.setAsBox(150/ LevelManager.PPM, 150 / LevelManager.PPM); //160,110
         fdef.filter.categoryBits = LevelManager.BOSS_BIT;
         fdef.filter.maskBits = LevelManager.GROUND_BIT
                 | LevelManager.CHARACTER_BIT
@@ -136,26 +136,20 @@ public class TheKing extends Enemy {
 
         //region COLLIDERS
 
-        EdgeShape pies = new EdgeShape();
-        pies.set(new Vector2(140 / LevelManager.PPM, -160 / LevelManager.PPM), new Vector2(-140 / LevelManager.PPM, -160 / LevelManager.PPM));
-        fdef.shape = pies;
-        fdef.filter.categoryBits = LevelManager.BOSS_PIES_BIT;
-        fdef.isSensor = true;
-        b2body.createFixture(fdef).setUserData(this);
-
         EdgeShape collider = new EdgeShape();
-        collider.set(new Vector2(-240 / LevelManager.PPM, -140 / LevelManager.PPM), new Vector2(-240 / LevelManager.PPM, 140 / LevelManager.PPM));
+        collider.set(new Vector2(-150 / LevelManager.PPM, -140 / LevelManager.PPM), new Vector2(-150 / LevelManager.PPM, 140 / LevelManager.PPM));
         fdef.shape = collider;
         fdef.filter.categoryBits = LevelManager.BOSS_COLLIDER_BIT;
         fdef.isSensor = true;
         b2body.createFixture(fdef).setUserData(this);
 
         EdgeShape collider2 = new EdgeShape();
-        collider2.set(new Vector2(240 / LevelManager.PPM, -140 / LevelManager.PPM), new Vector2(240 / LevelManager.PPM, 140 / LevelManager.PPM));
+        collider2.set(new Vector2(150 / LevelManager.PPM, -140 / LevelManager.PPM), new Vector2(150 / LevelManager.PPM, 140 / LevelManager.PPM));
         fdef.shape = collider2;
         fdef.filter.categoryBits = LevelManager.BOSS_COLLIDER_BIT;
         fdef.isSensor = true;
         b2body.createFixture(fdef).setUserData(this);
+
         //endregion
 
     }
@@ -197,7 +191,7 @@ public class TheKing extends Enemy {
                         region.flip(true, false);
                     isRight = false;
                 }//else if (screen.getPlayer().b2body.getPosition().x < b2body.getPosition().x && !isRight) {
-                else if(!super.toFlip() && !isRight){
+                else if(!super.toFlip()){
                     if (!region.isFlipX())
                         region.flip(true, false);
                     isRight = false;
