@@ -201,20 +201,20 @@ public class PlayScreen implements Screen {
             //Gdx.app.log("PosicionK",this.getCreator().getTheking().b2body.getPosition().toString());
             //Gdx.app.log("PosicionP",this.player.b2body.getPosition().toString());
             int fase=this.order66();
-            System.out.println(fase);
-            Vector2 kingpin=this.creator.getTheking().b2body.getPosition();
-            //this.getCreator().getTheking().b2body.getPosition();
+            Vector2 kingpin=this.creator.getTheking().b2body.getPosition(),kingvel=this.creator.getTheking().b2body.getLinearVelocity();
             switch (fase) {
                 //region FASE1
                 case (1):
+                    System.out.println(first);
                     float Bx=11.585f,Ax=1.221665f,Ay=3.928f;
-                    if(this.getCreator().getTheking().b2body.getPosition().epsilonEquals(Bx,Ay)){
-                        this.first=false;
-                    }
-                    else if(this.getCreator().getTheking().b2body.getPosition().epsilonEquals(Ax,Ay)){
-                        this.first=true;
+                    if(kingvel.x==0 && creator.getTheking().isFlipX()==first){
+                        if(kingpin.x<5){
+                            first=true;
+                        }
+                        else{
+                            first=false;
+                        }
                     }else {
-                        System.out.println(this.first);
                         if (first) {
                             this.getCreator().getTheking().b2body.setLinearVelocity(Bx - kingpin.x, Ay - kingpin.y);
                         } else {
@@ -222,10 +222,15 @@ public class PlayScreen implements Screen {
                         }
                     }
                     break;
+                    //endregion
+                //region FASE2
                 case(2):
                     break;
+                    //endregion
+                //region FASE3
                 case (3):
                     break;
+                    //endregion
                 case (-1):
                     this.getCreator().getTheking().b2body.setLinearVelocity(0,0);
                     break;

@@ -200,7 +200,7 @@ public class TheKing extends Enemy {
                         region.flip(true, false);
                     isRight = false;
                 }
-                b2body.setLinearVelocity(new Vector2(0f,0f));
+                //b2body.setLinearVelocity(new Vector2(0f,0f));
                 setRegion(region);
             }
         }
