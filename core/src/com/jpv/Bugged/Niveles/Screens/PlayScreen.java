@@ -357,10 +357,10 @@ public class PlayScreen implements Screen {
                     //&& (player.currentState == Character.State.RUNNING
                     //|| player.currentState == Character.State.STANDING)) {
                     {
-                        player.b2body.applyLinearImpulse(new Vector2(0, 8f), player.b2body.getWorldCenter(), true);
+                        player.b2body.applyLinearImpulse(new Vector2(0, 7f), player.b2body.getWorldCenter(), true);
                     }
                     if ((Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT) || hud.getBtnRig())
-                            && player.b2body.getLinearVelocity().x <= 3
+                            && player.b2body.getLinearVelocity().x <= 5
                             && player.currentState != Character.State.DAMAGED
                             && !player.damaged
                             && player.currentState != Character.State.WIN){
@@ -368,7 +368,7 @@ public class PlayScreen implements Screen {
                     }
 
                     if ((Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || hud.getBtnLef())
-                            && player.b2body.getLinearVelocity().x >= -3
+                            && player.b2body.getLinearVelocity().x >= -5
                             && player.currentState != Character.State.DAMAGED
                             && !player.damaged
                             && player.currentState != Character.State.WIN) {
@@ -440,12 +440,16 @@ public class PlayScreen implements Screen {
     }
 
     private boolean gameOver() {
-        //music.stop();
+        //if(game.getPantallaInicio().musicIsOn()) {
+         //   music.stop();
+        //}
         return player.currentState == Character.State.DEAD && player.getStateTimer() > 3;
     }
 
     private boolean winScreen(){
-        //music.stop();
+        //if(game.getPantallaInicio().musicIsOn()) {
+        //    music.stop();
+        //}
         return player.currentState == Character.State.WIN && player.getStateTimer() > 3;
     }
 
