@@ -1,0 +1,103 @@
+ATLAS_FINAL_2.png
+size: 3840, 1735
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Brid_Damage
+  rotate: false
+  xy: 0, 0
+  size: 700, 175
+  orig: 700, 175
+  offset: 0, 0
+  index: -1
+Brid_Idle
+  rotate: false
+  xy: 700, 0
+  size: 700, 175
+  orig: 700, 175
+  offset: 0, 0
+  index: -1
+Brid_Jump
+  rotate: false
+  xy: 1400, 0
+  size: 350, 175
+  orig: 350, 175
+  offset: 0, 0
+  index: -1
+Brid_Run
+  rotate: false
+  xy: 1750, 0
+  size: 1830, 175
+  orig: 1830, 175
+  offset: 0, 0
+  index: -1
+Brid_Shoot
+  rotate: false
+  xy: 0, 175
+  size: 875, 175
+  orig: 875, 175
+  offset: 0, 0
+  index: -1
+Brid_Swipe
+  rotate: false
+  xy: 875, 175
+  size: 1680, 280
+  orig: 1680, 280
+  offset: 0, 0
+  index: -1
+Brit_Dead
+  rotate: false
+  xy: 2555, 175
+  size: 1050, 175
+  orig: 1050, 175
+  offset: 0, 0
+  index: -1
+king_1_damage
+  rotate: false
+  xy: 0, 455
+  size: 1280, 320
+  orig: 1280, 320
+  offset: 0, 0
+  index: -1
+king_1_idle
+  rotate: false
+  xy: 1280, 455
+  size: 2560, 320
+  orig: 2560, 320
+  offset: 0, 0
+  index: -1
+king_2_damage
+  rotate: false
+  xy: 0, 775
+  size: 1280, 320
+  orig: 1280, 320
+  offset: 0, 0
+  index: -1
+king_2_idle
+  rotate: false
+  xy: 1280, 775
+  size: 2560, 320
+  orig: 2560, 320
+  offset: 0, 0
+  index: -1
+king_3_damage
+  rotate: false
+  xy: 0, 1095
+  size: 1280, 320
+  orig: 1280, 320
+  offset: 0, 0
+  index: -1
+king_3_idle
+  rotate: false
+  xy: 1280, 1095
+  size: 2560, 320
+  orig: 2560, 320
+  offset: 0, 0
+  index: -1
+king_dead
+  rotate: false
+  xy: 0, 1415
+  size: 3520, 320
+  orig: 3520, 320
+  offset: 0, 0
+  index: -1
