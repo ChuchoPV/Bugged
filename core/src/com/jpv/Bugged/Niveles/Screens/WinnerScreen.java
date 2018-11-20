@@ -43,7 +43,6 @@ public class WinnerScreen implements Screen {
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
                     screen.getHud().setInputProcessor();
-                    screen.getGame().getPantallaInicio().setMusic(false);
                     game.getPantallaInicio().setScreen(new PantallaLevelSelect(game.getPantallaInicio()));
                     dispose();
                 }

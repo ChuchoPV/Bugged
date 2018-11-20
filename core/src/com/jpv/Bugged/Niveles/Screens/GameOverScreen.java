@@ -44,7 +44,6 @@ public class GameOverScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if(screen.getPlayer().b2body.getPosition().x >= 650) {
-                    Gdx.app.log("Entre","");
                     super.clicked(event, x, y);
                     screen.getPlayer().b2body.getPosition().x = 11350;
                     screen.getPlayer().currentState = Character.State.STANDING;

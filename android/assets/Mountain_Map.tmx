@@ -609,7 +609,5 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="Jefe">
-  <object id="715" x="11846.7" y="730.667" width="516" height="222.667"/>
- </objectgroup>
+ <objectgroup name="Jefe"/>
 </map>

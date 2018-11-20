@@ -278,7 +278,5 @@
   </object>
   <object id="200" x="5184" y="2256" width="16"/>
  </objectgroup>
- <objectgroup name="Jefe">
-  <object id="194" x="12561.3" y="1117.33" width="240" height="160"/>
- </objectgroup>
+ <objectgroup name="Jefe"/>
 </map>

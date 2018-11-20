@@ -236,12 +236,18 @@ public class PlayScreen implements Screen {
             this.getCreator().getTheking().flipper();
         }
 
+        if(this.level != 5 || this.level != 1){
+
+        }
+
         //region OBJECT_UPDATES
         if(player.boss) {
             for(Enemy enemy : creator.getMosquitos()) {
                 enemy.destroy();
             }
-            manageBoss(dt);
+            if(level == 1) {
+                manageBoss(dt);
+            }
         }
 
         for(Enemy enemy : creator.getMosquitos()) {
