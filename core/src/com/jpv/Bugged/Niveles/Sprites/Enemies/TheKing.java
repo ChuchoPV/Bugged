@@ -19,9 +19,7 @@ public class TheKing extends Enemy {
     private boolean setToDestroy;
     private boolean destroyed;
     private boolean damagedB;
-    private boolean isRight;
     private int damaged;
-    private int lives=9;
     private boolean flip;
 
     private float stateTimer;
@@ -99,7 +97,6 @@ public class TheKing extends Enemy {
         damagedB = false;
         setToDestroy = false;
         destroyed = false;
-        isRight = true;
         first = true;
         this.b2body.setGravityScale(0);
         setBounds(getX(),getY(), 320 / LevelManager.PPM,320 / LevelManager.PPM); //320 ,230
@@ -109,9 +106,6 @@ public class TheKing extends Enemy {
     public void draw(Batch batch){
         if(!destroyed){
             super.draw(batch);
-        }
-        else{
-            world.destroyBody(this.b2body);
         }
     }
 
@@ -157,13 +151,12 @@ public class TheKing extends Enemy {
     @Override
     public void update(float dt) {
         stateTimer += dt;
-        TextureRegion region = null;
+        TextureRegion region;
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
 
         //DAÑADO
         if(damagedB && !setToDestroy && !destroyed){
             setRegion((TextureRegion) damage.getKeyFrame(stateTimer));
-            //setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 3);
             if(damage.isAnimationFinished(stateTimer)) {
                 damagedB = false;
             }
@@ -172,6 +165,7 @@ public class TheKing extends Enemy {
         //DESTRUYENDOSE
         if(setToDestroy && !destroyed) {
             if (first) {
+                world.destroyBody(this.b2body);
                 first = false;
             }
             this.b2body.setGravityScale(0);
@@ -189,12 +183,10 @@ public class TheKing extends Enemy {
                 //if (screen.getPlayer().b2body.getPosition().x > b2body.getPosition().x){
                     if (region.isFlipX())
                         region.flip(true, false);
-                    isRight = false;
                 }//else if (screen.getPlayer().b2body.getPosition().x < b2body.getPosition().x && !isRight) {
                 else if(super.toFlip()){
                     if (!region.isFlipX())
                         region.flip(true, false);
-                    isRight = false;
                 }
                 //b2body.setLinearVelocity(new Vector2(0f,0f));
                 setRegion(region);
@@ -231,7 +223,8 @@ public class TheKing extends Enemy {
      * @return lives el numero de vidas
      */
     public int getLives(){
-       return this.lives-this.damaged;
+        int lives = 9;
+        return lives -this.damaged;
     }
 
     public void flipper(){
