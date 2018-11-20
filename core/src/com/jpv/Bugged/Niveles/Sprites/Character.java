@@ -136,7 +136,7 @@ public class Character extends Sprite {
             //region RUN
             //get run animation frames and add them to marioRun Animation
             for (int i = 0; i < 14; i++) {
-                frames.add(new TextureRegion(atlas2.findRegion("Brid_Run"), i * 130, 0, 130, 175));
+                frames.add(new TextureRegion(atlas2.findRegion("Brid_Run"), i * 175, 0, 175, 175));
             }
             running = new Animation<TextureRegion>(0.09f, frames);
             frames.clear();
@@ -179,11 +179,11 @@ public class Character extends Sprite {
             //endregion
             //region JUMP
             //get jump frame frames and add them to marioRun Animation
-            jumpAnimation = new TextureRegion(atlas2.findRegion("Brid_Jump"), 0, 0, 80, 80);
+            jumpAnimation = new TextureRegion(atlas2.findRegion("Brid_Jump"), 0, 0, 175, 175);
             //endregion
             //region FALL
             //get fall frame frames and add them to marioRun Animation
-            falling = new TextureRegion(atlas2.findRegion("Brid_Jump"), 80, 0, 80, 80);
+            falling = new TextureRegion(atlas2.findRegion("Brid_Jump"), 175, 0, 175, 175);
             //endregion
             //region DEAD
             //get dead animation frames and add them to marioRun Animation

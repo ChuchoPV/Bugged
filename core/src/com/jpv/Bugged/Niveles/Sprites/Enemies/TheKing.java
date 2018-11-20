@@ -43,13 +43,13 @@ public class TheKing extends Enemy {
         //region FASE1
         TextureRegion temp;
         for(int i = 0; i < 8; i++) {
-            frames.add(new TextureRegion(atlas.findRegion("king_1_idle"), i * 281, 0, 281, 320));
+            frames.add(new TextureRegion(atlas.findRegion("king_1_idle"), i * 320, 0, 320, 320));
         }
         idle = new Animation<TextureRegion>(0.1f, frames);
         frames.clear();
 
         for(int i = 0; i < 4; i++) {
-            frames.add(new TextureRegion(atlas.findRegion("king_1_damage"), i * 302, 0, 302, 352));
+            frames.add(new TextureRegion(atlas.findRegion("king_1_damage"), i * 320, 0, 320, 320));
         }
         damage = new Animation<TextureRegion>(0.2f, frames);
         //endregion
@@ -84,10 +84,11 @@ public class TheKing extends Enemy {
             frames.add(temp);
         }
         damage2 = new Animation<TextureRegion>(0.2f, frames);
+        frames.clear();
         //endregion
 
-        for(int i = 0; i < 13; i++) {
-             frames.add(new TextureRegion(atlas.findRegion("king_dead"), i * 315, 0, 315, 352));
+        for(int i = 0; i < 11; i++) {
+             frames.add(new TextureRegion(atlas.findRegion("king_dead"), i * 320, 0, 320, 320));
         }
         kill = new Animation<TextureRegion>(0.1f, frames);
 
