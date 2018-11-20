@@ -289,6 +289,7 @@ public class PlayScreen implements Screen {
             if((this.level != 5 || this.level != 1) && gamecam.position.x>119) {
                 player.currentState = Character.State.WIN;
             }else {
+
                 gamecam.position.x = 119.6f;
                 if (gamecam.position.y > 3.6f) {
                     gamecam.position.y -= 0.05f;
