@@ -431,18 +431,22 @@ public class PlayScreen implements Screen {
         hud.getStage().draw();
 
         if(gameOver()){
+            if(game.getPantallaInicio().musicIsOn()) {
+               music.stop();
+            }
             game.getPantallaInicio().setScreen(new GameOverScreen(this));
             dispose();
         }else if(winScreen()){
+            if(game.getPantallaInicio().musicIsOn()) {
+               music.stop();
+            }
             game.getPantallaInicio().setScreen(new WinnerScreen(this));
+            dispose();
         }
 
     }
 
     private boolean gameOver() {
-        //if(game.getPantallaInicio().musicIsOn()) {
-         //   music.stop();
-        //}
         return player.currentState == Character.State.DEAD && player.getStateTimer() > 3;
     }
 

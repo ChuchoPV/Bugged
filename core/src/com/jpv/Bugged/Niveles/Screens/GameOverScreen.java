@@ -64,7 +64,7 @@ public class GameOverScreen implements Screen {
              @Override
              public void clicked(InputEvent event, float x, float y) {
              super.clicked(event, x, y);
-             screen.getGame().getPantallaInicio().setScreen(new PantallaLevelSelect(screen.getGame().getPantallaInicio()));
+                 screen.getGame().getPantallaInicio().setScreen(new PantallaLevelSelect(screen.getGame().getPantallaInicio()));
             }
         }
         );
@@ -78,6 +78,7 @@ public class GameOverScreen implements Screen {
              }
          }
         );
+
 
         stage.addActor(btn);
         stage.addActor(btnBack.button());
