@@ -68,6 +68,7 @@ public class PlayScreen implements Screen {
     private float startTimeBoss;
     //private float stopBossTimer;
     private boolean firstBossJump;
+    private boolean first=true;
 
     public boolean updateObjets;
     private String enemyType;
@@ -196,6 +197,43 @@ public class PlayScreen implements Screen {
             obstacules.update();
         }*/
 
+        if(this.level==5){
+            //Gdx.app.log("PosicionK",this.getCreator().getTheking().b2body.getPosition().toString());
+            //Gdx.app.log("PosicionP",this.player.b2body.getPosition().toString());
+            int fase=this.order66();
+            System.out.println(fase);
+            Vector2 kingpin=this.creator.getTheking().b2body.getPosition();
+            //this.getCreator().getTheking().b2body.getPosition();
+            switch (fase) {
+                //region FASE1
+                case (1):
+                    float Bx=11.585f,Ax=1.221665f,Ay=3.928f;
+                    if(this.getCreator().getTheking().b2body.getPosition().epsilonEquals(Bx,Ay)){
+                        this.first=false;
+                    }
+                    else if(this.getCreator().getTheking().b2body.getPosition().epsilonEquals(Ax,Ay)){
+                        this.first=true;
+                    }else {
+                        System.out.println(this.first);
+                        if (first) {
+                            this.getCreator().getTheking().b2body.setLinearVelocity(Bx - kingpin.x, Ay - kingpin.y);
+                        } else {
+                            this.getCreator().getTheking().b2body.setLinearVelocity(Ax - kingpin.x, Ay - kingpin.y);
+                        }
+                    }
+                    break;
+                case(2):
+                    break;
+                case (3):
+                    break;
+                case (-1):
+                    this.getCreator().getTheking().b2body.setLinearVelocity(0,0);
+                    break;
+            }
+            this.getCreator().getTheking().flipper();
+        }
+
+        //region OBJECT_UPDATES
         if(player.boss) {
             for(Enemy enemy : creator.getMosquitos()) {
                 enemy.destroy();
@@ -238,8 +276,9 @@ public class PlayScreen implements Screen {
         for(Item item : proyectiles) {
             item.update(dt);
         }
+        //endregion
 
-
+        //region THE_RED_BUG_MANAGER
         if(gamecam.position.x>119) {
             gamecam.position.x = 119.6f;
             if(gamecam.position.y > 3.6f) {
@@ -260,10 +299,29 @@ public class PlayScreen implements Screen {
                 gamecam.position.y = player.b2body.getPosition().y;
         }
 
+        //endregion
         gamecam.update();
         //Setting the camara to our map
         renderer.setView(gamecam);
 
+    }
+
+    private int order66() {
+        int live=this.getCreator().getTheking().getLives();
+        int res;
+        if(live>7){
+            res=1;
+        }
+        else if(live>3 && live<8){
+            res=2;
+        }
+        else if(live>0 && live<4){
+            res=3;
+        }
+        else{
+            res=-1;
+        }
+        return res;
     }
 
     private void manageBoss(float dt) {

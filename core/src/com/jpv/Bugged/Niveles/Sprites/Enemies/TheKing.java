@@ -21,6 +21,8 @@ public class TheKing extends Enemy {
     private boolean damagedB;
     private boolean isRight;
     private int damaged;
+    private int lives=9;
+    private boolean flip;
 
     private float stateTimer;
 
@@ -132,6 +134,8 @@ public class TheKing extends Enemy {
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
 
+        //region COLLIDERS
+
         EdgeShape pies = new EdgeShape();
         pies.set(new Vector2(140 / LevelManager.PPM, -160 / LevelManager.PPM), new Vector2(-140 / LevelManager.PPM, -160 / LevelManager.PPM));
         fdef.shape = pies;
@@ -152,6 +156,7 @@ public class TheKing extends Enemy {
         fdef.filter.categoryBits = LevelManager.BOSS_COLLIDER_BIT;
         fdef.isSensor = true;
         b2body.createFixture(fdef).setUserData(this);
+        //endregion
 
     }
 
@@ -205,7 +210,7 @@ public class TheKing extends Enemy {
     @Override
     public void onHeadHit() {
         if (!damagedB) {
-            if (damaged == 3) {
+            if (damaged == 9) {
                 setToDestroy = true;
                 screen.getPlayer().win = true;
                 damagedB = true;
@@ -223,5 +228,17 @@ public class TheKing extends Enemy {
     @Override
     public void setShot(boolean shot) {
 
+    }
+
+    /**
+     * Metodo para poder saber cuantas vidas se tienen
+     * @return lives el numero de vidas
+     */
+    public int getLives(){
+       return this.lives-this.damaged;
+    }
+
+    public void flipper(){
+        this.flip=!flip;
     }
 }
