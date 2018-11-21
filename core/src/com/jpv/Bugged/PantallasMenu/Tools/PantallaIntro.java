@@ -1,6 +1,7 @@
 package com.jpv.Bugged.PantallasMenu.Tools;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -11,6 +12,8 @@ import com.badlogic.gdx.utils.Array;
 import com.jpv.Bugged.Niveles.Tools.GenericButton;
 import com.jpv.Bugged.PantallasMenu.Bugged;
 
+import java.awt.Image;
+
 public class PantallaIntro extends Pantalla {
 
     private final Bugged pantallaInicio;
@@ -20,17 +23,23 @@ public class PantallaIntro extends Pantalla {
     private boolean isHank;
     private Animation boom;
     private float statetimer;
+    private Texture scroll;
+    private OrthographicCamera gamecam;
+    private boolean first;
+
 
     public PantallaIntro(Bugged pantallaInicio, int clicks) {
         this.pantallaInicio = pantallaInicio;
         this.clicks = clicks;
         statetimer = 0;
+        Texture scroll = new Texture("Historia Final/Historia_10.png");
+        first = true;
     }
 
     @Override
     public void show() {
         crearEscena();
-        fondo = new Texture("vacia.png");
+        fondo = new Texture("Historia Final/Historia_10.png");
         Array<TextureRegion> frames = new Array<TextureRegion>();
         frames.add(new TextureRegion(new Texture("Historia Final/Historia_3.png")));
         frames.add(new TextureRegion(new Texture("Historia Final/Historia_4.png")));
@@ -47,7 +56,7 @@ public class PantallaIntro extends Pantalla {
 
     private void crearEscena() {
         escena = new Stage(vista);
-        GenericButton btnBob;
+        final GenericButton btnBob;
         switch (clicks){
             case(0):
                 btnBob = new GenericButton(0, 0, "Historia Final/Hisotria 1.png", "Historia Final/Hisotria 1.png");
@@ -78,6 +87,24 @@ public class PantallaIntro extends Pantalla {
 
                 break;
             case(2):
+
+                /*if(anOf){
+                    btnBob = new GenericButton(0, 0, "Historia Final/Historia_9.png", "Historia Final/Historia_9.png");
+                    btnBob.button().addListener(new ClickListener() {
+                                                    @Override
+                                                    public void clicked(InputEvent event, float x, float y) {
+                                                        super.clicked(event, x, y);
+                                                        pantallaInicio.setScreen(new PantallaIntro(pantallaInicio, 3));
+                                                    }
+                                                }
+                    );
+                    escena.addActor(btnBob.button());
+
+                }*/
+
+               /* if(boom.isAnimationFinished(statetimer)){
+                    pantallaInicio.setScreen(new PantallaIntro(pantallaInicio, 3));
+                }*/
                 //btnBob = new GenericButton(0,0, "vacia.png", "vacia.png");
                /* btnBob = new GenericButton(0, 0, "Historia Final/Historia_9.png", "Historia Final/Historia_9.png");
                 btnBob.button().addListener(new ClickListener() {
@@ -91,11 +118,25 @@ public class PantallaIntro extends Pantalla {
                 break;
             case(3):
                 btnBob = new GenericButton(0, 0, "Historia Final/Historia_10.png", "Historia Final/Historia_10.png");
+
+                /*for(int i=0; i<scroll.getWidth();i++ ){
+                    gamecam.position.x +=1;
+                }*/
+
                 btnBob.button().addListener(new ClickListener() {
                                                 @Override
                                                 public void clicked(InputEvent event, float x, float y) {
                                                     super.clicked(event, x, y);
-                                                    pantallaInicio.setScreen(new PantallaIntro(pantallaInicio, 4));
+                                                    if(first){
+                                                        for(int i=0; i<scroll.getWidth();i++ ){ gamecam.position.x +=i; }
+                                                        first = false;
+
+                                                    }else{
+                                                        pantallaInicio.setScreen(new PantallaIntro(pantallaInicio, 4));
+
+                                                    }
+
+
                                                 }
                                             }
                 );
@@ -155,12 +196,24 @@ public class PantallaIntro extends Pantalla {
         batch.draw(fondo,0,0);
         if(clicks == 2) {
             batch.draw((TextureRegion) (boom.getKeyFrame(statetimer,false)), 0, 0);
+            if(boom.isAnimationFinished(statetimer)){
+               // anOf=true;
+                // clicks+=1;
+                //crearEscena();
+                pantallaInicio.setScreen(new PantallaIntro(pantallaInicio, 3));
+
+
+            }
+
         }
+
         batch.end();
         if(clicks != 2){
             escena.draw();
         }
     }
+
+
 
     @Override
     public void pause() {
