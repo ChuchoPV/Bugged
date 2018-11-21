@@ -1,7 +1,6 @@
 package com.jpv.Bugged.PantallasMenu.Tools;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -11,8 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.jpv.Bugged.Niveles.Tools.GenericButton;
 import com.jpv.Bugged.PantallasMenu.Bugged;
-
-import java.awt.Image;
 
 public class PantallaIntro extends Pantalla {
 
@@ -24,7 +21,7 @@ public class PantallaIntro extends Pantalla {
     private Animation boom;
     private float statetimer;
     private Texture scroll;
-    private OrthographicCamera gamecam;
+    private int scrollInt;
     private boolean first;
 
 
@@ -32,8 +29,9 @@ public class PantallaIntro extends Pantalla {
         this.pantallaInicio = pantallaInicio;
         this.clicks = clicks;
         statetimer = 0;
-        Texture scroll = new Texture("Historia Final/Historia_10.png");
+        scroll = new Texture("Historia Final/Historia_10.png");
         first = true;
+        scrollInt = 0;
     }
 
     @Override
@@ -118,32 +116,14 @@ public class PantallaIntro extends Pantalla {
                 break;
             case(3):
                 btnBob = new GenericButton(0, 0, "Historia Final/Historia_10.png", "Historia Final/Historia_10.png");
-
-                /*for(int i=0; i<scroll.getWidth();i++ ){
-                    gamecam.position.x +=1;
-                }*/
-
                 btnBob.button().addListener(new ClickListener() {
-                                                @Override
-                                                public void clicked(InputEvent event, float x, float y) {
-                                                    super.clicked(event, x, y);
-                                                    if(first){
-                                                        for(int i=0; i<scroll.getWidth();i++ ){ gamecam.position.x +=i; }
-                                                        first = false;
-
-
-
-                                                    }else{
-                                                        pantallaInicio.setScreen(new PantallaIntro(pantallaInicio, 4));
-
-                                                    }
-
-
-                                                }
-                                            }
-                );
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        super.clicked(event, x, y);
+                        scrollInt = 5;
+                    }
+                });
                 escena.addActor(btnBob.button());
-
                 break;
             case(4):
                 btnBob = new GenericButton(0, 0, "Historia Final/Historia_11.png", "Historia Final/Historia_11.png");
@@ -199,20 +179,21 @@ public class PantallaIntro extends Pantalla {
         if(clicks == 2) {
             batch.draw((TextureRegion) (boom.getKeyFrame(statetimer,false)), 0, 0);
             if(boom.isAnimationFinished(statetimer)){
-               // anOf=true;
-                // clicks+=1;
-                //crearEscena();
                 pantallaInicio.setScreen(new PantallaIntro(pantallaInicio, 3));
-
-
             }
-
         }
-
         batch.end();
         if(clicks != 2){
             escena.draw();
         }
+        if(clicks == 3) {
+            if (camara.position.x < (scroll.getWidth() - 650)) {
+                camara.position.x += scrollInt;
+            } else {
+                pantallaInicio.setScreen(new PantallaIntro(pantallaInicio, 4));
+            }
+        }
+        camara.update();
     }
 
 
