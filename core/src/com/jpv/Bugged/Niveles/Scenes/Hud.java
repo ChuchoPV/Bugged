@@ -91,6 +91,7 @@ public class Hud {
                 super.touchUp(event, x, y, pointer, button);
                 btnRig = false;
                 first = true;
+                screen.getPlayer().b2body.setLinearVelocity(0,0);
             }
         }
         );
@@ -113,6 +114,7 @@ public class Hud {
                  super.touchUp(event, x, y, pointer, button);
                  btnLef = false;
                  first = true;
+                 screen.getPlayer().b2body.setLinearVelocity(0,0);
              }
         }
         );
@@ -139,12 +141,20 @@ public class Hud {
         btnAttack.button().addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if(!isCreatedPauseButtonsCreated()) {
+                if (!isCreatedPauseButtonsCreated()) {
                     super.clicked(event, x, y);
                     btnAt = true;
                 }
-               return super.touchDown(event, x, y, pointer, button);
+                return super.touchDown(event, x, y, pointer, button);
             }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                super.touchUp(event, x, y, pointer, button);
+                btnAt = false;
+                screen.getPlayer().b2body.setLinearVelocity(0,0);
+            }
+
         }
         );
         //endregion
