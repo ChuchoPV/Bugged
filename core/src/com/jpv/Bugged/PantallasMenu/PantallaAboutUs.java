@@ -22,6 +22,8 @@ public class PantallaAboutUs extends Pantalla {
         crearEscena();
         fondo = new Texture("About/About.png");
         Gdx.input.setInputProcessor(escena);
+        Gdx.input.setCatchBackKey(true);
+
     }
 
     private void crearEscena() {

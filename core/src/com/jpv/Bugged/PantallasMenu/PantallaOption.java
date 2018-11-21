@@ -15,6 +15,7 @@ public class PantallaOption extends Pantalla {
     private boolean soundIsOn;
     private boolean musicIsOn;
 
+
     PantallaOption(Bugged pantallaInicio) {
         this.pantallaInicio = pantallaInicio;
         this.soundIsOn=this.pantallaInicio.soundIsOn();
@@ -27,6 +28,7 @@ public class PantallaOption extends Pantalla {
         crearEscena();
         fondoOptions = new Texture("Options/Options.png");
         Gdx.input.setInputProcessor(escenaOptions);
+        Gdx.input.setCatchBackKey(true);
     }
 
     private void crearEscena() {

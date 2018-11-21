@@ -5,15 +5,15 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.jpv.Bugged.Niveles.LevelManager;
 import com.jpv.Bugged.Niveles.Tools.GenericButton;
 import com.jpv.Bugged.PantallasMenu.Tools.Pantalla;
+import com.jpv.Bugged.PantallasMenu.Tools.PantallaCarga;
 
 public class PantallaLevelSelect extends Pantalla {
     private final Bugged pantallaInicio;
     private Texture fondoLevelaSelect;
     private Stage escenaLevelSelect;
-    public boolean isHank;
+    private boolean isHank;
 
     public PantallaLevelSelect(Bugged pantallaInicio) {
         this.pantallaInicio = pantallaInicio;
@@ -25,6 +25,8 @@ public class PantallaLevelSelect extends Pantalla {
         crearEscena();
         fondoLevelaSelect = new Texture("Level_Select/Level_Select.png");
         Gdx.input.setInputProcessor(escenaLevelSelect);
+        Gdx.input.setCatchBackKey(true);
+
     }
     private void crearEscena() {
         escenaLevelSelect = new Stage(vista);
@@ -35,7 +37,8 @@ public class PantallaLevelSelect extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                new LevelManager(pantallaInicio, 1,isHank);
+                pantallaInicio.setScreen(new PantallaCarga(pantallaInicio,1));
+                //new LevelManager(pantallaInicio, 1,isHank);
                 }
             }
         );
@@ -46,7 +49,8 @@ public class PantallaLevelSelect extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                new LevelManager(pantallaInicio, 2,isHank);
+                pantallaInicio.setScreen(new PantallaCarga(pantallaInicio,2));
+                //new LevelManager(pantallaInicio, 2);
             }
             }
         );
@@ -57,7 +61,8 @@ public class PantallaLevelSelect extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                new LevelManager(pantallaInicio, 3,isHank);
+                pantallaInicio.setScreen(new PantallaCarga(pantallaInicio,3));
+                //new LevelManager(pantallaInicio, 3);
             }
             }
         );
@@ -68,7 +73,8 @@ public class PantallaLevelSelect extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                new LevelManager(pantallaInicio, 4,isHank);
+                pantallaInicio.setScreen(new PantallaCarga(pantallaInicio,4));
+                //new LevelManager(pantallaInicio, 4);
             }
             }
         );
@@ -79,7 +85,8 @@ public class PantallaLevelSelect extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                new LevelManager(pantallaInicio, 5,isHank);
+                pantallaInicio.setScreen(new PantallaCarga(pantallaInicio,5));
+                //new LevelManager(pantallaInicio, 5);
             }
             }
         );

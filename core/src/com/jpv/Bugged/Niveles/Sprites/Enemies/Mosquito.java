@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
@@ -158,20 +159,14 @@ public class Mosquito extends Enemy {
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
-        /*
-        //Create collider hear
-        PolygonShape collider = new PolygonShape();
-        Vector2[] vertice = new Vector2[4];
-        vertice[0] = new Vector2(-60 , -60).scl(1 / LevelManager.PPM);
-        vertice[1] = new Vector2(60 , -60).scl(1 / LevelManager.PPM);
-        vertice[2] = new Vector2(-60     , 60).scl(1 / LevelManager.PPM);
-        vertice[3] = new Vector2(60 , 60).scl(1 / LevelManager.PPM);
-        collider.set(vertice);
 
-        fdef.shape = collider;
-        fdef.filter.categoryBits = LevelManager.ENEMY_COLLIDER_BIT;
+        //Create collider head
+        EdgeShape head = new EdgeShape();
+        head.set(new Vector2(-60 , 60).scl(1 / LevelManager.PPM), new Vector2(60 , 60).scl(1 / LevelManager.PPM));
+        fdef.shape = head;
+        fdef.filter.categoryBits = LevelManager.ENEMY_HEAD;
+        fdef.isSensor = true;
         b2body.createFixture(fdef).setUserData(this);
-        */
 
     }
 

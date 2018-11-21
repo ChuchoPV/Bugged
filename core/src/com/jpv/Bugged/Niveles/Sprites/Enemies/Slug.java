@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
@@ -150,7 +151,6 @@ public class Slug extends Enemy{
         b2body = world.createBody(bdef);
 
         FixtureDef fdef = new FixtureDef();
-
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(57/ LevelManager.PPM, 40 / LevelManager.PPM);
         fdef.filter.categoryBits = LevelManager.SHOTTER_CONTACT;
@@ -166,21 +166,13 @@ public class Slug extends Enemy{
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
 
-        //Create collider hear
-        /*
-        PolygonShape colliderDisp = new PolygonShape();
-        Vector2[] vertice2 = new Vector2[4];
-        vertice2[0] = new Vector2(-30 , -70).scl(1 / LevelManager.PPM);
-        vertice2[1] = new Vector2(30 , -70).scl(1 / LevelManager.PPM);
-        vertice2[2] = new Vector2(-30     , 70).scl(1 / LevelManager.PPM);
-        vertice2[3] = new Vector2(30 , 70).scl(1 / LevelManager.PPM);
-        colliderDisp.set(vertice2);
-
-        fdef.shape = colliderDisp;
-        fdef.filter.categoryBits = LevelManager.SHOTTER_CONTACT;
+        //Create collider head
+        EdgeShape head = new EdgeShape();
+        head.set(new Vector2(-57 , 40).scl(1 / LevelManager.PPM), new Vector2(57 , 40).scl(1 / LevelManager.PPM));
+        fdef.shape = head;
+        fdef.filter.categoryBits = LevelManager.ENEMY_HEAD;
+        fdef.isSensor = true;
         b2body.createFixture(fdef).setUserData(this);
-        */
-
 
     }
 
@@ -220,8 +212,7 @@ public class Slug extends Enemy{
     private double playerDistance(){
         double ejey=Math.pow((screen.getPlayer().b2body.getPosition().y-this.b2body.getPosition().y),2);
         double ejex=Math.pow((screen.getPlayer().b2body.getPosition().x-this.b2body.getPosition().x),2);
-        double distance=Math.sqrt(ejex+ejey);
-        return distance;
+        return Math.sqrt(ejex+ejey);
 
     }
 

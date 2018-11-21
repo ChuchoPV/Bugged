@@ -10,7 +10,6 @@ import com.jpv.Bugged.Niveles.Sprites.Character;
 import com.jpv.Bugged.Niveles.Sprites.Enemies.Enemy;
 import com.jpv.Bugged.Niveles.Sprites.Items.Item;
 import com.jpv.Bugged.Niveles.Sprites.Items.ProyectilHank;
-import com.jpv.Bugged.Niveles.Sprites.TileObjects.InteractiveTiledObject;
 
 
 public class WorldContactListener implements ContactListener {
@@ -23,12 +22,11 @@ public class WorldContactListener implements ContactListener {
         int cDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
 
         switch (cDef){
-            case LevelManager.CHARACTER_HEAD_BIT | LevelManager.PLATAFORM_BIT:
-            case LevelManager.CHARACTER_HEAD_BIT | LevelManager.OBSTACULE_BIT:
-                if(fixA.getFilterData().categoryBits == LevelManager.CHARACTER_HEAD_BIT) {
-                    ((InteractiveTiledObject) fixB.getUserData()).onHeadHit();
+            case LevelManager.CHARACTER_BIT | LevelManager.ENEMY_HEAD:
+                if(fixA.getFilterData().categoryBits == LevelManager.CHARACTER_BIT) {
+                    ((Character) fixA.getUserData()).enemyHead();
                 }else {
-                    ((InteractiveTiledObject) fixA.getUserData()).onHeadHit();
+                    ((Character) fixB.getUserData()).enemyHead();
                 }
                 break;
             case LevelManager.CHARACTER_ARMA_BIT | LevelManager.ENEMY_BIT:

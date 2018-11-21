@@ -37,7 +37,7 @@ public class TheKing extends Enemy {
 
     public TheKing(PlayScreen screen, float x, float y, MapObject object) {
         super(screen, x, y, object);
-        TextureAtlas atlas = new TextureAtlas("ATLAS_Final_2.pack");
+        TextureAtlas atlas = screen.getGame().getManager().get("ATLAS_Final_2.pack");
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
         //region FASE1

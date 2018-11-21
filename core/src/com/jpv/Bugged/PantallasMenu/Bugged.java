@@ -1,11 +1,13 @@
 package com.jpv.Bugged.PantallasMenu;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.assets.AssetManager;
 
 public class Bugged extends Game {
     private boolean isHank=true;
     private boolean soundIsOn=true;
     private boolean musicIsOn=true;
+    private AssetManager manager = new AssetManager();
 
     @Override
     public void create () {
@@ -31,6 +33,13 @@ public class Bugged extends Game {
     }
     public boolean musicIsOn() {
         return musicIsOn;
+    }
+
+    public void setManager(AssetManager manager){
+        this.manager = manager;
+    }
+    public AssetManager getManager() {
+        return manager;
     }
 }
 

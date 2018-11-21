@@ -26,6 +26,8 @@ public class PantallaCharacterSelection extends Pantalla {
         crearEscena();
         fondo = new Texture("CharacterSelectionScreen/Character_Select.png");
         Gdx.input.setInputProcessor(escenaCharacterSelection);
+        Gdx.input.setCatchBackKey(true);
+
 
     }
 
