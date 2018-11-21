@@ -212,7 +212,6 @@ public class Character extends Sprite {
             }
         //}
         //endregion
-
         //region ATTACKING
         if(currentState == State.ATTACKING) {
             setPosition(b2body.getPosition().x - getWidth() / 1.8f, b2body.getPosition().y  - getHeight() / .5f);//.5f
@@ -286,6 +285,7 @@ public class Character extends Sprite {
             }
         }
         //endregion
+        //region STANDING
         if(currentState == State.STANDING){
             setPosition(b2body.getPosition().x - getWidth() / 2.3f, b2body.getPosition().y  - getHeight() / 2f); //6.2f
             setBounds(getX(),getY(),175 / LevelManager.PPM, 175 / LevelManager.PPM);
@@ -295,6 +295,7 @@ public class Character extends Sprite {
                 setPosition(b2body.getPosition().x - getWidth() / 1.5f, b2body.getPosition().y  - getHeight() / 2f);
             }
         }
+        //endregion
         //region DAMAGED
         else if(currentState == State.DAMAGED) {
             if(!isDead()) {
@@ -539,9 +540,6 @@ public class Character extends Sprite {
     }
     public void sumLife(){
         this.lifes++;
-    }
-    public boolean isShotting(){
-        return shotting;
     }
     //endregion
 
