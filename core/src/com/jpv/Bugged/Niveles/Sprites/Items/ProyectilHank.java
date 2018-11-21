@@ -49,6 +49,7 @@ public class ProyectilHank extends Sprite {
         }else{
             bdef.position.set(getX() - 1, getY());
         }
+
         bdef.type = BodyDef.BodyType.DynamicBody;
         this.b2body = world.createBody(bdef);
 
