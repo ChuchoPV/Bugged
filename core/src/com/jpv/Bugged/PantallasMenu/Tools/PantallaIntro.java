@@ -131,6 +131,8 @@ public class PantallaIntro extends Pantalla {
                                                         for(int i=0; i<scroll.getWidth();i++ ){ gamecam.position.x +=i; }
                                                         first = false;
 
+
+
                                                     }else{
                                                         pantallaInicio.setScreen(new PantallaIntro(pantallaInicio, 4));
 
