@@ -40,6 +40,7 @@ public class PantallaLevelSelect extends Pantalla {
                 super.clicked(event, x, y);
                 pantallaInicio.setScreen(new PantallaIntro(pantallaInicio, 0));
 
+
                 // pantallaInicio.setScreen(new PantallaCarga(pantallaInicio,1));
                 //new LevelManager(pantallaInicio, 1,isHank);
                 }
