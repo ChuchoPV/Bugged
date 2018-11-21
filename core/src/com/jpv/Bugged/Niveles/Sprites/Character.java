@@ -207,9 +207,9 @@ public class Character extends Sprite {
         setPosition(b2body.getPosition().x - getWidth() / 2.3f, b2body.getPosition().y - getHeight() / 2f); //6.2f
         setBounds(getX(), getY(), 175 / LevelManager.PPM, 175 / LevelManager.PPM);
         setRegion(frames);
-        if (currentState == State.STANDING && getFrame(dt).isFlipX()) {
-            setPosition(b2body.getPosition().x - getWidth() / 1.5f, b2body.getPosition().y - getHeight() / 2f);
-        }
+        //if (currentState == State.STANDING && getFrame(dt).isFlipX()) {
+        //    setPosition(b2body.getPosition().x - getWidth() / 1.5f, b2body.getPosition().y - getHeight() / 2f);
+        //}
         //}
         //endregion
 
@@ -431,6 +431,7 @@ public class Character extends Sprite {
     }
 
     private State getState() {
+        Gdx.app.log("State",""+currentState);
         if(currentState!=State.WIN){
             if(currentState != State.DAMAGED && isDead()) {
                 return State.DEAD;
@@ -470,17 +471,16 @@ public class Character extends Sprite {
                 if(attacking) {
                     return State.ATTACKING;
                 }
-                //else if(damaged){
-                //    return State.DAMAGED;
-                //}
+                else if(damaged){
+                    return State.DAMAGED;
+                }
                 else if(shotting) {
-                    return State.SHOT;
+                   return State.SHOT;
                 }else {
                     return State.RUNNING;
                 }
             }
             //aqui empieza la modificacion para el swing completo
-
             else if (attacking) {
                 return State.ATTACKING;
             }else if(damaged){

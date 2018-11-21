@@ -14,10 +14,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jpv.Bugged.Niveles.LevelManager;
-import com.jpv.Bugged.Niveles.Sprites.Character;
 import com.jpv.Bugged.Niveles.Tools.GenericButton;
 import com.jpv.Bugged.PantallasMenu.PantallaLevelSelect;
 import com.jpv.Bugged.PantallasMenu.PantallaMenuPrincipal;
+import com.jpv.Bugged.PantallasMenu.Tools.PantallaCarga;
 
 public class GameOverScreen implements Screen {
     private Viewport viewport;
@@ -25,7 +25,7 @@ public class GameOverScreen implements Screen {
     private PlayScreen screen;
     private LevelManager game;
 
-    public GameOverScreen(PlayScreen screen){
+    GameOverScreen(PlayScreen screen){
         this.screen = screen;
         this.game = screen.getGame();
         viewport = new FitViewport(LevelManager.V_WIDTH, LevelManager.V_HEIGHT,new OrthographicCamera());
@@ -43,20 +43,11 @@ public class GameOverScreen implements Screen {
         btn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if(screen.getPlayer().b2body.getPosition().x >= 650) {
-                    super.clicked(event, x, y);
-                    screen.getPlayer().b2body.getPosition().x = 11350;
-                    screen.getPlayer().currentState = Character.State.STANDING;
-                    game.getPantallaInicio().setScreen(screen);
-                    dispose();
-                }else{
-                    super.clicked(event, x, y);
-                    game.getPantallaInicio().setScreen(new PlayScreen(game,screen.getLevel())); //new PlayScreen(game)
-                    dispose();
-                }
+                super.clicked(event, x, y);
+                game.getPantallaInicio().setScreen(new PantallaCarga(screen.getGame().getPantallaInicio(), screen.getLevel())); //new PlayScreen(game)
+                dispose();
             }
-        }
-        );
+        });
 
         GenericButton btnBack = new GenericButton(LevelManager.V_WIDTH / LevelManager.PPM, (LevelManager.V_HEIGHT / LevelManager.PPM) + 600,"PrincipalScreen/back_btn.png","PrincipalScreen/back_btn_pressed.png");
         btnBack.button().addListener(new ClickListener() {
