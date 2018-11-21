@@ -170,6 +170,9 @@ public class PantallaIntro extends Pantalla {
             batch.end();
             escena.draw();
 
+
+
+
         }
     }
 
