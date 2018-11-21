@@ -95,7 +95,6 @@ public class PantallaIntro extends Pantalla {
                                                 @Override
                                                 public void clicked(InputEvent event, float x, float y) {
                                                     super.clicked(event, x, y);
-
                                                     pantallaInicio.setScreen(new PantallaIntro(pantallaInicio, 4));
                                                 }
                                             }

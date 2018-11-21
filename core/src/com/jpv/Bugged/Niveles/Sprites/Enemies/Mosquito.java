@@ -133,6 +133,23 @@ public class Mosquito extends Enemy {
                 reverseVelocity(false, true);
                 move = 0;
             }
+            if(flip) {
+                if(screen.getPlayer().b2body.getPosition().y > this.b2body.getPosition().y){
+                    b2body.setLinearVelocity(new Vector2(2f, 1f));
+                }else if(screen.getPlayer().b2body.getPosition().y < this.b2body.getPosition().y){
+                    b2body.setLinearVelocity(new Vector2(2f, -1f));
+                }else{
+                    b2body.setLinearVelocity(new Vector2(2f, 0));
+                }
+            }else{
+                if(screen.getPlayer().b2body.getPosition().y > this.b2body.getPosition().y){
+                    b2body.setLinearVelocity(new Vector2(-2f, 1f));
+                }else if(screen.getPlayer().b2body.getPosition().y < this.b2body.getPosition().y){
+                    b2body.setLinearVelocity(new Vector2(-2f, -1f));
+                }else{
+                    b2body.setLinearVelocity(new Vector2(-2f, 0));
+                }
+            }
         }
     }
 
