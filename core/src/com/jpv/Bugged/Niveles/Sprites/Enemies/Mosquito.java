@@ -123,7 +123,6 @@ public class Mosquito extends Enemy {
                     region.flip(true,false);
             }
             setRegion(region);
-            //setRegion((TextureRegion) idle.getKeyFrame(stateTimer,true));
             damagedB = false;
             b2body.setLinearVelocity(velocity);
             if(idle.isAnimationFinished(stateTimer)){
@@ -133,6 +132,25 @@ public class Mosquito extends Enemy {
             if (move > 50){
                 reverseVelocity(false, true);
                 move = 0;
+            }
+            if(screen.getLevel() != 1) {
+                if (flip) {
+                    if (screen.getPlayer().b2body.getPosition().y > this.b2body.getPosition().y) {
+                        b2body.setLinearVelocity(new Vector2(2f, 1f));
+                    } else if (screen.getPlayer().b2body.getPosition().y < this.b2body.getPosition().y) {
+                        b2body.setLinearVelocity(new Vector2(2f, -1f));
+                    } else {
+                        b2body.setLinearVelocity(new Vector2(2f, 0));
+                    }
+                } else {
+                    if (screen.getPlayer().b2body.getPosition().y > this.b2body.getPosition().y) {
+                        b2body.setLinearVelocity(new Vector2(-2f, 1f));
+                    } else if (screen.getPlayer().b2body.getPosition().y < this.b2body.getPosition().y) {
+                        b2body.setLinearVelocity(new Vector2(-2f, -1f));
+                    } else {
+                        b2body.setLinearVelocity(new Vector2(-2f, 0));
+                    }
+                }
             }
         }
     }

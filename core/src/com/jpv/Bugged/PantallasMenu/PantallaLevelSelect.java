@@ -8,16 +8,17 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.jpv.Bugged.Niveles.Tools.GenericButton;
 import com.jpv.Bugged.PantallasMenu.Tools.Pantalla;
 import com.jpv.Bugged.PantallasMenu.Tools.PantallaCarga;
+import com.jpv.Bugged.PantallasMenu.Tools.PantallaIntro;
 
 public class PantallaLevelSelect extends Pantalla {
     private final Bugged pantallaInicio;
     private Texture fondoLevelaSelect;
     private Stage escenaLevelSelect;
-    private boolean isHank;
+    private boolean historyFirst;
 
     public PantallaLevelSelect(Bugged pantallaInicio) {
         this.pantallaInicio = pantallaInicio;
-        this.isHank=this.pantallaInicio.isHank();
+        this.historyFirst = pantallaInicio.isHistoryFirst();
     }
 
     @Override
@@ -37,11 +38,14 @@ public class PantallaLevelSelect extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                pantallaInicio.setScreen(new PantallaCarga(pantallaInicio,1));
-                //new LevelManager(pantallaInicio, 1,isHank);
+                if(historyFirst) {
+                    pantallaInicio.setHistoryFirst(false);
+                    pantallaInicio.setScreen(new PantallaIntro(pantallaInicio, 0));
+                }else{
+                    pantallaInicio.setScreen(new PantallaCarga(pantallaInicio, 1));
                 }
             }
-        );
+        });
 
         //Boton Suburbs
         GenericButton btnSuburbs =  new GenericButton(ANCHO / 6+250, ALTO / 2-20,"Level_Select/suburbs.png","Level_Select/suburbs_pressed.png");

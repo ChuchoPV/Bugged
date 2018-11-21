@@ -27,6 +27,7 @@ public class PantallaMenuPrincipal extends Pantalla {
         titulo = new Sprite(new Texture("PrincipalScreen/Titulo.png"));
         titulo.setPosition(ANCHO / 6-80, ALTO / 2+120);
         Gdx.input.setInputProcessor(escenaMenuPrincipal);
+        Gdx.input.setCatchBackKey(false);
 
     }
 

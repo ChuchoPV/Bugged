@@ -204,15 +204,79 @@ public class Character extends Sprite {
         //region STANDING REGION AND DEFAULT
         TextureRegion frames = getFrame(dt);
         //if(currentState == State.STANDING || currentState != State.ATTACKING) {
-            setPosition(b2body.getPosition().x - getWidth() / 2.3f, b2body.getPosition().y - getHeight() / 2f); //6.2f
-            setBounds(getX(), getY(), 175 / LevelManager.PPM, 175 / LevelManager.PPM);
-            setRegion(frames);
-            if (currentState == State.STANDING && getFrame(dt).isFlipX()) {
-                setPosition(b2body.getPosition().x - getWidth() / 1.5f, b2body.getPosition().y - getHeight() / 2f);
-            }
+        setPosition(b2body.getPosition().x - getWidth() / 2.3f, b2body.getPosition().y - getHeight() / 2f); //6.2f
+        setBounds(getX(), getY(), 175 / LevelManager.PPM, 175 / LevelManager.PPM);
+        setRegion(frames);
+        if (currentState == State.STANDING && getFrame(dt).isFlipX()) {
+            setPosition(b2body.getPosition().x - getWidth() / 1.5f, b2body.getPosition().y - getHeight() / 2f);
+        }
         //}
         //endregion
 
+        //region STANDING
+        if(currentState == State.STANDING){
+            setPosition(b2body.getPosition().x - getWidth() / 2.3f, b2body.getPosition().y  - getHeight() / 2f); //6.2f
+            setBounds(getX(),getY(),175 / LevelManager.PPM, 175 / LevelManager.PPM);
+            frames = getFrame(dt);
+            setRegion(frames);
+            if(currentState == State.STANDING && getFrame(dt).isFlipX()){
+                setPosition(b2body.getPosition().x - getWidth() / 1.5f, b2body.getPosition().y  - getHeight() / 2f);
+            }
+        }
+        //endregion
+        //region DAMAGED
+        else if(currentState == State.DAMAGED) {
+            if(!isDead()) {
+                if(headEnemy){
+                    if (isFlipX() && firstDam) {
+                        b2body.applyLinearImpulse(new Vector2(6f, 8), b2body.getWorldCenter(), true);
+                        firstDam = false;
+                    } else if (!isFlipX() && firstDam) {
+                        b2body.applyLinearImpulse(new Vector2(-6f, 8), b2body.getWorldCenter(), true);
+                        firstDam = false;
+                    }
+                    headEnemy = false;
+                }else {
+                    if (isFlipX() && firstDam) {
+                        b2body.applyLinearImpulse(new Vector2(3f, 0), b2body.getWorldCenter(), true);
+                        firstDam = false;
+                    } else if (!isFlipX() && firstDam) {
+                        b2body.applyLinearImpulse(new Vector2(-3f, 0), b2body.getWorldCenter(), true);
+                        firstDam = false;
+                    }
+                }
+            }
+        }
+        //endregion
+        //region No DAMAGE LOGIC
+        if(currentState != State.DAMAGED){
+            firstDam = true;
+        }
+        //endregion
+        //region DEAD
+        if(b2body.getPosition().y <1){
+            isDead = true;
+        }
+        else if(currentState == State.DEAD) {
+            /*if (first) {
+                for (Enemy enemy : screen.getCreator().getMosquitos())
+                    world.destroyBody(enemy.b2body);
+
+                /*Filter filter = new Filter();
+                filter.maskBits = Level1.NOTHING_BIT;
+                for (Fixture fixture : screen.getCreator().getTheRedBug().b2body.getFixtureList()) {
+                    fixture.setFilterData(filter);
+                }
+                for (Fixture fix : screen.getCreator().getTheRedBug().b2body.getFixtureList()) {
+                    if(!fix.equals(b2body.getFixtureList().get(0))) {
+                        screen.getCreator().getTheRedBug().b2body.destroyFixture(fix);
+                    }
+                }
+                first = false;
+            }
+            */
+        }
+        //endregion
         //region ATTACKING
         if(currentState == State.ATTACKING) {
             setPosition(b2body.getPosition().x - getWidth() / 1.8f, b2body.getPosition().y  - getHeight() / .5f);//.5f
@@ -229,7 +293,7 @@ public class Character extends Sprite {
                 if(attack.getKeyFrameIndex(stateTimer) == 0){
                     redefineArma(new Vector2(-75 , 75),
                             new Vector2(-20 , 75),
-                             new Vector2(-75, 135),
+                            new Vector2(-75, 135),
                             new Vector2(-20 , 135));
                 }
                 if(attack.getKeyFrameIndex(stateTimer) == 1){
@@ -284,72 +348,7 @@ public class Character extends Sprite {
                         b2body.destroyFixture(b2body.getFixtureList().get(i));
                 }
             }
-        }
-        //endregion
-        if(currentState == State.STANDING){
-            setPosition(b2body.getPosition().x - getWidth() / 2.3f, b2body.getPosition().y  - getHeight() / 2f); //6.2f
-            setBounds(getX(),getY(),175 / LevelManager.PPM, 175 / LevelManager.PPM);
-            frames = getFrame(dt);
-            setRegion(frames);
-            if(currentState == State.STANDING && getFrame(dt).isFlipX()){
-                setPosition(b2body.getPosition().x - getWidth() / 1.5f, b2body.getPosition().y  - getHeight() / 2f);
-            }
-        }
-        //region DAMAGED
-        else if(currentState == State.DAMAGED) {
-            if(!isDead()) {
-                if(headEnemy){
-                    if (isFlipX() && firstDam) {
-                        b2body.applyLinearImpulse(new Vector2(6f, 8), b2body.getWorldCenter(), true);
-                        firstDam = false;
-                    } else if (!isFlipX() && firstDam) {
-                        b2body.applyLinearImpulse(new Vector2(-6f, 8), b2body.getWorldCenter(), true);
-                        firstDam = false;
-                    }
-                    headEnemy = false;
-                }else {
-                    if (isFlipX() && firstDam) {
-                        b2body.applyLinearImpulse(new Vector2(3f, 0), b2body.getWorldCenter(), true);
-                        firstDam = false;
-                    } else if (!isFlipX() && firstDam) {
-                        b2body.applyLinearImpulse(new Vector2(-3f, 0), b2body.getWorldCenter(), true);
-                        firstDam = false;
-                    }
-                }
-            }
-        }
-        //endregion
-        //region No DAMAGE LOGIC
-        if(currentState != State.DAMAGED){
-            firstDam = true;
-        }
-        //endregion
-        //region DEAD
-        if(b2body.getPosition().y <1){
-            isDead = true;
-        }
-        else if(currentState == State.DEAD) {
-            /*if (first) {
-                for (Enemy enemy : screen.getCreator().getMosquitos())
-                    world.destroyBody(enemy.b2body);
-
-                /*Filter filter = new Filter();
-                filter.maskBits = Level1.NOTHING_BIT;
-                for (Fixture fixture : screen.getCreator().getTheRedBug().b2body.getFixtureList()) {
-                    fixture.setFilterData(filter);
-                }
-                for (Fixture fix : screen.getCreator().getTheRedBug().b2body.getFixtureList()) {
-                    if(!fix.equals(b2body.getFixtureList().get(0))) {
-                        screen.getCreator().getTheRedBug().b2body.destroyFixture(fix);
-                    }
-                }
-                first = false;
-            }
-            */
-        }
-        //endregion
-        //region NO ATTACKING LOGIC
-        if(currentState != State.ATTACKING){
+        }else {
             for(Fixture fix : b2body.getFixtureList()){
                 if(!fix.equals(b2body.getFixtureList().get(0)))
                     b2body.destroyFixture(fix);
@@ -364,6 +363,7 @@ public class Character extends Sprite {
             }
         }
         //endregion
+
     }
 
     private TextureRegion getFrame(float dt) {
@@ -427,9 +427,6 @@ public class Character extends Sprite {
             region.flip(true, false);
             runningRight = true;
         }
-
-        //stateTimer = currentState == prevState ? stateTimer + dt : 0;
-
         return region;
     }
 
@@ -539,9 +536,6 @@ public class Character extends Sprite {
     }
     public void sumLife(){
         this.lifes++;
-    }
-    public boolean isShotting(){
-        return shotting;
     }
     //endregion
 

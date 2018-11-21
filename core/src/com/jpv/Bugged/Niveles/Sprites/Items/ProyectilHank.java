@@ -44,7 +44,12 @@ public class ProyectilHank extends Sprite {
 
     private void defineItem() {
         BodyDef bdef = new BodyDef();
-        bdef.position.set(getX() + 1, getY());
+        if(!this.fliped){
+            bdef.position.set(getX() + 1, getY());
+        }else{
+            bdef.position.set(getX() - 1, getY());
+        }
+
         bdef.type = BodyDef.BodyType.DynamicBody;
         this.b2body = world.createBody(bdef);
 

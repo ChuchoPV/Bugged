@@ -10,20 +10,19 @@ import com.jpv.Bugged.Niveles.Screens.PlayScreen;
 
 public abstract class Enemy extends Sprite {
     protected World world;
-    protected TiledMap map;
     public Body b2body;
-    public Vector2 velocity;
+    Vector2 velocity;
     public PlayScreen screen;
     protected MapObject object;
-    public int damaged;
-    protected boolean flip;
+    int damaged;
+    boolean flip;
 
 
-    public Enemy(PlayScreen screen, float x, float y, MapObject object){
+    Enemy(PlayScreen screen, float x, float y, MapObject object){
         this.object = object;
         this.screen = screen;
         this.world = screen.getWorld();
-        this.map = screen.getMap();
+        TiledMap map = screen.getMap();
         setPosition(x,y);
         defineEnemy();
         velocity = new Vector2(0,0.5f);
@@ -42,14 +41,11 @@ public abstract class Enemy extends Sprite {
 
     //protected abstract TextureRegion getFrame(float dt);
 
-    protected boolean toFlip(){
-        if(this.screen.getPlayer().b2body.getPosition().x>this.b2body.getPosition().x){
-            return true;
-        }
-        return false;
+    boolean toFlip(){
+        return this.screen.getPlayer().b2body.getPosition().x > this.b2body.getPosition().x;
     }
 
-    public void reverseVelocity(boolean x, boolean y){
+    void reverseVelocity(boolean x, boolean y){
         if(x)
             velocity.x = -velocity.x;
 
