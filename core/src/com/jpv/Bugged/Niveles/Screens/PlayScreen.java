@@ -199,6 +199,10 @@ public class PlayScreen implements Screen {
         }*/
 
         if(this.level==5){
+            if(this.gamecam.position.x>=6.422f) {
+                this.gamecam.position.x = 6.422222f;
+            }
+            System.out.println(this.gamecam.position.x);
             //Gdx.app.log("PosicionK",this.getCreator().getTheking().b2body.getPosition().toString());
             //Gdx.app.log("PosicionP",this.player.b2body.getPosition().toString());
             int fase=this.order66();
@@ -236,6 +240,9 @@ public class PlayScreen implements Screen {
             this.getCreator().getTheking().flipper();
         }
 
+        if(this.level != 5 || this.level != 1){
+
+        }
 
         //region OBJECT_UPDATES
         if(player.boss) {
@@ -284,12 +291,9 @@ public class PlayScreen implements Screen {
         }
         //endregion
 
-        //region THE_RED_BUG_MANAGER
-        if(gamecam.position.x>119) {
-            if((this.level != 5 || this.level != 1) && gamecam.position.x>119) {
-                player.currentState = Character.State.WIN;
-            }else {
-
+        if(this.level!=5) {
+            //region THE_RED_BUG_MANAGER
+            if (gamecam.position.x > 119) {
                 gamecam.position.x = 119.6f;
                 if (gamecam.position.y > 3.6f) {
                     gamecam.position.y -= 0.05f;
@@ -299,16 +303,13 @@ public class PlayScreen implements Screen {
                         new Obstacules(this, object);
                 }
                 player.boss = true;
-            }
-        } else {
-            if(this.level != 5) {
-                if (player.b2body.getPosition().x >= (LevelManager.V_WIDTH / 2 / LevelManager.PPM)) {
+            } else {
+                if (player.b2body.getPosition().x >= (LevelManager.V_WIDTH / 2 / LevelManager.PPM))
                     gamecam.position.x = player.b2body.getPosition().x;
-                }
+
                 if (player.b2body.getPosition().y >= (LevelManager.V_HEIGHT / 2 / LevelManager.PPM)
-                        && player.b2body.getPosition().y <= ((LevelManager.V_HEIGHT + 360) / LevelManager.PPM)) {
+                        && player.b2body.getPosition().y <= ((LevelManager.V_HEIGHT + 360) / LevelManager.PPM))
                     gamecam.position.y = player.b2body.getPosition().y;
-                }
             }
         }
 
