@@ -9,6 +9,7 @@ public class Bugged extends Game {
     private boolean soundIsOn=true;
     private boolean musicIsOn=true;
     private AssetManager manager = new AssetManager();
+    private boolean historyFirst = true;
 
     @Override
     public void create () {
@@ -22,26 +23,27 @@ public class Bugged extends Game {
     public boolean isHank() {
         return isHank;
     }
-
     public void setSound(boolean bool){
         this.soundIsOn=bool;
     }
     public boolean soundIsOn() {
         return soundIsOn;
     }
-
     public void setMusic(boolean bool){
         this.musicIsOn=bool;
     }
     public boolean musicIsOn() {
         return musicIsOn;
     }
-
-    public void setManager(AssetManager manager){
-        this.manager = manager;
-    }
     public AssetManager getManager() {
         return manager;
+    }
+
+    public void setHistoryFirst(boolean first){
+        this.historyFirst = first;
+    }
+    public boolean isHistoryFirst() {
+        return historyFirst;
     }
 }
 

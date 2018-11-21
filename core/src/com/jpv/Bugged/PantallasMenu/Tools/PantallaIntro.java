@@ -22,15 +22,12 @@ public class PantallaIntro extends Pantalla {
     private float statetimer;
     private Texture scroll;
     private int scrollInt;
-    private boolean first;
-
 
     public PantallaIntro(Bugged pantallaInicio, int clicks) {
         this.pantallaInicio = pantallaInicio;
         this.clicks = clicks;
         statetimer = 0;
         scroll = new Texture("Historia Final/Historia_10.png");
-        first = true;
         scrollInt = 0;
     }
 
@@ -120,7 +117,7 @@ public class PantallaIntro extends Pantalla {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         super.clicked(event, x, y);
-                        scrollInt = 5;
+                        scrollInt = 3;
                     }
                 });
                 escena.addActor(btnBob.button());
