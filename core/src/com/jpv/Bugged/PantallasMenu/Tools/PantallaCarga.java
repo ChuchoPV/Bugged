@@ -71,8 +71,8 @@ public class PantallaCarga extends Pantalla{
     private void actualizarCarga(){
         if (pantallainicio.getManager().update()){
             if(level==1){
-                this.dispose();
                 new LevelManager(pantallainicio, 1);
+                this.dispose();
             }else if(level == 2){
                 new LevelManager(pantallainicio, 2);
                 this.dispose();

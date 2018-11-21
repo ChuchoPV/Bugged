@@ -82,9 +82,9 @@ public class PlayScreen implements Screen {
     public PlayScreen(LevelManager game, int level){
         //./gradlew ios:createipa
         //./gradlew ios:simulatorios
-        atlas = game.getManager().get("ATLAS_Final.pack", TextureAtlas.class);
         //Our game
         this.game = game;
+        atlas = this.game.getManager().get("ATLAS_Final.pack", TextureAtlas.class);
         //Set the number of level
         this.level = level;
         gamecam = new OrthographicCamera();
@@ -275,7 +275,7 @@ public class PlayScreen implements Screen {
         //endregion
         //region THE_RED_BUG_MANAGER
         if(gamecam.position.x>119) {
-            if((this.level != 5 || this.level != 1) && gamecam.position.x>119) {
+            if(this.level != 1 && gamecam.position.x>119) {
                 player.currentState = Character.State.WIN;
             }else {
                 gamecam.position.x = 119.6f;
@@ -557,7 +557,7 @@ public class PlayScreen implements Screen {
         world.dispose();
         b2dr.dispose();
         hud.dispose();
-        game.getManager().dispose();
+        //game.getManager().dispose();
 
     }
 
