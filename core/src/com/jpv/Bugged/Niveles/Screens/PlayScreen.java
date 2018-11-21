@@ -123,7 +123,7 @@ public class PlayScreen implements Screen {
         //Setting the variables of our world
         world = new World(new Vector2(0,-10),true);
         b2dr = new Box2DDebugRenderer();
-        b2dr.setDrawBodies(false);
+        //b2dr.setDrawBodies(false);
         b2dr.SHAPE_STATIC.set(0,0,0,1);
         this.isHank = game.isHank();
         //Instance of out player

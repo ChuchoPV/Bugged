@@ -49,6 +49,7 @@ public class Character extends Sprite {
     private boolean firstDam;
     private boolean firstShot;
     public boolean win;
+    private boolean headEnemy;
     //endregion
 
     //region CODE
@@ -68,6 +69,7 @@ public class Character extends Sprite {
         boss=false;
         win = false;
         firstShot = true;
+        headEnemy = false;
         //endregion
         //region ANIMATION
         if(screen.isHank()) {
@@ -296,12 +298,23 @@ public class Character extends Sprite {
         //region DAMAGED
         else if(currentState == State.DAMAGED) {
             if(!isDead()) {
-                if(isFlipX() && firstDam) {
-                    b2body.applyLinearImpulse(new Vector2(3f, 0), b2body.getWorldCenter(), true);
-                    firstDam = false;
-                }else if(!isFlipX() && firstDam){
-                    b2body.applyLinearImpulse(new Vector2(-3f, 0), b2body.getWorldCenter(), true);
-                    firstDam = false;
+                if(headEnemy){
+                    if (isFlipX() && firstDam) {
+                        b2body.applyLinearImpulse(new Vector2(6f, 8), b2body.getWorldCenter(), true);
+                        firstDam = false;
+                    } else if (!isFlipX() && firstDam) {
+                        b2body.applyLinearImpulse(new Vector2(-6f, 8), b2body.getWorldCenter(), true);
+                        firstDam = false;
+                    }
+                    headEnemy = false;
+                }else {
+                    if (isFlipX() && firstDam) {
+                        b2body.applyLinearImpulse(new Vector2(3f, 0), b2body.getWorldCenter(), true);
+                        firstDam = false;
+                    } else if (!isFlipX() && firstDam) {
+                        b2body.applyLinearImpulse(new Vector2(-3f, 0), b2body.getWorldCenter(), true);
+                        firstDam = false;
+                    }
                 }
             }
         }
@@ -510,6 +523,10 @@ public class Character extends Sprite {
         isDead = true;
     }
 
+    public void enemyHead(){
+        this.headEnemy = true;
+    }
+
     //region GETTERS
     private boolean isDead(){
         return isDead;
@@ -546,6 +563,7 @@ public class Character extends Sprite {
                 | LevelManager.BOSS_COLLIDER_BIT
                 | LevelManager.BOSS_PIES_BIT
                 | LevelManager.ENEMY_PROYECT
+                | LevelManager.ENEMY_HEAD
                 | LevelManager.SHOTTER_CONTACT;
 
         fdef.shape = shape;

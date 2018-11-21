@@ -14,7 +14,7 @@ public class LevelManager extends Game{
 
     public static final short GROUND_BIT = 1;
     public static final short CHARACTER_BIT = 2;
-    public static final short CHARACTER_HEAD_BIT = 4;
+    public static final short ENEMY_HEAD = 4;
     public static final short CHARACTER_ARMA_BIT = 8;
     public static final short PLATAFORM_BIT = 16;
     public static final short OBSTACULE_BIT = 32;

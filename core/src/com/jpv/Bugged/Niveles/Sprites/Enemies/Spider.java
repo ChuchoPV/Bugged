@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
@@ -26,8 +27,6 @@ public class Spider extends Enemy{
     private Animation idle;
     private Animation kill;
     private Animation attack;
-    private TextureRegion jump;
-    private TextureRegion fall;
     private Animation damage;
 
     private boolean shot;
@@ -36,6 +35,7 @@ public class Spider extends Enemy{
 
     public Spider(PlayScreen screen, float x, float y, MapObject object) {
         super(screen, x, y,object);
+        this.b2body.setActive(true);
         TextureAtlas atlas = screen.getAtlas();
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
@@ -59,9 +59,6 @@ public class Spider extends Enemy{
             frames.add(new TextureRegion(atlas.findRegion("spider_atk"), i * 133, 0, 133, 120));
         }attack = new Animation<TextureRegion>(0.1f, frames);
 
-        jump = new TextureRegion(atlas.findRegion("spider_jump"),266,0,133,120);
-        fall = new TextureRegion(atlas.findRegion("spider_jump"),399,0,133,120);
-
         stateTimer = 0;
         damaged = 0;
         damagedB = false;
@@ -79,6 +76,12 @@ public class Spider extends Enemy{
         //Esta es la parte que funciona
         stateTimer += dt;
         shotTimer += dt;
+        if(this.playerDistance()<7 && !this.screen.getPlayer().shotting){
+            this.setShot(true);
+        }
+        else{
+            this.setShot(false);
+        }
         if(shot && shotTimer >= 2){
             screen.setEnemyType("spider");
             screen.spawnItem(new ItemDef(new Vector2(b2body.getPosition().x, b2body.getPosition().y),
@@ -119,11 +122,15 @@ public class Spider extends Enemy{
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
             region=(TextureRegion) idle.getKeyFrame(stateTimer,true);
             if(flip) {
-                if (!region.isFlipX())
+                if (!region.isFlipX()) {
                     region.flip(true, false);
+                    isFlip = true;
+                }
             }else{
-                if(region.isFlipX())
-                    region.flip(true,false);
+                if(region.isFlipX()) {
+                    region.flip(true, false);
+                    isFlip = false;
+                }
             }
             setRegion(region);
             damagedB = false;
@@ -156,20 +163,13 @@ public class Spider extends Enemy{
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
 
-        /*
-        //Create collider hear
-        PolygonShape collider = new PolygonShape();
-        Vector2[] vertice = new Vector2[4];
-        vertice[0] = new Vector2(-57 , -40).scl(1 / LevelManager.PPM);
-        vertice[1] = new Vector2(57 , -40).scl(1 / LevelManager.PPM);
-        vertice[2] = new Vector2(-57     , 40).scl(1 / LevelManager.PPM);
-        vertice[3] = new Vector2(57 , 40).scl(1 / LevelManager.PPM);
-        collider.set(vertice);
-
-        fdef.shape = collider;
-        fdef.filter.categoryBits = LevelManager.ENEMY_COLLIDER_BIT;
+        //Create collider head
+        EdgeShape head = new EdgeShape();
+        head.set(new Vector2(-57 , 40).scl(1 / LevelManager.PPM), new Vector2(57 , 40).scl(1 / LevelManager.PPM));
+        fdef.shape = head;
+        fdef.filter.categoryBits = LevelManager.ENEMY_HEAD;
+        fdef.isSensor = true;
         b2body.createFixture(fdef).setUserData(this);
-        */
 
     }
 
@@ -181,11 +181,8 @@ public class Spider extends Enemy{
     public void setShot(boolean shot){
         this.shot = shot;
     }
-    public boolean isFlip() {
+    private boolean isFlip() {
         return isFlip;
-    }
-    public boolean getShot() {
-        return shot;
     }
 
     @Override
@@ -205,6 +202,16 @@ public class Spider extends Enemy{
 
             }
         }
+    }
+
+
+    //Metodo prueba para saber si el jugador esta
+    // cerca del enemigo y sabe si este deberia estar disparando
+    private double playerDistance(){
+        double ejey=Math.pow((screen.getPlayer().b2body.getPosition().y-this.b2body.getPosition().y),2);
+        double ejex=Math.pow((screen.getPlayer().b2body.getPosition().x-this.b2body.getPosition().x),2);
+        return Math.sqrt(ejex+ejey);
+
     }
 
 
