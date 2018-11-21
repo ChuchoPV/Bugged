@@ -123,7 +123,6 @@ public class Mosquito extends Enemy {
                     region.flip(true,false);
             }
             setRegion(region);
-            //setRegion((TextureRegion) idle.getKeyFrame(stateTimer,true));
             damagedB = false;
             b2body.setLinearVelocity(velocity);
             if(idle.isAnimationFinished(stateTimer)){

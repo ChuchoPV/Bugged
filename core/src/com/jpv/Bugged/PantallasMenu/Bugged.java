@@ -2,6 +2,7 @@ package com.jpv.Bugged.PantallasMenu;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 public class Bugged extends Game {
     private boolean isHank=true;
@@ -11,6 +12,7 @@ public class Bugged extends Game {
 
     @Override
     public void create () {
+        manager.load("ATLAS_Final.pack", TextureAtlas.class);
         setScreen(new PantallaMenuPrincipal(this));
     }
 

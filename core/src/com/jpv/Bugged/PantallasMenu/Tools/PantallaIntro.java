@@ -8,29 +8,29 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
-import com.jpv.Bugged.Niveles.LevelManager;
 import com.jpv.Bugged.Niveles.Tools.GenericButton;
 import com.jpv.Bugged.PantallasMenu.Bugged;
-import com.jpv.Bugged.PantallasMenu.PantallaCharacterSelection;
-import com.jpv.Bugged.PantallasMenu.PantallaMenuPrincipal;
 
 public class PantallaIntro extends Pantalla {
 
     private final Bugged pantallaInicio;
-    public Stage escena;
+    private Stage escena;
     private Texture fondo;
     private int clicks;
     private boolean isHank;
     private Animation boom;
-
-
-
-
+    private float statetimer;
 
     public PantallaIntro(Bugged pantallaInicio, int clicks) {
         this.pantallaInicio = pantallaInicio;
         this.clicks = clicks;
+        statetimer = 0;
+    }
 
+    @Override
+    public void show() {
+        crearEscena();
+        fondo = new Texture("vacia.png");
         Array<TextureRegion> frames = new Array<TextureRegion>();
         frames.add(new TextureRegion(new Texture("Historia Final/Historia_3.png")));
         frames.add(new TextureRegion(new Texture("Historia Final/Historia_4.png")));
@@ -40,17 +40,9 @@ public class PantallaIntro extends Pantalla {
         frames.add(new TextureRegion(new Texture("Historia Final/Historia_8.png")));
         frames.add(new TextureRegion(new Texture("Historia Final/Historia_9.png")));
 
-        boom = new Animation(.15f, frames);
-
-    }
-
-    @Override
-    public void show() {
-        crearEscena();
-        fondo = new Texture("vacia.png");
+        boom = new Animation<TextureRegion>(.1f, frames);
         Gdx.input.setInputProcessor(escena);
         Gdx.input.setCatchBackKey(true);
-
     }
 
     private void crearEscena() {
@@ -86,7 +78,6 @@ public class PantallaIntro extends Pantalla {
 
                 break;
             case(2):
-                boom.getPlayMode();
                 //btnBob = new GenericButton(0,0, "vacia.png", "vacia.png");
                /* btnBob = new GenericButton(0, 0, "Historia Final/Historia_9.png", "Historia Final/Historia_9.png");
                 btnBob.button().addListener(new ClickListener() {
@@ -158,21 +149,17 @@ public class PantallaIntro extends Pantalla {
 
     @Override
     public void render(float delta) {
-        borrarPantalla(1,1,0.5f);
+        borrarPantalla();
         batch.setProjectionMatrix((camara.combined));
+        statetimer += delta;
         batch.begin();
         batch.draw(fondo,0,0);
         if(clicks == 2) {
-            batch.draw((TextureRegion) (boom.getKeyFrame(delta)), 0, 0);
-            batch.end();
-
-        }else{
-            batch.end();
+            batch.draw((TextureRegion) (boom.getKeyFrame(statetimer,false)), 0, 0);
+        }
+        batch.end();
+        if(clicks != 2){
             escena.draw();
-
-
-
-
         }
     }
 
