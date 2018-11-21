@@ -2,7 +2,6 @@ package com.jpv.Bugged.Niveles;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.jpv.Bugged.Niveles.Screens.PlayScreen;
 import com.jpv.Bugged.PantallasMenu.Bugged;
@@ -35,18 +34,12 @@ public class LevelManager extends Game{
     private boolean isHank;
     private AssetManager manager;
 
-    public LevelManager(Bugged pantallaincio, int level, boolean isHank) {
+    public LevelManager(Bugged pantallaincio, int level) {
         this.level = level;
         batch = new SpriteBatch();
         this.pantallaInicio = pantallaincio;
-        this.isHank = isHank;
-        manager = new AssetManager();
-        manager.load("music/Coconut Water.mp3", Music.class);
-        manager.load("music/Piano Lesson.mp3", Music.class);
-        manager.load("music/Scarf & Chocolates.mp3", Music.class);
-        manager.load("music/Sinner.mp3", Music.class);
-        manager.load("music/Sofa Memorabilida (kumatora).mp3", Music.class);
-        manager.finishLoading();
+        this.isHank = pantallaincio.isHank();
+        manager = pantallaincio.getManager();
         create();
 	}
 

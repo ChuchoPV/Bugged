@@ -131,7 +131,7 @@ public class Character extends Sprite {
             }
             dead = new Animation<TextureRegion>(0.1f, frames);
         }else{
-            TextureAtlas atlas2 = new TextureAtlas("ATLAS_Final_2.pack");
+            TextureAtlas atlas2 = screen.getGame().getManager().get("ATLAS_Final_2.pack");
             Array<TextureRegion> frames = new Array<TextureRegion>();
             //region RUN
             //get run animation frames and add them to marioRun Animation

@@ -15,6 +15,7 @@ public class PantallaOption extends Pantalla {
     private boolean soundIsOn;
     private boolean musicIsOn;
 
+
     PantallaOption(Bugged pantallaInicio) {
         this.pantallaInicio = pantallaInicio;
         this.soundIsOn=this.pantallaInicio.soundIsOn();

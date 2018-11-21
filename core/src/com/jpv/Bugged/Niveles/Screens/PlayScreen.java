@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -81,7 +80,9 @@ public class PlayScreen implements Screen {
     //endregion
 
     public PlayScreen(LevelManager game, int level){
-        atlas = new TextureAtlas("ATLAS_Final.pack");
+        //./gradlew ios:createipa
+        //./gradlew ios:simulatorios
+        atlas = game.getManager().get("ATLAS_Final.pack", TextureAtlas.class);
         //Our game
         this.game = game;
         //Set the number of level
@@ -90,23 +91,22 @@ public class PlayScreen implements Screen {
         //creat a FitViewport to maintain virtual aspect radio despite screen size
         gamePort = new FitViewport(LevelManager.V_WIDTH / LevelManager.PPM, LevelManager.V_HEIGHT / LevelManager.PPM, gamecam);
          //The map atributes
-        TmxMapLoader mapLoader = new TmxMapLoader();
         if(level == 1){
-            map = mapLoader.load("City_Map.tmx");
+            map = game.getManager().get("City_Map.tmx");
             music = game.getManager().get("music/Scarf & Chocolates.mp3", Music.class);
             music.play();
             music.setLooping(true);
         }else if(level == 2){
-            map = mapLoader.load("Subs_Map.tmx");
+            map = game.getManager().get("Subs_Map.tmx");
             music = game.getManager().get("music/Sinner.mp3", Music.class);
         }else if(level == 3){
-            map = mapLoader.load("Mountain_Map.tmx");
+            map = game.getManager().get("Mountain_Map.tmx");
             music = game.getManager().get("music/Piano Lesson.mp3", Music.class);
         }else if(level == 4){
-            map = mapLoader.load("Cave_Map.tmx");
+            map = game.getManager().get("Cave_Map.tmx");
             music = game.getManager().get("music/Sofa Memorabilida (kumatora).mp3", Music.class);
         }else{
-            map = mapLoader.load("Final.tmx");
+            map = game.getManager().get("Final.tmx");
             music = game.getManager().get("music/Coconut Water.mp3", Music.class);
         }
 
