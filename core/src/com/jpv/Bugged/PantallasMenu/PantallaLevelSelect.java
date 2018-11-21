@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.jpv.Bugged.Niveles.Tools.GenericButton;
 import com.jpv.Bugged.PantallasMenu.Tools.Pantalla;
 import com.jpv.Bugged.PantallasMenu.Tools.PantallaCarga;
+import com.jpv.Bugged.PantallasMenu.Tools.PantallaIntro;
 
 public class PantallaLevelSelect extends Pantalla {
     private final Bugged pantallaInicio;
@@ -37,7 +38,9 @@ public class PantallaLevelSelect extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                pantallaInicio.setScreen(new PantallaCarga(pantallaInicio,1));
+                pantallaInicio.setScreen(new PantallaIntro(pantallaInicio, 0));
+
+                // pantallaInicio.setScreen(new PantallaCarga(pantallaInicio,1));
                 //new LevelManager(pantallaInicio, 1,isHank);
                 }
             }
