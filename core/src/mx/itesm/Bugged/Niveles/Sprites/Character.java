@@ -431,7 +431,6 @@ public class Character extends Sprite {
     }
 
     private State getState() {
-        Gdx.app.log("State",""+currentState);
         if(currentState!=State.WIN){
             if(currentState != State.DAMAGED && isDead()) {
                 return State.DEAD;

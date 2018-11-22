@@ -455,9 +455,6 @@ public class PlayScreen implements Screen {
             if(player.currentState != Character.State.ATTACKING) {
                 if (player.currentState != Character.State.DAMAGED) {
                     if (Gdx.input.isKeyJustPressed(Input.Keys.DPAD_UP))
-                    //&& player.b2body.getPosition().y < (Level1.V_HEIGHT + 500) / Level1.PPM
-                    //&& (player.currentState == Character.State.RUNNING
-                    //|| player.currentState == Character.State.STANDING)) {
                     {
                         player.b2body.applyLinearImpulse(new Vector2(0, 7f), player.b2body.getWorldCenter(), true);
                     }

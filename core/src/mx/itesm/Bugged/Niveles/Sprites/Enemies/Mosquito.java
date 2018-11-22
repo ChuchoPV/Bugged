@@ -87,7 +87,6 @@ public class Mosquito extends Enemy {
         TextureRegion region;
 
         if(damagedB && !setToDestroy && !destroyed){
-            //stateTimer = 0;
             region=(TextureRegion) damage.getKeyFrame(stateTimer);
 
             if(flip) {
@@ -228,13 +227,11 @@ public class Mosquito extends Enemy {
         float dis=this.b2body.getPosition().x-screen.getPlayer().b2body.getPosition().x;
         float disy=this.b2body.getPosition().y-screen.getPlayer().b2body.getPosition().y;
         boolean test=false;
-        System.out.println(Math.abs(dis));
         if(Math.abs(dis)<1.015 && Math.abs(disy)<1.015){
             test=true;
         }
         if(test || escapetime>0){
             escapetime+=dt;
-            //float strength=100;
             float strength=2;
             if(super.toFlip()) {
                 strength = strength*-1;
