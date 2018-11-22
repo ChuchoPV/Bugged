@@ -81,6 +81,7 @@ public class Mosquito extends Enemy {
         stateTimer += dt;
         move ++;
 
+
         boolean flip=super.toFlip();
         TextureRegion region;
 
@@ -152,6 +153,7 @@ public class Mosquito extends Enemy {
                     }
                 }
             }
+            this.escape();
         }
     }
 
@@ -219,6 +221,24 @@ public class Mosquito extends Enemy {
 
     @Override
     public void setShot(boolean shot) {
+    }
+
+    private void escape(){
+        float dis=this.b2body.getPosition().x-screen.getPlayer().b2body.getPosition().x;
+        float disy=this.b2body.getPosition().y-screen.getPlayer().b2body.getPosition().y;
+        boolean test=false;
+        System.out.println(Math.abs(dis));
+        if(Math.abs(dis)<1.015 && Math.abs(disy)<1.015){
+            //this.b2body.setLinearVelocity(0,0);
+            test=true;
+        }
+        if(test){
+            float strength=100;
+            if(super.toFlip()) {
+                strength = strength*-1;
+            }
+            this.b2body.applyLinearImpulse(strength,0,this.b2body.getPosition().x,this.b2body.getPosition().y,true);
+        }
     }
 
 }
