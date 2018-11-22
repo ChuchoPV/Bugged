@@ -188,7 +188,7 @@ public class Hud {
             btnShotx.button().addListener(new ClickListener() {
                       @Override
                       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                          if (!isCreatedPauseButtonsCreated() && !screen.getPlayer().shotting && screen.getProyectilesHank().size < 1) {
+                          if (!isCreatedPauseButtonsCreated() && !screen.getPlayer().shotting && screen.getProyectilesHank().size < 4) {
                               super.clicked(event, x, y);
                               screen.getPlayer().shotting = !screen.getPlayer().shotting;
                             }

@@ -88,7 +88,7 @@ public class Spider extends Enemy{
         flip=super.toFlip();
         TextureRegion region;
 
-        if(shot && shotTimer >= 2 && !damagedB && !destroyed){
+        if(shot && shotTimer >= 2 && !damagedB && !destroyed && !setToDestroy){
             region=(TextureRegion) attack.getKeyFrame(stateTimer);
             if(flip) {
                 if (!region.isFlipX())
