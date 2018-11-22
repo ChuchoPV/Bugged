@@ -25,6 +25,7 @@ public class Mosquito extends Enemy {
     private int move;
 
     private float stateTimer;
+    private float escapetime=0;
     private Animation idle;
     private Animation kill;
     private Animation damage;
@@ -153,7 +154,7 @@ public class Mosquito extends Enemy {
                     }
                 }
             }
-            this.escape();
+            this.escape(dt);
         }
     }
 
@@ -223,7 +224,8 @@ public class Mosquito extends Enemy {
     public void setShot(boolean shot) {
     }
 
-    private void escape(){
+    private void escape(float dt){
+
         float dis=this.b2body.getPosition().x-screen.getPlayer().b2body.getPosition().x;
         float disy=this.b2body.getPosition().y-screen.getPlayer().b2body.getPosition().y;
         boolean test=false;
@@ -232,12 +234,18 @@ public class Mosquito extends Enemy {
             //this.b2body.setLinearVelocity(0,0);
             test=true;
         }
-        if(test){
-            float strength=100;
+        if(test || escapetime>0){
+            escapetime+=dt;
+            //float strength=100;
+            float strength=2;
             if(super.toFlip()) {
                 strength = strength*-1;
             }
-            this.b2body.applyLinearImpulse(strength,0,this.b2body.getPosition().x,this.b2body.getPosition().y,true);
+            //this.b2body.applyLinearImpulse(strength,0,this.b2body.getPosition().x,this.b2body.getPosition().y,true);
+            this.b2body.setLinearVelocity(strength,0);
+            if(escapetime>1.5){
+                escapetime=0;
+            }
         }
     }
 
