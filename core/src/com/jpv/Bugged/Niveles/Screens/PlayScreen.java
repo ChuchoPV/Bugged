@@ -74,6 +74,8 @@ public class PlayScreen implements Screen {
     private boolean secondb=true;
     private int second=0;
     private int secondrate=1;
+    private boolean threeb=true;
+    private int three=0;
     //endregion
 
     public boolean updateObjets;
@@ -201,6 +203,7 @@ public class PlayScreen implements Screen {
             int fase=this.order66();
             Vector2 kingpin=this.creator.getTheking().b2body.getPosition(),kingvel=this.creator.getTheking().b2body.getLinearVelocity();
             tiempo+=dt;
+            System.out.println(fase);
             switch (fase) {
                 //region FASE1
                 case (1):
@@ -264,6 +267,64 @@ public class PlayScreen implements Screen {
                     //endregion
                 //region FASE3
                 case (3):
+                    limit=1;
+                    velocityb=(kingvel.x<limit && kingvel.y<limit && kingvel.x>-limit && kingvel.y>-limit);
+                    Ay=3.5f;
+                    By=5;
+                    float Cy=6.8f;
+                    Ax=1.221665f;
+                    Bx=2.5f;
+                    float Cx=10,Dx=11.585f;
+                    switch (three){
+                        case (0):
+                            this.getCreator().getTheking().b2body.setLinearVelocity(Dx - kingpin.x, By - kingpin.y);
+                            if(velocityb && threeb && tiempo>1){
+                                tiempo=0;
+                                threeb=!threeb;
+                                three++;
+                            }
+                            break;
+                        case (1):
+                            this.getCreator().getTheking().b2body.setLinearVelocity(Cx - kingpin.x, Cy - kingpin.y);
+                            if(velocityb && !threeb && tiempo>1){
+                                tiempo=0;
+                                threeb=!threeb;
+                                three++;
+                            }
+                            break;
+                        case (2):
+                            this.getCreator().getTheking().b2body.setLinearVelocity(Bx - kingpin.x, Ay - kingpin.y);
+                            if(velocityb && threeb && tiempo>1){
+                                tiempo=0;
+                                threeb=!threeb;
+                                three++;
+                            }
+                            break;
+                        case (3):
+                            this.getCreator().getTheking().b2body.setLinearVelocity(Ax - kingpin.x, By - kingpin.y);
+                            if(velocityb && !threeb && tiempo>1){
+                                tiempo=0;
+                                threeb=!threeb;
+                                three++;
+                            }
+                            break;
+                        case (4):
+                            this.getCreator().getTheking().b2body.setLinearVelocity(Bx - kingpin.x, Cy - kingpin.y);
+                            if(velocityb && threeb && tiempo>1){
+                                tiempo=0;
+                                threeb=!threeb;
+                                three++;
+                            }
+                            break;
+                        case (5):
+                            this.getCreator().getTheking().b2body.setLinearVelocity(Cx - kingpin.x, Ay - kingpin.y);
+                            if(velocityb && !threeb && tiempo>1){
+                                tiempo=0;
+                                threeb=!threeb;
+                                three=0;
+                            }
+                            break;
+                    }
                     break;
                     //endregion
                 case (-1):
@@ -362,7 +423,7 @@ public class PlayScreen implements Screen {
         else if(live>3 && live<8){
             res=2;
         }
-        else if(live>0 && live<4){
+        else if(live>=0 && live<4){
             res=3;
         }
         else{
