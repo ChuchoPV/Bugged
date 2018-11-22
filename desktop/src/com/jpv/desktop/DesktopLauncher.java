@@ -2,7 +2,7 @@ package com.jpv.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.jpv.Bugged.PantallasMenu.Bugged;
+import mx.itesm.Bugged.PantallasMenu.Bugged;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {

@@ -2,7 +2,7 @@ package com.jpv;
 
 import com.badlogic.gdx.backends.iosrobovm.IOSApplication;
 import com.badlogic.gdx.backends.iosrobovm.IOSApplicationConfiguration;
-import com.jpv.Bugged.PantallasMenu.Bugged;
+import mx.itesm.Bugged.PantallasMenu.Bugged;
 
 import org.robovm.apple.foundation.NSAutoreleasePool;
 import org.robovm.apple.uikit.UIApplication;
