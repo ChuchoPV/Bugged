@@ -130,7 +130,6 @@ public class Mosquito extends Enemy {
             if(idle.isAnimationFinished(stateTimer)){
                 stateTimer = 0;
             }
-            //stateTimer = 0;
             if (move > 50){
                 reverseVelocity(false, true);
                 move = 0;
@@ -231,7 +230,6 @@ public class Mosquito extends Enemy {
         boolean test=false;
         System.out.println(Math.abs(dis));
         if(Math.abs(dis)<1.015 && Math.abs(disy)<1.015){
-            //this.b2body.setLinearVelocity(0,0);
             test=true;
         }
         if(test || escapetime>0){
@@ -241,7 +239,6 @@ public class Mosquito extends Enemy {
             if(super.toFlip()) {
                 strength = strength*-1;
             }
-            //this.b2body.applyLinearImpulse(strength,0,this.b2body.getPosition().x,this.b2body.getPosition().y,true);
             this.b2body.setLinearVelocity(strength,0);
             if(escapetime>1.5){
                 escapetime=0;
