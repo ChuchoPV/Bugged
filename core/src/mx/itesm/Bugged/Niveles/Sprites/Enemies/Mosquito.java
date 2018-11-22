@@ -152,7 +152,9 @@ public class Mosquito extends Enemy {
                     }
                 }
             }
-            this.escape(dt);
+            if(screen.getLevel()!=1) {
+                this.escape(dt);
+            }
         }
     }
 
@@ -197,11 +199,13 @@ public class Mosquito extends Enemy {
 
     @Override
     public void onHeadHit() {
-        float strength=10;
-        if(super.toFlip()) {
-            strength = strength*-1;
+        if(screen.getLevel()!=1) {
+            float strength = 10;
+            if (super.toFlip()) {
+                strength = strength * -1;
+            }
+            this.b2body.applyLinearImpulse(strength, 0, this.b2body.getPosition().x, this.b2body.getPosition().y, true);
         }
-        this.b2body.applyLinearImpulse(strength,0,this.b2body.getPosition().x,this.b2body.getPosition().y,true);
         if(!damagedB) {
             if (damaged == 2) {
                 if (object.getProperties().containsKey("Heart")) {
@@ -216,6 +220,7 @@ public class Mosquito extends Enemy {
 
             }
         }
+
     }
 
     @Override
