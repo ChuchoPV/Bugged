@@ -75,7 +75,7 @@ public class TheKing extends Enemy {
             temp.flip(true, false);
             frames.add(temp);
         }
-        idle2 = new Animation<TextureRegion>(0.1f, frames);
+        idle3 = new Animation<TextureRegion>(0.1f, frames);
         frames.clear();
 
         for(int i = 0; i < 4; i++) {
@@ -83,7 +83,7 @@ public class TheKing extends Enemy {
             temp.flip(true, false);
             frames.add(temp);
         }
-        damage2 = new Animation<TextureRegion>(0.2f, frames);
+        damage3 = new Animation<TextureRegion>(0.2f, frames);
         frames.clear();
         //endregion
 
@@ -156,14 +156,23 @@ public class TheKing extends Enemy {
 
         //DAÑADO
         if(damagedB && !setToDestroy && !destroyed){
-            setRegion((TextureRegion) damage.getKeyFrame(stateTimer));
+            if(screen.order66()==1){
+                region = (TextureRegion) damage.getKeyFrame(stateTimer);
+            }
+            else if(screen.order66()==2){
+                region = (TextureRegion) damage2.getKeyFrame(stateTimer);
+            }
+            else{
+                region = (TextureRegion) damage3.getKeyFrame(stateTimer);
+            }
             if(damage.isAnimationFinished(stateTimer)) {
                 damagedB = false;
             }
+            setRegion(region);
             return;
         }
         //DESTRUYENDOSE
-        if(setToDestroy && !destroyed) {
+        else if(setToDestroy && !destroyed) {
             if (first) {
                 world.destroyBody(this.b2body);
                 first = false;
@@ -178,7 +187,15 @@ public class TheKing extends Enemy {
         }else{
             //SI NADA DE LO DEMAS ESTA PASANDO, Y NO ESTOY MUERTO ESTOY QUIETO (IDLE)
             if(!destroyed){
-                region = (TextureRegion) idle.getKeyFrame(stateTimer,true);
+                if(screen.order66()==1){
+                    region = (TextureRegion) idle.getKeyFrame(stateTimer,true);
+                }
+                else if(screen.order66()==2){
+                    region = (TextureRegion) idle2.getKeyFrame(stateTimer,true);
+                }
+                else{
+                    region = (TextureRegion) idle3.getKeyFrame(stateTimer,true);
+                }
                 if(!super.toFlip()){
                 //if (screen.getPlayer().b2body.getPosition().x > b2body.getPosition().x){
                     if (region.isFlipX())
@@ -188,7 +205,6 @@ public class TheKing extends Enemy {
                     if (!region.isFlipX())
                         region.flip(true, false);
                 }
-                //b2body.setLinearVelocity(new Vector2(0f,0f));
                 setRegion(region);
             }
         }
@@ -225,9 +241,5 @@ public class TheKing extends Enemy {
     public int getLives(){
         int lives = 9;
         return lives -this.damaged;
-    }
-
-    public void flipper(){
-        this.flip=!flip;
     }
 }
