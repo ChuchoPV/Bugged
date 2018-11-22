@@ -203,6 +203,8 @@ public class Mosquito extends Enemy {
         else{
             strength=-10;
         }
+
+
         this.b2body.applyLinearImpulse(strength,0,this.b2body.getPosition().x,this.b2body.getPosition().y,true);
         if(!damagedB) {
             if (damaged == 2) {
