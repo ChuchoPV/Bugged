@@ -201,10 +201,10 @@ public class TheKing extends Enemy {
                     region = (TextureRegion) idle3.getKeyFrame(stateTimer,true);
                 }
                 if(!super.toFlip()){
-                //if (screen.getPlayer().b2body.getPosition().x > b2body.getPosition().x){
+
                     if (region.isFlipX())
                         region.flip(true, false);
-                }//else if (screen.getPlayer().b2body.getPosition().x < b2body.getPosition().x && !isRight) {
+                }
                 else if(super.toFlip()){
                     if (!region.isFlipX())
                         region.flip(true, false);

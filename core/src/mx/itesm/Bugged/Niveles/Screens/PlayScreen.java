@@ -205,7 +205,6 @@ public class PlayScreen implements Screen {
             switch (fase) {
                 //region FASE1
                 case (1):
-                    System.out.println(tiempo);
                     float Bx=11.585f,Ax=1.221665f,Ay=3.928f;
                     if(kingvel.x==0 && tiempo>5){
                         first=!first;
