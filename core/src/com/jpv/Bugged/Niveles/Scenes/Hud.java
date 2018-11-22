@@ -91,7 +91,9 @@ public class Hud {
                 super.touchUp(event, x, y, pointer, button);
                 btnRig = false;
                 first = true;
-                screen.getPlayer().b2body.setLinearVelocity(0,0);
+                if(screen.getPlayer().b2body.getLinearVelocity().y==0) {
+                    screen.getPlayer().b2body.setLinearVelocity(0, 0);
+                }
             }
         }
         );
@@ -114,7 +116,9 @@ public class Hud {
                  super.touchUp(event, x, y, pointer, button);
                  btnLef = false;
                  first = true;
-                 screen.getPlayer().b2body.setLinearVelocity(0,0);
+                 if(screen.getPlayer().b2body.getLinearVelocity().y==0) {
+                     screen.getPlayer().b2body.setLinearVelocity(0, 0);
+                 }
              }
         }
         );
@@ -152,7 +156,6 @@ public class Hud {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 super.touchUp(event, x, y, pointer, button);
                 btnAt = false;
-                screen.getPlayer().b2body.setLinearVelocity(0,0);
             }
 
         }
