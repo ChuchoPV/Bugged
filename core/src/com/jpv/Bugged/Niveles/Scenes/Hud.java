@@ -257,10 +257,7 @@ public class Hud {
         stage.addActor(btnHome.button());
     }
     private boolean isCreatedPauseButtonsCreated(){
-        if(stage.getActors().contains(letters,true) || stage.getActors().contains(btnHome.button(),true)){
-            return true;
-        }
-        return false;
+        return stage.getActors().contains(letters, true) || stage.getActors().contains(btnHome.button(), true);
     }
 
     public void updateLifes(int less){

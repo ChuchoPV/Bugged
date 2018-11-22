@@ -22,6 +22,7 @@ public class Spider extends Enemy{
     private boolean destroyed;
     private boolean damagedB;
     private boolean first;
+    private boolean firstShoot;
 
     private float stateTimer;
     private Animation idle;
@@ -55,7 +56,7 @@ public class Spider extends Enemy{
         }kill = new Animation<TextureRegion>(0.1f, frames);
         frames.clear();
 
-        for(int i = 0; i < 10; i++) {
+        for(int i = 0; i < 5; i++) {
             frames.add(new TextureRegion(atlas.findRegion("spider_atk"), i * 133, 0, 133, 120));
         }attack = new Animation<TextureRegion>(0.1f, frames);
 
@@ -68,6 +69,7 @@ public class Spider extends Enemy{
         shot = false;
         shotTimer = 0;
         isFlip = false;
+        firstShoot = true;
         setBounds(getX(),getY(), 133 / LevelManager.PPM,120 / LevelManager.PPM);
 
     }
@@ -82,17 +84,32 @@ public class Spider extends Enemy{
         else{
             this.setShot(false);
         }
-        if(shot && shotTimer >= 2){
-            screen.setEnemyType("spider");
-            screen.spawnItem(new ItemDef(new Vector2(b2body.getPosition().x, b2body.getPosition().y),
-                    Proyectil.class),isFlip());
-            shotTimer = 0;
-        }
 
         flip=super.toFlip();
         TextureRegion region;
 
-        if(damagedB && !setToDestroy && !destroyed){
+        if(shot && shotTimer >= 2 && !damagedB && !destroyed){
+            region=(TextureRegion) attack.getKeyFrame(stateTimer);
+            if(flip) {
+                if (!region.isFlipX())
+                    region.flip(true, false);
+            }else{
+                if(region.isFlipX())
+                    region.flip(true,false);
+            }
+            setRegion(region);
+            setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
+            screen.setEnemyType("spider");
+            if(firstShoot) {
+                screen.spawnItem(new ItemDef(this.b2body.getPosition(),
+                        Proyectil.class), this.isFlip());
+                firstShoot = false;
+            }
+            if(attack.isAnimationFinished(stateTimer)){
+                shotTimer = 0;
+                firstShoot = true;
+            }
+        }else if(damagedB && !setToDestroy && !destroyed){
             //stateTimer = 0;
             region=(TextureRegion) damage.getKeyFrame(stateTimer);
             if(flip) {

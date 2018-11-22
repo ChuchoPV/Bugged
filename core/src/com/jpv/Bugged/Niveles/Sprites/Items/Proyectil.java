@@ -31,7 +31,11 @@ public class Proyectil extends Item{
     @Override
     public void defineItem() {
         BodyDef bdef = new BodyDef();
-        bdef.position.set(getX(),getY());
+        if(fliped){
+            bdef.position.set(getX(),getY());
+        }else{
+            bdef.position.set(getX(),getY());
+        }
         bdef.type = BodyDef.BodyType.DynamicBody;
         this.b2body = super.world.createBody(bdef);
 
