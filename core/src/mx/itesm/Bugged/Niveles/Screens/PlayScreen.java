@@ -124,14 +124,13 @@ public class PlayScreen implements Screen {
         }else{
             music.stop();
         }
-
         renderer = new OrthogonalTiledMapRenderer(map, 1 / LevelManager.PPM);
         //The camara set at the world
         gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() /2,0);
         //Setting the variables of our world
         world = new World(new Vector2(0,-10),true);
         b2dr = new Box2DDebugRenderer();
-        //b2dr.setDrawBodies(false);
+        b2dr.setDrawBodies(false);//siguiendo instrucciones de chucho
         b2dr.SHAPE_STATIC.set(0,0,0,1);
         this.isHank = game.isHank();
         //Instance of out player
@@ -203,7 +202,6 @@ public class PlayScreen implements Screen {
             int fase=this.order66();
             Vector2 kingpin=this.creator.getTheking().b2body.getPosition(),kingvel=this.creator.getTheking().b2body.getLinearVelocity();
             tiempo+=dt;
-            System.out.println(fase);
             switch (fase) {
                 //region FASE1
                 case (1):
