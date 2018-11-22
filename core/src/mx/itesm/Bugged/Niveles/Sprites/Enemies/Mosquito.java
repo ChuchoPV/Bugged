@@ -196,6 +196,14 @@ public class Mosquito extends Enemy {
 
     @Override
     public void onHeadHit() {
+        float strength;
+        if(!flip){
+            strength=10;
+        }
+        else{
+            strength=-10;
+        }
+        this.b2body.applyLinearImpulse(strength,0,this.b2body.getPosition().x,this.b2body.getPosition().y,true);
         if(!damagedB) {
             if (damaged == 2) {
                 if (object.getProperties().containsKey("Heart")) {

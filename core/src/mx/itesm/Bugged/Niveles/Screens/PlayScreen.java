@@ -331,7 +331,6 @@ public class PlayScreen implements Screen {
                     this.getCreator().getTheking().b2body.setLinearVelocity(0,0);
                     break;
             }
-            //this.getCreator().getTheking().flipper();
         }
         //endregion
         //region OBJECT_UPDATES
